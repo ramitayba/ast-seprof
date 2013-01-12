@@ -1,0 +1,20 @@
+#imageDiv
+{
+	float: left;
+	margin-right: 10px;
+	cursor:pointer;
+	cursor:hand;
+}
+
+#popupDiv
+{
+	margin-left: 75px;
+	width: 650px;
+	text-align: center;
+}
+
+#closeDiv h2
+{
+	cursor:pointer;
+	cursor:hand;
+}

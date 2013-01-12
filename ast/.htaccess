@@ -1,0 +1,9 @@
+Options -Indexes +FollowSymLinks
+DirectoryIndex master.php
+ErrorDocument 404 /ast/404
+php_value include_path ".;/ast/include"
+RewriteEngine on
+RewriteRule ^(.*)/$ /ast/master.php?contentpage=$1/index [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /ast/master.php?contentpage=$1&%{QUERY_STRING} [L]
