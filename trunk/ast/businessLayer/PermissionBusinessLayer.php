@@ -30,9 +30,9 @@ class PermissionBusinessLayer {
     public function getPermission($role_id) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call getPermission($role_id)";
+            $this->_SQLQuery = "{call getPermission(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_PermissionDataTable = DataAccessManager::getInstance()->fillData();
+            $this->_PermissionDataTable = DataAccessManager::getInstance()->fillData(array($role_id));
             if (Helper::is_empty_array($this->_PermissionDataTable)) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
             }

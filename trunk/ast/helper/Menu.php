@@ -32,6 +32,15 @@ class Menu {
         return $this->_build_menu($this->_ParentMenu, $this->_SubMenu);
     }
 
+    public function getAccessMenu($url) {
+        foreach ($this->_MenuTable as $obj):
+        if ($obj['menu_link'] == $url):
+        return true;
+        endif;
+        endforeach;
+        return false;
+    }
+
     private function _ready_memu_table() {
         unset($this->_ParentMenu);
         unset($this->_SubMenu);
@@ -74,7 +83,7 @@ class Menu {
                     foreach ($sub_array as $skey => $sval) {
                         if ($pkey == $sval['parent']) {
                             $menu .= '
-            <li><a title="' . $sval['label'] . '"  href="' . $root . $sval['link'] . '">' . $sval['label'] . '</a></li>';
+            <li><a title="' . $sval['label'] . '"  href="/ast/' . $sval['link'] . '">' . $sval['label'] . '</a></li>';
                         }
                     }
                     $menu .= '

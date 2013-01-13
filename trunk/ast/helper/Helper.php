@@ -166,15 +166,15 @@ class Helper {
         return $path;
     }
 
-    public static function parse_url() {
-        $current_url = self::request_path();
+    public static function parse_url($current_url) {
+        //$current_url = self::request_path();
         $parts = explode('/', $current_url);
         $count = count($parts);
         $i = 1;
         if ($count == 0) {
             $options['path'] = $current_url == 'index' ? 'home' : $current_url;
         } else if ($i == $count) {
-            $options['path'][$i] = $current_url;
+            $options['path'] = $current_url;
         } else {
             foreach ($parts as $value) {
                 if ($i < $count) {
@@ -204,29 +204,45 @@ class Helper {
     private static function _test_action($value) {
         return $value == 'edit' || $value == 'add' || $value == 'delete' || $value == 'view' || $value == 'upload';
     }
-    
-    public function load_controller() {
-        global $action;
-        $array = Helper::parse_url();
-        $controllerName = '/controller/';
-        foreach ($array['path'] as $val) {
-            $controllerName.= ucfirst($val);
-        }
-        $action = !empty($array['action']) ? $array['action'] : 'view';
-        if (empty($controllerName)) {
-            $controllerName .='home';
-        }
-        $controllerName.="Controller.php";
-        $controllerDirs = SEPROF_ROOT . $controllerName;
-        if (file_exists($controllerDirs)) {
-            include_once $controllerDirs;
-        } else {
-            include_once SEPROF_ROOT . '/controller/HomeController.php';
-        }
+
+    public static function load_controller($url) {
+        global $routes, $action, $query_string, $query_id;
+        foreach ($routes as $pkey => $value) :
+            if (in_array($url, $value)) :
+                $parts = explode('/', $url);
+                $count = count($parts);
+                switch ($count):
+                    case 1:
+                        $action = $url;
+                        $query_string = $query_id = '';
+                        break;
+                    case 2:$action = $parts[1];
+                        $query_string = $query_id = '';
+                        break;
+                    case 3:
+                        $query_string = $parts[1];
+                        $query_id = '';
+                        $action = $parts[2];
+                        break;
+                    case 4:$query_string = $parts[2];
+                        $query_id = $parts[3];
+                        $action = $parts[1];
+                        break;
+                endswitch;
+                $controllerName = '/controller/' . $pkey . '.php';
+                break;
+            endif;
+        endforeach;
+        if (empty($controllerName)):
+            $controllerName = '/controller/mainController.php';
+        endif;
+        $controllerDirs = POS_ROOT . $controllerName;
+        if (file_exists($controllerDirs)):
+            return $controllerDirs;
+        endif;
     }
 
-
-    public static function seprof_redirect($url = '/home', $http_response_code = 302) {
+    public static function seprof_redirect($url = 'index', $http_response_code = 302) {
         static $http = array(
     100 => "HTTP/1.1 100 Continue",
     101 => "HTTP/1.1 101 Switching Protocols",
@@ -269,11 +285,32 @@ class Helper {
     504 => "HTTP/1.1 504 Gateway Time-out"
         );
         session_write_close();
-        header('Location: /chamber-commerce' . $url);
+        header('Location: '.$root . $url);
     }
 
     public static function is_empty_string($string) {
         return strlen(trim($string)) == 0;
+    }
+
+    public static function mssql_escape($data) {
+        if (!isset($data) or empty($data))
+            return '';
+        if (is_numeric($data))
+            return $data;
+        $non_displayables = array(
+            '/%0[0-8bcef]/', // url encoded 00-08, 11, 12, 14, 15
+            '/%1[0-9a-f]/', // url encoded 16-31
+            '/[\x00-\x08]/', // 00-08
+            '/\x0b/', // 11
+            '/\x0c/', // 12
+            '/[\x0e-\x1f]/'             // 14-31
+        );
+        foreach ($non_displayables as $regex)
+            $data = preg_replace($regex, '', $data);
+        $data = str_replace("'", "''", $data);
+        return $data;
+        //$unpacked = unpack('H*hex', $data);
+        //return '0x' . $unpacked['hex'];
     }
 
     public static function get_date($date) {
@@ -286,7 +323,6 @@ class Helper {
      * @param string $filename - Name of the file to look for
      * @return string|false - The absolute path if file exists, false if it does not
      */
-    //die('..'.$_GET['contentpage']);
     public static function findRealPath($filename) {
         // Check for absolute path
         if (realpath($filename) == $filename) {
@@ -300,12 +336,10 @@ class Helper {
             } else {
                 $fullpath = $path . DIRECTORY_SEPARATOR . $filename;
             }
-
             if (file_exists($fullpath)) {
                 return $fullpath;
             }
         }
-
         return false;
     }
 

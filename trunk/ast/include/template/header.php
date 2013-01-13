@@ -1,3 +1,14 @@
+<?php
+
+/**
+ * This is the include/template/header
+ * Designed and Developed by SEProf Team
+ * Copyright (c) 2013 SEProf Inc.
+ * http://seprof.com/
+ * 
+ */
+?>
+
 <div id="header">
     <div class="container">
         <h1><a href="./">&nbsp;Nesma</a></h1>
