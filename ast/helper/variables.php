@@ -1,9 +1,14 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+
+/**
+ * This is the variables
+ * Designed and Developed by SEProf Team
+ * Copyright (c) 2013 SEProf Inc.
+ * http://seprof.com/
+ * 
  */
-global $root,$action,$databases,$routes;
+ $root='/ast/';
+ $action='view';$query_string='';$query_id='';
 
 

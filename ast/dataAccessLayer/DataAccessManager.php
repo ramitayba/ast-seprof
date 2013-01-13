@@ -7,7 +7,6 @@
  * http://seprof.com/
  * 
  */
-
 class DataAccessManager {
 
     private static $_LastError;
@@ -59,13 +58,17 @@ class DataAccessManager {
         return $this->_OutputParam;
     }
 
-    public function fillData() {
+    public function fillData($array = array()) {
         try {
             $this->_reset();
             Connection::getInstance()->openConnection();
-            //$this->_Statment = odbc_prepare(Connection::getInstance()->getDB(), self::$_SQLQuery);
-            $this->_Statment = odbc_exec(Connection::getInstance()->getDB(), self::$_SQLQuery);
-            $this->_DataTable = odbc_result_all($this->_Statment);
+            $this->_Statment = odbc_prepare(Connection::getInstance()->getDB(), self::$_SQLQuery);
+            odbc_execute($this->_Statment, $array);
+            $i = 0;
+            while ($row = odbc_fetch_array($this->_Statment)):
+                $this->_DataTable[$i] = $row;
+                $i++;
+            endwhile;
             // $this->_DataTable = $this->_Success === true ? odbc_result_all($this->_Statment) : array();
         } catch (Exception $ex) {
             self::$_LastError = $ex->getMessage();
@@ -80,9 +83,12 @@ class DataAccessManager {
             $this->_reset();
             Connection::getInstance()->openConnection();
             //$this->_Statment = odbc_prepare(Connection::getInstance()->getDB(), self::$_SQLQuery);
-            $this->_Statment = odbc_exec(Connection::getInstance()->getDB(), self::$_SQLQuery);
-             $this->_DataTable = odbc_result_all($this->_Statment);
-           // $this->_DataTable = $this->_Success === true ? odbc_result_all($this->_Statment) : array();
+            //$this->_Statment = odbc_exec(Connection::getInstance()->getDB(), self::$_SQLQuery);
+            //$this->_DataTable = odbc_result_all($this->_Statment);
+            // $this->_DataTable = $this->_Success === true ? odbc_result_all($this->_Statment) : array();
+            $this->_Statment = odbc_prepare(Connection::getInstance()->getDB(), self::$_SQLQuery);
+            $this->_DataTable = odbc_execute($this->_Statment, $array);
+            $this->_DataTable = odbc_fetch_array($this->_Statment);
         } catch (OdbcException $ex) {
             self::$_LastError = $ex->getMessage();
             $this->_DataTable = '';

@@ -20,6 +20,7 @@
 <script src="<?php echo $root; ?>themes/js/Slate.js"></script>
 <script src="<?php echo $root; ?>themes/js/plugins/excanvas/excanvas.min.js"></script>
 <script src="<?php echo $root; ?>themes/js/plugins/validate/jquery.validate.js"></script>
+<script src="<?php echo $root; ?>themes/js/validate.js"></script>
 
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>

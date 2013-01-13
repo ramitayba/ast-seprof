@@ -52,9 +52,9 @@ class RoleBusinessLayer {
     public function addRole($role_name, $status_id, $user_creation) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call addRole($role_name, $status_id, $user_creation)}";
+            $this->_SQLQuery = "{call addRole(?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_RoleDataTable = DataAccessManager::getInstance()->saveData(); //array($role_name, $status_id, $user_creation));
+            $this->_RoleDataTable = DataAccessManager::getInstance()->saveData($role_name, $status_id, $user_creation);
             if (!Helper::is_empty_array($this->_RoleDataTable)) {
                 $this->_Success = true;
             } else {
@@ -70,9 +70,9 @@ class RoleBusinessLayer {
     public function editRole($role_id, $role_name, $status_id, $user_modification) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call editRole($role_id, $role_name, $status_id, $user_modification)}";
+            $this->_SQLQuery = "{call editRole(?,?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_RoleDataTable = DataAccessManager::getInstance()->saveData(); //array($role_id, $role_name, $status_id, $user_modification));
+            $this->_RoleDataTable = DataAccessManager::getInstance()->saveData($role_id, $role_name, $status_id, $user_modification);
             if (!Helper::is_empty_array($this->_RoleDataTable)) {
                 $this->_Success = true;
             } else {
@@ -88,9 +88,9 @@ class RoleBusinessLayer {
     public function deleteRole($role_id, $status_id) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call deleteRole($role_id, $status_id)}";
+            $this->_SQLQuery = "{call deleteRole(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_RoleDataTable = DataAccessManager::getInstance()->saveData(); //array($role_id, $status_id));
+            $this->_RoleDataTable = DataAccessManager::getInstance()->saveData(array($role_id, $status_id));
             if (!Helper::is_empty_array($this->_RoleDataTable)) {
                 $this->_Success = true;
             } else {

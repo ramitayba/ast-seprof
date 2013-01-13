@@ -19,7 +19,7 @@ class Connection {
     private static $_DB;
 
     private function __construct() {
-        //global $databases;
+        global $databases;
         $this->_Hostname = $databases['host'];
         $this->_Database = $databases['database'];
         $this->_Username = $databases['username'];
@@ -36,7 +36,7 @@ class Connection {
 
     public function openConnection() {
         $conn = "Driver={SQL Server};Server=$this->_Hostname;Database=$this->_Database;";
-        self::$_DB = odbc_connect($conn, $this->_Username, $this->_Password);
+        self::$_DB = odbc_connect($conn, $this->_Username, $this->_Password,SQL_CUR_USE_ODBC);
     }
 
     public function closeConnection() {

@@ -78,9 +78,9 @@ class UserBusinessLayer {
     public function login($user_name, $password) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call login($user_name, $password)}";
+            $this->_SQLQuery = "{call getLogin(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_UserDataTable = DataAccessManager::getInstance()->saveData();//array($user_name, $password));
+            $this->_UserDataTable = DataAccessManager::getInstance()->fillData(array($user_name, $password));
             if (!Helper::is_empty_array($this->_UserDataTable)) {
                 $this->_Success = true;
             } else {
@@ -89,6 +89,7 @@ class UserBusinessLayer {
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
+             $this->_Success = false;
         }
         return $this->_UserDataTable;
     }
@@ -96,9 +97,9 @@ class UserBusinessLayer {
     public function getUserByID($user_id) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call getUserByID($user_id)}";
+            $this->_SQLQuery = "{call getUserByID(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_UserDataTable = DataAccessManager::getInstance()->saveData();//array($user_id));
+            $this->_UserDataTable = DataAccessManager::getInstance()->saveData(array($user_id));
             if (!Helper::is_empty_array($this->_UserDataTable)) {
                 $this->_Success = true;
             } else {
@@ -114,9 +115,9 @@ class UserBusinessLayer {
     public function addUser($user_name, $password, $pin_code, $employee_id, $role_id, $status_id) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call addUser($user_name, $password, $pin_code, $employee_id, $role_id, $status_id)}";
+            $this->_SQLQuery = "{call addUser(?,?,?,?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_UserDataTable = DataAccessManager::getInstance()->saveData(); //array($user_name, $password, $pin_code, $employee_id, $role_id, $status_id));
+            $this->_UserDataTable = DataAccessManager::getInstance()->saveData(array($user_name, $password, $pin_code, $employee_id, $role_id, $status_id));
             if (!Helper::is_empty_array($this->_UserDataTable)) {
                 $this->_Success = true;
             } else {
@@ -132,9 +133,9 @@ class UserBusinessLayer {
     public function editUser($user_id, $user_name, $password, $pin_code, $employee_id, $role_id, $status_id) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call editUser($user_id, $user_name, $password, $pin_code, $employee_id, $role_id, $status_id)}";
+            $this->_SQLQuery = "{call editUser(?,?,?,?,?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_UserDataTable = DataAccessManager::getInstance()->saveData(); //array($user_id, $user_name, $password, $pin_code, $employee_id, $role_id, $status_id));
+            $this->_UserDataTable = DataAccessManager::getInstance()->saveData(array($user_id, $user_name, $password, $pin_code, $employee_id, $role_id, $status_id));
             if (!Helper::is_empty_array($this->_UserDataTable)) {
                 $this->_Success = true;
             } else {
@@ -150,9 +151,9 @@ class UserBusinessLayer {
     public function deleteUser($user_id, $status_id) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call deleteUser($user_id, $status_id)}";
+            $this->_SQLQuery = "{call deleteUser(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_UserDataTable = DataAccessManager::getInstance()->saveData(); //array($user_id, $status_id));
+            $this->_UserDataTable = DataAccessManager::getInstance()->saveData(array($user_id, $status_id));
             if (!Helper::is_empty_array($this->_UserDataTable)) {
                 $this->_Success = true;
             } else {

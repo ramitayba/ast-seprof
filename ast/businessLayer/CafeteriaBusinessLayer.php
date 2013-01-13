@@ -38,7 +38,7 @@ class CafeteriaBusinessLayer {
     public function getCafeterias() {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call getCafeterias()}";
+            $this->_SQLQuery = "{call getCafeterias}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_CafeteriasDataTable = DataAccessManager::getInstance()->fillData();
             if (Helper::is_empty_array($this->_CafeteriasDataTable)) {
@@ -53,9 +53,9 @@ class CafeteriaBusinessLayer {
     public function addCafeteria($cafeteria_name, $user_creation) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call addCafeteria($cafeteria_name, $user_creation)}";
+            $this->_SQLQuery = "{call addCafeteria(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_CafeteriasDataTable = DataAccessManager::getInstance()->saveData();//array($cafeteria_name, $user_creation));
+            $this->_CafeteriasDataTable = DataAccessManager::getInstance()->saveData(array($cafeteria_name, $user_creation));
             if (!Helper::is_empty_array($this->_CafeteriasDataTable)) {
                 $this->_Success = true;
             } else {
@@ -71,9 +71,9 @@ class CafeteriaBusinessLayer {
     public function editCafeteria($cafeteria_id, $cafeteria_name, $user_modification) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call editCafeteria($cafeteria_id, $cafeteria_name, $user_modification)}";
+            $this->_SQLQuery = "{call editCafeteria(?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_CafeteriasDataTable = DataAccessManager::getInstance()->saveData();//array($cafeteria_id, $cafeteria_name, $user_modification));
+            $this->_CafeteriasDataTable = DataAccessManager::getInstance()->saveData(array($cafeteria_id, $cafeteria_name, $user_modification));
             if (!Helper::is_empty_array($this->_CafeteriasDataTable)) {
                 $this->_Success = true;
             } else {
@@ -89,9 +89,9 @@ class CafeteriaBusinessLayer {
     public function deleteCafeteria($cafeteria_id) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call deleteCafeteria($cafeteria_id)}";
+            $this->_SQLQuery = "{call deleteCafeteria(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_CafeteriasDataTable = DataAccessManager::getInstance()->saveData();//array($cafeteria_id));
+            $this->_CafeteriasDataTable = DataAccessManager::getInstance()->saveData(array($cafeteria_id));
             if (!Helper::is_empty_array($this->_CafeteriasDataTable)) {
                 $this->_Success = true;
             } else {
