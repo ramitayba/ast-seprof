@@ -17,7 +17,7 @@ if (isset($_GET['contentpage'])) {
 }
 // the web root
 
-$root = '/ast/';
+$root = '/svn/ast/';
 $pagename = str_replace(array('.html', '.htm'), '', $pagename);
 $pagename = $pagename == 'master' ? 'index' : $pagename;
 
