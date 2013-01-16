@@ -7,7 +7,6 @@
  * http://seprof.com/
  * 
  */
-
 class CafeteriaBusinessLayer {
 
     private $_LastError;
@@ -42,14 +41,56 @@ class CafeteriaBusinessLayer {
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_CafeteriasDataTable = DataAccessManager::getInstance()->fillData();
             if (Helper::is_empty_array($this->_CafeteriasDataTable)) {
+                $this->_Success = false;
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
+            } else {
+                $this->_Success = true;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
+            $this->_Success = false;
         }
         return $this->_CafeteriasDataTable;
     }
 
+    public function getCafeteriaByName($name) {
+        try {
+            $this->_reset();
+            $this->_SQLQuery = "{call getCafeteriaByName(?)}";
+            DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
+            $this->_CafeteriasDataTable = DataAccessManager::getInstance()->fillData(array($name));
+            if (Helper::is_empty_array($this->_CafeteriasDataTable)) {
+                $this->_Success = false;
+                $this->_LastError = DataAccessManager::getInstance()->getLastError();
+            } else {
+                $this->_Success = true;
+            }
+        } catch (Exception $ex) {
+            $this->_LastError = $ex->getMessage();
+            $this->_Success = false;
+        }
+        return $this->_CafeteriasDataTable;
+    }
+
+    public function getCafeteriaByID($id) {
+        try {
+            $this->_reset();
+            $this->_SQLQuery = "{call getCafeteriaByID(?)}";
+            DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
+            $this->_CafeteriasDataTable = DataAccessManager::getInstance()->fillData(array($id));
+            if (Helper::is_empty_array($this->_CafeteriasDataTable)) {
+                $this->_Success = false;
+                $this->_LastError = DataAccessManager::getInstance()->getLastError();
+            } else {
+                $this->_Success = true;
+            }
+        } catch (Exception $ex) {
+            $this->_LastError = $ex->getMessage();
+            $this->_Success = false;
+        }
+        return $this->_CafeteriasDataTable;
+    }
+    
     public function addCafeteria($cafeteria_name, $user_creation) {
         try {
             $this->_reset();

@@ -18,9 +18,10 @@
 
         <div class="nav-collapse">
             <?php
+            
             $role_id=$_SESSION['user_pos_role'];
             print Menu::getInstance()->constructMenu($role_id) ?>
-
+            
             <ul class="nav pull-right">
 
                 <li class="">

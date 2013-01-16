@@ -7,11 +7,12 @@
  * 
  */
 ?>
+<div id="validation" class="widget highlight widget-form">
 <div class="account-container login">
 
     <div class="content clearfix">
 
-        <form id="login-form" action="./login" method="post" class="login-form">
+        <form id="login-form" action="./login" method="post" class="login-form  form-horizontal" >
 
             <h1>Sign In</h1>		
 
@@ -47,3 +48,4 @@
     </div> <!-- /content -->
 
 </div> <!-- /account-container -->
+</div>

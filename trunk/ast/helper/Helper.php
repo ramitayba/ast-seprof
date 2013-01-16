@@ -38,22 +38,22 @@ class Helper {
     }
 
     public static function format_string($string, array $args = array()) {
-        // Transform arguments before inserting them.
+// Transform arguments before inserting them.
         foreach ($args as $key => $value) {
             switch ($key[0]) {
                 case '@':
-                    // Escaped only.
+// Escaped only.
                     $args[$key] = check_plain($value);
                     break;
 
                 case '%':
                 default:
-                    // Escaped and placeholder.
+// Escaped and placeholder.
                     $args[$key] = place_holder($value);
                     break;
 
                 case '!':
-                // Pass-through.
+// Pass-through.
             }
         }
         return strtr($string, $args);
@@ -71,9 +71,9 @@ class Helper {
         if (strlen($text) == 0) {
             return TRUE;
         }
-        // With the PCRE_UTF8 modifier 'u', preg_match() fails silently on strings
-        // containing invalid UTF-8 byte sequences. It does not reject character
-        // codes above U+10FFFF (represented by 4 or more octets), though.
+// With the PCRE_UTF8 modifier 'u', preg_match() fails silently on strings
+// containing invalid UTF-8 byte sequences. It does not reject character
+// codes above U+10FFFF (represented by 4 or more octets), though.
         return (preg_match('/^./us', $text) == 1);
     }
 
@@ -119,15 +119,10 @@ class Helper {
     }
 
     public static function set_message($message = NULL, $type = 'status', $repeat = TRUE) {
-        session_start();
         $div = '<div id="messages"><div class="section clearfix">
-        <div class="messages ' . $type . '"><h2 class="element-invisible">' . ucfirst($type) . ' message</h2>';
-        $div.=$message . '</div></div></div>';
-        $_SESSION['messages'] = $div;
-    }
-
-    public static function clear_session($session) {
-        unset($_SESSION[$session]);
+        <div id=" ' . $type . '" class="messages"><h2 class="element-invisible">' . ucfirst($type) . ' message</h2><ul>';
+        $div.=$message . '</ul></div></div></div>';
+        return $div;
     }
 
     public static function require_all_php($folder) {
@@ -138,27 +133,27 @@ class Helper {
 
     public static function request_path() {
         if (isset($_GET['q']) && is_string($_GET['q'])) {
-            // This is a request with a ?q=foo/bar query string. $_GET['q'] is
-            // overwritten in drupal_path_initialize(), but request_path() is called
-            // very early in the bootstrap process, so the original value is saved in
-            // $path and returned in later calls.
+// This is a request with a ?q=foo/bar query string. $_GET['q'] is
+// overwritten in drupal_path_initialize(), but request_path() is called
+// very early in the bootstrap process, so the original value is saved in
+// $path and returned in later calls.
             $path = $_GET['q'];
         } elseif (isset($_SERVER['REQUEST_URI'])) {
-            // This request is either a clean URL, or 'index.php', or nonsense.
-            // Extract the path from REQUEST_URI.
+// This request is either a clean URL, or 'index.php', or nonsense.
+// Extract the path from REQUEST_URI.
             $request_path = strtok($_SERVER['REQUEST_URI'], '?');
             $base_path_len = strlen(rtrim(dirname($_SERVER['SCRIPT_NAME']), '\/'));
-            // Unescape and strip $base_path prefix, leaving q without a leading slash.
+// Unescape and strip $base_path prefix, leaving q without a leading slash.
             $path = substr(urldecode($request_path), $base_path_len + 1);
-            // If the path equals the script filename, either because 'index.php' was
-            // explicitly provided in the URL, or because the server added it to
-            // $_SERVER['REQUEST_URI'] even when it wasn't provided in the URL (some
-            // versions of Microsoft IIS do this), the front page should be served.
+// If the path equals the script filename, either because 'index.php' was
+// explicitly provided in the URL, or because the server added it to
+// $_SERVER['REQUEST_URI'] even when it wasn't provided in the URL (some
+// versions of Microsoft IIS do this), the front page should be served.
             if ($path == basename($_SERVER['PHP_SELF'])) {
                 $path = '';
             }
         } else {
-            // This is the front page.
+// This is the front page.
             $path = '';
         }
         $path = trim($path, '/');
@@ -167,7 +162,7 @@ class Helper {
     }
 
     public static function parse_url($current_url) {
-        //$current_url = self::request_path();
+//$current_url = self::request_path();
         $parts = explode('/', $current_url);
         $count = count($parts);
         $i = 1;
@@ -188,7 +183,7 @@ class Helper {
                       } */
                     $i++;
                 } else {
-                    //$options['action'] = $value;
+//$options['action'] = $value;
                     if (self::_test_action($value)) {
                         $options['action'] = $value;
                     } else {
@@ -198,7 +193,7 @@ class Helper {
             }
         }
         return $options;
-        // }
+// }
     }
 
     private static function _test_action($value) {
@@ -228,6 +223,8 @@ class Helper {
                         $query_id = $parts[3];
                         $action = $parts[1];
                         break;
+                    default:$action = $parts[1];
+                        break;
                 endswitch;
                 $controllerName = '/controller/' . $pkey . '.php';
                 break;
@@ -242,7 +239,7 @@ class Helper {
         endif;
     }
 
-    public static function seprof_redirect($url = 'index', $http_response_code = 302) {
+    public static function redirect($url = '', $http_response_code = 302) {
         static $http = array(
     100 => "HTTP/1.1 100 Continue",
     101 => "HTTP/1.1 101 Switching Protocols",
@@ -285,11 +282,21 @@ class Helper {
     504 => "HTTP/1.1 504 Gateway Time-out"
         );
         session_write_close();
-        header('Location: '.$root . $url);
+        header('Location: /ast/' . $url);
     }
 
     public static function is_empty_string($string) {
         return strlen(trim($string)) == 0;
+    }
+
+    public static function is_list_empty($array) {
+        $message = '';
+        foreach ($array as $row):
+            if (self::is_empty_string($row)):
+                $message.='<li>' . $row . ' can t be empty</li>';
+            endif;
+        endforeach;
+        return $message;
     }
 
     public static function mssql_escape($data) {
@@ -309,8 +316,8 @@ class Helper {
             $data = preg_replace($regex, '', $data);
         $data = str_replace("'", "''", $data);
         return $data;
-        //$unpacked = unpack('H*hex', $data);
-        //return '0x' . $unpacked['hex'];
+//$unpacked = unpack('H*hex', $data);
+//return '0x' . $unpacked['hex'];
     }
 
     public static function get_date($date) {
@@ -324,11 +331,11 @@ class Helper {
      * @return string|false - The absolute path if file exists, false if it does not
      */
     public static function findRealPath($filename) {
-        // Check for absolute path
+// Check for absolute path
         if (realpath($filename) == $filename) {
             return $filename;
         }
-        // Otherwise, treat as relative path
+// Otherwise, treat as relative path
         $paths = explode(PATH_SEPARATOR, get_include_path());
         foreach ($paths as $path) {
             if (substr($path, -1) == DIRECTORY_SEPARATOR) {
@@ -341,6 +348,112 @@ class Helper {
             }
         }
         return false;
+    }
+
+    public static function set_breadcrumb($url) {
+        if ($url != 'login' and $url != 'index' and $url != 'master' and $url != '404'):
+            $parts = explode('/', $url);
+            $count = count($parts);
+            $div = '<ul class="breadcrumb">';
+            $div.='  <li>
+			    <a href="/ast/">Home</a> <span class="divider">/</span>
+			  </li>';
+            if ($count == 1 || ($count == 2 && $parts[1] == 'index')):
+                $div.=' <li class="active">' . $parts[0] . '</li>';
+            else:
+                $i = 1;
+                foreach ($parts as $value):
+//  if($value='index')
+                    $link = '/' . $value;
+                    if ($count == $i):
+                        $div.=' <li class="active">' . ucfirst($value) . '</li>';
+                    else:
+                        $div.=' <li>
+			    <a href="/ast' . $link . '">' . ucfirst($value) . '</a> <span class="divider">/</span>
+			  </li>';
+                    endif;
+                    $i++;
+                endforeach;
+            endif;
+            $div.='</ul>';
+            return $div;
+        endif;
+        return '';
+    }
+
+    public static function fill_datatable($name, $array, $header, $fields, $id_name, $linkcontrol = '', $control = true) {
+        $datatable = '<script>$(function () {    var oTable = table("' . $name . '");});</script>
+            <div class="widget-content" id="widget-content-' . $name . '-table">
+         <span><a id="new-' . $name . '" class="new btn btn-primary btn-large"  href="">Add New Record</a></span>
+            <table class="table table-striped table-bordered table-highlight" id="' . $name . '-table">';
+        $thead = ' <thead><tr>';
+        foreach ($header as $row):
+            $thead .= '<th>' . $row . '</th>';
+        endforeach;
+        $thead.= $control == true ? '<th>Actions</th></tr> </thead>' : '</tr> </thead>';
+        $tbody = '<tbody>';
+        $i = 1;
+        $tr = '';
+        foreach ($array as $row):
+            $class = $i % 2 ? ' even' : ' odd';
+            $tr = '<tr class="gradeA ' . $class . '">';
+            foreach ($fields as $rowfields):
+                $tr.= '<td>' . $row[$rowfields] . '</td>';
+            endforeach;
+            $tr.=$control == true ? '<td><span><a class="edit" id="edit_' . $row[$id_name] . '" href="">Edit</a>
+            </span><span><a class="delete" id="delete_' . $row[$id_name] . '" href="">Delete</a></span></td></tr>' : '</tr>';
+            //' isset($linkcontrol):'<span><a class="'.$linkcontrol.'" id="'.$linkcontrol.'_' . $row[$id_name] . '" href="">'.  ucfirst($linkcontrol).'</a></span>'?'' ;
+            $tbody.=$tr;
+            $i++;
+        endforeach;
+        $tbody.= '</tbody>';
+        $datatable.= $thead . $tbody . '</table>';
+        return $datatable;
+    }
+
+    public static function findPage($pagename) {
+        global $actions;
+        $pagename = str_replace(array('.html', '.htm'), '', $pagename);
+        $pagename = $pagename == 'master' ? 'index' : $pagename;
+        $parts = explode('/', $pagename);
+        if (file_exists($pagename . '.php')) :
+            // URL refers to a page existing under the webroot, so just display page w/o using master page
+            return $pagename;
+        else :
+            // Look for a PHP file matching the desired page name under the include/content folder
+            if (!self::findRealPath("content/$pagename.php")):
+                // The page name might represent a folder, so look for the index.php file in such
+                // a folder under the include/page folder
+                /*  foreach ($parts as $row):
+                  if (!in_array($row, $actions)):
+                  $pagename = $row;
+                  else:
+                  $action = $row;
+                  endif;
+                  endforeach; */
+                if (Helper::findRealPath("content/$pagename/index.php")) :
+                    // Page name is a folder, so change page name to the index file in that folder
+                    $pagename = $pagename . '/index';
+                else :
+                    // Failed to find the page file, so display the 404 content page instead
+                    $pagename = '404';
+                endif;
+            endif;
+        endif;
+        $pagename = ($pagename != 'login') && !isset($_SESSION['user_pos']) ? 'login' : $pagename;
+        $pagename = $pagename == 'login' && isset($_SESSION['user_pos']) ? 'index' : $pagename;
+        return $pagename;
+    }
+
+    public static function form_construct_drop_down($name, $array, $current, $field_name,$field_id) {
+        $select = '<select id name="' . strtolower($name) . '"><option value="">Select</option>';
+        foreach ($array as $key => $value) {
+            $val_option = $value[$field_name];
+            $selected = $current == $value[$field_id] ? 'selected' : '';
+            $select.= "<option $selected value='" . $value[$field_id] . "'>" . $val_option . "</option>";
+        }
+        $select.="</select>";
+        return $select;
     }
 
 }
