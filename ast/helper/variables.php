@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * This is the variables
  * Designed and Developed by SEProf Team
@@ -8,7 +7,12 @@
  * http://seprof.com/
  * 
  */
- $root='/ast/';
- $action='view';$query_string='';$query_id='';
+$root = '/ast/';
+$action = 'view';
+$content = '';
+$query_string = '';
+$query_id = '';
+$data='';
+$forms=array();
 
 

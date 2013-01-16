@@ -21,8 +21,16 @@ $databases = array (
 
 
 $routes=array(
-    'userController'=>array('login','users','users/roles','users/permissions')
+    'usersController'=>array('login','users/index'),
+    'rolesController'=>array('users/roles'),
+    'categoriesController'=>array('products/categories'),
+    'itemsController'=>array('products/items'),
+    'posController'=>array('cafeterias/pos'),
+    'cafeteriasController'=>array('cafeterias/index')
 );
+
+$actions=array('add','edit','delete');
+
 /**
  * Some distributions of Linux (most notably Debian) ship their PHP
  * installations with garbage collection (gc) disabled. Since Drupal depends on

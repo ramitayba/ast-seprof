@@ -75,6 +75,25 @@ class UserBusinessLayer {
         return $this->_UserDataTable;
     }
 
+    public function getUserByName($name) {
+        try {
+            $this->_reset();
+            $this->_SQLQuery = "{call getUserByName(?)}";
+            DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
+            $this->_UserDataTable = DataAccessManager::getInstance()->fillData(array($name));
+            if (Helper::is_empty_array($this->_UserDataTable)) {
+                $this->_Success = false;
+                $this->_LastError = DataAccessManager::getInstance()->getLastError();
+            } else {
+                $this->_Success = true;
+            }
+        } catch (Exception $ex) {
+            $this->_LastError = $ex->getMessage();
+            $this->_Success = false;
+        }
+        return $this->_UserDataTable;
+    }
+
     public function login($user_name, $password) {
         try {
             $this->_reset();
@@ -89,7 +108,7 @@ class UserBusinessLayer {
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
-             $this->_Success = false;
+            $this->_Success = false;
         }
         return $this->_UserDataTable;
     }
@@ -112,12 +131,12 @@ class UserBusinessLayer {
         return $this->_UserDataTable;
     }
 
-    public function addUser($user_name, $password, $pin_code, $employee_id, $role_id, $status_id) {
+    public function addUser($user_name, $password, $pin_code, $role_id, $employee_id, $status_id) {
         try {
             $this->_reset();
             $this->_SQLQuery = "{call addUser(?,?,?,?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_UserDataTable = DataAccessManager::getInstance()->saveData(array($user_name, $password, $pin_code, $employee_id, $role_id, $status_id));
+            $this->_UserDataTable = DataAccessManager::getInstance()->saveData(array($user_name, $password, $pin_code, $role_id, $employee_id, $status_id));
             if (!Helper::is_empty_array($this->_UserDataTable)) {
                 $this->_Success = true;
             } else {
@@ -130,12 +149,12 @@ class UserBusinessLayer {
         return $this->_UserDataTable;
     }
 
-    public function editUser($user_id, $user_name, $password, $pin_code, $employee_id, $role_id, $status_id) {
+    public function editUser($user_id, $user_name, $password, $pin_code, $role_id, $employee_id, $status_id) {
         try {
             $this->_reset();
             $this->_SQLQuery = "{call editUser(?,?,?,?,?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_UserDataTable = DataAccessManager::getInstance()->saveData(array($user_id, $user_name, $password, $pin_code, $employee_id, $role_id, $status_id));
+            $this->_UserDataTable = DataAccessManager::getInstance()->saveData(array($user_id, $user_name, $password, $pin_code, $role_id, $employee_id, $status_id));
             if (!Helper::is_empty_array($this->_UserDataTable)) {
                 $this->_Success = true;
             } else {

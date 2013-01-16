@@ -10,13 +10,11 @@
 class Menu {
 
     private static $_Instance;
-    private $_PermissionBusinessLayer;
     private $_MenuTable;
     private $_ParentMenu;
     private $_SubMenu;
 
     private function __construct() {
-        $this->_PermissionBusinessLayer = new PermissionBusinessLayer();
     }
 
     public static function getInstance() {
@@ -27,16 +25,19 @@ class Menu {
     }
 
     public function constructMenu($role_id) {
-        $this->_MenuTable = $this->_PermissionBusinessLayer->getPermission($role_id);
+        $this->_MenuTable = LookupBusinessLayer::getInstance()->getPermission($role_id);
         $this->_ready_memu_table();
         return $this->_build_menu($this->_ParentMenu, $this->_SubMenu);
     }
 
     public function getAccessMenu($url) {
-        foreach ($this->_MenuTable as $obj):
-        if ($obj['menu_link'] == $url):
-        return true;
+        if ($url == 'master' or $url == 'index' or $url == 'login' or $url =='404'):
+            return true;
         endif;
+        foreach ($this->_MenuTable as $obj):
+            if ($obj['menu_link'] == $url):
+                return true;
+            endif;
         endforeach;
         return false;
     }

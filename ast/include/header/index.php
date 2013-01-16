@@ -10,7 +10,7 @@
 <link href="<?php echo $root; ?>themes/css/slate.css" rel="stylesheet">
 <link href="<?php echo $root; ?>themes/css/slate-responsive.css" rel="stylesheet">
 <link href="<?php echo $root; ?>themes/css/pages/dashboard.css" rel="stylesheet">
-
+<link href="<?php echo $root; ?>themes/js/plugins/datatables/DT_bootstrap.css" rel="stylesheet">
 
 <!-- Javascript -->
 <script src="<?php echo $root; ?>themes/js/jquery-1.7.2.min.js"></script>
@@ -21,6 +21,10 @@
 <script src="<?php echo $root; ?>themes/js/plugins/excanvas/excanvas.min.js"></script>
 <script src="<?php echo $root; ?>themes/js/plugins/validate/jquery.validate.js"></script>
 <script src="<?php echo $root; ?>themes/js/validate.js"></script>
+<!-- Javascript -->
+<script src="<?php echo $root; ?>themes/js/plugins/datatables/jquery.dataTables.js"></script>
+<script src="<?php echo $root; ?>themes/js/plugins/datatables/DT_bootstrap.js"></script>
+<script src="<?php echo $root; ?>themes/js/datatable.js"></script>
 
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>

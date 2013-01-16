@@ -1,16 +1,16 @@
 <?php
 
 /**
- * This is the RoleBusinessLayer
+ * This is the CategoryBusinessLayer
  * Designed and Developed by SEProf Team
  * Copyright (c) 2013 SEProf Inc.
  * http://seprof.com/
  * 
  */
-class RoleBusinessLayer {
+class CategoryBusinessLayer {
 
     private $_LastError;
-    private $_RoleDataTable;
+    private $_CategoriesDataTable;
     private $_Success;
     private $_SQLQuery;
     private $_Result;
@@ -34,30 +34,13 @@ class RoleBusinessLayer {
         return $this->_LastError;
     }
 
-    public function getRoles() {
+    public function getCategories() {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call getRoles}";
+            $this->_SQLQuery = "{call getCategories}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_RoleDataTable = DataAccessManager::getInstance()->fillData();
-            if (Helper::is_empty_array($this->_RoleDataTable)) {
-                $this->_LastError = DataAccessManager::getInstance()->getLastError();
-            }else {
-                $this->_Success = true;
-            }
-        } catch (Exception $ex) {
-            $this->_LastError = $ex->getMessage();
-        }
-        return $this->_RoleDataTable;
-    }
-
-    public function getRoleByName($name) {
-        try {
-            $this->_reset();
-            $this->_SQLQuery = "{call getRoleByName(?)}";
-            DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_RoleDataTable = DataAccessManager::getInstance()->fillData(array($name));
-            if (Helper::is_empty_array($this->_RoleDataTable)) {
+            $this->_CategoriesDataTable = DataAccessManager::getInstance()->fillData();
+            if (Helper::is_empty_array($this->_CategoriesDataTable)) {
                 $this->_Success = false;
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
             } else {
@@ -67,16 +50,54 @@ class RoleBusinessLayer {
             $this->_LastError = $ex->getMessage();
             $this->_Success = false;
         }
-        return $this->_RoleDataTable;
+        return $this->_CategoriesDataTable;
     }
 
-    public function getRoleByID($role_id) {
+    public function getCategoryByName($name) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call getRoleByID(?)}";
+            $this->_SQLQuery = "{call getCategoryByName(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_RoleDataTable = DataAccessManager::getInstance()->saveData(array($role_id));
-            if (!Helper::is_empty_array($this->_RoleDataTable)) {
+            $this->_CategoriesDataTable = DataAccessManager::getInstance()->fillData(array($name));
+            if (Helper::is_empty_array($this->_CategoriesDataTable)) {
+                $this->_Success = false;
+                $this->_LastError = DataAccessManager::getInstance()->getLastError();
+            } else {
+                $this->_Success = true;
+            }
+        } catch (Exception $ex) {
+            $this->_LastError = $ex->getMessage();
+            $this->_Success = false;
+        }
+        return $this->_CategoriesDataTable;
+    }
+
+    public function getCategoryByID($id) {
+        try {
+            $this->_reset();
+            $this->_SQLQuery = "{call getCategoryByID(?)}";
+            DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
+            $this->_CategoriesDataTable = DataAccessManager::getInstance()->fillData(array($id));
+            if (Helper::is_empty_array($this->_CategoriesDataTable)) {
+                $this->_Success = false;
+                $this->_LastError = DataAccessManager::getInstance()->getLastError();
+            } else {
+                $this->_Success = true;
+            }
+        } catch (Exception $ex) {
+            $this->_LastError = $ex->getMessage();
+            $this->_Success = false;
+        }
+        return $this->_CategoriesDataTable;
+    }
+    
+    public function addCategory($category_name,$category_parent_id,$color_code,$category_description, $user_creation) {
+        try {
+            $this->_reset();
+            $this->_SQLQuery = "{call addCategory(?,?,?,?,?)}";
+            DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
+            $this->_CategoriesDataTable = DataAccessManager::getInstance()->saveData(array($category_name,$category_parent_id,$color_code,$category_description, $user_creation));
+            if (!Helper::is_empty_array($this->_CategoriesDataTable)) {
                 $this->_Success = true;
             } else {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
@@ -85,16 +106,16 @@ class RoleBusinessLayer {
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
         }
-        return $this->_RoleDataTable;
+        return $this->_CategoriesDataTable;
     }
 
-    public function addRole($role_name, $status_id, $user_creation) {
+    public function editCategory($category_id,$category_name,$category_parent_id,$color_code,$category_description, $user_modification)  {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call addRole(?,?,?)}";
+            $this->_SQLQuery = "{call editCategory(?,?,?,?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_RoleDataTable = DataAccessManager::getInstance()->saveData($role_name, $status_id, $user_creation);
-            if (!Helper::is_empty_array($this->_RoleDataTable)) {
+            $this->_CategoriesDataTable = DataAccessManager::getInstance()->saveData(array($category_id,$category_name,$category_parent_id,$color_code,$category_description, $user_modification));
+            if (!Helper::is_empty_array($this->_CategoriesDataTable)) {
                 $this->_Success = true;
             } else {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
@@ -103,16 +124,16 @@ class RoleBusinessLayer {
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
         }
-        return $this->_RoleDataTable;
+        return $this->_CategoriesDataTable;
     }
 
-    public function editRole($role_id, $role_name, $status_id, $user_modification) {
+    public function deleteCategory($category_id) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call editRole(?,?,?,?)}";
+            $this->_SQLQuery = "{call deleteCategory(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_RoleDataTable = DataAccessManager::getInstance()->saveData($role_id, $role_name, $status_id, $user_modification);
-            if (!Helper::is_empty_array($this->_RoleDataTable)) {
+            $this->_CategoriesDataTable = DataAccessManager::getInstance()->saveData(array($category_id));
+            if (!Helper::is_empty_array($this->_CategoriesDataTable)) {
                 $this->_Success = true;
             } else {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
@@ -121,43 +142,7 @@ class RoleBusinessLayer {
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
         }
-        return $this->_RoleDataTable;
-    }
-
-    public function deleteRole($role_id, $status_id) {
-        try {
-            $this->_reset();
-            $this->_SQLQuery = "{call deleteRole(?,?)}";
-            DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_RoleDataTable = DataAccessManager::getInstance()->saveData(array($role_id, $status_id));
-            if (!Helper::is_empty_array($this->_RoleDataTable)) {
-                $this->_Success = true;
-            } else {
-                $this->_LastError = DataAccessManager::getInstance()->getLastError();
-                $this->_Success = false;
-            }
-        } catch (Exception $ex) {
-            $this->_LastError = $ex->getMessage();
-        }
-        return $this->_RoleDataTable;
-    }
-
-    public function assignPermission($role_id, $permission) {
-        try {
-            $this->_reset();
-            $this->_SQLQuery = "{call assignPermission($role_id, $permission);";
-            DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_RoleDataTable = DataAccessManager::getInstance()->saveData(); //array($role_id, $permission));
-            if (!Helper::is_empty_array($this->_RoleDataTable)) {
-                $this->_Success = true;
-            } else {
-                $this->_LastError = DataAccessManager::getInstance()->getLastError();
-                $this->_Success = false;
-            }
-        } catch (Exception $ex) {
-            $this->_LastError = $ex->getMessage();
-        }
-        return $this->_RoleDataTable;
+        return $this->_CategoriesDataTable;
     }
 
 }
