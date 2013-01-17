@@ -17,7 +17,7 @@ if (isset($_GET['contentpage'])) {
     $pagename = $_GET["contentpage"];
 }
 // the web root
-$root = '/svn/ast/';
+$root = '/ast/';
 
 $pagename = Helper::findPage($pagename);
 include Helper::load_controller($pagename);
