@@ -46,7 +46,7 @@ include Helper::load_controller($pagename);
     <body <?php if (isset($bodyLoad)) echo "onLoad=\"$bodyLoad\""; ?>>
 
         <?php
-        if (isset($_SESSION['user_pos'])):
+        if (isset($_SESSION['user_pos']) ):
             // Top header
             require_once("include/template/header.php");
             // navigation menu
