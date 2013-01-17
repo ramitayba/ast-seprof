@@ -19,7 +19,7 @@ $(function () {
             });
         }
     });
-    var baseurl="/ast/process";
+    var baseurl="/ast/process.php";
     $('#cafeterias-table a.edit').live('click', function (e) {
         e.preventDefault();
         /* Get the row as a parent of the link that was clicked on */
@@ -34,15 +34,31 @@ $(function () {
     
     $('a.delete').live('click', function (e) {
         e.preventDefault();
-        id=$(this).attr("id");
-        array=id.split("_");
-        var nRow = $(this).parents('tr')[0];
-        oTable.fnServerData('/ast/controller/cafeteriaController.php',{
+        name=$(this).attr("id");
+        array=name.split("-");
+        a=array[1];
+        if(array.length>1){
+            a=array[1];
+            b=array[2];
+        }
+        else{
+            a='';
+            b='';
+        }
+        $.seprof(baseurl,{
+            name:a,
             action:'delete',
-            query:array[1]
-        },deleteRow(nRow),function(k){
-            alert(k);
-        })
+            query:b
+        },function(k){
+            if(k.status=='error')
+            {
+                error('','', k.message,a)  
+            }else{
+                oTable.fnDeleteRow();
+            }
+        },function(httpReq, status, exception,a){
+            error(httpReq, status, exception,a);
+        },"json")
     } );
     
     $('.new').live('click', function (e) {
@@ -67,6 +83,7 @@ $(function () {
         name=$(this).attr("id");
         array=name.split("-");
         a=array[1];
+        alert(baseurl);
         $("#widget-content-"+a+"-table").append('<img src="/ast/themes/img/loader.gif" alt="Uploading...."/>');
         $.seprof(baseurl,{
             name:a,
@@ -96,7 +113,7 @@ $(function () {
         $("#widget-content-"+a+"-table").append('<img src="/ast/themes/img/loader.gif" alt="Uploading...."/>');
         $.seprof(baseurl,{
             name:a,
-            action:'edit',
+            action:'save',
             query:b,
             datainput:data
         },function(k){
@@ -144,6 +161,7 @@ function showform(b,a)
 
 function showTable(b,a)
 {
+        alert(b);
     if(b !=null){
         $(".widget-form").replaceWith(b); 
         $(".widget-header").show();
@@ -152,6 +170,7 @@ function showTable(b,a)
 }
 
 function error(httpReq, status, exception,a){
+    alert(exception);
     b="<div class=error-callback>Please try again,reload the page</div>";
     $("#widget-content-"+a+"-table").replaceWith(b);
 }

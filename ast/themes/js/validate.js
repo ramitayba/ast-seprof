@@ -137,6 +137,28 @@ $(document).ready(function(){
 	     error.appendTo( element.parents ('.controls') );
 	   }
 	  });
+          
+            $('#cafeterias-form').validate({
+	    rules: {
+	          cafeterianame: {
+	             required: true
+	               }
+	    },
+	    focusCleanup: false,
+
+	    highlight: function(label) {
+	    	$(label).closest('.control-group').removeClass ('success').addClass('error');
+	    },
+
+	    success: function(label) {
+	    	label
+	    		.text('OK!').addClass('valid')
+	    		.closest('.control-group').addClass('success');
+		},
+		errorPlacement: function(error, element) {
+	     error.appendTo( element.parents ('.controls') );
+	   }
+	  });
 
           $('#categories-form').validate({
 	    rules: {

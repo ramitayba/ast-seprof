@@ -20,7 +20,7 @@
                 <div class="info-details">
                     <h4>Welcome back, <?php $username = isset($_SESSION['user_pos_name']) ? $_SESSION['user_pos_name'] : 'admin';print $username;?></h4>
                     <p>
-                        Logged in as Admin.
+                        <a href="<?php print $root?>logout" id="logout">Logout</a>
                     </p>
                 </div> <!-- /.info-details -->
             </div> <!-- /#info-menu -->

@@ -34,11 +34,8 @@ elseif ($action == 'edit'):
         include_once POS_ROOT . '/content/cafeterias/cafeteriasform.php';
     endif;
 elseif ($action == 'save'):
-       print json_encode($data);
-return;
-    $name = isset($_POST['cafeteria_name']) ? $_POST['cafeteria_name'] : '';
+    $name = isset($data['cafeteria_name']) ? $data['cafeteria_name'] : '';
     $forms = array('cafeteria_id' => $query_id, 'cafeteria_name' => $name);
-
     if (Helper::is_empty_string($name)):
        /* ob_start();
         include
@@ -55,7 +52,8 @@ return;
             print json_encode(array('status' => 'error', 'message' => 'Cafeteria name already exist'));
             return;
         endif;
-        $cafeteriaDataTable = $cafeteriaBusinessLayer->addCafeteria($name, $_SESSION['user_pos']);
+        $user_id=$_SESSION['user_pos'];
+        $cafeteriaDataTable = $cafeteriaBusinessLayer->addCafeteria($name,$user_id);// $_SESSION['user_pos']);
     else:
         if (count($cafeteriaDataTable) == 0):
             $cafeteriaDataTable = $cafeteriaBusinessLayer->getCafeteriaByID($query_id);
@@ -74,7 +72,7 @@ return;
     if (count($cafeteriaDataTable) > 0):
         $cafeteriaDataTable = $cafeteriaBusinessLayer->getCafeterias();
         if ($cafeteriaBusinessLayer->getSuccess()):
-            $content = Helper::fill_datatable($cafeteriaDataTable, array('Cafeteria Name'), array('cafeteria_name'), 'cafeteria_id');
+            $content = Helper::fill_datatable('cafeterias', $cafeteriaDataTable, array('Cafeteria Name'), array('cafeteria_name'), 'cafeteria_id');
         endif;
         $_SESSION['messages'] = Helper::set_message('Cafeteria saved succesfuly', 'status');
         print json_encode($content);
