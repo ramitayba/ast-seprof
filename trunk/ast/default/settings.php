@@ -21,7 +21,7 @@ $databases = array (
 
 
 $routes=array(
-    'usersController'=>array('login','users/index'),
+    'usersController'=>array('login','logout','users/index'),
     'rolesController'=>array('users/roles'),
     'categoriesController'=>array('products/categories'),
     'itemsController'=>array('products/items'),

@@ -12,7 +12,7 @@ $action = 'view';
 $content = '';
 $query_string = '';
 $query_id = '';
-$data='';
+$data=array();
 $forms=array();
 
 

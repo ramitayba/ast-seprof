@@ -10,7 +10,9 @@
 include_once POS_ROOT . '/businessLayer/UserBusinessLayer.php';
 include_once POS_ROOT . '/businessLayer/RoleBusinessLayer.php';
 $userBusinessLayer = new UserBusinessLayer();
-if ($action == 'login'):
+if ($action == 'logout'):
+unset($_SESSION['user_pos']);
+elseif ($action == 'login'):
     $user_name = isset($_POST['username']) ? $_POST['username'] : '';
     $password = isset($_POST['password']) ? $_POST['password'] : '';
     if (Helper::is_empty_string($user_name) || Helper::is_empty_string($password)):
@@ -22,6 +24,7 @@ if ($action == 'login'):
         $_SESSION['user_pos_role'] = $userRow[0]['role_id'];
         $_SESSION['user_pos_name'] = $userRow[0]['employee_first_name'];
         unset($_SESSION['messages']);
+        Helper::redirect();
     else:
         $div = Helper::set_message('<li>username and password is incorrect</li>', 'error');
         $_SESSION['messages'] = $div;
@@ -83,7 +86,7 @@ elseif ($action == 'save'):
             print json_encode(array('status' => 'error', 'message' => 'User name already exist'));
             return;
         endif;
-        $userDataTable = $userBusinessLayer->addUser($name,$password,$pin,$role,$employee, 1);
+        $userDataTable = $userBusinessLayer->addUser($name, $password, $pin, $role, $employee, 1);
     else:
         if (count($userDataTable) == 0):
             $userDataTable = $userBusinessLayer->getUserByID($query_id);
@@ -97,12 +100,12 @@ elseif ($action == 'save'):
                 return;
             endif;
         endif;
-        $userDataTable = $userBusinessLayer->editUser($query_id,$name,$password,$pin,$role,$employee, 1);
+        $userDataTable = $userBusinessLayer->editUser($query_id, $name, $password, $pin, $role, $employee, 1);
     endif;
     if (count($userDataTable) > 0):
         $userDataTable = $userBusinessLayer->getUsers();
         if ($userDataTable->getSuccess()):
-           $content = Helper::fill_datatable('users', $userDataTable, array('User Name', 'Password', 'Pin Code', 'Role Name', 'Employee Name'), array('user_name', 'user_password', 'user_pin', 'role_name', 'employee_name'), 'user_id');
+            $content = Helper::fill_datatable('users', $userDataTable, array('User Name', 'Password', 'Pin Code', 'Role Name', 'Employee Name'), array('user_name', 'user_password', 'user_pin', 'role_name', 'employee_name'), 'user_id');
         endif;
         $_SESSION['messages'] = Helper::set_message('User saved succesfuly', 'status');
         print json_encode($content);
