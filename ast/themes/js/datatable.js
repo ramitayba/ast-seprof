@@ -96,8 +96,8 @@ $(function () {
         },"json")
     } );
     
-    $('.save').live('click', function (e) {
-        e.preventDefault();
+    $('.save').live('click', function () {
+        if(!validate())return;
         name=$(this).attr("id");
         array=name.split("-");
         a=array[1];
@@ -161,7 +161,7 @@ function showform(b,a)
 
 function showTable(b,a)
 {
-        alert(b);
+    // alert(b);
     if(b !=null){
         $(".widget-form").replaceWith(b); 
         $(".widget-header").show();
@@ -170,9 +170,9 @@ function showTable(b,a)
 }
 
 function error(httpReq, status, exception,a){
-    alert(exception);
-    b="<div class=error-callback>Please try again,reload the page</div>";
-    $("#widget-content-"+a+"-table").replaceWith(b);
+// alert(exception);
+// b="<div class=error-callback>Please try again,reload the page</div>";
+//$("#widget-content-"+a+"-table").replaceWith(b);
 }
 
 function table(name)
@@ -195,4 +195,194 @@ function table(name)
     }*/
     });
     return table;
+}
+
+function validate()
+{
+    $('#users-form').validate({
+	    rules: {
+	      user_name: {
+	        required: true
+	      },
+	      user_password: {
+	        required: true
+	      },
+	      user_pin: {
+	        required: true
+	      },
+	      roles: {
+	        required: true
+	      },
+	      employees: {
+	      	required: true
+      	 }
+	    },
+	    focusCleanup: false,
+
+	    highlight: function(label) {
+	    	$(label).closest('.control-group').removeClass ('success').addClass('error');
+	    },
+	    success: function(label) {
+	    	label
+	    		.text('OK!').addClass('valid')
+	    		.closest('.control-group').addClass('success');
+		},
+		errorPlacement: function(error, element) {
+	     error.appendTo( element.parents ('.controls') );
+	   }
+	  });
+
+	  $('#roles-form').validate({
+	    rules: {
+	      role_name: {
+	        required: true
+	      }
+	    },
+	    focusCleanup: false,
+
+	    highlight: function(label) {
+	    	$(label).closest('.control-group').removeClass ('success').addClass('error');
+	    },
+	    success: function(label) {
+	    	label
+	    		.text('OK!').addClass('valid')
+	    		.closest('.control-group').addClass('success');
+		},
+	    errorPlacement: function(error, element) {
+	     error.appendTo( element.parents ('.controls') );
+	   }
+          });
+
+	  $('#permissions-form').validate({
+	    rules: {
+		links : {
+		   required: true
+		  }
+	    },
+	    focusCleanup: false,
+
+	    highlight: function(label) {
+	    	$(label).closest('.control-group').removeClass ('success').addClass('error');
+	    },
+	    success: function(label) {
+	    	label
+	    		.text('OK!').addClass('valid')
+	    		.closest('.control-group').addClass('success');
+		},
+		errorPlacement: function(error, element) {
+	     error.appendTo( element.parents ('.controls') );
+	   }
+	  });
+
+	  $('#pos-form').validate({
+	    rules: {
+	          pos_key: {
+	             required: true
+	               },
+		  cafeteria : {
+		     required: true
+		       }
+	    },
+	    focusCleanup: false,
+
+	    highlight: function(label) {
+	    	$(label).closest('.control-group').removeClass ('success').addClass('error');
+	    },
+
+	    success: function(label) {
+	    	label
+	    		.text('OK!').addClass('valid')
+	    		.closest('.control-group').addClass('success');
+		},
+		errorPlacement: function(error, element) {
+	     error.appendTo( element.parents ('.controls') );
+	   }
+	  });
+
+            $('#cafeterias-form').validate({
+	    rules: {
+	          cafeteria_name: {
+	             required: true
+	               }
+	    },
+	    focusCleanup: false,
+
+	    highlight: function(label) {
+	    	$(label).closest('.control-group').removeClass ('success').addClass('error');
+	    },
+
+	    success: function(label) {
+	    	label
+	    		.text('OK!').addClass('valid')
+	    		.closest('.control-group').addClass('success');
+		},
+		errorPlacement: function(error, element) {
+	     error.appendTo( element.parents ('.controls') );
+	   }
+	  });
+
+          $('#categories-form').validate({
+	    rules: {
+	     category_name: {
+	        required: true
+	      },
+	      category: {
+	        required: true
+	      },
+              category_description: {
+	        required: true
+	      },
+              color_code: {
+	        required: true
+	      }
+	    },
+	    focusCleanup: false,
+
+	    highlight: function(label) {
+	    	$(label).closest('.control-group').removeClass ('success').addClass('error');
+	    },
+	    success: function(label) {
+	    	label
+	    		.text('OK!').addClass('valid')
+	    		.closest('.control-group').addClass('success');
+		},
+		errorPlacement: function(error, element) {
+	     error.appendTo( element.parents ('.controls') );
+	   }
+	  });
+
+          $('#items-form').validate({
+	    rules: {
+	      item_name: {
+	        required: true
+	      },
+	      categories: {
+	        required: true
+	      },
+              item_price: {
+	        required: true
+	      },
+              item_photo: {
+	        required: true
+	      },
+              item_description: {
+	        required: true
+	      }
+	    },
+	    focusCleanup: false,
+
+	    highlight: function(label) {
+	    	$(label).closest('.control-group').removeClass ('success').addClass('error');
+	    },
+	    success: function(label) {
+	    	label
+	    		.text('OK!').addClass('valid')
+	    		.closest('.control-group').addClass('success');
+		},
+		errorPlacement: function(error, element) {
+	     error.appendTo( element.parents ('.controls') );
+	   }
+	  });
+
+	  $('.form').eq (0).find ('input').eq (0).focus ();
 }
