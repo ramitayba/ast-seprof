@@ -25,18 +25,18 @@
                 <div class="control-group">
                     <label class="control-label">Permissions List</label>
                     <div class="controls">
-
-                        <?php for ($i = 0; $i <= 5; $i++) { ?>
-
-                            <p><input type="checkbox" name="links" id="links">&nbsp;
-                                Link<?php echo $i; ?>
-                            </p>
-
-                        <?php }
-                        ?>
+                    <select name="links" id="links">
+                    <option value="">Select</option>
+                    <option value="calendar" data-image="icons/icon_calendar.gif">Calendar</option>
+                    <option value="shopping_cart" data-image="icons/icon_cart.gif">Shopping Cart</option>
+                    <option value="cd" data-image="icons/icon_cd.gif">CD</option>
+                    <option value="email"  selected="selected" title="icons/icon_email.gif">Email</option>
+                    <option value="faq" data-image="icons/icon_faq.gif">FAQ</option>
+                    <option value="games" data-image="icons/icon_games.gif">Games</option>
+                    </select>
                     </div>
                 </div>
-                div class="form-actions">
+                <div class="form-actions">
                 <button type="submit" id="save-permissions-<?php
                         if (isset($forms)): print $forms['role_id'];
                         endif;
