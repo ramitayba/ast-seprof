@@ -26,7 +26,7 @@
                     <label class="control-label" for="item-name">Item Name</label>
                     <div class="controls">
                         <input type="text" class="input-large" name="item_name" id="item-name"
-                               alue="<?php
+                               value="<?php
 if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['item_name'];
 endif;
 ?>">
@@ -44,7 +44,7 @@ endif;
                         <label class="control-label" for="item-price">Price</label>
                         <div class="controls">
                             <input type="text" class="input-large" name="item_price" id="item-price"
-                                   alue="<?php
+                                   value="<?php
                                if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['item_price'];
                                endif;
 ?>">
@@ -54,7 +54,7 @@ endif;
                         <label class="control-label">Photo</label>
                         <div class="controls">
                             <input type="text" class="input-large" name="item_photo" id="item-photo"
-                                   alue="<?php
+                                   value="<?php
                                    if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['item_photo'];
                                    endif;
 ?>">
@@ -64,7 +64,7 @@ endif;
                         <label class="control-label" for="item-description">Description</label>
                         <div class="controls">
                             <textarea class="input-large" name="item_description" id="item-description"
-                                      alue="<?php
+                                      value="<?php
                                    if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['item_description'];
                                    endif;
 ?>" />
