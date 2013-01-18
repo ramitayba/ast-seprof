@@ -13,7 +13,7 @@ $itemBusinessLayer = new ItemBusinessLayer();
 if ($action == 'index' || $action == 'items'):
     $itemDataTable = $itemBusinessLayer->getItems();
     if ($itemBusinessLayer->getSuccess()):
-        $content = Helper::fill_datatable('Items', $itemDataTable, array('Item Name', 'Category Name', 'Item Price', 'Item Description'), array('item_name', 'category_name', 'item_price', 'item_description'), 'Item_id');
+        $content = Helper::fill_datatable('Items', $itemDataTable, array('Item Name', 'Category Name', 'Item Price', 'Item Description'), array('item_name', 'category_name', 'item_price', 'item_description'), 'item_id');
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') :
             print json_encode($content);
             return;
