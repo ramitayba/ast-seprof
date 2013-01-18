@@ -59,7 +59,7 @@ endif;
                         print Helper::form_construct_drop_down('roles', $role->getRoles(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['role_id'] : '', 'role_name','role_id');
                         ?> 
                     </div>
-
+                </div>
                     <div class="control-group">
                         <label class="control-label" for="employees">Employees</label>
                         <div class="controls">
