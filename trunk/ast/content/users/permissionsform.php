@@ -8,7 +8,7 @@
  */
 ?>
 
-<div id="validation" class="widget highlight widget-form widget-permissions-form">
+<div id="validation" class="span12">
 
     <div class="widget-header">
         <h3>
@@ -25,15 +25,18 @@
                 <div class="control-group">
                     <label class="control-label">Permissions List</label>
                     <div class="controls">
-                    <select name="links" id="links">
-                    <option value="">Select</option>
-                    <option value="calendar" data-image="icons/icon_calendar.gif">Calendar</option>
-                    <option value="shopping_cart" data-image="icons/icon_cart.gif">Shopping Cart</option>
-                    <option value="cd" data-image="icons/icon_cd.gif">CD</option>
-                    <option value="email"  selected="selected" title="icons/icon_email.gif">Email</option>
-                    <option value="faq" data-image="icons/icon_faq.gif">FAQ</option>
-                    <option value="games" data-image="icons/icon_games.gif">Games</option>
-                    </select>
+                        <div class="PermLinks">
+                        <input type="checkbox" name="links" id="links" value="Link 1"/> Link 1 <br />
+                        <input type="checkbox" name="links" id="links" value="Link 2"/> Link 2 <br />
+                        <input type="checkbox" name="links" id="links" value="Link 3"/> Link 3 <br />
+                        <input type="checkbox" name="links" id="links" value="Link 4"/> Link 4 <br />
+                        <input type="checkbox" name="links" id="links" value="Link 5"/> Link 5 <br />
+                        <input type="checkbox" name="links" id="links" value="Link 6"/> Link 6 <br />
+                        <input type="checkbox" name="links" id="links" value="Link 7"/> Link 7 <br />
+                        <input type="checkbox" name="links" id="links" value="Link 8"/> Link 8 <br />
+                        <input type="checkbox" name="links" id="links" value="Link 9"/> Link 9 <br />
+                        <input type="checkbox" name="links" id="links" value="Link 10"/> Link 10 <br />
+                     </div>
                     </div>
                 </div>
                 <div class="form-actions">
