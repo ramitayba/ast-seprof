@@ -39,4 +39,6 @@ str="";
 });
 });
 
-
+$(function() {
+ $( "#datepicker" ).datepicker();
+});
