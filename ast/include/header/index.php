@@ -26,6 +26,9 @@
 <script src="<?php echo $root; ?>themes/js/plugins/datatables/DT_bootstrap.js"></script>
 <script src="<?php echo $root; ?>themes/js/datatable.js"></script>
 
+<!-- DatePicker -->
+<script src="<?php echo $root; ?>themes/js/jquery-ui.js"></script>
+
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
