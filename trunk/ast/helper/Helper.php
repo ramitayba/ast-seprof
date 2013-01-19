@@ -446,7 +446,7 @@ class Helper {
     }
 
     public static function form_construct_drop_down($name, $array, $current, $field_name,$field_id) {
-        $select = '<select id name="' . strtolower($name) . '"><option value="">Select</option>';
+        $select = '<select disabled id name="' . strtolower($name) . '"><option value="">Select</option>';
         foreach ($array as $key => $value) {
             $val_option = $value[$field_name];
             $selected = $current == $value[$field_id] ? 'selected' : '';
