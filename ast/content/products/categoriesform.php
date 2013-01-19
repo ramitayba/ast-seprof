@@ -8,7 +8,7 @@
 
     <div class="widget-content">
 
-        <form action="#" action="#" id="categories-form" name="categoriesform" class="categories-form form-horizontal"
+        <form action="#" id="categories-form" name="categoriesform" class="categories-form form-horizontal"
               method="post" accept-charset="UTF-8">   
             <fieldset>
                 <div class="control-group">
