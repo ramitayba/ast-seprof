@@ -8,7 +8,7 @@
 
     <div class="widget-content">
 
-        <form action="#" action="#" id="categories-form" name="categories-form" class="categories-form form-horizontal"
+        <form action="#" action="#" id="categories-form" name="categoriesform" class="categories-form form-horizontal"
               method="post" accept-charset="UTF-8">   
             <fieldset>
                 <div class="control-group">
@@ -25,7 +25,7 @@
                         $category = new CategoryBusinessLayer();
                         print Helper::form_construct_drop_down('category', $category->getCategories(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['category_id'] : '', 'category_name','category_id');
                         ?>  
-                    
+                    <input type="checkbox" name="others" onclick="enable_text(this.checked,document.categoriesform.category)" >
                     </div>
                 </div>
 
