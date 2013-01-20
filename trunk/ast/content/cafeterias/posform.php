@@ -1,4 +1,4 @@
-<?php
+div<?php
 /**
  * This is the Helper
  * Designed and Developed by SEProf Team
@@ -41,7 +41,15 @@ endif;
                     <div class="controls">
                         <?php
                         $cafeteria = new CafeteriaBusinessLayer();
-                        print Helper::form_construct_drop_down('cafeteria', $cafeteria->getCafeterias(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['cafeteria_id'] : '', 'cafeteria_name','cafeteria_id');
+                        print Helper::form_construct_drop_down('cafeteria', $cafeteria->getCafeterias(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['cafeteria_id'] : '', 'cafeteria_name', 'cafeteria_id');
+                        ?> 
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="status">Status</label>
+                    <div class="controls">
+                        <?php
+                        print Helper::form_construct_drop_down('status', LookupBusinessLayer::getInstance()->getActivityStatus(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['status_id'] : '', 'status_name', 'status_id');
                         ?> 
                     </div>
                 </div>
