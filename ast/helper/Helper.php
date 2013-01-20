@@ -291,9 +291,9 @@ class Helper {
 
     public static function is_list_empty($array) {
         $message = '';
-        foreach ($array as $row):
+        foreach ($array as $pkey=> $row):
             if (self::is_empty_string($row)):
-                $message.='<li>' . $row . ' can t be empty</li>';
+                $message.='<li>' . $pkey . ' can t be empty</li>';
             endif;
         endforeach;
         return $message;
@@ -304,20 +304,23 @@ class Helper {
             return '';
         if (is_numeric($data))
             return $data;
-        $non_displayables = array(
-            '/%0[0-8bcef]/', // url encoded 00-08, 11, 12, 14, 15
-            '/%1[0-9a-f]/', // url encoded 16-31
-            '/[\x00-\x08]/', // 00-08
-            '/\x0b/', // 11
-            '/\x0c/', // 12
-            '/[\x0e-\x1f]/'             // 14-31
-        );
-        foreach ($non_displayables as $regex)
-            $data = preg_replace($regex, '', $data);
+        /* $non_displayables = array(
+          '/%0[0-8bcef]/', // url encoded 00-08, 11, 12, 14, 15
+          '/%1[0-9a-f]/', // url encoded 16-31
+          '/[\x00-\x08]/', // 00-08
+          '/\x0b/', // 11
+          '/\x0c/', // 12
+          '/[\x0e-\x1f]/'             // 14-31
+          );
+          foreach ($non_displayables as $regex)
+          $data = preg_replace($regex, '', $data);//$unpacked = unpack('H*hex', $data);
+          //return '0x' . $unpacked['hex'];
+         */
         $data = str_replace("'", "''", $data);
+        $data = str_replace(";", "", $data);
+        $data = str_replace("/", "", $data);
+        $data = str_replace("+", " ", $data);
         return $data;
-//$unpacked = unpack('H*hex', $data);
-//return '0x' . $unpacked['hex'];
     }
 
     public static function get_date($date) {
@@ -384,7 +387,7 @@ class Helper {
     public static function fill_datatable($name, $array, $header, $fields, $id_name, $linkcontrol = '', $control = true) {
         $datatable = '<script>$(function () {    var oTable = table("' . $name . '");});</script>
             <div class="widget-content" id="widget-content-' . $name . '-table">
-         <span><a id="new-' . $name . '" class="new btn btn-primary btn-large"  href="">Add New Record</a></span>
+         <span><a id="new-' . $name . '" class="new btn"  href="">Add New Record</a></span>
             <table class="table table-striped table-bordered table-highlight" id="' . $name . '-table">';
         $thead = ' <thead><tr>';
         foreach ($header as $row):
@@ -400,7 +403,7 @@ class Helper {
             foreach ($fields as $rowfields):
                 $tr.= '<td>' . $row[$rowfields] . '</td>';
             endforeach;
-            $tr.=$control == true ? '<td><span><a class="edit" id="edit_' . $row[$id_name] . '" href="">Edit</a>
+            $tr.=$control == true ? '<td><span><a class="edit" id="edit-'.$name.'-'. $row[$id_name] . '" href="">Edit</a>
             </span><span><a class="delete" id="delete_' . $row[$id_name] . '" href="">Delete</a></span></td></tr>' : '</tr>';
             //' isset($linkcontrol):'<span><a class="'.$linkcontrol.'" id="'.$linkcontrol.'_' . $row[$id_name] . '" href="">'.  ucfirst($linkcontrol).'</a></span>'?'' ;
             $tbody.=$tr;
@@ -445,12 +448,12 @@ class Helper {
         return $pagename;
     }
 
-    public static function form_construct_drop_down($name, $array, $current, $field_name,$field_id,$disable) {
-        $select = "<select $disable id name='" . strtolower($name) . "'><option value=''>Select</option>";
+    public static function form_construct_drop_down($name, $array, $current, $field_name, $field_id, $disable) {
+        $select = "<select $disable id name = '" . strtolower($name) . "'><option value = ''>Select</option>";
         foreach ($array as $key => $value) {
             $val_option = $value[$field_name];
             $selected = $current == $value[$field_id] ? 'selected' : '';
-            $select.= "<option $selected value='" . $value[$field_id] . "'>" . $val_option . "</option>";
+            $select.= "<option $selected value = '" . $value[$field_id] . "'>" . $val_option . "</option>";
         }
         $select.="</select>";
         return $select;
