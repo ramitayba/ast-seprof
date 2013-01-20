@@ -17,6 +17,7 @@ if ($action == 'index'):
             print json_encode($content);
             return;
         endif;
+        unset($_SESSION['messages']);
     else:
         $div = Helper::set_message('<li>error Connection</li>', 'error');
         $_SESSION['messages'] = $div;
@@ -37,12 +38,12 @@ elseif ($action == 'save'):
     $name = isset($data['cafeteria_name']) ? $data['cafeteria_name'] : '';
     $forms = array('cafeteria_id' => $query_id, 'cafeteria_name' => $name);
     if (Helper::is_empty_string($name)):
-       /* ob_start();
-        include
-               POS_ROOT . '/content/cafeterias/cafeteriasform.php';
-        $html = ob_get_contents();
-        ob_end_clean();
-        print json_encode($html);*/
+        /* ob_start();
+          include
+          POS_ROOT . '/content/cafeterias/cafeteriasform.php';
+          $html = ob_get_contents();
+          ob_end_clean();
+          print json_encode($html); */
         print json_encode(array('status' => 'error', 'message' => 'Cafeteria name cant be empty'));
         return;
     endif;
@@ -52,18 +53,17 @@ elseif ($action == 'save'):
             print json_encode(array('status' => 'error', 'message' => 'Cafeteria name already exist'));
             return;
         endif;
-        $user_id=$_SESSION['user_pos'];
-        $cafeteriaDataTable = $cafeteriaBusinessLayer->addCafeteria($name,$user_id);// $_SESSION['user_pos']);
+        $cafeteriaDataTable = $cafeteriaBusinessLayer->addCafeteria($name, $_SESSION['user_pos']);
     else:
         if (count($cafeteriaDataTable) == 0):
             $cafeteriaDataTable = $cafeteriaBusinessLayer->getCafeteriaByID($query_id);
             if (count($cafeteriaDataTable) == 0):
-                 print json_encode(array('status' => 'error', 'message' => 'Cafeteria doesn t  exist '));
+                print json_encode(array('status' => 'error', 'message' => 'Cafeteria doesn t  exist '));
                 return;
             endif;
         else:
             if ($cafeteriaDataTable [0]['cafeteria_id'] != $query_id):
-                 print json_encode(array('status' => 'error', 'message' => 'Can t be save'));
+                print json_encode(array('status' => 'error', 'message' => 'Can t be save'));
                 return;
             endif;
         endif;
