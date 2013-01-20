@@ -38,7 +38,7 @@ $(document).ready(function(){
         str="";
     });
 });
-
+/*
 $(function() {
     $( "#datepicker" ).datepicker();
 });
@@ -47,7 +47,7 @@ var $checktree;
 $(function(){
     $checktree = $("ul.tree").checkTree();
 });
-
+*/
 function clearAll(){
     $checktree.clear();
     $checktree.update();

@@ -183,11 +183,11 @@ function showTable(b,a)
 
 function error(httpReq, status, exception,a){
 
-    b="<div align='center' id='block' class='alert alert-block'>"+
+    b="<div id='block' class='alert alert-block'>"+
     "<a class='close' data-dismiss='alert' href='#'>&times;</a>"+
     exception+"</div>";
     $("#block").replaceWith(b);
-
+    $(".alert").show();
 }
 
 function table(name)

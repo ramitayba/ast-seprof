@@ -1,4 +1,4 @@
-div<?php
+<?php
 /**
  * This is the Helper
  * Designed and Developed by SEProf Team
@@ -19,7 +19,7 @@ div<?php
 
     <div class="widget-content">
 
-        <div id="block" style="visibility:hidden;" class="alert alert-block">
+        <div id="block"  class="alert alert-block">
               <a class="close" data-dismiss="alert" href="#">&times;</a>
         </div>
         <form action="#" id="pos-form" name="pos-form" class="pos-form form-horizontal"
