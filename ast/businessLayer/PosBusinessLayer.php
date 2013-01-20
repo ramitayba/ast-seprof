@@ -90,13 +90,13 @@ class PosBusinessLayer {
         }
         return $this->_PosDataTable;
     }
-    
-    public function addPos($pos_name,$cafeteria_id, $user_creation) {
+
+    public function addPos($pos_name, $cafeteria_id, $status_id, $user_creation) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call addPos(?,?,?)}";
+            $this->_SQLQuery = "{call addPos(?,?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_PosDataTable = DataAccessManager::getInstance()->saveData(array($pos_name,$cafeteria_id, $user_creation));
+            $this->_PosDataTable = DataAccessManager::getInstance()->saveData(array($pos_name, $cafeteria_id, $status_id, $user_creation));
             if (!Helper::is_empty_array($this->_PosDataTable)) {
                 $this->_Success = true;
             } else {
@@ -109,12 +109,12 @@ class PosBusinessLayer {
         return $this->_PosDataTable;
     }
 
-    public function editPos($pos_id,$pos_name,$cafeteria_id, $user_modification) {
+    public function editPos($pos_id, $pos_name, $cafeteria_id, $status_id, $user_modification) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call editPos(?,?,?,?)}";
+            $this->_SQLQuery = "{call editPos(?,?,?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_PosDataTable = DataAccessManager::getInstance()->saveData(array($pos_id,$pos_name,$cafeteria_id, $user_modification));
+            $this->_PosDataTable = DataAccessManager::getInstance()->saveData(array($pos_id, $pos_name, $cafeteria_id, $status_id, $user_modification));
             if (!Helper::is_empty_array($this->_PosDataTable)) {
                 $this->_Success = true;
             } else {
@@ -130,7 +130,7 @@ class PosBusinessLayer {
     public function deletePos($pos_id) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call deletePos(?)}";
+            $this->_SQLQuery = "{call DeletePos(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_PosDataTable = DataAccessManager::getInstance()->saveData(array($pos_id));
             if (!Helper::is_empty_array($this->_PosDataTable)) {
