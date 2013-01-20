@@ -8,25 +8,25 @@
 
     <div class="widget-content">
 
-        <form action="#" id="event-form" name="eventform" class="event-form form-horizontal"
+        <form action="#" id="event-form" name="event-form" class="event-form form-horizontal"
               method="post" accept-charset="UTF-8">
             <fieldset>
                 <div class="control-group">
                     <label class="control-label" for="event-name">Name</label>
                     <div class="controls">
-                        <input type="text" class="input-large" name="event_name" id="event-name" value="">
+                        <input type="text" class="input-large" name="event_name" id="event_name" value="">
                     </div>
                 </div>
                <div class="control-group">
                     <label class="control-label" for="date">Date</label>
                     <div class="controls">
-                        <input type="text" id="datepicker" />
+                        <input type="text" id="datepicker" name="datepicker"/>
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="invitees-nb">Invitees Number</label>
                     <div class="controls">
-                        <input type="text" class="input-large" name="invitees-nb" id="invitees-nb" value="">
+                        <input type="text" class="input-large" name="invitees_nb" id="invitees_nb" value="" onkeypress="return isNumberKey(event)">
                     </div>
                 </div>
                  <div class="control-group">
@@ -44,7 +44,7 @@
                     <label class="control-label" for="users">Users</label>
                     <div class="controls">
                         <?php
-print Helper::form_construct_drop_down('employees', LookupBusinessLayer::getInstance()->getEmployees(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['employee_id'] : '', 'employee_name','employee_id');
+print Helper::form_construct_drop_down('users', LookupBusinessLayer::getInstance()->getEmployees(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['employee_id'] : '', 'employee_name','employee_id','');
 ?> 
                     </div>
                 </div>
