@@ -120,7 +120,7 @@ class Helper {
 
     public static function set_message($message = NULL, $type = 'status', $repeat = TRUE) {
         $div = '<div id="messages"><div class="section clearfix">
-        <div id=" ' . $type . '" class="messages"><h2 class="element-invisible">' . ucfirst($type) . ' message</h2><ul>';
+        <div id="'. $type .'" class="messages"><h2 class="element-invisible">' . ucfirst($type) . ' message</h2><ul>';
         $div.=$message . '</ul></div></div></div>';
         return $div;
     }
