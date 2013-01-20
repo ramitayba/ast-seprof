@@ -384,5 +384,49 @@ function validate()
 	   }
 	  });
 
+           $('#event-form').validate({
+	    rules: {
+	      event_name: {
+	        required: true
+	      },
+	      datepicker: {
+	        required: true
+	      },
+              invitees_nb: {
+	        required: true
+	      },
+              department: {
+	        required: true
+	      },
+              users: {
+	        required: true
+	      }
+	    },
+	    focusCleanup: false,
+
+	    highlight: function(label) {
+	    	$(label).closest('.control-group').removeClass ('success').addClass('error');
+	    },
+	    success: function(label) {
+	    	label
+	    		.text('OK!').addClass('valid')
+	    		.closest('.control-group').addClass('success');
+		},
+		errorPlacement: function(error, element) {
+	     error.appendTo( element.parents ('.controls') );
+	   }
+	  });
+
 	  $('.form').eq (0).find ('input').eq (0).focus ();
 }
+
+
+function isNumberKey(evt)
+{
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+
+    return true;
+}
+
