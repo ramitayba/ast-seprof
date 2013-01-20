@@ -29,6 +29,10 @@
 <!-- DatePicker -->
 <script src="<?php echo $root; ?>themes/js/jquery-ui.js"></script>
 
+<!-- Tree View -->
+<link type="text/css" rel="stylesheet" href="<?php echo $root; ?>themes/css/jquery.checktree.css" />
+<script type="text/javascript" src="<?php echo $root; ?>themes/js/jquery.checktree_yctin.min.js"></script>
+
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
