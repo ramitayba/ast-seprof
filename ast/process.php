@@ -1,5 +1,6 @@
 <?php
-
+ob_start();
+session_start();
 define('POS_ROOT', getcwd());
 if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') :
     $name = isset($_POST['name']) ? $_POST['name'] : '';
