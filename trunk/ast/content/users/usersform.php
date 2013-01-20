@@ -18,7 +18,9 @@
     </div> <!-- /widget-header -->
 
     <div class="widget-content">
-
+        <div id="block" style="visibility:hidden;" class="alert alert-block">
+              <a class="close" data-dismiss="alert" href="#">&times;</a>
+        </div>
         <form action="#" id="users-form" name="users-form" class="users-form form-horizontal"
           method="post" accept-charset="UTF-8">    
 
@@ -56,7 +58,7 @@ endif;
                     <div class="controls">
                         <?php
                         $role = new RoleBusinessLayer();
-                        print Helper::form_construct_drop_down('roles', $role->getRoles(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['role_id'] : '', 'role_name','role_id','');
+                        print Helper::form_construct_drop_down('roles', $role->getRoles(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['role_id'] : '', 'role_name','role_id');
                         ?> 
                     </div>
                 </div>
@@ -64,7 +66,7 @@ endif;
                         <label class="control-label" for="employees">Employees</label>
                         <div class="controls">
 <?php
-print Helper::form_construct_drop_down('employees', LookupBusinessLayer::getInstance()->getEmployees(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['employee_id'] : '', 'employee_name','employee_id','');
+print Helper::form_construct_drop_down('employees', LookupBusinessLayer::getInstance()->getEmployees(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['employee_id'] : '', 'employee_name','employee_id');
 ?> 
                         </div>
                     </div>
