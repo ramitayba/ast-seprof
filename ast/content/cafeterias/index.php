@@ -10,7 +10,6 @@
             </h3>
         </div> <!-- /widget-header -->
                 <?php print $content ?>
-        </div> <!-- /widget-content -->
 
     </div> <!-- /widget -->	
 
