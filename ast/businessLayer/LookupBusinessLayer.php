@@ -12,6 +12,7 @@ class LookupBusinessLayer {
     private $_LastError;
     private $_EmployeesDataTable;
     private $_PermissionDataTable;
+    private $_StatusDataTable;
     private $_Success;
     private $_SQLQuery;
     private $_Result;
@@ -74,6 +75,42 @@ class LookupBusinessLayer {
             $this->_LastError = $ex->getMessage();
         }
         return $this->_PermissionDataTable;
+    }
+
+    public function getActivityStatus() {
+        try {
+            $this->_reset();
+            $this->_SQLQuery = "{call GetActivityStatus}";
+            DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
+            $this->_StatusDataTable = DataAccessManager::getInstance()->fillData();
+            if (!Helper::is_empty_array($this->_StatusDataTable)) {
+                $this->_Success = true;
+            } else {
+                $this->_LastError = DataAccessManager::getInstance()->getLastError();
+                $this->_Success = false;
+            }
+        } catch (Exception $ex) {
+            $this->_LastError = $ex->getMessage();
+        }
+        return $this->_StatusDataTable;
+    }
+
+    public function getEventStatus() {
+        try {
+            $this->_reset();
+            $this->_SQLQuery = "{call GetEventStatus}";
+            DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
+            $this->_StatusDataTable = DataAccessManager::getInstance()->fillData();
+            if (!Helper::is_empty_array($this->_StatusDataTable)) {
+                $this->_Success = true;
+            } else {
+                $this->_LastError = DataAccessManager::getInstance()->getLastError();
+                $this->_Success = false;
+            }
+        } catch (Exception $ex) {
+            $this->_LastError = $ex->getMessage();
+        }
+        return $this->_StatusDataTable;
     }
 
 }
