@@ -167,6 +167,7 @@ function deleteRow(nRow)
 
 function showform(b,a)
 {
+    $(".messages").remove();
     $(".widget-header").hide();
     $("#widget-content-"+a+"-table").replaceWith(b); 
     $("#widget-content-"+a+"-table img:last-child").remove();
@@ -175,7 +176,7 @@ function showform(b,a)
 
 function showTable(b,a)
 {
-    // alert(b);
+    $(".messages").remove();
     if(b !=null){
         $(".widget-form").replaceWith(b); 
         $(".widget-header").show();
