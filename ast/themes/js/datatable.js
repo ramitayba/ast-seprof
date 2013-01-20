@@ -1,3 +1,4 @@
+
 $(function () {
     jQuery.extend({
         seprof: function(url,data,callback,errorCallback,type) {
@@ -33,7 +34,7 @@ $(function () {
     } );*/
     
     $('a.delete').live('click', function (e) {
-        e.preventDefault();
+        e.preventDefault();     
         name=$(this).attr("id");
         array=name.split("-");
         if(array.length>1){
@@ -44,6 +45,8 @@ $(function () {
             a='';
             b='';
         }
+        var oTable =  $('#'+a+'-table').dataTable();
+        var nRow = $(this).parents('tr')[0];
         $.seprof(baseurl,{
             name:a,
             action:'delete',
@@ -53,7 +56,9 @@ $(function () {
             {
                 error('','', k.message,a)  
             }else{
-                oTable.fnDeleteRow();
+                if ( nRow!=null ) {
+                    oTable.fnDeleteRow( nRow );
+                }
             }
         },function(httpReq, status, exception,a){
             error(httpReq, status, exception,a);
@@ -165,6 +170,7 @@ function showform(b,a)
     $("#widget-content-"+a+"-table img:last-child").remove();
 }
 
+
 function showTable(b,a)
 {
     // alert(b);
@@ -177,16 +183,16 @@ function showTable(b,a)
 
 function error(httpReq, status, exception,a){
 
-b="<div align='center' id='block' class='alert alert-block'>"+
+    b="<div align='center' id='block' class='alert alert-block'>"+
     "<a class='close' data-dismiss='alert' href='#'>&times;</a>"+
-        exception+"</div>";
-$("#block").replaceWith(b);
+    exception+"</div>";
+    $("#block").replaceWith(b);
 
 }
 
 function table(name)
 {
-    var table =  $('#'+name+'-table').dataTable( {
+    var oTable =  $('#'+name+'-table').dataTable( {
         sDom: "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
         sPaginationType: "bootstrap",
         oLanguage: {
@@ -291,7 +297,7 @@ function validate()
             cafeteria : {
                 required: true
             },
-             status : {
+            status : {
                 required: true
             }
         },
@@ -398,38 +404,38 @@ function validate()
 
     $('.form').eq (0).find ('input').eq (0).focus ();
 
-           $('#event-form').validate({
-	    rules: {
-	      event_name: {
-	        required: true
-	      },
-	      datepicker: {
-	        required: true
-	      },
-              invitees_nb: {
-	        required: true
-	      },
-              department: {
-	        required: true
-	      },
-              users: {
-	        required: true
-	      }
-	    },
-	    focusCleanup: false,
+    $('#event-form').validate({
+        rules: {
+            event_name: {
+                required: true
+            },
+            datepicker: {
+                required: true
+            },
+            invitees_nb: {
+                required: true
+            },
+            department: {
+                required: true
+            },
+            users: {
+                required: true
+            }
+        },
+        focusCleanup: false,
 
-	    highlight: function(label) {
-	    	$(label).closest('.control-group').removeClass ('success').addClass('error');
-	    },
-	    success: function(label) {
-	    	label
-	    		.text('OK!').addClass('valid')
-	    		.closest('.control-group').addClass('success');
-		},
-		errorPlacement: function(error, element) {
-	     error.appendTo( element.parents ('.controls') );
-	   }
-	  });
+        highlight: function(label) {
+            $(label).closest('.control-group').removeClass ('success').addClass('error');
+        },
+        success: function(label) {
+            label
+            .text('OK!').addClass('valid')
+            .closest('.control-group').addClass('success');
+        },
+        errorPlacement: function(error, element) {
+            error.appendTo( element.parents ('.controls') );
+        }
+    });
 
 }
 
