@@ -369,10 +369,10 @@ class Helper {
 //  if($value='index')
                     $link = '/' . $value;
                     if ($count == $i):
-                        $div.=' <li class="active">' . ucfirst($value) . '</li>';
+                        $div.=' <li class="active">' . str_replace('-',' ' ,ucfirst($value)) . '</li>';
                     else:
                         $div.=' <li>
-			    <a href="/ast' . $link . '">' . ucfirst($value) . '</a> <span class="divider">/</span>
+			    <a href="/ast' . $link . '">' . str_replace('-',' ' ,ucfirst($value)) . '</a> <span class="divider">/</span>
 			  </li>';
                     endif;
                     $i++;
@@ -404,7 +404,7 @@ class Helper {
                 $tr.= '<td>' . $row[$rowfields] . '</td>';
             endforeach;
             $tr.=$control == true ? '<td><span><a class="edit" id="edit-'.$name.'-'. $row[$id_name] . '" href="">Edit</a>
-            </span><span><a class="delete" id="delete_' . $row[$id_name] . '" href="">Delete</a></span></td></tr>' : '</tr>';
+            </span><span><a class="delete" id="delete-'.$name.'-'. $row[$id_name] . '" href="">Delete</a></span></td></tr>' : '</tr>';
             //' isset($linkcontrol):'<span><a class="'.$linkcontrol.'" id="'.$linkcontrol.'_' . $row[$id_name] . '" href="">'.  ucfirst($linkcontrol).'</a></span>'?'' ;
             $tbody.=$tr;
             $i++;
