@@ -39,7 +39,7 @@ endif;
                     <div class="controls">
                         <?php
                         $cafeteria = new CafeteriaBusinessLayer();
-                        print Helper::form_construct_drop_down('cafeteria', $cafeteria->getCafeterias(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['cafeteria_id'] : '', 'cafeteria_name','cafeteria_id');
+                        print Helper::form_construct_drop_down('cafeteria', $cafeteria->getCafeterias(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['cafeteria_id'] : '', 'cafeteria_name','cafeteria_id','');
                         ?> 
                     </div>
                 </div>
