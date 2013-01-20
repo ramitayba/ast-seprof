@@ -37,7 +37,7 @@ endif;
                     <div class="controls">
 <?php
                         $category = new CategoryBusinessLayer();
-                        print Helper::form_construct_drop_down('categories', $category->getCategories(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['category_id'] : '', 'category_name','category_id');
+                        print Helper::form_construct_drop_down('categories', $category->getCategories(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['category_id'] : '', 'category_name','category_id','');
                         ?> 
                     </div></div>
                     <div class="control-group">
