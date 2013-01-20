@@ -7,7 +7,9 @@
     </div> <!-- /widget-header -->
 
     <div class="widget-content">
-
+        <div id="block" style="visibility:hidden;" class="alert alert-block">
+              <a class="close" data-dismiss="alert" href="#">&times;</a>
+        </div>
         <form action="#" id="event-form" name="event-form" class="event-form form-horizontal"
               method="post" accept-charset="UTF-8">
             <fieldset>
@@ -44,7 +46,7 @@
                     <label class="control-label" for="users">Users</label>
                     <div class="controls">
                         <?php
-print Helper::form_construct_drop_down('users', LookupBusinessLayer::getInstance()->getEmployees(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['employee_id'] : '', 'employee_name','employee_id','');
+print Helper::form_construct_drop_down('users', LookupBusinessLayer::getInstance()->getEmployees(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['employee_id'] : '', 'employee_name','employee_id');
 ?> 
                     </div>
                 </div>
