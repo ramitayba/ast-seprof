@@ -74,8 +74,8 @@ elseif ($action == 'save'):
         if ($cafeteriaBusinessLayer->getSuccess()):
             $content = Helper::fill_datatable('cafeterias', $cafeteriaDataTable, array('Cafeteria Name'), array('cafeteria_name'), 'cafeteria_id');
         endif;
-        $_SESSION['messages'] = Helper::set_message('Cafeteria saved succesfuly', 'status');
-        print json_encode($content);
+        $container = Helper::set_message('Cafeteria saved succesfuly', 'status') . $content;
+        print json_encode($container);
     else:
         print json_encode(array('status' => 'error', 'message' => 'Cafeteria not saved '));
     endif;
@@ -88,7 +88,8 @@ elseif ($action == 'delete'):
         endif;
         $cafeteriaDataTable = $cafeteriaBusinessLayer->deleteCafeteria($query_id);
         if (count($cafeteriaDataTable) > 0):
-            print json_encode('Cafeteria delete succesfuly ');
+            $container = Helper::set_message('Cafeteria '.$cafeteriaDataTable [0]['cafeteria_name'].' delete succesfuly', 'status');
+            print json_encode($container);
         else:
             print json_encode(array('status' => 'error', 'message' => 'Cafeteria not deleted '));
         endif;
