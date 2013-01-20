@@ -26,17 +26,81 @@
                     <label class="control-label">Permissions List</label>
                     <div class="controls">
                         <div class="PermLinks">
-                        <input type="checkbox" name="links" id="links" value="Link 1"/> Link 1 <br />
-                        <input type="checkbox" name="links" id="links" value="Link 2"/> Link 2 <br />
-                        <input type="checkbox" name="links" id="links" value="Link 3"/> Link 3 <br />
-                        <input type="checkbox" name="links" id="links" value="Link 4"/> Link 4 <br />
-                        <input type="checkbox" name="links" id="links" value="Link 5"/> Link 5 <br />
-                        <input type="checkbox" name="links" id="links" value="Link 6"/> Link 6 <br />
-                        <input type="checkbox" name="links" id="links" value="Link 7"/> Link 7 <br />
-                        <input type="checkbox" name="links" id="links" value="Link 8"/> Link 8 <br />
-                        <input type="checkbox" name="links" id="links" value="Link 9"/> Link 9 <br />
-                        <input type="checkbox" name="links" id="links" value="Link 10"/> Link 10 <br />
-                     </div>
+                        <ul class="tree">
+                        <li>
+                        <input type='checkbox' name='ids[]' id='p_1'value='1'>
+                        <label>
+                            Hardware
+                        </label>
+						<ul>
+							<li>
+		                        <input type='checkbox' name='ids[]' id='p_10'value='10'>
+		                        <label>
+		                            CPU
+		                        </label>
+		                    </li>
+							<li>
+		                        <input type='checkbox' name='ids[]' id='p_11'value='11'>
+		                        <label>
+		                            RAM
+		                        </label>
+		                    </li>
+							<li>
+		                        <input type='checkbox' name='ids[]' id='p_12'value='12'>
+		                        <label>
+		                            HDD
+		                        </label>
+		                    </li>
+						</ul>
+                    </li>
+                            <li>
+                                <input type='checkbox' name='ids[]' id='p_20'value='20'>
+                                <label>
+                                    OS
+                                </label>
+                                <ul>
+                                    <li>
+                                        <input type='checkbox' name='ids[]' id='p_200'value='200'>
+                                        <label>
+                                            Windows
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <input type='checkbox' name='ids[]' id='p_201'value='201'>
+                                        <label>
+                                            Linux
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <input type='checkbox' name='ids[]' id='p_202'value='202'>
+                                        <label>
+                                            Unix
+                                        </label>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <input type='checkbox' name='ids[]' id='p_21'value='21'>
+                                <label>
+                                    Application
+                                </label>
+								<ul>
+                                    <li>
+                                        <input type='checkbox' name='ids[]' id='p_210'value='210'>
+                                        <label>
+                                            MS Word
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <input type='checkbox' name='ids[]' id='p_211'value='211'>
+                                        <label>
+                                            MS Excel
+                                        </label>
+                                    </li>
+				</ul>
+                            </li>
+                        </ul>
+                </div>
                     </div>
                 </div>
                 <div class="form-actions">
