@@ -30,19 +30,19 @@ elseif ($action == 'add'):
     include_once POS_ROOT . '/content/products/categoriesform.php';
 elseif ($action == 'edit'):
     if (!Helper::is_empty_string($query_id)):
-        $categorieDataTable = $categorieBusinessLayer->getCategoryByID($query_id);
+        $categorieDataTable = $categoryBusinessLayer->getCategoryByID($query_id);
         $forms = array('categorie_id' => $categorieDataTable [0]['categorie_id'], 'categorie_name' => $categorieDataTable [0]['categorie_name'],
          'categorie_parent_id' => $categorieDataTable [0]['categorie_parent_id'], 'color_code' => $categorieDataTable [0]['color_code'],'category_description' => $categorieDataTable [0]['category_description']);
         include_once POS_ROOT . '/content/categories/categoriesform.php';
     endif;
 elseif ($action == 'save'):
-    $name = isset($_POST['category_name']) ? $_POST['category_name'] : '';
-    $parent = isset($_POST['category_parent_id']) ? $_POST['category_parent_id'] : '';
-    $color = isset($_POST['color_code']) ? $_POST['color_code'] : '';
-    $description = isset($_POST['category_description']) ? $_POST['category_description'] : '';
-    $forms = array('category_name' => $name, 'category_parent_id' => $parent,
+    $name = isset($data['category_name']) ? $data['category_name'] : '';
+    $parent = isset($data['category']) ? $data['category'] : '0';
+    $color = isset($data['color_code']) ? $data['color_code'] : '';
+    $description = isset($data['category_description']) ? $data['category_description'] : '';
+    $forms = array('category_name' => $name, 'category' => $parent,
         'color_code' => $color);
-    $array = array($name, $parent, $color);
+    $array = array($name, $color);
     $message = Helper::is_list_empty($array);
     if (!Helper::is_empty_string($message)):
        /* ob_start();
@@ -54,16 +54,16 @@ elseif ($action == 'save'):
         print json_encode(array('status' => 'error', 'message' =>$message));
         return;
     endif;
-    $categorieDataTable = $categorieBusinessLayer->getCategoryByName($name);
+    $categorieDataTable = $categoryBusinessLayer->getCategoryByName($name);
     if (Helper::is_empty_string($query_id)):
         if (count($categorieDataTable) > 0):
             print json_encode(array('status' => 'error', 'message' => 'Category name already exist'));
             return;
         endif;
-        $categorieDataTable = $categorieBusinessLayer->addCategory($name ,$parent,$color,$description,$_SESSION['user_pos']);
+        $categorieDataTable = $categoryBusinessLayer->addCategory($name ,$parent,$color,$description,$_SESSION['user_pos']);
     else:
         if (count($categorieDataTable) == 0):
-            $categorieDataTable = $categorieBusinessLayer->getCategoryByID($query_id);
+            $categorieDataTable = $categoryBusinessLayer->getCategoryByID($query_id);
             if (count($categorieDataTable) == 0):
                  print json_encode(array('status' => 'error', 'message' => 'Category doesn t  exist '));
                 return;
@@ -74,11 +74,11 @@ elseif ($action == 'save'):
                 return;
             endif;
         endif;
-        $categorieDataTable = $categorieBusinessLayer->editCategory($query_id, $name ,$parent,$color,$description,$_SESSION['user_pos']);
+        $categorieDataTable = $categoryBusinessLayer->editCategory($query_id, $name ,$parent,$color,$description,$_SESSION['user_pos']);
     endif;
     if (count($categorieDataTable) > 0):
-        $categorieDataTable = $categorieBusinessLayer->getCategories();
-        if ($categorieBusinessLayer->getSuccess()):
+        $categorieDataTable = $categoryBusinessLayer->getCategories();
+        if ($categoryBusinessLayer->getSuccess()):
              $content = Helper::fill_datatable('categories', $categorieDataTable, array('Category Name','Category Parent','Category Color Code','Category Description'), array('category_name','category_parent_name','color_code','category_description'), 'category_id');
         endif;
         $_SESSION['messages'] = Helper::set_message('Category saved succesfuly', 'status');
