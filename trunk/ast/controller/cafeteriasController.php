@@ -79,5 +79,19 @@ elseif ($action == 'save'):
     else:
         print json_encode(array('status' => 'error', 'message' => 'Cafeteria not saved '));
     endif;
+elseif ($action == 'delete'):
+    if (!Helper::is_empty_string($query_id)):
+        $cafeteriaDataTable = $cafeteriaBusinessLayer->getCafeteriaByID($query_id);
+        if (count($cafeteriaDataTable) == 0):
+            print json_encode(array('status' => 'error', 'message' => 'Cafeteria doesn t  exist '));
+            return;
+        endif;
+        $cafeteriaDataTable = $cafeteriaBusinessLayer->deleteCafeteria($query_id);
+        if (count($cafeteriaDataTable) > 0):
+            print json_encode('Cafeteria delete succesfuly ');
+        else:
+            print json_encode(array('status' => 'error', 'message' => 'Cafeteria not deleted '));
+        endif;
+    endif;
 endif;
 ?>
