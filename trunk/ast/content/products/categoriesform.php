@@ -7,7 +7,9 @@
     </div> <!-- /widget-header -->
 
     <div class="widget-content">
-
+        <div id="block" style="visibility:hidden;" class="alert alert-block">
+              <a class="close" data-dismiss="alert" href="#">&times;</a>
+        </div>
         <form action="#" id="categories-form" name="categoriesform" class="categories-form form-horizontal"
               method="post" accept-charset="UTF-8">   
             <fieldset>
