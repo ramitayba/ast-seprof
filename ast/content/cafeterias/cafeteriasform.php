@@ -19,6 +19,9 @@
 
     <div class="widget-content">
 
+        <div id="block" style="visibility:hidden;" class="alert alert-block">
+              <a class="close" data-dismiss="alert" href="#">&times;</a>
+        </div>
         <form action="#" id="cafeterias-form" name="cafeterias-form" class="cafeterias-form form-horizontal"
          method="post" accept-charset="UTF-8">    
             <fieldset>
