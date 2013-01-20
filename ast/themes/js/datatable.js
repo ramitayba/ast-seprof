@@ -96,8 +96,9 @@ $(function () {
         },"json")
     } );
     
-    $('.save').live('click', function () {
-        if(!validate())return;
+    $('.save').live('click', function (e) {
+        //if(!validate())return;
+        e.preventDefault();
         name=$(this).attr("id");
         array=name.split("-");
         a=array[1];
@@ -170,9 +171,12 @@ function showTable(b,a)
 }
 
 function error(httpReq, status, exception,a){
-// alert(exception);
-// b="<div class=error-callback>Please try again,reload the page</div>";
-//$("#widget-content-"+a+"-table").replaceWith(b);
+
+b="<div align='center' id='block' class='alert alert-block'>"+
+    "<a class='close' data-dismiss='alert' href='#'>&times;</a>"+
+        exception+"</div>";
+$("#block").replaceWith(b);
+
 }
 
 function table(name)
