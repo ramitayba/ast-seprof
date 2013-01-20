@@ -58,7 +58,9 @@ $(function () {
             }else{
                 if ( nRow!=null ) {
                     oTable.fnDeleteRow( nRow );
-                }
+                   $(".widget").before('<div id=messages><div class=section clearfix><div id=status class=messages><h2 class=element-invisible></h2><ul>'+k+'</ul></div></div></div>');
+            }
+                
             }
         },function(httpReq, status, exception,a){
             error(httpReq, status, exception,a);
