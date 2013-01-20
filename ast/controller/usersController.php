@@ -68,7 +68,8 @@ elseif ($action == 'save'):
     $employee = isset($data['employees']) ? $data['employees'] : '';
     $forms = array('user_name' => $name, 'user_password' => $password,
         'user_pin' => $pin, 'roles' => $role, 'employees' => $employee);
-    $array = array($name, $password, $pin, $role, $employee);
+    $array = array('User Name ' => $name, 'Password' => $password,
+        'Pin Code' => $pin, 'role_id' => $role, 'employee_id' => $employee);
     $message = Helper::is_list_empty($array);
     if (!Helper::is_empty_string($message)):
         /* ob_start();

@@ -42,8 +42,7 @@ elseif ($action == 'save'):
     $cafeteria = isset($data['cafeteria']) ? $data['cafeteria'] : '';
     $status = isset($data['status']) ? $data['status'] : '';
     $forms = array('pos_id' => $query_id, 'pos_key' => $name, 'cafeteria_id' => $cafeteria, 'status_id' => $status);
-    $array = array($name, $cafeteria, $status);
-
+    $array = array( 'Pos key' => $name, 'Cafeteria' => $cafeteria, 'Status' => $status);
     $message = Helper::is_list_empty($array);
     if (!Helper::is_empty_string($message)):
         /* ob_start();
@@ -82,12 +81,12 @@ elseif ($action == 'save'):
         if ($posBusinessLayer->getSuccess()):
             $content = Helper::fill_datatable('pos', $posDataTable, array('Pos Name', 'Cafeteria Name', 'Status'), array('pos_key', 'cafeteria_name', 'status_name'), 'pos_id');
         endif;
-        $_SESSION['messages'] = Helper::set_message('Pos saved succesfuly', 'status');
-        print json_encode($content);
+        $container = Helper::set_message('Pos saved succesfuly', 'status') . $content;
+        print json_encode($container);
     else:
         print json_encode(array('status' => 'error', 'message' => 'Pos not saved '));
     endif;
-elseif ($action == 'delete'):   
+elseif ($action == 'delete'):
     if (!Helper::is_empty_string($query_id)):
         $posDataTable = $posBusinessLayer->getPosById($query_id);
         if (count($posDataTable) == 0):
@@ -96,7 +95,8 @@ elseif ($action == 'delete'):
         endif;
         $posDataTable = $posBusinessLayer->deletePos($query_id);
         if (count($posDataTable) > 0):
-            print json_encode('POS delete succesfuly ');
+            $container = Helper::set_message('POS ' . $posDataTable [0]['pos_key'] . ' delete succesfuly', 'status');
+            print json_encode($container);
         else:
             print json_encode(array('status' => 'error', 'message' => 'POS not deleted '));
         endif;

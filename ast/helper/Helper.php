@@ -120,7 +120,7 @@ class Helper {
 
     public static function set_message($message = NULL, $type = 'status', $repeat = TRUE) {
         $div = '<div id="messages"><div class="section clearfix">
-        <div id="'. $type .'" class="messages"><h2 class="element-invisible">' . ucfirst($type) . ' message</h2><ul>';
+        <div id="' . $type . '" class="messages"><h2 class="element-invisible">' . ucfirst($type) . ' message</h2><ul>';
         $div.=$message . '</ul></div></div></div>';
         return $div;
     }
@@ -290,12 +290,16 @@ class Helper {
     }
 
     public static function is_list_empty($array) {
+        $li = '';
         $message = '';
-        foreach ($array as $pkey=> $row):
+        foreach ($array as $pkey => $row):
             if (self::is_empty_string($row)):
-                $message.='<li>' . $pkey . ' can t be empty</li>';
+                $li.='<li>' . $pkey . ' can t be empty</li>';
             endif;
         endforeach;
+        if (self::is_empty_string($message)):
+            $message = '<ul>' . $li . '</ul>';
+        endif;
         return $message;
     }
 
@@ -369,10 +373,10 @@ class Helper {
 //  if($value='index')
                     $link = '/' . $value;
                     if ($count == $i):
-                        $div.=' <li class="active">' . str_replace('-',' ' ,ucfirst($value)) . '</li>';
+                        $div.=' <li class="active">' . str_replace('-', ' ', ucfirst($value)) . '</li>';
                     else:
                         $div.=' <li>
-			    <a href="/ast' . $link . '">' . str_replace('-',' ' ,ucfirst($value)) . '</a> <span class="divider">/</span>
+			    <a href="/ast' . $link . '">' . str_replace('-', ' ', ucfirst($value)) . '</a> <span class="divider">/</span>
 			  </li>';
                     endif;
                     $i++;
@@ -403,8 +407,8 @@ class Helper {
             foreach ($fields as $rowfields):
                 $tr.= '<td>' . $row[$rowfields] . '</td>';
             endforeach;
-            $tr.=$control == true ? '<td><span><a class="edit" id="edit-'.$name.'-'. $row[$id_name] . '" href="">Edit</a>
-            </span><span><a class="delete" id="delete-'.$name.'-'. $row[$id_name] . '" href="">Delete</a></span></td></tr>' : '</tr>';
+            $tr.=$control == true ? '<td><span><a class="edit" id="edit-' . $name . '-' . $row[$id_name] . '" href="">Edit</a>
+            </span><span><a class="delete" id="delete-' . $name . '-' . $row[$id_name] . '" href="">Delete</a></span></td></tr>' : '</tr>';
             //' isset($linkcontrol):'<span><a class="'.$linkcontrol.'" id="'.$linkcontrol.'_' . $row[$id_name] . '" href="">'.  ucfirst($linkcontrol).'</a></span>'?'' ;
             $tbody.=$tr;
             $i++;
@@ -448,7 +452,7 @@ class Helper {
         return $pagename;
     }
 
-    public static function form_construct_drop_down($name, $array, $current, $field_name, $field_id, $disable='') {
+    public static function form_construct_drop_down($name, $array, $current, $field_name, $field_id, $disable = '') {
         $select = "<select $disable id name = '" . strtolower($name) . "'><option value = ''>Select</option>";
         foreach ($array as $key => $value) {
             $val_option = $value[$field_name];

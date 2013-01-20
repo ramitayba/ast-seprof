@@ -31,6 +31,10 @@ elseif ($action == 'add'):
 elseif ($action == 'edit'):
     if (!Helper::is_empty_string($query_id)):
         $cafeteriaDataTable = $cafeteriaBusinessLayer->getCafeteriaByID($query_id);
+        if (count($cafeteriaDataTable) == 0):
+            print json_encode(array('status' => 'error', 'message' => 'Cafeteria doesn t  exist '));
+            return;
+        endif;
         $forms = array('cafeteria_id' => $cafeteriaDataTable [0]['cafeteria_id'], 'cafeteria_name' => $cafeteriaDataTable [0]['cafeteria_name']);
         include_once POS_ROOT . '/content/cafeterias/cafeteriasform.php';
     endif;
@@ -88,7 +92,7 @@ elseif ($action == 'delete'):
         endif;
         $cafeteriaDataTable = $cafeteriaBusinessLayer->deleteCafeteria($query_id);
         if (count($cafeteriaDataTable) > 0):
-            $container = Helper::set_message('Cafeteria '.$cafeteriaDataTable [0]['cafeteria_name'].' delete succesfuly', 'status');
+            $container = Helper::set_message('Cafeteria ' . $cafeteriaDataTable [0]['cafeteria_name'] . ' delete succesfuly', 'status');
             print json_encode($container);
         else:
             print json_encode(array('status' => 'error', 'message' => 'Cafeteria not deleted '));
