@@ -20,23 +20,22 @@ $(function () {
         }
     });
     var baseurl="/ast/process.php";
-    $('#cafeterias-table a.edit').live('click', function (e) {
+    /* $('#cafeterias-table a.edit').live('click', function (e) {
         e.preventDefault();
         /* Get the row as a parent of the link that was clicked on */
-        var nRow = $(this).parents('tr')[0];
+    // var nRow = $(this).parents('tr')[0];
          
-        /* A different row is being edited - the edit should be cancelled and this row edited */
-        var aData = oTable.fnGetData(nRow);
+    /* A different row is being edited - the edit should be cancelled and this row edited */
+    // var aData = oTable.fnGetData(nRow);
     /*oTable.fnServerData("/ast/controller/cafeteriasController.php",
         {action:"edit",},editRow(oTable,nRow));
-    })*/
-    } );
+    })
+    } );*/
     
     $('a.delete').live('click', function (e) {
         e.preventDefault();
         name=$(this).attr("id");
         array=name.split("-");
-        a=array[1];
         if(array.length>1){
             a=array[1];
             b=array[2];
@@ -82,13 +81,19 @@ $(function () {
         e.preventDefault();
         name=$(this).attr("id");
         array=name.split("-");
-        a=array[1];
-        alert(baseurl);
+        if(array.length>1){
+            a=array[1];
+            b=array[2];
+        }
+        else{
+            a='';
+            b='';
+        }
         $("#widget-content-"+a+"-table").append('<img src="/ast/themes/img/loader.gif" alt="Uploading...."/>');
         $.seprof(baseurl,{
             name:a,
             action:'edit',
-            query:''
+            query:b
         },function(k){
             showform(k,a)
         },function(httpReq, status, exception,a){
@@ -96,12 +101,12 @@ $(function () {
         },"json")
     } );
     
+
     $('.save').live('click', function (e) {
         //if(!validate())return;
         e.preventDefault();
         name=$(this).attr("id");
         array=name.split("-");
-        a=array[1];
         if(array.length>1){
             a=array[1];
             b=array[2];
@@ -204,189 +209,194 @@ function table(name)
 function validate()
 {
     $('#users-form').validate({
-	    rules: {
-	      user_name: {
-	        required: true
-	      },
-	      user_password: {
-	        required: true
-	      },
-	      user_pin: {
-	        required: true
-	      },
-	      roles: {
-	        required: true
-	      },
-	      employees: {
-	      	required: true
-      	 }
-	    },
-	    focusCleanup: false,
+        rules: {
+            user_name: {
+                required: true
+            },
+            user_password: {
+                required: true
+            },
+            user_pin: {
+                required: true
+            },
+            roles: {
+                required: true
+            },
+            employees: {
+                required: true
+            }
+        },
+        focusCleanup: false,
 
-	    highlight: function(label) {
-	    	$(label).closest('.control-group').removeClass ('success').addClass('error');
-	    },
-	    success: function(label) {
-	    	label
-	    		.text('OK!').addClass('valid')
-	    		.closest('.control-group').addClass('success');
-		},
-		errorPlacement: function(error, element) {
-	     error.appendTo( element.parents ('.controls') );
-	   }
-	  });
+        highlight: function(label) {
+            $(label).closest('.control-group').removeClass ('success').addClass('error');
+        },
+        success: function(label) {
+            label
+            .text('OK!').addClass('valid')
+            .closest('.control-group').addClass('success');
+        },
+        errorPlacement: function(error, element) {
+            error.appendTo( element.parents ('.controls') );
+        }
+    });
 
-	  $('#roles-form').validate({
-	    rules: {
-	      role_name: {
-	        required: true
-	      }
-	    },
-	    focusCleanup: false,
+    $('#roles-form').validate({
+        rules: {
+            role_name: {
+                required: true
+            }
+        },
+        focusCleanup: false,
 
-	    highlight: function(label) {
-	    	$(label).closest('.control-group').removeClass ('success').addClass('error');
-	    },
-	    success: function(label) {
-	    	label
-	    		.text('OK!').addClass('valid')
-	    		.closest('.control-group').addClass('success');
-		},
-	    errorPlacement: function(error, element) {
-	     error.appendTo( element.parents ('.controls') );
-	   }
-          });
+        highlight: function(label) {
+            $(label).closest('.control-group').removeClass ('success').addClass('error');
+        },
+        success: function(label) {
+            label
+            .text('OK!').addClass('valid')
+            .closest('.control-group').addClass('success');
+        },
+        errorPlacement: function(error, element) {
+            error.appendTo( element.parents ('.controls') );
+        }
+    });
 
-	  $('#permissions-form').validate({
-	    rules: {
-		links : {
-		   required: true
-		  }
-	    },
-	    focusCleanup: false,
+    $('#permissions-form').validate({
+        rules: {
+            links : {
+                required: true
+            }
+        },
+        focusCleanup: false,
 
-	    highlight: function(label) {
-	    	$(label).closest('.control-group').removeClass ('success').addClass('error');
-	    },
-	    success: function(label) {
-	    	label
-	    		.text('OK!').addClass('valid')
-	    		.closest('.control-group').addClass('success');
-		},
-		errorPlacement: function(error, element) {
-	     error.appendTo( element.parents ('.controls') );
-	   }
-	  });
+        highlight: function(label) {
+            $(label).closest('.control-group').removeClass ('success').addClass('error');
+        },
+        success: function(label) {
+            label
+            .text('OK!').addClass('valid')
+            .closest('.control-group').addClass('success');
+        },
+        errorPlacement: function(error, element) {
+            error.appendTo( element.parents ('.controls') );
+        }
+    });
 
-	  $('#pos-form').validate({
-	    rules: {
-	          pos_key: {
-	             required: true
-	               },
-		  cafeteria : {
-		     required: true
-		       }
-	    },
-	    focusCleanup: false,
+    $('#pos-form').validate({
+        rules: {
+            pos_key: {
+                required: true
+            },
+            cafeteria : {
+                required: true
+            },
+             status : {
+                required: true
+            }
+        },
+        focusCleanup: false,
 
-	    highlight: function(label) {
-	    	$(label).closest('.control-group').removeClass ('success').addClass('error');
-	    },
+        highlight: function(label) {
+            $(label).closest('.control-group').removeClass ('success').addClass('error');
+        },
 
-	    success: function(label) {
-	    	label
-	    		.text('OK!').addClass('valid')
-	    		.closest('.control-group').addClass('success');
-		},
-		errorPlacement: function(error, element) {
-	     error.appendTo( element.parents ('.controls') );
-	   }
-	  });
+        success: function(label) {
+            label
+            .text('OK!').addClass('valid')
+            .closest('.control-group').addClass('success');
+        },
+        errorPlacement: function(error, element) {
+            error.appendTo( element.parents ('.controls') );
+        }
+    });
 
-            $('#cafeterias-form').validate({
-	    rules: {
-	          cafeteria_name: {
-	             required: true
-	               }
-	    },
-	    focusCleanup: false,
+    $('#cafeterias-form').validate({
+        rules: {
+            cafeteria_name: {
+                required: true
+            }
+        },
+        focusCleanup: false,
 
-	    highlight: function(label) {
-	    	$(label).closest('.control-group').removeClass ('success').addClass('error');
-	    },
+        highlight: function(label) {
+            $(label).closest('.control-group').removeClass ('success').addClass('error');
+        },
 
-	    success: function(label) {
-	    	label
-	    		.text('OK!').addClass('valid')
-	    		.closest('.control-group').addClass('success');
-		},
-		errorPlacement: function(error, element) {
-	     error.appendTo( element.parents ('.controls') );
-	   }
-	  });
+        success: function(label) {
+            label
+            .text('OK!').addClass('valid')
+            .closest('.control-group').addClass('success');
+        },
+        errorPlacement: function(error, element) {
+            error.appendTo( element.parents ('.controls') );
+        }
+    });
 
-          $('#categories-form').validate({
-	    rules: {
-	     category_name: {
-	        required: true
-	      },
-	      category: {
-	        required: true
-	      },
-              category_description: {
-	        required: true
-	      },
-              color_code: {
-	        required: true
-	      }
-	    },
-	    focusCleanup: false,
+    $('#categories-form').validate({
+        rules: {
+            category_name: {
+                required: true
+            },
+            category: {
+                required: true
+            },
+            category_description: {
+                required: true
+            },
+            color_code: {
+                required: true
+            }
+        },
+        focusCleanup: false,
 
-	    highlight: function(label) {
-	    	$(label).closest('.control-group').removeClass ('success').addClass('error');
-	    },
-	    success: function(label) {
-	    	label
-	    		.text('OK!').addClass('valid')
-	    		.closest('.control-group').addClass('success');
-		},
-		errorPlacement: function(error, element) {
-	     error.appendTo( element.parents ('.controls') );
-	   }
-	  });
+        highlight: function(label) {
+            $(label).closest('.control-group').removeClass ('success').addClass('error');
+        },
+        success: function(label) {
+            label
+            .text('OK!').addClass('valid')
+            .closest('.control-group').addClass('success');
+        },
+        errorPlacement: function(error, element) {
+            error.appendTo( element.parents ('.controls') );
+        }
+    });
 
-          $('#items-form').validate({
-	    rules: {
-	      item_name: {
-	        required: true
-	      },
-	      categories: {
-	        required: true
-	      },
-              item_price: {
-	        required: true
-	      },
-              item_photo: {
-	        required: true
-	      },
-              item_description: {
-	        required: true
-	      }
-	    },
-	    focusCleanup: false,
+    $('#items-form').validate({
+        rules: {
+            item_name: {
+                required: true
+            },
+            categories: {
+                required: true
+            },
+            item_price: {
+                required: true
+            },
+            item_photo: {
+                required: true
+            },
+            item_description: {
+                required: true
+            }
+        },
+        focusCleanup: false,
 
-	    highlight: function(label) {
-	    	$(label).closest('.control-group').removeClass ('success').addClass('error');
-	    },
-	    success: function(label) {
-	    	label
-	    		.text('OK!').addClass('valid')
-	    		.closest('.control-group').addClass('success');
-		},
-		errorPlacement: function(error, element) {
-	     error.appendTo( element.parents ('.controls') );
-	   }
-	  });
+        highlight: function(label) {
+            $(label).closest('.control-group').removeClass ('success').addClass('error');
+        },
+        success: function(label) {
+            label
+            .text('OK!').addClass('valid')
+            .closest('.control-group').addClass('success');
+        },
+        errorPlacement: function(error, element) {
+            error.appendTo( element.parents ('.controls') );
+        }
+    });
+
+    $('.form').eq (0).find ('input').eq (0).focus ();
 
            $('#event-form').validate({
 	    rules: {
@@ -421,7 +431,6 @@ function validate()
 	   }
 	  });
 
-	  $('.form').eq (0).find ('input').eq (0).focus ();
 }
 
 
