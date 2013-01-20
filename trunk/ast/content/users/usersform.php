@@ -56,7 +56,7 @@ endif;
                     <div class="controls">
                         <?php
                         $role = new RoleBusinessLayer();
-                        print Helper::form_construct_drop_down('roles', $role->getRoles(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['role_id'] : '', 'role_name','role_id');
+                        print Helper::form_construct_drop_down('roles', $role->getRoles(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['role_id'] : '', 'role_name','role_id','');
                         ?> 
                     </div>
                 </div>
@@ -64,7 +64,7 @@ endif;
                         <label class="control-label" for="employees">Employees</label>
                         <div class="controls">
 <?php
-print Helper::form_construct_drop_down('employees', LookupBusinessLayer::getInstance()->getEmployees(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['employee_id'] : '', 'employee_name','employee_id');
+print Helper::form_construct_drop_down('employees', LookupBusinessLayer::getInstance()->getEmployees(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['employee_id'] : '', 'employee_name','employee_id','');
 ?> 
                         </div>
                     </div>
