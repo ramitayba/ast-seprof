@@ -61,13 +61,13 @@ elseif ($action == 'edit'):
         include_once POS_ROOT . '/content/users/usersform.php';
     endif;
 elseif ($action == 'save'):
-    $name = isset($_POST['user_name']) ? $_POST['user_name'] : '';
-    $password = isset($_POST['user_password']) ? $_POST['user_password'] : '';
-    $pin = isset($_POST['user_pin']) ? $_POST['user_pin'] : '';
-    $role = isset($_POST['role_id']) ? $_POST['role_id'] : '';
-    $employee = isset($_POST['employee_id']) ? $_POST['employee_id'] : '';
+    $name = isset($data['user_name']) ? $data['user_name'] : '';
+    $password = isset($data['user_password']) ? $data['user_password'] : '';
+    $pin = isset($data['user_pin']) ? $data['user_pin'] : '';
+    $role = isset($data['roles']) ? $data['roles'] : '';
+    $employee = isset($data['employees']) ? $data['employees'] : '';
     $forms = array('user_name' => $name, 'user_password' => $password,
-        'user_pin' => $pin, 'role_id' => $role, 'employee_id' => $employee);
+        'user_pin' => $pin, 'roles' => $role, 'employees' => $employee);
     $array = array($name, $password, $pin, $role, $employee);
     $message = Helper::is_list_empty($array);
     if (!Helper::is_empty_string($message)):
