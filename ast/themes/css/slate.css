@@ -914,7 +914,7 @@ label.error {
 */
 
 .widget-table .widget-content {
-    padding: 0;
+    padding: 10px 0 0;
 }
 
 .widget-table .table-bordered {
@@ -1229,6 +1229,9 @@ label.error {
 
 .widget-table .dataTables_wrapper .row {
     margin: 1em 0;
+    width: 70%;
+    float: right;
+    margin-top: -30px;
 }
 
 .widget-table .dataTables_wrapper .row .span6 {
@@ -1604,7 +1607,7 @@ div.messages {
 }
 
 div#status {
-    background-image: url(../img/validate/valide.png);
+    background-image: url(../img/validate/valid.png);
     border-color: #be7;
 }
 div#status,
