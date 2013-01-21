@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This is the Menu
+ * This is the Events
  * Designed and Developed by SEProf Team
  * Copyright (c) 2013 SEProf Inc.
  * http://seprof.com/
@@ -13,8 +13,9 @@ $eventBusinessLayer = new EventBusinessLayer();
 if ($action == 'index' || $action == 'events'):
     $eventDataTable = $eventBusinessLayer->getEvents();
     if ($eventBusinessLayer->getSuccess()):
-        $content = Helper::fill_datatable('events', $eventDataTable, array('Event Name', 'Event Date', 'Event invitees', 'Department Name', 'Employee Name', 'Status'), array('event_name', 'event_date', 'event_invitees_nb', 'department_name', 'employee_name', 'status_name'), 'event_id', array('eventitems'));
-        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') :
+        $content = Helper::fill_datatable('events', $eventDataTable, array('Event Name', 'Event Date', 'Event invitees Number', 'Department Name', 'Employee Name', 'Status'), array('event_name', 'event_date', 'event_invitees_nb', 'department_name', 'employee_name', 'status_name'), 'event_id', array('items'));
+        //print_r($content);
+    if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') :
             print json_encode($content);
             return;
         endif;
@@ -59,6 +60,7 @@ elseif ($action == 'save'):
         'Invitess Number' => $event_invitees_nb, 'Department' => $department_id,
         'Employee Name' => $employee_id, 'Status' => $status);
     $message = Helper::is_list_empty($array);
+    //print_r($forms);die();
     if (!Helper::is_empty_string($message)):
         /* ob_start();
           include
@@ -94,7 +96,7 @@ elseif ($action == 'save'):
     if (count($eventDataTable) > 0):
         $eventDataTable = $eventBusinessLayer->getEvents();
         if ($eventBusinessLayer->getSuccess()):
-            $content = Helper::fill_datatable('events', $eventDataTable, array('Event Name', 'Event Date', 'Event invitees', 'Department Name', 'Employee Name', 'Status'), array('event_name', 'event_date', 'event_invitees_nb', 'department_name', 'employee_name', 'status_name'), 'event_id', array('eventitems'));
+            $content = Helper::fill_datatable('events', $eventDataTable, array('Event Name', 'Event Date', 'Event invitees Number', 'Department Name', 'Employee Name', 'Status'), array('event_name', 'event_date', 'event_invitees_nb', 'department_name', 'employee_name', 'status_name'), 'event_id', array('items'));
         endif;
         $container = Helper::set_message('Event saved succesfuly', 'status') . $content;
         print json_encode($container);
