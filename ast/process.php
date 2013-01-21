@@ -10,6 +10,7 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTE
     $query_id = isset($_POST['query']) ? $_POST['query'] : '';
     $controllerDirs = POS_ROOT . '/controller/' . $name . 'Controller.php';
     $datainput = isset($_POST['datainput']) ? $_POST['datainput'] : '';
+    $sequence= isset($_POST['sequence']) ? $_POST['sequence'] : '';
     if ($datainput != ''):
         $array = explode('&', $datainput);
         foreach ($array as $row):

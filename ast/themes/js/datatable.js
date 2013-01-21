@@ -152,14 +152,18 @@ $(function () {
             a='';
             b='';
         }
+        var sequence="";
+        $('input[name=check]:checked').each(function(){
+            sequence+=$(this).val()+",";
+        });
         var data =$('.'+a+'-form').serialize();
-        alert(data);
-        $("#widget-content-"+a+"-table").append('<img src="/ast/themes/img/loader.gif" alt="Uploading...."/>');
+        $("#widget-content-"+a+"-table").append('<img src="/ast/themes/img/loader.gif" alt="Loading...."/>');
         $.seprof(baseurl,{
             name:a,
             action:'save',
             query:b,
-            datainput:data
+            datainput:data,
+            sequence:sequence
         },function(k){
             if(k.status=='error')
             {
