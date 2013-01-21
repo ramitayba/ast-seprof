@@ -90,13 +90,13 @@ class CategoryBusinessLayer {
         }
         return $this->_CategoriesDataTable;
     }
-    
-    public function addCategory($category_name,$category_parent_id,$color_code,$category_description, $user_creation) {
+
+    public function addCategory($category_name, $category_parent_id, $color_code, $category_description, $status_id, $user_creation) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call addCategory(?,?,?,?,?)}";
+            $this->_SQLQuery = "{call addCategory(?,?,?,?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_CategoriesDataTable = DataAccessManager::getInstance()->saveData(array($category_name,$category_parent_id,$color_code,$category_description, $user_creation));
+            $this->_CategoriesDataTable = DataAccessManager::getInstance()->saveData(array($category_name, $category_parent_id, $color_code, $category_description, $status_id, $user_creation));
             if (!Helper::is_empty_array($this->_CategoriesDataTable)) {
                 $this->_Success = true;
             } else {
@@ -109,12 +109,12 @@ class CategoryBusinessLayer {
         return $this->_CategoriesDataTable;
     }
 
-    public function editCategory($category_id,$category_name,$category_parent_id,$color_code,$category_description, $user_modification)  {
+    public function editCategory($category_id, $category_name, $category_parent_id, $color_code, $category_description, $status_id, $user_modification) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call editCategory(?,?,?,?,?,?)}";
+            $this->_SQLQuery = "{call EditCategory(?,?,?,?,?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_CategoriesDataTable = DataAccessManager::getInstance()->saveData(array($category_id,$category_name,$category_parent_id,$color_code,$category_description, $user_modification));
+            $this->_CategoriesDataTable = DataAccessManager::getInstance()->saveData(array($category_id, $category_name, $category_parent_id, $color_code, $category_description, $status_id, $user_modification));
             if (!Helper::is_empty_array($this->_CategoriesDataTable)) {
                 $this->_Success = true;
             } else {
@@ -130,7 +130,7 @@ class CategoryBusinessLayer {
     public function deleteCategory($category_id) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call deleteCategory(?)}";
+            $this->_SQLQuery = "{call DeleteCategory(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_CategoriesDataTable = DataAccessManager::getInstance()->saveData(array($category_id));
             if (!Helper::is_empty_array($this->_CategoriesDataTable)) {
