@@ -88,18 +88,12 @@ class DataAccessManager {
             //$this->_DataTable = odbc_result_all($this->_Statment);
             // $this->_DataTable = $this->_Success === true ? odbc_result_all($this->_Statment) : array();
             $this->_Statment = odbc_prepare(Connection::getInstance()->getDB(), self::$_SQLQuery);
-            odbc_execute($this->_Statment, $array);
-            $i = 0;
-            while ($row = odbc_fetch_array($this->_Statment)):
-                $this->_DataTable[$i] = $row;
-                $i++;
-            endwhile;
+            $this->_Success=odbc_execute($this->_Statment, $array);
         } catch (OdbcException $ex) {
             self::$_LastError = $ex->getMessage();
-            $this->_DataTable =array();
         }
         Connection::getInstance()->closeConnection();
-        return $this->_DataTable;
+        return $this->_Success;
     }
 
 }

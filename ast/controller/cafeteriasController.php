@@ -29,26 +29,23 @@ if ($action == 'index'):
 elseif ($action == 'add'):
     include_once POS_ROOT . '/content/cafeterias/cafeteriasform.php';
 elseif ($action == 'edit'):
-    if (!Helper::is_empty_string($query_id)):
+    if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
         $cafeteriaDataTable = $cafeteriaBusinessLayer->getCafeteriaByID($query_id);
         if (count($cafeteriaDataTable) == 0):
             print json_encode(array('status' => 'error', 'message' => 'Cafeteria doesn t  exist '));
             return;
         endif;
-        $forms = array('cafeteria_id' => $cafeteriaDataTable [0]['cafeteria_id'], 'cafeteria_name' => $cafeteriaDataTable [0]['cafeteria_name']);
+        $forms = array('cafeteria_id' => $cafeteriaDataTable [0]['cafeteria_id'],
+            'cafeteria_name' => $cafeteriaDataTable [0]['cafeteria_name']
+            , 'status_id' => $cafeteriaDataTable [0]['status_id']);
         include_once POS_ROOT . '/content/cafeterias/cafeteriasform.php';
     endif;
 elseif ($action == 'save'):
     $name = isset($data['cafeteria_name']) ? $data['cafeteria_name'] : '';
-    $forms = array('cafeteria_id' => $query_id, 'cafeteria_name' => $name);
-    if (Helper::is_empty_string($name)):
-        /* ob_start();
-          include
-          POS_ROOT . '/content/cafeterias/cafeteriasform.php';
-          $html = ob_get_contents();
-          ob_end_clean();
-          print json_encode($html); */
-        print json_encode(array('status' => 'error', 'message' => 'Cafeteria name cant be empty'));
+    $array = array('Cafeteria Name ' => $name);
+    $message = Helper::is_list_empty($array);
+    if (!Helper::is_empty_string($message)):
+        print json_encode(array('status' => 'error', 'message' => $message));
         return;
     endif;
     $cafeteriaDataTable = $cafeteriaBusinessLayer->getCafeteriaByName($name);
@@ -57,9 +54,12 @@ elseif ($action == 'save'):
             print json_encode(array('status' => 'error', 'message' => 'Cafeteria name already exist'));
             return;
         endif;
-        $cafeteriaDataTable = $cafeteriaBusinessLayer->addCafeteria($name, $_SESSION['user_pos']);
+        $success = $cafeteriaBusinessLayer->addCafeteria($name, $_SESSION['user_pos']);
     else:
-        if (count($cafeteriaDataTable) == 0):
+        if (!is_numeric($query_id)):
+            print json_encode(array('status' => 'error', 'message' => 'Cafeteria doesn t  exist'));
+            return;
+        elseif (count($cafeteriaDataTable) == 0):
             $cafeteriaDataTable = $cafeteriaBusinessLayer->getCafeteriaByID($query_id);
             if (count($cafeteriaDataTable) == 0):
                 print json_encode(array('status' => 'error', 'message' => 'Cafeteria doesn t  exist '));
@@ -71,9 +71,9 @@ elseif ($action == 'save'):
                 return;
             endif;
         endif;
-        $cafeteriaDataTable = $cafeteriaBusinessLayer->editCafeteria($query_id, $name, $_SESSION['user_pos']);
+         $success = $cafeteriaBusinessLayer->editCafeteria($query_id, $name, $_SESSION['user_pos']);
     endif;
-    if (count($cafeteriaDataTable) > 0):
+    if ($success):
         $cafeteriaDataTable = $cafeteriaBusinessLayer->getCafeterias();
         if ($cafeteriaBusinessLayer->getSuccess()):
             $content = Helper::fill_datatable('cafeterias', $cafeteriaDataTable, array('Cafeteria Name'), array('cafeteria_name'), 'cafeteria_id');
@@ -90,8 +90,8 @@ elseif ($action == 'delete'):
             print json_encode(array('status' => 'error', 'message' => 'Cafeteria doesn t  exist '));
             return;
         endif;
-        $cafeteriaDataTable = $cafeteriaBusinessLayer->deleteCafeteria($query_id);
-        if (count($cafeteriaDataTable) > 0):
+         $success = $cafeteriaBusinessLayer->deleteCafeteria($query_id);
+        if ( $success):
             $container = Helper::set_message('Cafeteria ' . $cafeteriaDataTable [0]['cafeteria_name'] . ' delete succesfuly', 'status');
             print json_encode($container);
         else:

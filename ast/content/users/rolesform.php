@@ -18,11 +18,11 @@
     </div> <!-- /widget-header -->
 
     <div class="widget-content">
-        <div id="block" style="visibility:hidden;" class="alert alert-block">
-              <a class="close" data-dismiss="alert" href="#">&times;</a>
+        <div id="block" class="alert alert-block">
+            <a class="close" data-dismiss="alert" href="#">&times;</a>
         </div>
         <form action="#" id="roles-form" name="roles-form" class="roles-form form-horizontal"
-             method="post" accept-charset="UTF-8">    
+              method="post" accept-charset="UTF-8">    
             <fieldset>
                 <div class="control-group">
                     <label class="control-label" for="role-name">Role Name</label>
@@ -33,12 +33,19 @@ endif;
 ?>">
                     </div>
                 </div>
-
+                <div class="control-group">
+                    <label class="control-label" for="status">Status</label>
+                    <div class="controls">
+                        <?php
+                        print Helper::form_construct_drop_down('status', LookupBusinessLayer::getInstance()->getActivityStatus(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['status_id'] : '', 'status_name', 'status_id');
+                        ?> 
+                    </div>
+                </div>
                 <div class="form-actions">
                     <button type="submit" id="save-roles-<?php
-if (isset($forms)): print $forms['role_id'];
-endif;
-?>" class="save btn btn-primary btn-large">Save changes</button>
+                        if (isset($forms)): print $forms['role_id'];
+                        endif;
+                        ?>" class="save btn btn-primary btn-large">Save changes</button>
                     <button type="reset" id="cancel-roles" class="cancel btn btn-large">Cancel</button>
                 </div>
             </fieldset>
