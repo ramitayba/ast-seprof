@@ -297,7 +297,7 @@ class Helper {
                 $li.='<li>' . $pkey . ' can t be empty</li>';
             endif;
         endforeach;
-        if (self::is_empty_string($message)):
+        if (!self::is_empty_string($li)):
             $message = '<ul>' . $li . '</ul>';
         endif;
         return $message;
@@ -388,7 +388,29 @@ class Helper {
         return '';
     }
 
-    public static function fill_datatable($name, $array, $header, $fields, $id_name, $linkcontrol = '', $control = true) {
+    public static function fill_list_permission($array) {
+        $li = '';
+        $list = '<ul class="tree">';
+        $lastID;
+        foreach ($array as $row):
+            $checked = $row['is_permission'] == 1 ? 'checked' : '';
+            if (isset($lastID)&&$lastID != $row['menu_id'] && $row['menu_parent_id'] == 0):
+                $li.= '</ul></li>';
+            endif;
+            $li = '<li><input type="checkbox" name="ids[]" id="' . $row['menu_id'] . '" value="' . $row['menu_id'] . '" ' . $checked . ' ><label>' . $row['menu_name'] . '</label>';
+            if ($row['menu_parent_id'] == 0):
+                $lastID = $row['menu_id'];
+                $li.='<ul>';
+            else:
+                $li.='</li>';
+            endif;
+            $list.=$li;
+        endforeach;
+        $list.='</ul>';
+        return $list;
+    }
+
+    public static function fill_datatable($name, $array, $header, $fields, $id_name, $linkcontrol = array(), $control = true) {
         $datatable = '<script>$(function () {    var oTable = table("' . $name . '");});</script>
             <div class="widget-content" id="widget-content-' . $name . '-table">
          <span><a id="new-' . $name . '" class="new btn"  href="">Add New Record</a></span>
@@ -407,10 +429,14 @@ class Helper {
             foreach ($fields as $rowfields):
                 $tr.= '<td>' . $row[$rowfields] . '</td>';
             endforeach;
-            $tr.=$control == true ? '<td><span><a class="edit" id="edit-' . $name . '-' . $row[$id_name] . '" href="">Edit</a>
-            </span><span><a class="delete" id="delete-' . $name . '-' . $row[$id_name] . '" href="">Delete</a></span></td></tr>' : '</tr>';
-            //' isset($linkcontrol):'<span><a class="'.$linkcontrol.'" id="'.$linkcontrol.'_' . $row[$id_name] . '" href="">'.  ucfirst($linkcontrol).'</a></span>'?'' ;
-            $tbody.=$tr;
+            $tr.=$control == true ? '<td><span><a class="edit btn" id="edit-' . $name . '-' . $row[$id_name] . '" href="">Edit</a>
+            </span><span><a class="delete btn" id="delete-' . $name . '-' . $row[$id_name] . '" href="">Delete</a></span>' : '</tr>';
+            $extra = '';
+            foreach ($linkcontrol as $rowlink):
+                $extra.= '<span><a class="' . $rowlink . ' btn" id="' . $rowlink . '-' . $row[$id_name] . '" href="">' . ucfirst($rowlink) . '</a></span>';
+            endforeach;
+            $extra.='</td></tr>';
+            $tbody.=$tr . $extra;
             $i++;
         endforeach;
         $tbody.= '</tbody>';

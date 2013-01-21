@@ -96,54 +96,50 @@ class PosBusinessLayer {
             $this->_reset();
             $this->_SQLQuery = "{call addPos(?,?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_PosDataTable = DataAccessManager::getInstance()->saveData(array($pos_name, $cafeteria_id, $status_id, $user_creation));
-            if (!Helper::is_empty_array($this->_PosDataTable)) {
-                $this->_Success = true;
-            } else {
+            $this->_Success = DataAccessManager::getInstance()->saveData(array($pos_name, $cafeteria_id, $status_id, $user_creation));
+           if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-                $this->_Success = false;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
+            $this->_Success = false;
         }
-        return $this->_PosDataTable;
+        return $this->_Success;
     }
-
+    
     public function editPos($pos_id, $pos_name, $cafeteria_id, $status_id, $user_modification) {
         try {
             $this->_reset();
             $this->_SQLQuery = "{call editPos(?,?,?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_PosDataTable = DataAccessManager::getInstance()->saveData(array($pos_id, $pos_name, $cafeteria_id, $status_id, $user_modification));
-            if (!Helper::is_empty_array($this->_PosDataTable)) {
-                $this->_Success = true;
-            } else {
+            $this->_Success = DataAccessManager::getInstance()->saveData(array($pos_id, $pos_name, $cafeteria_id, $status_id, $user_modification));
+           if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-                $this->_Success = false;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
+            $this->_Success = false;
         }
-        return $this->_PosDataTable;
+        return $this->_Success;
     }
+
 
     public function deletePos($pos_id) {
         try {
             $this->_reset();
             $this->_SQLQuery = "{call DeletePos(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_PosDataTable = DataAccessManager::getInstance()->saveData(array($pos_id));
-            if (!Helper::is_empty_array($this->_PosDataTable)) {
-                $this->_Success = true;
-            } else {
+            $this->_Success = DataAccessManager::getInstance()->saveData(array($pos_id));
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-                $this->_Success = false;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
+            $this->_Success = false;
         }
-        return $this->_PosDataTable;
+        return $this->_Success;
     }
+
 
 }
 

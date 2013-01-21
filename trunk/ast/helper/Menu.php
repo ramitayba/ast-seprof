@@ -15,6 +15,7 @@ class Menu {
     private $_SubMenu;
 
     private function __construct() {
+        
     }
 
     public static function getInstance() {
@@ -31,10 +32,14 @@ class Menu {
     }
 
     public function getAccessMenu($url) {
-        if ($url == 'master' or $url == 'index' or $url == 'login' or $url =='404'):
+        if ($url == 'master' or $url == 'index' or $url == 'login' or $url == '404' or $url == 'logout'):
             return true;
         endif;
         foreach ($this->_MenuTable as $obj):
+            $split = explode($obj['menu_link'] . '/', $url)[1];
+            if ($split == 'index'):
+                return true;
+            endif;
             if ($obj['menu_link'] == $url):
                 return true;
             endif;
