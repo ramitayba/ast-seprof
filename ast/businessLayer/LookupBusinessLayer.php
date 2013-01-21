@@ -13,6 +13,7 @@ class LookupBusinessLayer {
     private $_EmployeesDataTable;
     private $_PermissionDataTable;
     private $_StatusDataTable;
+    private $_DepartmentDataTable;
     private $_Success;
     private $_SQLQuery;
     private $_Result;
@@ -55,6 +56,25 @@ class LookupBusinessLayer {
             $this->_Success=false;
         }
         return $this->_EmployeesDataTable;
+    }
+
+    public function getDepartments() {
+        try {
+            $this->_reset();
+            $this->_SQLQuery = "{call GetDepartments}";
+            DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
+            $this->_DepartmentDataTable = DataAccessManager::getInstance()->fillData();
+            if (Helper::is_empty_array($this->_DepartmentDataTable)) {
+                $this->_Success = false;
+                $this->_LastError = DataAccessManager::getInstance()->getLastError();
+            } else {
+                $this->_Success = true;
+            }
+        } catch (Exception $ex) {
+            $this->_LastError = $ex->getMessage();
+            $this->_Success = false;
+        }
+        return $this->_DepartmentDataTable;
     }
 
     public function getPermission($role_id) {
