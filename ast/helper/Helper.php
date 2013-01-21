@@ -390,14 +390,15 @@ class Helper {
 
     public static function fill_list_permission($array) {
         $li = '';
-        $list = '<ul class="tree">';
+        $list = '<script>var $checktree = $("ul.tree").checkTree();</script><ul class="tree">';
         $lastID;
         foreach ($array as $row):
             $checked = $row['is_permission'] == 1 ? 'checked' : '';
-            if (isset($lastID)&&$lastID != $row['menu_id'] && $row['menu_parent_id'] == 0):
-                $li.= '</ul></li>';
+            $li = '';
+            if (isset($lastID) && $lastID != $row['menu_parent_id']):
+                $li = '</ul></li>';
             endif;
-            $li = '<li><input type="checkbox" name="ids[]" id="' . $row['menu_id'] . '" value="' . $row['menu_id'] . '" ' . $checked . ' ><label>' . $row['menu_name'] . '</label>';
+            $li .= '<li><input type="checkbox" name="check" id="' . $row['menu_id'] . '" value="' . $row['menu_id'] . '" ' . $checked . ' ><label>' . $row['menu_name'] . '</label>';
             if ($row['menu_parent_id'] == 0):
                 $lastID = $row['menu_id'];
                 $li.='<ul>';
