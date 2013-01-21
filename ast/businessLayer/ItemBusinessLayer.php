@@ -109,12 +109,12 @@ class ItemBusinessLayer {
         return $this->_ItemsDataTable;
     }
 
-    public function editItem($Item_id, $Item_name, $category_id, $item_price, $item_photo, $item_description, $status_id, $user_modification) {
+    public function editItem($item_id, $item_name, $category_id, $item_price, $item_photo, $item_description, $status_id, $user_modification) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call EditItem(?,?,?)}";
+            $this->_SQLQuery = "{call EditItem(?,?,?,?,?,?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_ItemsDataTable = DataAccessManager::getInstance()->saveData(array($Item_id, $Item_name, $category_id, $item_price, $item_photo, $item_description, $status_id, $user_modification));
+            $this->_ItemsDataTable = DataAccessManager::getInstance()->saveData(array($item_id, $item_name, $category_id, $item_price, $item_photo, $item_description, $status_id, $user_modification));
             if (!Helper::is_empty_array($this->_ItemsDataTable)) {
                 $this->_Success = true;
             } else {
@@ -127,12 +127,12 @@ class ItemBusinessLayer {
         return $this->_ItemsDataTable;
     }
 
-    public function deleteItem($Item_id) {
+    public function deleteItem($item_id) {
         try {
             $this->_reset();
             $this->_SQLQuery = "{call DeleteItem(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_ItemsDataTable = DataAccessManager::getInstance()->saveData(array($Item_id));
+            $this->_ItemsDataTable = DataAccessManager::getInstance()->saveData(array($item_id));
             if (!Helper::is_empty_array($this->_ItemsDataTable)) {
                 $this->_Success = true;
             } else {
@@ -144,6 +144,5 @@ class ItemBusinessLayer {
         }
         return $this->_ItemsDataTable;
     }
-
 }
 
