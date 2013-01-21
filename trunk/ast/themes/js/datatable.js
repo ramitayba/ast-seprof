@@ -153,6 +153,7 @@ $(function () {
             b='';
         }
         var data =$('.'+a+'-form').serialize();
+        alert(data);
         $("#widget-content-"+a+"-table").append('<img src="/ast/themes/img/loader.gif" alt="Uploading...."/>');
         $.seprof(baseurl,{
             name:a,

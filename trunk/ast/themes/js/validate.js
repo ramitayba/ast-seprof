@@ -27,7 +27,7 @@ function enable_text(status,links)
     links.disabled=status;
 }
 
-
+/*
 $(document).ready(function(){
     var str="";
     $('.virgule').click(function() {
@@ -46,9 +46,5 @@ $(function() {
 var $checktree;
 $(function(){
     $checktree = $("ul.tree").checkTree();
-});*/
-
-function clearAll(){
-    $checktree.clear();
-    $checktree.update();
-}
+});
+*/
