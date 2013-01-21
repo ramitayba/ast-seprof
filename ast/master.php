@@ -20,12 +20,12 @@ if (isset($_GET['contentpage'])) {
 // the web root
 $root = '/ast/';
 
+if (strpos($pagename, 'form')):
+    $pagename = explode('form', $pagename)[0];
+endif;
+
 $pagename = Helper::findPage($pagename);
 include Helper::load_controller($pagename);
-        
-/* if (!Menu::getInstance()->getAccessMenu($pagename)):
-  $pagename = 'index';
-  endif; */
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
@@ -47,11 +47,14 @@ include Helper::load_controller($pagename);
     <body <?php if (isset($bodyLoad)) echo "onLoad=\"$bodyLoad\""; ?>>
 
         <?php
-        if (isset($_SESSION['user_pos']) ):
+        if (isset($_SESSION['user_pos'])):
             // Top header
             require_once("include/template/header.php");
             // navigation menu
             require_once("include/template/nav.php");
+            if (!Menu::getInstance()->getAccessMenu($pagename)):
+                $pagename = 'index';
+            endif;
             ?>
             <div id="content">
                 <div class="container">

@@ -18,19 +18,18 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTE
         endforeach;
     endif;
     if (!file_exists($controllerDirs)):
-        $controllerDirs = POS_ROOT . '/controller/mainController.php';
         return;
     endif;
-     if ($action == 'add' or $action == 'edit'):
-      ob_start();
-      include
-      $controllerDirs;
-      $html = ob_get_contents();
-      ob_end_clean();
-      print json_encode($html);
-      else: 
-    include $controllerDirs;
-endif;
+    if ($action == 'add' or $action == 'edit'):
+        ob_start();
+        include
+                $controllerDirs;
+        $html = ob_get_contents();
+        ob_end_clean();
+        print json_encode($html);
+    else:
+        include $controllerDirs;
+    endif;
 else:
     Helper::redirect();
 endif;
