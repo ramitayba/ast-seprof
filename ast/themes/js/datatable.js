@@ -57,9 +57,10 @@ $(function () {
                 error('','', k.message,a)  
             }else{
                 if ( nRow!=null ) {
+                    $(".messages").remove();
                     oTable.fnDeleteRow( nRow );
-                   $(".widget").before('<div id=messages><div class=section clearfix><div id=status class=messages><h2 class=element-invisible></h2><ul>'+k+'</ul></div></div></div>');
-            }
+                    $(".widget").before(k);
+                }
                 
             }
         },function(httpReq, status, exception,a){
@@ -69,10 +70,12 @@ $(function () {
     
     $('.new').live('click', function (e) {
         e.preventDefault();
+        var width=$('.widget-table').height();
+        var height=$('.widget-table').width();
         name=$(this).attr("id");
         array=name.split("-");
         a=array[1];
-        $("#widget-content-"+a+"-table").append('<img src="/ast/themes/img/loader.gif" alt="Uploading...."/>');
+        $("#widget-content-"+a+"-table").html('<div style="width:'+width+';height:'+height+'"><img src="/ast/themes/img/loader.gif"  style="vertical-align: middle; alt="Loading...."/></div>');
         $.seprof(baseurl,{
             name:a,
             action:'add',
@@ -83,6 +86,33 @@ $(function () {
             error(httpReq, status, exception,a)
         },"json")
     } );
+    
+    
+    $('.permissions').live('click', function (e) {
+        e.preventDefault();
+        name=$(this).attr("id");
+        array=name.split("-");
+        if(array.length>1){
+            a=array[0];
+            b=array[1];
+        }
+        else{
+            a='';
+            b='';
+        }
+        c='roles';
+        $("#widget-content-"+c+"-table").append('<img src="/ast/themes/img/loader.gif" alt="Uploading...."/>');
+        $.seprof(baseurl,{
+            name:a,
+            action:'add',
+            query:b
+        },function(k){
+            showform(k,c)
+        },function(httpReq, status, exception,c){
+            error(httpReq, status, exception,c)
+        },"json")
+    } );
+    
     
     $('.edit').live('click', function (e) {
         e.preventDefault();
@@ -168,9 +198,11 @@ function deleteRow(nRow)
 function showform(b,a)
 {
     $(".messages").remove();
+     if(b !=null){
     $(".widget-header").hide();
     $("#widget-content-"+a+"-table").replaceWith(b); 
     $("#widget-content-"+a+"-table img:last-child").remove();
+     }
 }
 
 
