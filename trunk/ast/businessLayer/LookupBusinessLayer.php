@@ -46,15 +46,13 @@ class LookupBusinessLayer {
             $this->_SQLQuery = "{call getEmployees}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_EmployeesDataTable = DataAccessManager::getInstance()->fillData();
-            if (Helper::is_empty_array($this->_EmployeesDataTable)) {
-                $this->_Success = false;
+            $this->_Success =DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-            } else {
-                $this->_Success = true;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
-            $this->_Success = false;
+            $this->_Success=false;
         }
         return $this->_EmployeesDataTable;
     }
@@ -65,14 +63,13 @@ class LookupBusinessLayer {
             $this->_SQLQuery = "{call getPermission(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_PermissionDataTable = DataAccessManager::getInstance()->fillData(array($role_id));
-            if (Helper::is_empty_array($this->_PermissionDataTable)) {
-                $this->_Success = false;
+            $this->_Success =DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-            } else {
-                $this->_Success = true;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
+            $this->_Success=false;
         }
         return $this->_PermissionDataTable;
     }
@@ -83,14 +80,13 @@ class LookupBusinessLayer {
             $this->_SQLQuery = "{call GetActivityStatus}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_StatusDataTable = DataAccessManager::getInstance()->fillData();
-            if (!Helper::is_empty_array($this->_StatusDataTable)) {
-                $this->_Success = true;
-            } else {
+            $this->_Success =DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-                $this->_Success = false;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
+            $this->_Success=false;
         }
         return $this->_StatusDataTable;
     }

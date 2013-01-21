@@ -40,11 +40,9 @@ class CafeteriaBusinessLayer {
             $this->_SQLQuery = "{call getCafeterias}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_CafeteriasDataTable = DataAccessManager::getInstance()->fillData();
-            if (Helper::is_empty_array($this->_CafeteriasDataTable)) {
-                $this->_Success = false;
+            $this->_Success = DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-            } else {
-                $this->_Success = true;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
@@ -59,11 +57,9 @@ class CafeteriaBusinessLayer {
             $this->_SQLQuery = "{call getCafeteriaByName(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_CafeteriasDataTable = DataAccessManager::getInstance()->fillData(array($name));
-            if (Helper::is_empty_array($this->_CafeteriasDataTable)) {
-                $this->_Success = false;
+            $this->_Success = DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-            } else {
-                $this->_Success = true;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
@@ -78,11 +74,9 @@ class CafeteriaBusinessLayer {
             $this->_SQLQuery = "{call getCafeteriaByID(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_CafeteriasDataTable = DataAccessManager::getInstance()->fillData(array($id));
-            if (Helper::is_empty_array($this->_CafeteriasDataTable)) {
-                $this->_Success = false;
+           $this->_Success = DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-            } else {
-                $this->_Success = true;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
