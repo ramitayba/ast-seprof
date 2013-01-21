@@ -41,13 +41,13 @@ class RoleBusinessLayer {
             $this->_SQLQuery = "{call getRoles}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_RoleDataTable = DataAccessManager::getInstance()->fillData();
-            if (Helper::is_empty_array($this->_RoleDataTable)) {
+            $this->_Success = DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-            }else {
-                $this->_Success = true;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
+            $this->_Success = false;
         }
         return $this->_RoleDataTable;
     }
@@ -58,11 +58,9 @@ class RoleBusinessLayer {
             $this->_SQLQuery = "{call getRoleByName(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_RoleDataTable = DataAccessManager::getInstance()->fillData(array($name));
-            if (Helper::is_empty_array($this->_RoleDataTable)) {
-                $this->_Success = false;
+            $this->_Success = DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-            } else {
-                $this->_Success = true;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
@@ -77,14 +75,13 @@ class RoleBusinessLayer {
             $this->_SQLQuery = "{call getRoleByID(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_RoleDataTable = DataAccessManager::getInstance()->saveData(array($role_id));
-            if (!Helper::is_empty_array($this->_RoleDataTable)) {
-                $this->_Success = true;
-            } else {
+            $this->_Success = DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-                $this->_Success = false;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
+            $this->_Success = false;
         }
         return $this->_RoleDataTable;
     }
@@ -100,7 +97,7 @@ class RoleBusinessLayer {
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
-            $this->_Success=false;
+            $this->_Success = false;
         }
         return $this->_Success;
     }
@@ -111,12 +108,12 @@ class RoleBusinessLayer {
             $this->_SQLQuery = "{call editRole(?,?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_Success = DataAccessManager::getInstance()->saveData(array($role_id, $role_name, $status_id, $user_modification));
-           if (!$this->_Success) {
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
-            $this->_Success=false;
+            $this->_Success = false;
         }
         return $this->_Success;
     }
@@ -132,7 +129,7 @@ class RoleBusinessLayer {
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
-            $this->_Success=false;
+            $this->_Success = false;
         }
         return $this->_Success;
     }
@@ -143,31 +140,29 @@ class RoleBusinessLayer {
             $this->_SQLQuery = "{call assignPermission(?,?);";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_Success = DataAccessManager::getInstance()->saveData(array($role_id, $permission));
-           if (!$this->_Success) {
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
-            $this->_Success=false;
+            $this->_Success = false;
         }
         return $this->_Success;
     }
-    
+
     public function getListMenuUnionAccess($role_id) {
         try {
             $this->_reset();
             $this->_SQLQuery = "{call getListMenuUnionAccess(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_PermissionDataTable = DataAccessManager::getInstance()->fillData(array($role_id));
-            if (Helper::is_empty_array($this->_PermissionDataTable)) {
-                $this->_Success = false;
+            $this->_Success = DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-            } else {
-                $this->_Success = true;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
-             $this->_Success = false;
+            $this->_Success = false;
         }
         return $this->_PermissionDataTable;
     }

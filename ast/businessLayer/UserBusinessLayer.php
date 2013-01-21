@@ -63,14 +63,13 @@ class UserBusinessLayer {
             $this->_SQLQuery = "{call getUsers}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_UserDataTable = DataAccessManager::getInstance()->fillData();
-            if (!Helper::is_empty_array($this->_UserDataTable)) {
-                $this->_Success = true;
-            } else {
+            $this->_Success =DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-                $this->_Success = false;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
+            $this->_Success=false;
         }
         return $this->_UserDataTable;
     }
@@ -81,15 +80,13 @@ class UserBusinessLayer {
             $this->_SQLQuery = "{call getUserByName(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_UserDataTable = DataAccessManager::getInstance()->fillData(array($name));
-            if (Helper::is_empty_array($this->_UserDataTable)) {
-                $this->_Success = false;
+            $this->_Success =DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-            } else {
-                $this->_Success = true;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
-            $this->_Success = false;
+            $this->_Success=false;
         }
         return $this->_UserDataTable;
     }
@@ -100,15 +97,13 @@ class UserBusinessLayer {
             $this->_SQLQuery = "{call getLogin(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_UserDataTable = DataAccessManager::getInstance()->fillData(array($user_name, $password));
-            if (!Helper::is_empty_array($this->_UserDataTable)) {
-                $this->_Success = true;
-            } else {
+            $this->_Success =DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-                $this->_Success = false;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
-            $this->_Success = false;
+            $this->_Success=false;
         }
         return $this->_UserDataTable;
     }
@@ -119,14 +114,13 @@ class UserBusinessLayer {
             $this->_SQLQuery = "{call getUserByID(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_UserDataTable = DataAccessManager::getInstance()->saveData(array($user_id));
-            if (!Helper::is_empty_array($this->_UserDataTable)) {
-                $this->_Success = true;
-            } else {
+            $this->_Success =DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-                $this->_Success = false;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
+            $this->_Success=false;
         }
         return $this->_UserDataTable;
     }

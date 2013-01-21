@@ -32,7 +32,7 @@ class DataAccessManager {
     private function _reset() {
         self::$_LastError = '';
         $this->_Success = false;
-         $this->_DataTable = array();
+        $this->_DataTable = array();
     }
 
     public function getLastError() {
@@ -55,6 +55,10 @@ class DataAccessManager {
         return $this->_LastID;
     }
 
+    public function getSuccess() {
+        return $this->_Success;
+    }
+
     public function getOutputParam() {
         return $this->_OutputParam;
     }
@@ -64,7 +68,7 @@ class DataAccessManager {
             $this->_reset();
             Connection::getInstance()->openConnection();
             $this->_Statment = odbc_prepare(Connection::getInstance()->getDB(), self::$_SQLQuery);
-            odbc_execute($this->_Statment, $array);
+            $this->_Success = odbc_execute($this->_Statment, $array);
             $i = 0;
             while ($row = odbc_fetch_array($this->_Statment)):
                 $this->_DataTable[$i] = $row;
@@ -73,6 +77,7 @@ class DataAccessManager {
             // $this->_DataTable = $this->_Success === true ? odbc_result_all($this->_Statment) : array();
         } catch (Exception $ex) {
             self::$_LastError = $ex->getMessage();
+            $this->_Success=false;
             $this->_DataTable = array();
         }
         Connection::getInstance()->closeConnection();
@@ -88,7 +93,7 @@ class DataAccessManager {
             //$this->_DataTable = odbc_result_all($this->_Statment);
             // $this->_DataTable = $this->_Success === true ? odbc_result_all($this->_Statment) : array();
             $this->_Statment = odbc_prepare(Connection::getInstance()->getDB(), self::$_SQLQuery);
-            $this->_Success=odbc_execute($this->_Statment, $array);
+            $this->_Success = odbc_execute($this->_Statment, $array);
         } catch (OdbcException $ex) {
             self::$_LastError = $ex->getMessage();
         }

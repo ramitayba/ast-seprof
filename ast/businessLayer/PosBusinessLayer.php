@@ -40,15 +40,13 @@ class PosBusinessLayer {
             $this->_SQLQuery = "{call getPos}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_PosDataTable = DataAccessManager::getInstance()->fillData();
-            if (Helper::is_empty_array($this->_PosDataTable)) {
-                $this->_Success = false;
+           $this->_Success =DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-            } else {
-                $this->_Success = true;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
-            $this->_Success = false;
+            $this->_Success=false;
         }
         return $this->_PosDataTable;
     }
@@ -59,15 +57,13 @@ class PosBusinessLayer {
             $this->_SQLQuery = "{call getPosByName(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_PosDataTable = DataAccessManager::getInstance()->fillData(array($name));
-            if (Helper::is_empty_array($this->_PosDataTable)) {
-                $this->_Success = false;
+            $this->_Success =DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-            } else {
-                $this->_Success = true;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
-            $this->_Success = false;
+            $this->_Success=false;
         }
         return $this->_PosDataTable;
     }
@@ -78,15 +74,13 @@ class PosBusinessLayer {
             $this->_SQLQuery = "{call getPosByID(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_PosDataTable = DataAccessManager::getInstance()->fillData(array($id));
-            if (Helper::is_empty_array($this->_PosDataTable)) {
-                $this->_Success = false;
+            $this->_Success =DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-            } else {
-                $this->_Success = true;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
-            $this->_Success = false;
+            $this->_Success=false;
         }
         return $this->_PosDataTable;
     }
