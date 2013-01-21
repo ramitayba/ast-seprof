@@ -16,7 +16,7 @@ class EventBusinessLayer {
     private $_Result;
 
     public function __construct() {
-
+        
     }
 
     private function _reset() {
@@ -37,7 +37,7 @@ class EventBusinessLayer {
     public function getEvents() {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call getEvents}";
+            $this->_SQLQuery = "{call GetEvents}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_EventsDataTable = DataAccessManager::getInstance()->fillData();
             if (Helper::is_empty_array($this->_EventsDataTable)) {
@@ -56,7 +56,7 @@ class EventBusinessLayer {
     public function getEventByName($name) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call getEventByName(?)}";
+            $this->_SQLQuery = "{call GetEventByName(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_EventsDataTable = DataAccessManager::getInstance()->fillData(array($name));
             if (Helper::is_empty_array($this->_EventsDataTable)) {
@@ -75,7 +75,7 @@ class EventBusinessLayer {
     public function getEventByID($id) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call getEventByID(?)}";
+            $this->_SQLQuery = "{call GetEventByID(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_EventsDataTable = DataAccessManager::getInstance()->fillData(array($id));
             if (Helper::is_empty_array($this->_EventsDataTable)) {
@@ -91,12 +91,12 @@ class EventBusinessLayer {
         return $this->_EventsDataTable;
     }
 
-    public function addEvent($event_name, $user_creation) {
+    public function addEvent($event_name, $event_date, $event_invitees_nb, $department_id, $employee_id, $status_id, $user_creation) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call addEvent(?,?)}";
+            $this->_SQLQuery = "{call AddEvent(?,?,?,?,?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_EventsDataTable = DataAccessManager::getInstance()->saveData(array($event_name, $user_creation));
+            $this->_EventsDataTable = DataAccessManager::getInstance()->saveData(array($event_name, $event_date, $event_invitees_nb, $department_id, $employee_id, $status_id, $user_creation));
             if (!Helper::is_empty_array($this->_EventsDataTable)) {
                 $this->_Success = true;
             } else {
@@ -109,12 +109,12 @@ class EventBusinessLayer {
         return $this->_EventsDataTable;
     }
 
-    public function editEvent($event_id, $event_name, $event_date, $event_invitees_nb, $department, $users, $user_modification) {
+    public function editEvent($event_id, $event_name, $event_date, $event_invitees_nb, $department_id, $employee_id, $status_id, $user_modification) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call editEvent(?,?,?,?,?,?,?)}";
+            $this->_SQLQuery = "{call editEvent(?,?,?,?,?,?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_EventsDataTable = DataAccessManager::getInstance()->saveData(array($event_id, $event_name, $event_date, $event_invitees_nb, $department, $users, $user_modification));
+            $this->_EventsDataTable = DataAccessManager::getInstance()->saveData(array($event_id, $event_name, $event_date, $event_invitees_nb, $department_id, $employee_id, $status_id, $user_modification));
             if (!Helper::is_empty_array($this->_EventsDataTable)) {
                 $this->_Success = true;
             } else {
@@ -130,7 +130,7 @@ class EventBusinessLayer {
     public function deleteEvent($event_id) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call deleteEvent(?)}";
+            $this->_SQLQuery = "{call DeleteEvent(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_EventsDataTable = DataAccessManager::getInstance()->saveData(array($event_id));
             if (!Helper::is_empty_array($this->_EventsDataTable)) {
