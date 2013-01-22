@@ -47,7 +47,7 @@ endif;
                 <div class="control-group">
                     <label class="control-label" for="pincode">Pincode</label>
                     <div class="controls">
-                        <input type="text" class="input-large" name="user_pin" id="pincode"
+                        <input type="text" class="input-large" name="user_pin" id="pincode" maxlength="4"
                                value="<?php if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['user_pin'];
                                endif;
 ?>">
@@ -70,6 +70,15 @@ print Helper::form_construct_drop_down('employees', LookupBusinessLayer::getInst
 ?> 
                         </div>
                     </div>
+                
+                 <div class="control-group">
+                    <label class="control-label" for="status">Status</label>
+                    <div class="controls">
+                        <?php
+                        print Helper::form_construct_drop_down('status', LookupBusinessLayer::getInstance()->getActivityStatus(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['status_id'] : '', 'status_name', 'status_id');
+                        ?> 
+                    </div>
+                </div>
                     <div class="form-actions">
                         <button type="submit" id="save-users-<?php
 if (isset($forms)): print $forms['user_id'];

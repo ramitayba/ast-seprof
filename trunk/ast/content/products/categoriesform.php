@@ -16,10 +16,10 @@
     </div> <!-- /widget-header -->
 
     <div class="widget-content">
-        <div id="block" style="visibility:hidden;" class="alert alert-block">
+        <div id="block"  class="alert alert-block">
             <a class="close" data-dismiss="alert" href="#">&times;</a>
         </div>
-        <form action="#" id="categories-form" name="categoriesform" class="categories-form form-horizontal"
+        <form action="#" id="categories-form" name="categories-form" class="categories-form form-horizontal"
               method="post" accept-charset="UTF-8">   
             <fieldset>
                 <div class="control-group">
@@ -58,10 +58,10 @@ endif;
                     <div class="controls">
                         <textarea  class="input-large" name="category_description" id="category-description"
                                    cols="45" rows="5"
-                                   value="<?php
+                                   ><?php
                                if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['category_description'];
                                endif;
-                        ?>"></textarea>
+                        ?></textarea>
                     </div>
                 </div>
                 <div class="control-group">
@@ -70,6 +70,12 @@ endif;
                         <?php
                         print Helper::form_construct_drop_down('status', LookupBusinessLayer::getInstance()->getActivityStatus(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['status_id'] : '', 'status_name', 'status_id');
                         ?> 
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="add-item">Add Item</label>
+                    <div class="controls">
+                        <input type="checkbox" name="add_item" id="add-item" value="">
                     </div>
                 </div>
                 <div class="form-actions">

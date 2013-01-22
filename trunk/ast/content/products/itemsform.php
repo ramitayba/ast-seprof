@@ -19,7 +19,7 @@
 
     <div class="widget-content">
 
-        <div id="block" style="visibility:hidden;" class="alert alert-block">
+        <div id="block"  class="alert alert-block">
             <a class="close" data-dismiss="alert" href="#">&times;</a>
         </div>
         <form action="#" id="items-form" name="items-form" class="items-form form-horizontal"
@@ -67,10 +67,10 @@ endif;
                     <label class="control-label" for="item-description">Description</label>
                     <div class="controls">
                         <textarea class="input-large" name="item_description" id="item-description"
-                                  value="<?php
+                                 ><?php
                                if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['item_description'];
                                endif;
-                        ?>" />
+                        ?> </textarea>
                     </div>
                 </div>
                 <div class="control-group">

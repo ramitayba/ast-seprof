@@ -17,7 +17,7 @@
     </div> <!-- /widget-header -->
 
     <div class="widget-content">
-        <div id="block" style="visibility:hidden;" class="alert alert-block">
+        <div id="block" class="alert alert-block">
             <a class="close" data-dismiss="alert" href="#">&times;</a>
         </div>
         <form action="#" id="events-form" name="events-form" class="events-form form-horizontal"
@@ -35,7 +35,7 @@ endif;
                 <div class="control-group">
                     <label class="control-label" for="event-date">Event Date</label>
                     <div class="controls">
-                        <input type="text" id="event_date" name="event_date" value="<?php
+                        <input type="text" id="event_date" class="datepicker" name="event_date" value="<?php
                                if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['event_date'];
                                endif;
 ?>"/>
@@ -71,7 +71,7 @@ endif;
                     <label class="control-label" for="status">Status</label>
                     <div class="controls">
                         <?php
-                        print Helper::form_construct_drop_down('status', LookupBusinessLayer::getInstance()->getActivityStatus(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['status_id'] : '', 'status_name', 'status_id');
+                        print Helper::form_construct_drop_down('status', LookupBusinessLayer::getInstance()->getEventStatus(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['status_id'] : '', 'status_name', 'status_id');
                         ?> 
                     </div>
                 </div>

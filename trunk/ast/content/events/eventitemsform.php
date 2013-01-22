@@ -17,7 +17,7 @@
     </div> <!-- /widget-header -->
 
     <div class="widget-content">
-        <div id="block" style="visibility:hidden;" class="alert alert-block">
+        <div id="block"  class="alert alert-block">
             <a class="close" data-dismiss="alert" href="#">&times;</a>
         </div>
         <form action="#" id="eventitems-form" name="eventitems-form" class="eventitems-form form-horizontal"
@@ -32,16 +32,7 @@
                         ?> 
                     </div>
                 </div>              
-                <div class="control-group">
-                    <label class="control-label" for="item-price">Item Price</label>
-                    <div class="controls">
-                        <input type="text" class="input-large" name="item_price" id="item_price" onkeypress="return isNumberKey(event)"
-                               value="<?php
-                               if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['item_price'];
-                               endif;
-                        ?>" >
-                    </div>
-                </div>
+               
                  <div class="control-group">
                     <label class="control-label" for="item-quantity">Item Quantity</label>
                     <div class="controls">
@@ -53,12 +44,16 @@
                     </div>
                 </div>
                 <div class="form-actions">
+                     <input type="hidden" name="event_id"  value="<?php
+                               if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['event_id'];
+                               endif;
+                        ?>" >
                     <button type="submit" id="save-eventitems-<?php
                         if (isset($forms)): print $forms['event_item_id'];
                         endif;
                         ?>"
                             class="save btn btn-primary btn-large">Save changes</button>
-                    <button type="reset" id="cancel-items" class="cancel btn btn-large">Cancel</button>
+                    <button type="reset" id="cancel-eventitems" class="cancel btn btn-large">Cancel</button>
                 </div>
             </fieldset>
         </form>
