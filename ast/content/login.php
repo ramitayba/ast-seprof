@@ -37,10 +37,7 @@
 
                 <div class="login-actions">
 
-                    <span class="login-checkbox">
-                        <input id="Field" name="Field" type="checkbox" class="field login-checkbox" value="First Choice" tabindex="4" />
-                        <label class="choice" for="Field">Keep me signed in</label>
-                    </span>
+                   
 
                     <button class="button btn btn-secondary btn-large">Sign In</button>
 
