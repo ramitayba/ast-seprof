@@ -64,15 +64,13 @@ class LookupBusinessLayer {
             $this->_SQLQuery = "{call GetDepartments}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_DepartmentDataTable = DataAccessManager::getInstance()->fillData();
-            if (Helper::is_empty_array($this->_DepartmentDataTable)) {
-                $this->_Success = false;
+            $this->_Success =DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-            } else {
-                $this->_Success = true;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
-            $this->_Success = false;
+            $this->_Success=false;
         }
         return $this->_DepartmentDataTable;
     }
@@ -117,14 +115,13 @@ class LookupBusinessLayer {
             $this->_SQLQuery = "{call GetEventStatus}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_StatusDataTable = DataAccessManager::getInstance()->fillData();
-            if (!Helper::is_empty_array($this->_StatusDataTable)) {
-                $this->_Success = true;
-            } else {
+           $this->_Success =DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-                $this->_Success = false;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
+            $this->_Success=false;
         }
         return $this->_StatusDataTable;
     }

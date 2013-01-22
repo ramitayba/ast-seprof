@@ -40,11 +40,9 @@ class EventItemBusinessLayer {
             $this->_SQLQuery = "{call GetEventItems}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_EventItemsDataTable = DataAccessManager::getInstance()->fillData();
-            if (Helper::is_empty_array($this->_EventItemsDataTable)) {
-                $this->_Success = false;
+            $this->_Success = DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-            } else {
-                $this->_Success = true;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
@@ -59,11 +57,9 @@ class EventItemBusinessLayer {
             $this->_SQLQuery = "{call GetEventItemsByEventID(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_EventItemsDataTable = DataAccessManager::getInstance()->fillData(array($eventid));
-            if (Helper::is_empty_array($this->_EventItemsDataTable)) {
-                $this->_Success = false;
+            $this->_Success = DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-            } else {
-                $this->_Success = true;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
@@ -72,17 +68,15 @@ class EventItemBusinessLayer {
         return $this->_EventItemsDataTable;
     }
 
-    public function getEventItemByItemID($event_id,$itemid) {
+    public function getEventItemByItemID($event_id, $itemid) {
         try {
             $this->_reset();
             $this->_SQLQuery = "{call GetEventItemByItemID(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_EventItemsDataTable = DataAccessManager::getInstance()->fillData(array($eventid));
-            if (Helper::is_empty_array($this->_EventItemsDataTable)) {
-                $this->_Success = false;
+            $this->_EventItemsDataTable = DataAccessManager::getInstance()->fillData(array($eventid,$itemid));
+            $this->_Success = DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-            } else {
-                $this->_Success = true;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
@@ -97,11 +91,9 @@ class EventItemBusinessLayer {
             $this->_SQLQuery = "{call GetEventItemByID(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_EventItemsDataTable = DataAccessManager::getInstance()->fillData(array($id));
-            if (Helper::is_empty_array($this->_EventItemsDataTable)) {
-                $this->_Success = false;
+            $this->_Success = DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-            } else {
-                $this->_Success = true;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
@@ -110,40 +102,36 @@ class EventItemBusinessLayer {
         return $this->_EventItemsDataTable;
     }
 
-    public function addEventItem($event_id, $item_id, $item_price, $item_quantity, $user_creation) {
+    public function addEventItem($event_id, $item_id, $item_quantity, $user_creation) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call AddEventItem(?,?,?,?,?)}";
+            $this->_SQLQuery = "{call AddEventItem(?,?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_EventItemsDataTable = DataAccessManager::getInstance()->saveData(array($event_id, $item_id, $item_price, $item_quantity, $user_creation));
-            if (!Helper::is_empty_array($this->_EventItemsDataTable)) {
-                $this->_Success = true;
-            } else {
+            $this->_Success = DataAccessManager::getInstance()->saveData(array($event_id, $item_id, $item_quantity, $user_creation));
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-                $this->_Success = false;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
+            $this->_Success = false;
         }
-        return $this->_EventItemsDataTable;
+        return $this->_Success;
     }
 
-    public function editEventItem($event_item_id, $event_id, $item_id, $item_price, $item_quantity, $user_modification) {
+    public function editEventItem($event_item_id, $event_id, $item_id, $item_quantity, $user_modification) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call editEventItem(?,?,?,?,?,?)}";
+            $this->_SQLQuery = "{call EditEventItem(?,?,?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_EventItemsDataTable = DataAccessManager::getInstance()->saveData(array($event_item_id, $event_id, $item_id, $item_price, $item_quantity, $user_modification));
-            if (!Helper::is_empty_array($this->_EventItemsDataTable)) {
-                $this->_Success = true;
-            } else {
+            $this->_Success = DataAccessManager::getInstance()->saveData(array($event_item_id, $event_id, $item_id, $item_quantity, $user_modification));
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-                $this->_Success = false;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
+            $this->_Success = false;
         }
-        return $this->_EventItemsDataTable;
+        return $this->_Success;
     }
 
     public function deleteEventItem($event_item_id) {
@@ -151,17 +139,15 @@ class EventItemBusinessLayer {
             $this->_reset();
             $this->_SQLQuery = "{call DeleteEventItem(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_EventItemsDataTable = DataAccessManager::getInstance()->saveData(array($event_item_id));
-            if (!Helper::is_empty_array($this->_EventItemsDataTable)) {
-                $this->_Success = true;
-            } else {
+            $this->_Success = DataAccessManager::getInstance()->saveData(array($event_item_id));
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-                $this->_Success = false;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
+            $this->_Success = false;
         }
-        return $this->_EventItemsDataTable;
+        return $this->_Success;
     }
 
 }

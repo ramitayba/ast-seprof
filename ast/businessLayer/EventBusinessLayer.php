@@ -40,11 +40,9 @@ class EventBusinessLayer {
             $this->_SQLQuery = "{call GetEvents}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_EventsDataTable = DataAccessManager::getInstance()->fillData();
-            if (Helper::is_empty_array($this->_EventsDataTable)) {
-                $this->_Success = false;
+            $this->_Success = DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-            } else {
-                $this->_Success = true;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
@@ -59,11 +57,9 @@ class EventBusinessLayer {
             $this->_SQLQuery = "{call GetEventByName(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_EventsDataTable = DataAccessManager::getInstance()->fillData(array($name));
-            if (Helper::is_empty_array($this->_EventsDataTable)) {
-                $this->_Success = false;
+           $this->_Success = DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-            } else {
-                $this->_Success = true;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
@@ -78,11 +74,9 @@ class EventBusinessLayer {
             $this->_SQLQuery = "{call GetEventByID(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_EventsDataTable = DataAccessManager::getInstance()->fillData(array($id));
-            if (Helper::is_empty_array($this->_EventsDataTable)) {
-                $this->_Success = false;
+           $this->_Success = DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-            } else {
-                $this->_Success = true;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
@@ -96,17 +90,15 @@ class EventBusinessLayer {
             $this->_reset();
             $this->_SQLQuery = "{call AddEvent(?,?,?,?,?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_EventsDataTable = DataAccessManager::getInstance()->saveData(array($event_name, $event_date, $event_invitees_nb, $department_id, $employee_id, $status_id, $user_creation));
-            if (!Helper::is_empty_array($this->_EventsDataTable)) {
-                $this->_Success = true;
-            } else {
+            $this->_Success = DataAccessManager::getInstance()->saveData(array($event_name, $event_date, $event_invitees_nb, $department_id, $employee_id, $status_id, $user_creation));
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-                $this->_Success = false;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
+            $this->_Success = false;
         }
-        return $this->_EventsDataTable;
+        return $this->_Success;
     }
 
     public function editEvent($event_id, $event_name, $event_date, $event_invitees_nb, $department_id, $employee_id, $status_id, $user_modification) {
@@ -114,17 +106,15 @@ class EventBusinessLayer {
             $this->_reset();
             $this->_SQLQuery = "{call editEvent(?,?,?,?,?,?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_EventsDataTable = DataAccessManager::getInstance()->saveData(array($event_id, $event_name, $event_date, $event_invitees_nb, $department_id, $employee_id, $status_id, $user_modification));
-            if (!Helper::is_empty_array($this->_EventsDataTable)) {
-                $this->_Success = true;
-            } else {
+            $this->_Success = DataAccessManager::getInstance()->saveData(array($event_id, $event_name, $event_date, $event_invitees_nb, $department_id, $employee_id, $status_id, $user_modification));
+           if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-                $this->_Success = false;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
+            $this->_Success = false;
         }
-        return $this->_EventsDataTable;
+        return $this->_Success;
     }
 
     public function deleteEvent($event_id) {
@@ -132,17 +122,15 @@ class EventBusinessLayer {
             $this->_reset();
             $this->_SQLQuery = "{call DeleteEvent(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_EventsDataTable = DataAccessManager::getInstance()->saveData(array($event_id));
-            if (!Helper::is_empty_array($this->_EventsDataTable)) {
-                $this->_Success = true;
-            } else {
+            $this->_Success = DataAccessManager::getInstance()->saveData(array($event_id));
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-                $this->_Success = false;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
+            $this->_Success = false;
         }
-        return $this->_EventsDataTable;
+        return $this->_Success;
     }
 
 }

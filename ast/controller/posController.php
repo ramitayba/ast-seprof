@@ -33,6 +33,10 @@ elseif ($action == 'add'):
 elseif ($action == 'edit'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
         $posDataTable = $posBusinessLayer->getPosByID($query_id);
+        if (count($posDataTable) == 0):
+            print json_encode(array('status' => 'error', 'message' => 'Item doesn t  exist '));
+            return;
+        endif;
         $forms = array('pos_id' => $posDataTable [0]['pos_id'], 'pos_key' => $posDataTable [0]['pos_key'], 'cafeteria_id' => $posDataTable [0]['cafeteria_id'], 'status_id' => $posDataTable [0]['status_id']);
         include_once POS_ROOT . '/content/cafeterias/posform.php';
     endif;

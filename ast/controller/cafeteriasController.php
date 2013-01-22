@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This is the Menu
+ * This is the Cafeterias 
  * Designed and Developed by SEProf Team
  * Copyright (c) 2013 SEProf Inc.
  * http://seprof.com/
@@ -84,7 +84,7 @@ elseif ($action == 'save'):
         print json_encode(array('status' => 'error', 'message' => 'Cafeteria not saved '));
     endif;
 elseif ($action == 'delete'):
-    if (!Helper::is_empty_string($query_id)):
+    if (!Helper::is_empty_string($query_id)&& is_numeric($query_id)):
         $cafeteriaDataTable = $cafeteriaBusinessLayer->getCafeteriaByID($query_id);
         if (count($cafeteriaDataTable) == 0):
             print json_encode(array('status' => 'error', 'message' => 'Cafeteria doesn t  exist '));

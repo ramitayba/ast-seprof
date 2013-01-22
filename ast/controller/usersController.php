@@ -51,9 +51,13 @@ elseif ($action == 'add'):
 elseif ($action == 'edit'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
         $userDataTable = $userBusinessLayer->getUserByID($query_id);
-        $forms = array('user_name' => $userDataTable [0]['user_name'], 'user_password' => $userDataTable [0]['user_password'],
-            'user_pin' => $userDataTable [0]['user_pin'], 'role_id' => $userDataTable [0]['role_id'], 'employee_id' => $userDataTable [0]['empoyee_id'],
-            'status' => $userDataTable [0]['status_id']);
+        if (count($userDataTable) == 0):
+            print json_encode(array('status' => 'error', 'message' => 'User doesn t  exist '));
+            return;
+        endif;
+        $forms = array('user_id' =>$query_id ,'user_name' => $userDataTable [0]['user_name'], 'user_password' => $userDataTable [0]['user_password'],
+            'user_pin' => $userDataTable [0]['user_pin'], 'role_id' => $userDataTable [0]['role_id'], 'employee_id' => $userDataTable [0]['employee_id'],
+            'status_id' => $userDataTable [0]['status_id']);
         include_once POS_ROOT . '/content/users/usersform.php';
     endif;
 elseif ($action == 'save'):
@@ -64,7 +68,7 @@ elseif ($action == 'save'):
     $employee = isset($data['employees']) ? $data['employees'] : '';
     $status = isset($data['status']) ? $data['status'] : '';
     $array = array('User Name ' => $name, 'Password' => $password,
-        'Pin Code' => $pin, 'Role' => $role, 'Employee' => $employee, 'Status' => $employee);
+        'Pin Code' => $pin, 'Role' => $role, 'Employee' => $employee, 'Status' => $status);
     $message = Helper::is_list_empty($array);
     if (!Helper::is_empty_string($message)):
         print json_encode(array('status' => 'error', 'message' => $message));
@@ -95,9 +99,9 @@ elseif ($action == 'save'):
         endif;
         $success = $userBusinessLayer->editUser($query_id, $name, $password, $pin, $role, $employee, $status);
     endif;
-    if (count($userDataTable) > 0):
+    if ($success):
         $userDataTable = $userBusinessLayer->getUsers();
-        if ($userDataTable->getSuccess()):
+        if ($userBusinessLayer->getSuccess()):
             $content = Helper::fill_datatable('users', $userDataTable, array('User Name', 'Password', 'Pin Code', 'Role Name', 'Employee Name'), array('user_name', 'user_password', 'user_pin', 'role_name', 'employee_name'), 'user_id');
         endif;
         $container = Helper::set_message('User saved succesfuly', 'status') . $content;
@@ -105,7 +109,8 @@ elseif ($action == 'save'):
     else:
         print json_encode(array('status' => 'error', 'message' => 'User not saved '));
     endif;
-    if (!Helper::is_empty_string($query_id)):
+elseif ($action == 'delete'):
+    if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
         $userDataTable = $userBusinessLayer->getUserByID($query_id);
         if (count($userDataTable) == 0):
             print json_encode(array('status' => 'error', 'message' => 'User  doesn t  exist '));
