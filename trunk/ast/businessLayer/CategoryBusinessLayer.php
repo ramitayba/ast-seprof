@@ -33,6 +33,10 @@ class CategoryBusinessLayer {
     public function getLastError() {
         return $this->_LastError;
     }
+    
+     public function getCategoriesDataTable() {
+        return $this->_CategoriesDataTable;
+    }
 
     public function getCategories() {
         try {
@@ -40,11 +44,9 @@ class CategoryBusinessLayer {
             $this->_SQLQuery = "{call getCategories}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_CategoriesDataTable = DataAccessManager::getInstance()->fillData();
-            if (Helper::is_empty_array($this->_CategoriesDataTable)) {
-                $this->_Success = false;
+            $this->_Success = DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-            } else {
-                $this->_Success = true;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
@@ -59,11 +61,9 @@ class CategoryBusinessLayer {
             $this->_SQLQuery = "{call getCategoryByName(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_CategoriesDataTable = DataAccessManager::getInstance()->fillData(array($name));
-            if (Helper::is_empty_array($this->_CategoriesDataTable)) {
-                $this->_Success = false;
+            $this->_Success = DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-            } else {
-                $this->_Success = true;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
@@ -78,11 +78,9 @@ class CategoryBusinessLayer {
             $this->_SQLQuery = "{call getCategoryByID(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_CategoriesDataTable = DataAccessManager::getInstance()->fillData(array($id));
-            if (Helper::is_empty_array($this->_CategoriesDataTable)) {
-                $this->_Success = false;
+            $this->_Success = DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-            } else {
-                $this->_Success = true;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
@@ -96,17 +94,16 @@ class CategoryBusinessLayer {
             $this->_reset();
             $this->_SQLQuery = "{call addCategory(?,?,?,?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_CategoriesDataTable = DataAccessManager::getInstance()->saveData(array($category_name, $category_parent_id, $color_code, $category_description, $status_id, $user_creation));
-            if (!Helper::is_empty_array($this->_CategoriesDataTable)) {
-                $this->_Success = true;
-            } else {
+            $this->_Success = DataAccessManager::getInstance()->saveDataWithRetun(array($category_name, $category_parent_id, $color_code, $category_description, $status_id, $user_creation));
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-                $this->_Success = false;
             }
+            $this->_CategoriesDataTable=DataAccessManager::getInstance()->getDataTable();
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
+            $this->_Success = false;
         }
-        return $this->_CategoriesDataTable;
+        return $this->_Success;
     }
 
     public function editCategory($category_id, $category_name, $category_parent_id, $color_code, $category_description, $status_id, $user_modification) {
@@ -114,17 +111,16 @@ class CategoryBusinessLayer {
             $this->_reset();
             $this->_SQLQuery = "{call EditCategory(?,?,?,?,?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_CategoriesDataTable = DataAccessManager::getInstance()->saveData(array($category_id, $category_name, $category_parent_id, $color_code, $category_description, $status_id, $user_modification));
-            if (!Helper::is_empty_array($this->_CategoriesDataTable)) {
-                $this->_Success = true;
-            } else {
+            $this->_Success = DataAccessManager::getInstance()->saveDataWithRetun(array($category_id, $category_name, $category_parent_id, $color_code, $category_description, $status_id, $user_modification));
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-                $this->_Success = false;
             }
+             $this->_CategoriesDataTable=DataAccessManager::getInstance()->getDataTable();
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
+            $this->_Success = false;
         }
-        return $this->_CategoriesDataTable;
+        return $this->_Success;
     }
 
     public function deleteCategory($category_id) {
@@ -132,17 +128,15 @@ class CategoryBusinessLayer {
             $this->_reset();
             $this->_SQLQuery = "{call DeleteCategory(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_CategoriesDataTable = DataAccessManager::getInstance()->saveData(array($category_id));
-            if (!Helper::is_empty_array($this->_CategoriesDataTable)) {
-                $this->_Success = true;
-            } else {
+            $this->_Success = DataAccessManager::getInstance()->saveData(array($category_id));
+            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
-                $this->_Success = false;
             }
         } catch (Exception $ex) {
             $this->_LastError = $ex->getMessage();
+            $this->_Success = false;
         }
-        return $this->_CategoriesDataTable;
+        return $this->_Success;
     }
 
 }

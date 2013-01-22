@@ -8,14 +8,14 @@
  *
  */
 include_once POS_ROOT . '/businessLayer/EventBusinessLayer.php';
+unset($_SESSION['event_id']);
 $eventBusinessLayer = new EventBusinessLayer();
 
 if ($action == 'index' || $action == 'events'):
     $eventDataTable = $eventBusinessLayer->getEvents();
     if ($eventBusinessLayer->getSuccess()):
         $content = Helper::fill_datatable('events', $eventDataTable, array('Event Name', 'Event Date', 'Event invitees Number', 'Department Name', 'Employee Name', 'Status'), array('event_name', 'event_date', 'event_invitees_nb', 'department_name', 'employee_name', 'status_name'), 'event_id', array('items'));
-        //print_r($content);
-    if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') :
+        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') :
             print json_encode($content);
             return;
         endif;
@@ -31,7 +31,7 @@ if ($action == 'index' || $action == 'events'):
 elseif ($action == 'add'):
     include_once POS_ROOT . '/content/events/eventsform.php';
 elseif ($action == 'edit'):
-    if (!Helper::is_empty_string($query_id)):
+    if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
         $eventDataTable = $eventBusinessLayer->getEventByID($query_id);
         if (count($eventDataTable) == 0):
             print json_encode(array('status' => 'error', 'message' => 'Event doesn t  exist '));
@@ -53,33 +53,27 @@ elseif ($action == 'save'):
     $department_id = isset($data['department']) ? $data['department'] : '';
     $employee_id = isset($data['employee']) ? $data['employee'] : '';
     $status = isset($data['status']) ? $data['status'] : '';
-    $forms = array('event_id' => $query_id, 'event_name' => $name,
-        'event_date' => $event_date, 'event_invitees_nb' => $event_invitees_nb,
-        'department_id' => $department_id, 'employee_id' => $employee_id, 'status_id' => $status);
-    $array = array('Evnent Name' => $name, 'Event Date' => $event_date,
+    $array = array('Event Name' => $name, 'Event Date' => $event_date,
         'Invitess Number' => $event_invitees_nb, 'Department' => $department_id,
         'Employee Name' => $employee_id, 'Status' => $status);
     $message = Helper::is_list_empty($array);
-    //print_r($forms);die();
     if (!Helper::is_empty_string($message)):
-        /* ob_start();
-          include
-          POS_ROOT . '/content/Items/Itemsform.php';
-          $html = ob_get_contents();
-          ob_end_clean();
-          print json_encode($html); */
         print json_encode(array('status' => 'error', 'message' => $message));
         return;
     endif;
+    $date = DateTime::createFromFormat('m-d-y',$event_date);
     $eventDataTable = $eventBusinessLayer->getEventByName($name);
     if (Helper::is_empty_string($query_id)):
         if (count($eventDataTable) > 0):
             print json_encode(array('status' => 'error', 'message' => 'Event name already exist'));
             return;
         endif;
-        $eventDataTable = $eventBusinessLayer->addEvent($name, $event_date, $event_invitees_nb, $department_id, $employee_id, $status, $_SESSION['user_pos']);
+        $success = $eventBusinessLayer->addEvent($name, $date, $event_invitees_nb, $department_id, $employee_id, $status, $_SESSION['user_pos']);
     else:
-        if (count($eventDataTable) == 0):
+        if (!is_numeric($query_id)):
+            print json_encode(array('status' => 'error', 'message' => 'Event doesn t  exist'));
+            return;
+        elseif (count($eventDataTable) == 0):
             $eventDataTable = $eventBusinessLayer->getEventByID($query_id);
             if (count($eventDataTable) == 0):
                 print json_encode(array('status' => 'error', 'message' => 'Event doesn t  exist '));
@@ -91,9 +85,9 @@ elseif ($action == 'save'):
                 return;
             endif;
         endif;
-        $eventDataTable = $eventBusinessLayer->editEvent($query_id, $name, $event_date, $event_invitees_nb, $department_id, $employee_id, $status, $_SESSION['user_pos']);
+        $success = $eventBusinessLayer->editEvent($query_id, $name, $event_date, $event_invitees_nb, $department_id, $employee_id, $status, $_SESSION['user_pos']);
     endif;
-    if (count($eventDataTable) > 0):
+    if ($success):
         $eventDataTable = $eventBusinessLayer->getEvents();
         if ($eventBusinessLayer->getSuccess()):
             $content = Helper::fill_datatable('events', $eventDataTable, array('Event Name', 'Event Date', 'Event invitees Number', 'Department Name', 'Employee Name', 'Status'), array('event_name', 'event_date', 'event_invitees_nb', 'department_name', 'employee_name', 'status_name'), 'event_id', array('items'));
@@ -104,14 +98,14 @@ elseif ($action == 'save'):
         print json_encode(array('status' => 'error', 'message' => 'Event not saved '));
     endif;
 elseif ($action == 'delete'):
-    if (!Helper::is_empty_string($query_id)):
+    if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
         $eventDataTable = $eventBusinessLayer->getEventByID($query_id);
         if (count($eventDataTable) == 0):
             print json_encode(array('status' => 'error', 'message' => 'Event doesn t  exist '));
             return;
         endif;
-        $eventDataTable = $eventBusinessLayer->deleteEvent($query_id);
-        if (count($eventDataTable) > 0):
+        $success = $eventBusinessLayer->deleteEvent($query_id);
+        if ($success):
             $container = Helper::set_message('Event ' . $eventDataTable [0]['event_name'] . ' delete succesfuly', 'status');
             print json_encode($container);
         else:

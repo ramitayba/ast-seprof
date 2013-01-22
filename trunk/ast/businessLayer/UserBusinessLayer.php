@@ -113,7 +113,7 @@ class UserBusinessLayer {
             $this->_reset();
             $this->_SQLQuery = "{call getUserByID(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_UserDataTable = DataAccessManager::getInstance()->saveData(array($user_id));
+            $this->_UserDataTable = DataAccessManager::getInstance()->fillData(array($user_id));
             $this->_Success =DataAccessManager::getInstance()->getSuccess();
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();

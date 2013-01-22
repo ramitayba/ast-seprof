@@ -35,7 +35,7 @@ elseif ($action == 'edit'):
             print json_encode(array('status' => 'error', 'message' => 'Role doesn t  exist '));
             return;
         endif;
-        $forms = array('role_id' => $roleDataTable [0]['role_id'],
+        $forms = array('role_id' => $query_id,
             'role_name' => $roleDataTable [0]['role_name'],
             'status_id' => $roleDataTable [0]['status_id']);
         include_once POS_ROOT . '/content/users/rolesform.php';

@@ -412,7 +412,8 @@ class Helper {
     }
 
     public static function fill_datatable($name, $array, $header, $fields, $id_name, $linkcontrol = array(), $control = true) {
-        $datatable = '<script>$(function () {    var oTable = table("' . $name . '");});</script>
+        $datatable = '<div id="widget-table"> <div class="widget-header"><h3><i class="icon-th-list"></i>'
+                . ucfirst($name) . '</h3></div><script>$(function () {    var oTable = table("' . $name . '");});</script>
             <div class="widget-content" id="widget-content-' . $name . '-table">
          <span><a id="new-' . $name . '" class="new btn"  href="">Add New Record</a></span>
             <table class="table table-striped table-bordered table-highlight" id="' . $name . '-table">';
@@ -441,7 +442,7 @@ class Helper {
             $i++;
         endforeach;
         $tbody.= '</tbody>';
-        $datatable.= $thead . $tbody . '</table>';
+        $datatable.= $thead . $tbody . '</table></div>';
         return $datatable;
     }
 

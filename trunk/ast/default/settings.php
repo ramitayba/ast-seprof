@@ -13,7 +13,7 @@ $databases = array (
       'database' => 'pos_back',
       'username' => '',
       'password' => '',
-      'host' => 'ALISKAF-PC',
+      'host' => '.\SQLEXPRESS',
       'port' => '',
       'driver' => '',
       'prefix' => '',
@@ -27,7 +27,7 @@ $routes=array(
     'itemsController'=>array('products/items'),
     'posController'=>array('cafeterias/pos'),
     'cafeteriasController'=>array('cafeterias/index'),
-    'eventController'=>array('event/index')
+    'eventsController'=>array('events/index')
 );
 
 $actions=array('add','edit','delete');

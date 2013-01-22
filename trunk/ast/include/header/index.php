@@ -20,7 +20,7 @@
 <script src="<?php echo $root; ?>themes/js/Slate.js"></script>
 <script src="<?php echo $root; ?>themes/js/plugins/excanvas/excanvas.min.js"></script>
 <script src="<?php echo $root; ?>themes/js/plugins/validate/jquery.validate.js"></script>
-<script src="<?php echo $root; ?>themes/js/validate.js"></script>
+
 <!-- Javascript -->
 <script src="<?php echo $root; ?>themes/js/plugins/datatables/jquery.dataTables.js"></script>
 <script src="<?php echo $root; ?>themes/js/plugins/datatables/DT_bootstrap.js"></script>
@@ -28,6 +28,7 @@
 
 <!-- DatePicker -->
 <script src="<?php echo $root; ?>themes/js/jquery-ui.js"></script>
+<script src="<?php echo $root; ?>themes/js/validate.js"></script>
 
 <!-- Tree View -->
 <link type="text/css" rel="stylesheet" href="<?php echo $root; ?>themes/css/jquery.checktree.css" />

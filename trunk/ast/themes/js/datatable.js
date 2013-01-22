@@ -113,6 +113,30 @@ $(function () {
         },"json")
     } );
     
+    $('.items').live('click', function (e) {
+        e.preventDefault();
+        name=$(this).attr("id");
+        array=name.split("-");
+        if(array.length>1){
+            a=array[0];
+            b=array[1];
+        }
+        else{
+            a='';
+            b='';
+        }
+        c='events';
+        $("#widget-content-"+c+"-table").append('<img src="/ast/themes/img/loader.gif" alt="Uploading...."/>');
+        $.seprof(baseurl,{
+            name:'eventItems',
+            action:'index',
+            query:b
+        },function(k){
+            showform(k,c)
+        },function(httpReq, status, exception,c){
+            error(httpReq, status, exception,c)
+        },"json")
+    } );
     
     $('.edit').live('click', function (e) {
         e.preventDefault();
@@ -204,8 +228,7 @@ function showform(b,a)
 {
     $(".messages").remove();
      if(b !=null){
-    $(".widget-header").hide();
-    $("#widget-content-"+a+"-table").replaceWith(b); 
+    $("#widget-table").replaceWith(b); 
     $("#widget-content-"+a+"-table img:last-child").remove();
      }
 }
@@ -216,7 +239,6 @@ function showTable(b,a)
     $(".messages").remove();
     if(b !=null){
         $(".widget-form").replaceWith(b); 
-        $(".widget-header").show();
         $("#widget-"+a+"-form img:last-child").remove();
     }
 }

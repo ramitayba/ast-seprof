@@ -137,7 +137,7 @@ class RoleBusinessLayer {
     public function assignPermission($role_id, $permission) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call AssignPermission(?,?);";
+            $this->_SQLQuery = "{call AssignPermission(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_Success = DataAccessManager::getInstance()->saveData(array($role_id, $permission));
             if (!$this->_Success) {

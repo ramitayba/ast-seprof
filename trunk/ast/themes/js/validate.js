@@ -38,10 +38,10 @@ $(document).ready(function(){
         str="";
     });
 });
-/*
+*/
 $(function() {
-    $( "#datepicker" ).datepicker();
-});*/
+    $( ".datepicker" ).datepicker();
+});
 /*
 var $checktree;
 $(function(){
