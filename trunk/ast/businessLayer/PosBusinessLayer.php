@@ -85,6 +85,23 @@ class PosBusinessLayer {
         return $this->_PosDataTable;
     }
 
+    public function getPosByCafeteriaID($id) {
+        try {
+            $this->_reset();
+            $this->_SQLQuery = "{call getPosByCafeteriaID(?)}";
+            DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
+            $this->_PosDataTable = DataAccessManager::getInstance()->fillData(array($id));
+            $this->_Success =DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
+                $this->_LastError = DataAccessManager::getInstance()->getLastError();
+            }
+        } catch (Exception $ex) {
+            $this->_LastError = $ex->getMessage();
+            $this->_Success=false;
+        }
+        return $this->_PosDataTable;
+    }
+    
     public function addPos($pos_name, $cafeteria_id, $status_id, $user_creation) {
         try {
             $this->_reset();

@@ -36,7 +36,8 @@ class Menu {
             return true;
         endif;
         foreach ($this->_MenuTable as $obj):
-            $split = explode($obj['menu_link'] . '/', $url)[1];
+            $split = explode($obj['menu_link'] . '/', $url);
+            $split = $split[1];
             if ($split == 'index'):
                 return true;
             endif;
