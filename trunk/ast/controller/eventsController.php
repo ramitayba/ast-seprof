@@ -14,7 +14,9 @@ $eventBusinessLayer = new EventBusinessLayer();
 if ($action == 'index' || $action == 'events'):
     $eventDataTable = $eventBusinessLayer->getEvents();
     if ($eventBusinessLayer->getSuccess()):
-        $content = Helper::fill_datatable('events', $eventDataTable, array('Event Name', 'Event Date', 'Event invitees Number', 'Department Name', 'Employee Name', 'Status'), array('event_name', 'event_date', 'event_invitees_nb', 'department_name', 'employee_name', 'status_name'), 'event_id', array('items'));
+        $content = Helper::fill_datatable('events', $eventDataTable, array('Event Name', 'Event Date', 'Event invitees Number', 'Department Name', 'Employee Name', 'Status'), array('event_name', 'event_date', 'event_invitees_nb', 'department_name', 'employee_name', 'status_name'), 'event_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
+                    1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete'),
+                    2 => array('name' => 'Items', 'link' => 'items-', 'class' => 'items')));
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') :
             print json_encode($content);
             return;
@@ -61,7 +63,7 @@ elseif ($action == 'save'):
         print json_encode(array('status' => 'error', 'message' => $message));
         return;
     endif;
-    $date = DateTime::createFromFormat('m-d-y',$event_date);
+    $date = DateTime::createFromFormat('m-d-y', $event_date);
     $eventDataTable = $eventBusinessLayer->getEventByName($name);
     if (Helper::is_empty_string($query_id)):
         if (count($eventDataTable) > 0):
@@ -90,7 +92,9 @@ elseif ($action == 'save'):
     if ($success):
         $eventDataTable = $eventBusinessLayer->getEvents();
         if ($eventBusinessLayer->getSuccess()):
-            $content = Helper::fill_datatable('events', $eventDataTable, array('Event Name', 'Event Date', 'Event invitees Number', 'Department Name', 'Employee Name', 'Status'), array('event_name', 'event_date', 'event_invitees_nb', 'department_name', 'employee_name', 'status_name'), 'event_id', array('items'));
+            $content = Helper::fill_datatable('events', $eventDataTable, array('Event Name', 'Event Date', 'Event invitees Number', 'Department Name', 'Employee Name', 'Status'), array('event_name', 'event_date', 'event_invitees_nb', 'department_name', 'employee_name', 'status_name'), 'event_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
+                        1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete'),
+                        2 => array('name' => 'Items', 'link' => 'items-', 'class' => 'items')));
         endif;
         $container = Helper::set_message('Event saved succesfuly', 'status') . $content;
         print json_encode($container);
