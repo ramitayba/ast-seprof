@@ -16,4 +16,11 @@ $data=array();
 $forms;
 $sequence;
 
+define('ACTIVE', 1);
+define('DESACTIVE', 2);
+define('UNDER_PROCESSING', 3);
+define('REJECTED', 4);
+define('APPROVED', 5);
+
+
 

@@ -117,12 +117,12 @@ class EventBusinessLayer {
         return $this->_Success;
     }
 
-    public function deleteEvent($event_id) {
+    public function deleteEvent($event_id,$status) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call DeleteEvent(?)}";
+            $this->_SQLQuery = "{call DeleteEvent(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_Success = DataAccessManager::getInstance()->saveData(array($event_id));
+            $this->_Success = DataAccessManager::getInstance()->saveData(array($event_id,$status));
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
             }

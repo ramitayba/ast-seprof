@@ -23,7 +23,7 @@
         <form action="#" id="events-form" name="events-form" class="events-form form-horizontal"
               method="post" accept-charset="UTF-8">
             <fieldset>               
-                <div class="control-group">
+                <div class="control-group control-min-group">
                     <label class="control-label" for="event-name">Event Name</label>
                     <div class="controls">
                         <input type="text" class="input-large" name="event_name" id="event_name" value="<?php
@@ -32,7 +32,7 @@ endif;
 ?>">                   
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="control-group control-min-group">
                     <label class="control-label" for="event-date">Event Date</label>
                     <div class="controls">
                         <input type="text" id="event_date" class="datepicker" name="event_date" value="<?php
@@ -41,7 +41,7 @@ endif;
 ?>"/>
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="control-group control-min-group">
                     <label class="control-label" for="invitees-nb">Invitees Number</label>
                     <div class="controls">
                         <input type="text" class="input-large" name="event_invitees_nb" id="event_invitees_nb" onkeypress="return isNumberKey(event)"
@@ -51,7 +51,7 @@ endif;
 ?>" >
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="control-group control-min-group">
                     <label class="control-label" for="department">Department</label>
                     <div class="controls">
                         <?php
@@ -59,22 +59,43 @@ endif;
                         ?> 
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="control-group control-min-group">
                     <label class="control-label" for="employee">Employee</label>
                     <div class="controls">
                         <?php
                         print Helper::form_construct_drop_down('employee', LookupBusinessLayer::getInstance()->getEmployees(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['employee_id'] : '', 'employee_name', 'employee_id');
                         ?> 
                     </div>
-                </div>
+                </div>            
                 <div class="control-group">
-                    <label class="control-label" for="status">Status</label>
+                    <label class="control-label" for="item">Item Name</label>
                     <div class="controls">
                         <?php
-                        print Helper::form_construct_drop_down('status', LookupBusinessLayer::getInstance()->getEventStatus(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['status_id'] : '', 'status_name', 'status_id');
+                        $item = new ItemBusinessLayer();
+                        print Helper::form_construct_drop_down('item', $item->getItems(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['item_id'] : '', 'item_name', 'item_id');
                         ?> 
                     </div>
+                </div>              
+               
+                 <div class="control-group">
+                    <label class="control-label" for="item-quantity">Item Quantity</label>
+                    <div class="controls">
+                        <input type="text" class="input-large" name="item_quantity" id="item_quantity" onkeypress="return isNumberKey(event)"
+                               value="<?php
+                               if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['item_quantity'];
+                               endif;
+                        ?>" >
+                    </div>
                 </div>
+                <div class="form-actions">
+                     <input type="hidden" name="event_id"  value="<?php
+                               if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['event_id'];
+                               endif;
+                        ?>" >
+                    <button type="submit" id="add" class="add btn btn-primary btn-large">Add New Row</button>
+                </div>
+            </fieldset>
+        </form>
                 <div class="form-actions">
                     <button type="submit" id="save-events-<?php
                         if (isset($forms)): print $forms['event_id'];

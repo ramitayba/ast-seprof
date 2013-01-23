@@ -8,6 +8,8 @@
  *
  */
 include_once POS_ROOT . '/businessLayer/EventBusinessLayer.php';
+include_once POS_ROOT . '/businessLayer/EventItemBusinessLayer.php';
+include_once POS_ROOT . '/businessLayer/ItemBusinessLayer.php';
 unset($_SESSION['event_id']);
 $eventBusinessLayer = new EventBusinessLayer();
 

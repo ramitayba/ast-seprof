@@ -126,9 +126,9 @@ class CategoryBusinessLayer {
     public function deleteCategory($category_id) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call DeleteCategory(?)}";
+            $this->_SQLQuery = "{call DeleteCategory(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_Success = DataAccessManager::getInstance()->saveData(array($category_id));
+            $this->_Success = DataAccessManager::getInstance()->saveData(array($category_id,DESACTIVE));
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
             }
