@@ -19,7 +19,7 @@
         <div id="block"  class="alert alert-block">
             <a class="close" data-dismiss="alert" href="#">&times;</a>
         </div>
-        <form action="#" id="categories-form" name="categories-form" class="categories-form form-horizontal"
+        <form action="#" id="categories-form" name="categoriesform" class="categories-form form-horizontal"
               method="post" accept-charset="UTF-8">   
             <fieldset>
                 <div class="control-group">
