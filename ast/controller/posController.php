@@ -11,15 +11,22 @@ include_once POS_ROOT . '/businessLayer/PosBusinessLayer.php';
 include_once POS_ROOT . '/businessLayer/CafeteriaBusinessLayer.php';
 
 $posBusinessLayer = new PosBusinessLayer();
-if ($action == 'index' || $action == 'pos'):
+if ($action == 'cafeterias' && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'):
     if ((!Helper::is_empty_string($query_id) && is_numeric($query_id)) || isset($_SESSION['cafeteria_id'])):
         $_SESSION['cafeteria_id'] = isset($_SESSION['cafeteria_id']) ? $_SESSION['cafeteria_id'] : $query_id;
         $posDataTable = $posBusinessLayer->getPosByCafeteriaID($_SESSION['cafeteria_id']);
-    else:
-        $posDataTable = $posBusinessLayer->getPos();
+        $content = Helper::fill_datatable('pos', $posDataTable, array('Pos Name', 'Cafeteria Name', 'Status'), array('pos_key', 'cafeteria_name', 'status_name'), 'pos_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
+                    1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')));
+        print json_encode($content);
+        return;
     endif;
+endif;
+unset($_SESSION['cafeteria_id']);
+if ($action == 'index' || $action == 'pos'):
+    $posDataTable = $posBusinessLayer->getPos();
     if ($posBusinessLayer->getSuccess()):
-        $content = Helper::fill_datatable('pos', $posDataTable, array('Pos Name', 'Cafeteria Name', 'Status'), array('pos_key', 'cafeteria_name', 'status_name'), 'pos_id');
+        $content = Helper::fill_datatable('pos', $posDataTable, array('Pos Name', 'Cafeteria Name', 'Status'), array('pos_key', 'cafeteria_name', 'status_name'), 'pos_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
+                    1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')));
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') :
             print json_encode($content);
             return;
@@ -82,11 +89,12 @@ elseif ($action == 'save'):
         $success = $posBusinessLayer->editPos($query_id, $name, $cafeteria, $status, $_SESSION['user_pos']);
     endif;
     if ($success):
-        $posDataTable = isset($_SESSION['cafeteria_id']) ? 
-        $posBusinessLayer->getPosByCafeteriaID($_SESSION['cafeteria_id']) :
-        $posDataTable = $posBusinessLayer->getPos();
+        $posDataTable = isset($_SESSION['cafeteria_id']) ?
+                $posBusinessLayer->getPosByCafeteriaID($_SESSION['cafeteria_id']) :
+                $posDataTable = $posBusinessLayer->getPos();
         if ($posBusinessLayer->getSuccess()):
-            $content = Helper::fill_datatable('pos', $posDataTable, array('Pos Name', 'Cafeteria Name', 'Status'), array('pos_key', 'cafeteria_name', 'status_name'), 'pos_id');
+            $content = Helper::fill_datatable('pos', $posDataTable, array('Pos Name', 'Cafeteria Name', 'Status'), array('pos_key', 'cafeteria_name', 'status_name'), 'pos_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
+                        1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')));
         endif;
         $container = Helper::set_message('Pos saved succesfuly', 'status') . $content;
         print json_encode($container);

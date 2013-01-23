@@ -13,7 +13,9 @@ unset($_SESSION['cafeteria_id']);
 if ($action == 'index'):
     $cafeteriaDataTable = $cafeteriaBusinessLayer->getCafeterias();
     if ($cafeteriaBusinessLayer->getSuccess()):
-        $content = Helper::fill_datatable('cafeterias', $cafeteriaDataTable, array('Cafeteria Name'), array('cafeteria_name'), 'cafeteria_id', array(0 => 'pos'));
+        $content = Helper::fill_datatable('cafeterias', $cafeteriaDataTable, array('Cafeteria Name'), array('cafeteria_name'), 'cafeteria_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
+                    1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete'),
+                    2 => array('name' => 'Pos', 'link' => 'pos-', 'class' => 'pos')));
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') :
             print json_encode($content);
             return;
@@ -77,7 +79,9 @@ elseif ($action == 'save'):
     if ($success):
         $cafeteriaDataTable = $cafeteriaBusinessLayer->getCafeterias();
         if ($cafeteriaBusinessLayer->getSuccess()):
-            $content = Helper::fill_datatable('cafeterias', $cafeteriaDataTable, array('Cafeteria Name'), array('cafeteria_name'), 'cafeteria_id');
+            $content = Helper::fill_datatable('cafeterias', $cafeteriaDataTable, array('Cafeteria Name'), array('cafeteria_name'), 'cafeteria_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
+                        1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete'),
+                        2 => array('name' => 'Pos', 'link' => 'pos-', 'class' => 'pos')));
         endif;
         $container = Helper::set_message('Cafeteria saved succesfuly', 'status') . $content;
         print json_encode($container);

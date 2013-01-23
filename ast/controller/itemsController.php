@@ -18,7 +18,8 @@ if ($action == 'index' || $action == 'items'):
         $itemDataTable = $itemBusinessLayer->getItems();
     endif;
     if ($itemBusinessLayer->getSuccess()):
-        $content = Helper::fill_datatable('items', $itemDataTable, array('Item Name', 'Category Name', 'Item Price', 'Item Description', 'Status'), array('item_name', 'category_name', 'item_price', 'item_description', 'status_name'), 'item_id');
+        $content = Helper::fill_datatable('items', $itemDataTable, array('Item Name', 'Category Name', 'Item Price', 'Item Description', 'Status'), array('item_name', 'category_name', 'item_price', 'item_description', 'status_name'), 'item_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
+                    1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')));
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') :
             print json_encode($content);
             return;
@@ -93,7 +94,8 @@ elseif ($action == 'save'):
     if ($success):
         $itemDataTable = $itemBusinessLayer->getItems();
         if ($itemBusinessLayer->getSuccess()):
-            $content = Helper::fill_datatable('items', $itemDataTable, array('Item Name', 'Category Name', 'Item Price', 'Item Description', 'Status'), array('item_name', 'category_name', 'item_price', 'item_description', 'status_name'), 'item_id');
+            $content = Helper::fill_datatable('items', $itemDataTable, array('Item Name', 'Category Name', 'Item Price', 'Item Description', 'Status'), array('item_name', 'category_name', 'item_price', 'item_description', 'status_name'), 'item_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
+                        1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')));
         endif;
         $container = Helper::set_message('Item saved succesfuly', 'status') . $content;
         print json_encode($container);

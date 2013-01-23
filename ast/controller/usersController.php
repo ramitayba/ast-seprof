@@ -32,7 +32,8 @@ elseif ($action == 'login'):
 elseif ($action == 'index'):
     $userDataTable = $userBusinessLayer->getUsers();
     if ($userBusinessLayer->getSuccess()):
-        $content = Helper::fill_datatable('users', $userDataTable, array('User Name', 'Password', 'Pin Code', 'Role Name', 'Employee Name'), array('user_name', 'user_password', 'user_pin', 'role_name', 'employee_name'), 'user_id');
+        $content = Helper::fill_datatable('users', $userDataTable, array('User Name', 'Password', 'Pin Code', 'Role Name', 'Employee Name'), array('user_name', 'user_password', 'user_pin', 'role_name', 'employee_name'), 'user_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
+                    1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')));
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') :
             print json_encode($content);
             return;
@@ -55,7 +56,7 @@ elseif ($action == 'edit'):
             print json_encode(array('status' => 'error', 'message' => 'User doesn t  exist '));
             return;
         endif;
-        $forms = array('user_id' =>$query_id ,'user_name' => $userDataTable [0]['user_name'], 'user_password' => $userDataTable [0]['user_password'],
+        $forms = array('user_id' => $query_id, 'user_name' => $userDataTable [0]['user_name'], 'user_password' => $userDataTable [0]['user_password'],
             'user_pin' => $userDataTable [0]['user_pin'], 'role_id' => $userDataTable [0]['role_id'], 'employee_id' => $userDataTable [0]['employee_id'],
             'status_id' => $userDataTable [0]['status_id']);
         include_once POS_ROOT . '/content/users/usersform.php';
@@ -102,7 +103,9 @@ elseif ($action == 'save'):
     if ($success):
         $userDataTable = $userBusinessLayer->getUsers();
         if ($userBusinessLayer->getSuccess()):
-            $content = Helper::fill_datatable('users', $userDataTable, array('User Name', 'Password', 'Pin Code', 'Role Name', 'Employee Name'), array('user_name', 'user_password', 'user_pin', 'role_name', 'employee_name'), 'user_id');
+            $content = Helper::fill_datatable('users', $userDataTable, array('User Name', 'Password', 'Pin Code', 'Role Name', 'Employee Name'), array('user_name', 'user_password', 'user_pin', 'role_name', 'employee_name'), 'user_id',
+                    array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
+                    1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')));
         endif;
         $container = Helper::set_message('User saved succesfuly', 'status') . $content;
         print json_encode($container);
@@ -116,7 +119,7 @@ elseif ($action == 'delete'):
             print json_encode(array('status' => 'error', 'message' => 'User  doesn t  exist '));
             return;
         endif;
-        $success = $userBusinessLayer->deleteUser($query_id, 2);
+        $success = $userBusinessLayer->deleteUser($query_id);
         if ($success):
             $container = Helper::set_message('Role ' . $userDataTable [0]['user_name'] . ' delete succesfuly', 'status');
             print json_encode($container);

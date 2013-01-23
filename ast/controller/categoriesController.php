@@ -13,7 +13,8 @@ unset($_SESSION['category_id']);
 if ($action == 'index' || $action == 'categories'):
     $categoryDataTable = $categoryBusinessLayer->getCategories();
     if ($categoryBusinessLayer->getSuccess()):
-        $content = Helper::fill_datatable('categories', $categoryDataTable, array('Category Name', 'Category Parent', 'Category Color Code', 'Category Description', 'Status'), array('category_name', 'category_parent_name', 'color_code', 'category_description', 'status_name'), 'category_id');
+        $content = Helper::fill_datatable('categories', $categoryDataTable, array('Category Name', 'Category Parent', 'Category Color Code', 'Category Description', 'Status'), array('category_name', 'category_parent_name', 'color_code', 'category_description', 'status_name'), 'category_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
+                    1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')));
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') :
             print json_encode($content);
             return;
@@ -81,18 +82,19 @@ elseif ($action == 'save'):
         $success = $categoryBusinessLayer->editCategory($query_id, $name, $parent, $color, $description, $status, $_SESSION['user_pos']);
     endif;
     if ($success):
-        /*if ($additem):
-            $action='index';
-            $query_id = $categoryBusinessLayer->getCategoriesDataTable()[0][0];
-            include_once POS_ROOT . '/controller/itemsController.php';
-        else:*/
-            $categoryDataTable = $categoryBusinessLayer->getCategories();
-            if ($categoryBusinessLayer->getSuccess()):
-                $content = Helper::fill_datatable('categories', $categoryDataTable, array('Category Name', 'Category Parent', 'Category Color Code', 'Category Description', 'Status'), array('category_name', 'category_parent_name', 'color_code', 'category_description', 'status_name'), 'category_id');
-            endif;
-            $container = Helper::set_message('Category saved succesfuly', 'status') . $content;
-            print json_encode($container);
-       // endif;
+        /* if ($additem):
+          $action='index';
+          $query_id = $categoryBusinessLayer->getCategoriesDataTable()[0][0];
+          include_once POS_ROOT . '/controller/itemsController.php';
+          else: */
+        $categoryDataTable = $categoryBusinessLayer->getCategories();
+        if ($categoryBusinessLayer->getSuccess()):
+            $content = Helper::fill_datatable('categories', $categoryDataTable, array('Category Name', 'Category Parent', 'Category Color Code', 'Category Description', 'Status'), array('category_name', 'category_parent_name', 'color_code', 'category_description', 'status_name'), 'category_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
+                        1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')));
+        endif;
+        $container = Helper::set_message('Category saved succesfuly', 'status') . $content;
+        print json_encode($container);
+    // endif;
     else:
         print json_encode(array('status' => 'error', 'message' => 'Category not saved '));
     endif;
