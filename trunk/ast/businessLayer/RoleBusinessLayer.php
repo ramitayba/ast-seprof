@@ -118,12 +118,12 @@ class RoleBusinessLayer {
         return $this->_Success;
     }
 
-    public function deleteRole($role_id, $status_id, $user_modification) {
+    public function deleteRole($role_id, $user_modification) {
         try {
             $this->_reset();
             $this->_SQLQuery = "{call deleteRole(?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_Success = DataAccessManager::getInstance()->saveData(array($role_id, $status_id, $user_modification));
+            $this->_Success = DataAccessManager::getInstance()->saveData(array($role_id, DESACTIVE, $user_modification));
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
             }

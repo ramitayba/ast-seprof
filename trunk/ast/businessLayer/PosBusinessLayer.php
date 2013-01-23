@@ -138,9 +138,9 @@ class PosBusinessLayer {
     public function deletePos($pos_id) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call DeletePos(?)}";
+            $this->_SQLQuery = "{call DeletePos(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_Success = DataAccessManager::getInstance()->saveData(array($pos_id));
+            $this->_Success = DataAccessManager::getInstance()->saveData(array($pos_id,DESACTIVE));
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
             }

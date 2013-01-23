@@ -157,12 +157,12 @@ class UserBusinessLayer {
         return $this->_Success;
     }
 
-    public function deleteUser($user_id,$status_id) {
+    public function deleteUser($user_id) {
         try {
             $this->_reset();
             $this->_SQLQuery = "{call deleteUser(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_Success = DataAccessManager::getInstance()->saveData(array($user_id,$status_id));
+            $this->_Success = DataAccessManager::getInstance()->saveData(array($user_id,DESACTIVE));
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
             }

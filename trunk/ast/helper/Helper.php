@@ -311,19 +311,26 @@ class Helper {
         /* $non_displayables = array(
           '/%0[0-8bcef]/', // url encoded 00-08, 11, 12, 14, 15
           '/%1[0-9a-f]/', // url encoded 16-31
+          '/%2[0-9a-f]/', // url encoded 16-31
+          '/%3[0-9a-f]/', // url encoded 16-31
           '/[\x00-\x08]/', // 00-08
           '/\x0b/', // 11
           '/\x0c/', // 12
           '/[\x0e-\x1f]/'             // 14-31
           );
-          foreach ($non_displayables as $regex)
-          $data = preg_replace($regex, '', $data);//$unpacked = unpack('H*hex', $data);
-          //return '0x' . $unpacked['hex'];
-         */
+          foreach ($non_displayables as $regex):
+          $data = preg_replace($regex, '', $data);
+          $unpacked = unpack('H*hex', $data);
+          endforeach; */
+        //return '0x' . $unpacked['hex'];
         $data = str_replace("'", "''", $data);
         $data = str_replace(";", "", $data);
         $data = str_replace("/", "", $data);
+        $data = str_replace("%2B", "+", $data);
+        $data = str_replace("%3D", "=", $data);
+        $data = str_replace("%2F", "/", $data);
         $data = str_replace("+", " ", $data);
+        $data = self::check_plain($data);
         return $data;
     }
 
@@ -414,9 +421,9 @@ class Helper {
     public static function fill_datatable($name, $array, $header, $fields, $id_name, $linkcontrol = array(), $control = true) {
         $datatable = '<div id="widget-table"> <div class="widget-header"><h3><i class="icon-th-list"></i>'
                 . ucfirst($name) . '</h3></div><script>$(function () {    var oTable = table("' . $name . '");});</script>
-            <div class="widget-content" id="widget-content-' . $name . '-table">
-         <span><a id="new-' . $name . '" class="new btn"  href="">Add New Record</a></span>
-            <table class="table table-striped table-bordered table-highlight" id="' . $name . '-table">';
+            <div class="widget-content" id="widget-content-' . $name . '-table">';
+        $datatable.=$control ? ' <span><a id="new-' . $name . '" class="new btn"  href="">Add New Record</a></span>' : '';
+        $datatable.= '<table class="table table-striped table-bordered table-highlight" id="' . $name . '-table">';
         $thead = ' <thead><tr>';
         foreach ($header as $row):
             $thead .= '<th>' . $row . '</th>';
@@ -431,16 +438,19 @@ class Helper {
             foreach ($fields as $rowfields):
                 $tr.= '<td>' . $row[$rowfields] . '</td>';
             endforeach;
-            $tr.=$control == true ? '<td><span><a class="edit btn" id="edit-' . $name . '-' . $row[$id_name] . '" href="">Edit</a>
-            </span><span><a class="delete btn" id="delete-' . $name . '-' . $row[$id_name] . '" href="">Delete</a></span>' : '</tr>';
-            $extra = '';
-            foreach ($linkcontrol as $rowlink):
-                $extra.= '<span><a class="' . $rowlink . ' btn" id="' . $rowlink . '-' . $row[$id_name] . '" href="">' . ucfirst($rowlink) . '</a></span>';
-            endforeach;
-            $extra.='</td></tr>';
-            $tbody.=$tr . $extra;
+            $tr.='<td>';
+            if ($control):
+                $extra = '';
+                foreach ($linkcontrol as $rowlink):
+                    $link = $rowlink['link'] . $name . '-' . $row[$id_name];
+                    $extra.= '<span><a class="' . $rowlink['class'] . ' btn" id="' . $link . '" href="">' . $rowlink['name'] . '</a></span>';
+                endforeach;
+            endif;
+            $tr.=$extra . '</td></tr>';
+            $tbody.=$tr;
             $i++;
         endforeach;
+
         $tbody.= '</tbody>';
         $datatable.= $thead . $tbody . '</table></div>';
         return $datatable;
