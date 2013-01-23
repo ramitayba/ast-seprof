@@ -12,7 +12,12 @@ include_once POS_ROOT . '/businessLayer/CafeteriaBusinessLayer.php';
 
 $posBusinessLayer = new PosBusinessLayer();
 if ($action == 'index' || $action == 'pos'):
-    $posDataTable = $posBusinessLayer->getPos();
+    if ((!Helper::is_empty_string($query_id) && is_numeric($query_id)) || isset($_SESSION['cafeteria_id'])):
+        $_SESSION['cafeteria_id'] = isset($_SESSION['cafeteria_id']) ? $_SESSION['cafeteria_id'] : $query_id;
+        $posDataTable = $posBusinessLayer->getPosByCafeteriaID($_SESSION['cafeteria_id']);
+    else:
+        $posDataTable = $posBusinessLayer->getPos();
+    endif;
     if ($posBusinessLayer->getSuccess()):
         $content = Helper::fill_datatable('pos', $posDataTable, array('Pos Name', 'Cafeteria Name', 'Status'), array('pos_key', 'cafeteria_name', 'status_name'), 'pos_id');
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') :
@@ -29,6 +34,7 @@ if ($action == 'index' || $action == 'pos'):
         endif;
     endif;
 elseif ($action == 'add'):
+    $forms = array('cafeteria_id' => isset($_SESSION['cafeteria_id']) ? $_SESSION['cafeteria_id'] : '');
     include_once POS_ROOT . '/content/cafeterias/posform.php';
 elseif ($action == 'edit'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
@@ -76,6 +82,8 @@ elseif ($action == 'save'):
         $success = $posBusinessLayer->editPos($query_id, $name, $cafeteria, $status, $_SESSION['user_pos']);
     endif;
     if ($success):
+        $posDataTable = isset($_SESSION['cafeteria_id']) ? 
+        $posBusinessLayer->getPosByCafeteriaID($_SESSION['cafeteria_id']) :
         $posDataTable = $posBusinessLayer->getPos();
         if ($posBusinessLayer->getSuccess()):
             $content = Helper::fill_datatable('pos', $posDataTable, array('Pos Name', 'Cafeteria Name', 'Status'), array('pos_key', 'cafeteria_name', 'status_name'), 'pos_id');

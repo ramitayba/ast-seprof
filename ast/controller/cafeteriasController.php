@@ -9,10 +9,11 @@
  */
 include_once POS_ROOT . '/businessLayer/CafeteriaBusinessLayer.php';
 $cafeteriaBusinessLayer = new CafeteriaBusinessLayer();
+unset($_SESSION['cafeteria_id']);
 if ($action == 'index'):
     $cafeteriaDataTable = $cafeteriaBusinessLayer->getCafeterias();
     if ($cafeteriaBusinessLayer->getSuccess()):
-        $content = Helper::fill_datatable('cafeterias', $cafeteriaDataTable, array('Cafeteria Name'), array('cafeteria_name'), 'cafeteria_id');
+        $content = Helper::fill_datatable('cafeterias', $cafeteriaDataTable, array('Cafeteria Name'), array('cafeteria_name'), 'cafeteria_id', array(0 => 'pos'));
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') :
             print json_encode($content);
             return;
@@ -71,7 +72,7 @@ elseif ($action == 'save'):
                 return;
             endif;
         endif;
-         $success = $cafeteriaBusinessLayer->editCafeteria($query_id, $name, $_SESSION['user_pos']);
+        $success = $cafeteriaBusinessLayer->editCafeteria($query_id, $name, $_SESSION['user_pos']);
     endif;
     if ($success):
         $cafeteriaDataTable = $cafeteriaBusinessLayer->getCafeterias();
@@ -84,14 +85,14 @@ elseif ($action == 'save'):
         print json_encode(array('status' => 'error', 'message' => 'Cafeteria not saved '));
     endif;
 elseif ($action == 'delete'):
-    if (!Helper::is_empty_string($query_id)&& is_numeric($query_id)):
+    if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
         $cafeteriaDataTable = $cafeteriaBusinessLayer->getCafeteriaByID($query_id);
         if (count($cafeteriaDataTable) == 0):
             print json_encode(array('status' => 'error', 'message' => 'Cafeteria doesn t  exist '));
             return;
         endif;
-         $success = $cafeteriaBusinessLayer->deleteCafeteria($query_id);
-        if ( $success):
+        $success = $cafeteriaBusinessLayer->deleteCafeteria($query_id);
+        if ($success):
             $container = Helper::set_message('Cafeteria ' . $cafeteriaDataTable [0]['cafeteria_name'] . ' delete succesfuly', 'status');
             print json_encode($container);
         else:

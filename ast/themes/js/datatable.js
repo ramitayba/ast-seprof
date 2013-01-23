@@ -138,6 +138,31 @@ $(function () {
         },"json")
     } );
     
+    $('.pos').live('click', function (e) {
+        e.preventDefault();
+        name=$(this).attr("id");
+        array=name.split("-");
+        if(array.length>1){
+            a=array[0];
+            b=array[1];
+        }
+        else{
+            a='';
+            b='';
+        }
+        c="cafeterias";
+        $("#widget-content-"+c+"-table").append('<img src="/ast/themes/img/loader.gif" alt="Uploading...."/>');
+        $.seprof(baseurl,{
+            name:a,
+            action:'index',
+            query:b
+        },function(k){
+            showform(k,a)
+        },function(httpReq, status, exception,a){
+            error(httpReq, status, exception,a)
+        },"json")
+    } );
+    
     $('.edit').live('click', function (e) {
         e.preventDefault();
         name=$(this).attr("id");
