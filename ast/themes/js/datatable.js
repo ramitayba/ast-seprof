@@ -34,6 +34,7 @@ $(function () {
     } );*/
     
     $('a.delete').live('click', function (e) {
+      if (confirm("Are you sure you want to delete?")){
         e.preventDefault();     
         name=$(this).attr("id");
         array=name.split("-");
@@ -66,6 +67,11 @@ $(function () {
         },function(httpReq, status, exception,a){
             error(httpReq, status, exception,a);
         },"json")
+
+      }
+      else {
+          return;
+      }
     } );
     
     $('.new').live('click', function (e) {
