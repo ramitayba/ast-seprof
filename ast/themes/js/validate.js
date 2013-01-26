@@ -39,9 +39,7 @@ $(document).ready(function(){
     });
 });
 */
-$(function() {
-    $( ".datepicker" ).datepicker();
-});
+
 /*
 var $checktree;
 $(function(){
