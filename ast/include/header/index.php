@@ -6,33 +6,27 @@
 <link href="<?php echo $root; ?>themes/css/bootstrap.css" rel="stylesheet">
 <link href="<?php echo $root; ?>themes/css/bootstrap-responsive.css" rel="stylesheet">
 <link href="<?php echo $root; ?>themes/css/bootstrap-overrides.css" rel="stylesheet">
-<link href="<?php echo $root; ?>themes/css/ui-lightness/jquery-ui-1.8.21.custom.css" rel="stylesheet">
+<link href="<?php echo $root; ?>themes/css/ui-lightness/jquery-ui-1.10.0.custom.css" rel="stylesheet">
 <link href="<?php echo $root; ?>themes/css/slate.css" rel="stylesheet">
 <link href="<?php echo $root; ?>themes/css/slate-responsive.css" rel="stylesheet">
 <link href="<?php echo $root; ?>themes/css/pages/dashboard.css" rel="stylesheet">
 <link href="<?php echo $root; ?>themes/js/plugins/datatables/DT_bootstrap.css" rel="stylesheet">
 
-<!-- Javascript -->
-<script src="<?php echo $root; ?>themes/js/jquery-1.7.2.min.js"></script>
-<script src="<?php echo $root; ?>themes/js/jquery-ui-1.8.21.custom.min.js"></script>
-<script src="<?php echo $root; ?>themes/js/jquery.ui.touch-punch.min.js"></script>
-<script src="<?php echo $root; ?>themes/js/bootstrap.js"></script>
-<script src="<?php echo $root; ?>themes/js/Slate.js"></script>
-<script src="<?php echo $root; ?>themes/js/plugins/excanvas/excanvas.min.js"></script>
-<script src="<?php echo $root; ?>themes/js/plugins/validate/jquery.validate.js"></script>
 
 <!-- Javascript -->
+<script src="<?php echo $root; ?>themes/js/jquery-1.7.2.min.js"></script>
+<script src="<?php echo $root; ?>themes/js/jquery-ui-1.10.0.custom.min.js"></script>
+<script src="<?php echo $root; ?>themes/js/jquery-ui-1.10.0.custom.js"></script>
+<script src="<?php echo $root; ?>themes/js/Slate.js"></script>
+<script src="<?php echo $root; ?>themes/js/bootstrap.js"></script>
+<script src="<?php echo $root; ?>themes/js/plugins/validate/jquery.validate.js"></script>
 <script src="<?php echo $root; ?>themes/js/plugins/datatables/jquery.dataTables.js"></script>
 <script src="<?php echo $root; ?>themes/js/plugins/datatables/DT_bootstrap.js"></script>
 <script src="<?php echo $root; ?>themes/js/datatable.js"></script>
 
-<!-- DatePicker -->
-<script src="<?php echo $root; ?>themes/js/jquery-ui.js"></script>
 <script src="<?php echo $root; ?>themes/js/validate.js"></script>
 
-<!-- Tree View -->
-<link type="text/css" rel="stylesheet" href="<?php echo $root; ?>themes/css/jquery.checktree.css" />
-<script type="text/javascript" src="<?php echo $root; ?>themes/js/jquery.checktree_yctin.min.js"></script>
+
 
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
