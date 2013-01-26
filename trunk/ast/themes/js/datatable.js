@@ -1,4 +1,4 @@
-
+var dataRow, nRow,oTable,count=0,row_id='';
 $(function () {
     jQuery.extend({
         seprof: function(url,data,callback,errorCallback,type) {
@@ -32,10 +32,11 @@ $(function () {
         {action:"edit",},editRow(oTable,nRow));
     })
     } );*/
-    
     $('a.delete').live('click', function (e) {
-      if (confirm("Are you sure you want to delete?")){
-        e.preventDefault();     
+        e.preventDefault(); 
+        if (! confirm("Are you sure you want to delete?")){
+            return;
+        }
         name=$(this).attr("id");
         array=name.split("-");
         if(array.length>1){
@@ -46,7 +47,7 @@ $(function () {
             a='';
             b='';
         }
-        var oTable =  $('#'+a+'-table').dataTable();
+        oTable =  $('#'+a+'-table').dataTable();
         var nRow = $(this).parents('tr')[0];
         $.seprof(baseurl,{
             name:a,
@@ -62,18 +63,76 @@ $(function () {
                     oTable.fnDeleteRow( nRow );
                     $(".widget").before(k);
                 }
-                
             }
         },function(httpReq, status, exception,a){
             error(httpReq, status, exception,a);
         },"json")
-
-      }
-      else {
-          return;
-      }
+    } );
+    $('.add').live('click', function (e) {
+        e.preventDefault();
+        name=$(this).attr("id");
+        array=name.split("-");
+        if(array.length>1){
+            a=array[1];
+        }
+        else{
+            a='';
+        }
+        oTable =  $('#'+a+'-table').dataTable();
+        row_id='';
+        if(existRow(oTable,$('#id').val()))
+        {
+            return;
+        }
+        count++;
+        oTable.fnAddData([count,$('#id option:selected').text(),$('#number').val(),'<span><a class="delete-table btn" id="delete-'+a+'" href="">Delete</a></span>']);
+        $('#id').val('');
+        $('#number').val('');  
+    } );
+    $('.edit-table').live('click', function (e) {
+        e.preventDefault();
+        name=$(this).attr("id");
+        array=name.split("-");
+        if(array.length>1){
+            a=array[2];
+        }
+        else{
+            a='';
+        }
+        oTable =  $('#'+a+'-table').dataTable();
+        if(nRow!=null){
+            oTable.fnUpdate([row_id,$('#id option:selected').text(),$('#number').val(),'<span><a class="delete-table btn" id="delete-'+a+'" href="">Delete</a></span>'],nRow);
+        };
+    } );     
+    $('.table tbody tr td').live('click', function (e) {
+        e.preventDefault();
+        nRow = $(this).parents('tr')[0];
+        oTable=null;
+        var table=  $('tr').parents('table')[0];
+        oTable =  $('#'+table['id']).dataTable();
+        dataRow=oTable.fnGetData(nRow);
+        row_id=dataRow[0];
+        $('#id :selected').text(dataRow[1]);
+        $('#number').val(dataRow[2]);
     } );
     
+    $('.delete-table').live('click', function (e) {
+        e.preventDefault();
+        if (! confirm("Are you sure you want to delete?")){
+            return;
+        }
+        name=$(this).attr("id");
+        array=name.split("-");
+        if(array.length>1){
+            a=array[1];
+        }
+        else{
+            a='';
+        }
+        oTable =  $('#'+a+'-table').dataTable();
+        var nRow = $(this).parents('tr')[0];
+        oTable.fnDeleteRow( nRow );
+    } ); 
     $('.new').live('click', function (e) {
         e.preventDefault();
         var width=$('.widget-table').height();
@@ -92,21 +151,18 @@ $(function () {
             error(httpReq, status, exception,a)
         },"json")
     } );
-    
-    
     $('.permissions').live('click', function (e) {
         e.preventDefault();
         name=$(this).attr("id");
         array=name.split("-");
         if(array.length>1){
             a=array[0];
-            b=array[1];
+            c=array[1];
+            b=array[2];
         }
         else{
-            a='';
-            b='';
+            a=b=c='';
         }
-        c='roles';
         $("#widget-content-"+c+"-table").append('<img src="/ast/themes/img/loader.gif" alt="Uploading...."/>');
         $.seprof(baseurl,{
             name:a,
@@ -118,7 +174,6 @@ $(function () {
             error(httpReq, status, exception,c)
         },"json")
     } );
-    
     $('.items').live('click', function (e) {
         e.preventDefault();
         name=$(this).attr("id");
@@ -143,24 +198,22 @@ $(function () {
             error(httpReq, status, exception,c)
         },"json")
     } );
-    
     $('.pos').live('click', function (e) {
         e.preventDefault();
         name=$(this).attr("id");
         array=name.split("-");
         if(array.length>1){
             a=array[0];
-            b=array[1];
+            c=array[1];
+            b=array[2];
         }
         else{
-            a='';
-            b='';
+            a=b=c='';
         }
-        c="cafeterias";
         $("#widget-content-"+c+"-table").append('<img src="/ast/themes/img/loader.gif" alt="Uploading...."/>');
         $.seprof(baseurl,{
             name:a,
-            action:'index',
+            action:c,
             query:b
         },function(k){
             showform(k,a)
@@ -168,7 +221,6 @@ $(function () {
             error(httpReq, status, exception,a)
         },"json")
     } );
-    
     $('.edit').live('click', function (e) {
         e.preventDefault();
         name=$(this).attr("id");
@@ -192,8 +244,6 @@ $(function () {
             error(httpReq, status, exception,a)
         },"json")
     } );
-    
-
     $('.save').live('click', function (e) {
         //if(!validate())return;
         e.preventDefault();
@@ -211,6 +261,7 @@ $(function () {
         $('input[name=check]:checked').each(function(){
             sequence+=$(this).val()+",";
         });
+        datatable=getData(oTable,a,'id');
         var data =$('.'+a+'-form').serialize();
         $("#widget-content-"+a+"-table").append('<img src="/ast/themes/img/loader.gif" alt="Loading...."/>');
         $.seprof(baseurl,{
@@ -218,19 +269,23 @@ $(function () {
             action:'save',
             query:b,
             datainput:data,
-            sequence:sequence
+            sequence:sequence,
+            datatable:datatable
         },function(k){
             if(k.status=='error')
             {
                 error('','', k.message,a)  
+            }
+            else if(k.status=='success')
+            {
+                success( k.message,a)  
             }else{
                 showTable(k,a);
             }
         },function(httpReq, status, exception,a){
             error(httpReq, status, exception,a);
         },"json")
-    } );
-    
+    } ); 
     $('.cancel').live('click', function (e) {
         e.preventDefault();
         name=$(this).attr("id");
@@ -247,24 +302,19 @@ $(function () {
             error(httpReq, status, exception,a)
         },"json")
     } );
-    
 });
-
 function deleteRow(nRow)
 {
     oTable.fnDeleteRow( nRow );
 }
-
 function showform(b,a)
 {
     $(".messages").remove();
-     if(b !=null){
-    $("#widget-table").replaceWith(b); 
-    $("#widget-content-"+a+"-table img:last-child").remove();
-     }
+    if(b !=null){
+        $("#widget-table").replaceWith(b); 
+        $("#widget-content-"+a+"-table img:last-child").remove();
+    }
 }
-
-
 function showTable(b,a)
 {
     $(".messages").remove();
@@ -273,7 +323,6 @@ function showTable(b,a)
         $("#widget-"+a+"-form img:last-child").remove();
     }
 }
-
 function error(httpReq, status, exception,a){
 
     b="<div id='block' class='alert alert-block'>"+
@@ -282,29 +331,23 @@ function error(httpReq, status, exception,a){
     $("#block").replaceWith(b);
     $(".alert").show();
 }
-
-function table(name)
+function success(message,a){
+    $("#block").replaceWith(message);
+}
+function table(name,column_hide)
 {
-    var oTable =  $('#'+name+'-table').dataTable( {
+    var table =  $('#'+name+'-table').dataTable( {
         sDom: "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
         sPaginationType: "bootstrap",
         oLanguage: {
             "sLengthMenu": "_MENU_ records per page"
         }
-    /*  fnServerData: function ( sSource, aoData,fnCallback,fnError ) {
-            $.ajax( {
-                "dataType": 'json', 
-                "type": "POST", 
-                "url": sSource, 
-                "data": aoData, 
-                "success": fnCallback,
-                "error":fnError
-            } );
-    }*/
     });
+    if(column_hide!=-1){
+        table.fnSetColumnVis(column_hide,false);
+    }
     return table;
 }
-
 function validate()
 {
     $('#users-form').validate({
@@ -531,8 +574,6 @@ function validate()
     });
 
 }
-
-
 function isNumberKey(evt)
 {
     var charCode = (evt.which) ? evt.which : event.keyCode
@@ -541,4 +582,36 @@ function isNumberKey(evt)
 
     return true;
 }
+function existRow(oTable,name)
+{
+    var nodes=oTable.fnGetNodes();
+    for(var i=0;i<nodes.length;i++)
+    {
+        var data=oTable.fnGetData(nodes[i]);
+        if(data[1]==name&&data[0]!=row_id){
+            alert('already exist');
+            return true;
+        }
+    }
+    return false;
+}
 
+function getData(oTable,name,select)
+{
+    if(oTable==null)
+    {
+        oTable =  $('#'+name+'-table').dataTable();     
+    }
+    var nodes=oTable.fnGetNodes();
+    var obj=[];
+    for(var i=0;i<nodes.length;i++)
+    {
+        var data=oTable.fnGetData(nodes[i]);
+        var idSelect=$("#"+select+" option:contains('" + $.trim(data[1]) + "')").val();
+        obj[i]= {
+            id:idSelect,
+            number:data[2]
+        };
+    }
+    return obj;
+}
