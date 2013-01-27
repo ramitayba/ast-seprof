@@ -56,7 +56,7 @@
                     <label class="control-label" for="category-name">Name</label>
                     <div class="controls">
                         <input type="text" class="input-large" name="category_name" id="category-name" 
-                               value="<?php
+                               maxlength="100"      value="<?php
                                if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['category_name'];
                                endif;
                                ?>">
@@ -67,7 +67,7 @@
                     <div class="controls">
                         <?php
                         $category = new CategoryBusinessLayer();
-                        print Helper::form_construct_drop_down('category', $category->getCategories(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['category_parent_id'] : '', 'category_name', 'category_id', 'disabled');
+                        print Helper::form_construct_drop_down('category', $category->getCategories(ACTIVE), isset($forms) && !Helper::is_empty_array($forms) ? $forms['category_parent_id'] : '', 'category_name', 'category_id', 'disabled');
                         ?>
                         <input type="checkbox" name="others" onclick="enable_text(this.checked,document.categoriesform.category)" >
                     </div>
@@ -78,9 +78,10 @@
                     <div class="controls">
                         <input type="text" class="input-large" name="color_code" id="color"
                                value="<?php
-                               if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['color_code'];
-                               endif;
-                               ?>">
+                        if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['color_code'];
+                        else:print DEFAULT_COLOR;
+                        endif;
+                        ?>">
                     </div>
                 </div>
                 <div class="control-group">
@@ -100,12 +101,6 @@
                         <?php
                         print Helper::form_construct_drop_down('status', LookupBusinessLayer::getInstance()->getActivityStatus(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['status_id'] : '', 'status_name', 'status_id');
                         ?>
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="add-item">Add Item</label>
-                    <div class="controls">
-                        <input type="checkbox" name="add_item" id="add-item" value="">
                     </div>
                 </div>
                 <div class="form-actions">

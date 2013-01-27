@@ -35,12 +35,12 @@ class RoleBusinessLayer {
         return $this->_LastError;
     }
 
-    public function getRoles() {
+    public function getRoles($status) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call getRoles}";
+            $this->_SQLQuery = "{call GetRoles(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_RoleDataTable = DataAccessManager::getInstance()->fillData();
+            $this->_RoleDataTable = DataAccessManager::getInstance()->fillData(array($status));
             $this->_Success = DataAccessManager::getInstance()->getSuccess();
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
@@ -52,12 +52,12 @@ class RoleBusinessLayer {
         return $this->_RoleDataTable;
     }
 
-    public function getRoleByName($name) {
+    public function getRoleByName($name,$status) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call getRoleByName(?)}";
+            $this->_SQLQuery = "{call GetRoleByName(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_RoleDataTable = DataAccessManager::getInstance()->fillData(array($name));
+            $this->_RoleDataTable = DataAccessManager::getInstance()->fillData(array($name,$status));
             $this->_Success = DataAccessManager::getInstance()->getSuccess();
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
@@ -69,12 +69,12 @@ class RoleBusinessLayer {
         return $this->_RoleDataTable;
     }
 
-    public function getRoleByID($role_id) {
+    public function getRoleByID($role_id,$status) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call getRoleByID(?)}";
+            $this->_SQLQuery = "{call GetRoleByID(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_RoleDataTable = DataAccessManager::getInstance()->saveData(array($role_id));
+            $this->_RoleDataTable = DataAccessManager::getInstance()->saveData(array($role_id,$status));
             $this->_Success = DataAccessManager::getInstance()->getSuccess();
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
@@ -89,7 +89,7 @@ class RoleBusinessLayer {
     public function addRole($role_name, $status_id, $user_creation) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call addRole(?,?,?)}";
+            $this->_SQLQuery = "{call AddRole(?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_Success = DataAccessManager::getInstance()->saveData(array($role_name, $status_id, $user_creation));
             if (!$this->_Success) {
@@ -105,7 +105,7 @@ class RoleBusinessLayer {
     public function editRole($role_id, $role_name, $status_id, $user_modification) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call editRole(?,?,?,?)}";
+            $this->_SQLQuery = "{call EditRole(?,?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_Success = DataAccessManager::getInstance()->saveData(array($role_id, $role_name, $status_id, $user_modification));
             if (!$this->_Success) {
@@ -118,12 +118,12 @@ class RoleBusinessLayer {
         return $this->_Success;
     }
 
-    public function deleteRole($role_id, $user_modification) {
+    public function deleteRole($role_id, $status,$user_modification) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call deleteRole(?,?,?)}";
+            $this->_SQLQuery = "{call DeleteRole(?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_Success = DataAccessManager::getInstance()->saveData(array($role_id, DESACTIVE, $user_modification));
+            $this->_Success = DataAccessManager::getInstance()->saveData(array($role_id, $status, $user_modification));
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
             }
@@ -153,7 +153,7 @@ class RoleBusinessLayer {
     public function getListMenuUnionAccess($role_id) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call getListMenuUnionAccess(?)}";
+            $this->_SQLQuery = "{call GetListMenuUnionAccess(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_PermissionDataTable = DataAccessManager::getInstance()->fillData(array($role_id));
             $this->_Success = DataAccessManager::getInstance()->getSuccess();

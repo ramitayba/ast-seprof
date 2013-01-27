@@ -43,14 +43,8 @@ elseif ($action == 'edit'):
     endif;
 elseif ($action == 'save'):
     $name = isset($data['cafeteria_name']) ? $data['cafeteria_name'] : '';
-    $list = array('Cafeteria Name ' => $name);
+    $list = array('Cafeteria Name ' => array('content'=>$name,'type'=>'string','length' => '50'));
     $message = Helper::is_list_empty($list);
-    if (!Helper::is_empty_string($message)):
-        print Helper::json_encode_array(array('status' => 'error', 'message' => $message));
-        return;
-    endif;
-    $length = array('Cafeteria Name ' => array('word' => $name, 'length' => '50'));
-    $message = Helper::max_length($length);
     if (!Helper::is_empty_string($message)):
         print Helper::json_encode_array(array('status' => 'error', 'message' => $message));
         return;
@@ -81,7 +75,7 @@ elseif ($action == 'save'):
         $success = $cafeteriaBusinessLayer->editCafeteria($query_id, $name, $_SESSION['user_pos']);
     endif;
     if ($success):
-        $cafeteriaDataTable = $cafeteriaBusinessLayer->getCafeterias();
+        $cafeteriaDataTable = $cafeteriaBusinessLayer->getCafeterias(ACTIVE);
         if ($cafeteriaBusinessLayer->getSuccess()):
             $content = Helper::fill_datatable('cafeterias', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $cafeteriaDataTable, array('Cafeteria Name'), array('cafeteria_name'), 'cafeteria_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
                         1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete'),
@@ -99,7 +93,7 @@ elseif ($action == 'delete'):
             print Helper::json_encode_array(array('status' => 'error', 'message' => 'Cafeteria doesn t  exist '));
             return;
         endif;
-        $success = $cafeteriaBusinessLayer->deleteCafeteria($query_id, DESACTIVE);
+        $success = $cafeteriaBusinessLayer->deleteCafeteria($query_id, DESACTIVE ,$_SESSION['user_pos']);
         if ($success):
             $container = Helper::set_message('Cafeteria ' . $cafeteriaDataTable [0]['cafeteria_name'] . ' delete succesfuly', 'status');
             print Helper::json_encode($container);

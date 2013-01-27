@@ -34,12 +34,12 @@ class ItemBusinessLayer {
         return $this->_LastError;
     }
 
-    public function getItems() {
+    public function getItems($status) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call GetItems}";
+            $this->_SQLQuery = "{call GetItems(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_ItemsDataTable = DataAccessManager::getInstance()->fillData();
+            $this->_ItemsDataTable = DataAccessManager::getInstance()->fillData(array($status));
             $this->_Success = DataAccessManager::getInstance()->getSuccess();
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
@@ -51,12 +51,12 @@ class ItemBusinessLayer {
         return $this->_ItemsDataTable;
     }
 
-    public function getItemByName($name) {
+    public function getItemByName($name,$status) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call GetItemByName(?)}";
+            $this->_SQLQuery = "{call GetItemByName(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_ItemsDataTable = DataAccessManager::getInstance()->fillData(array($name));
+            $this->_ItemsDataTable = DataAccessManager::getInstance()->fillData(array($name,$status));
             $this->_Success = DataAccessManager::getInstance()->getSuccess();
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
@@ -68,12 +68,12 @@ class ItemBusinessLayer {
         return $this->_ItemsDataTable;
     }
 
-    public function getItemByID($id) {
+    public function getItemByID($id,$status) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call GetItemByID(?)}";
+            $this->_SQLQuery = "{call GetItemByID(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_ItemsDataTable = DataAccessManager::getInstance()->fillData(array($id));
+            $this->_ItemsDataTable = DataAccessManager::getInstance()->fillData(array($id,$status));
             $this->_Success = DataAccessManager::getInstance()->getSuccess();
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
@@ -85,12 +85,12 @@ class ItemBusinessLayer {
         return $this->_ItemsDataTable;
     }
 
-     public function getItemByCategory($id) {
+     public function getItemByCategory($id,$status) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call GetItemByCategory(?)}";
+            $this->_SQLQuery = "{call GetItemByCategory(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_ItemsDataTable = DataAccessManager::getInstance()->fillData(array($id));
+            $this->_ItemsDataTable = DataAccessManager::getInstance()->fillData(array($id,$status));
             $this->_Success = DataAccessManager::getInstance()->getSuccess();
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
@@ -134,12 +134,12 @@ class ItemBusinessLayer {
         return $this->_Success;
     }
 
-    public function deleteItem($item_id) {
+    public function deleteItem($item_id,$status,$user_modification_id) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call DeleteItem(?,?)}";
+            $this->_SQLQuery = "{call DeleteItem(?,??)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_Success = DataAccessManager::getInstance()->saveData(array($item_id,DESACTIVE));
+            $this->_Success = DataAccessManager::getInstance()->saveData(array($item_id,$status,$user_modification_id));
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
             }

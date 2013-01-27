@@ -42,27 +42,12 @@ class UserBusinessLayer {
         return $this->_Success;
     }
 
-    public function getUsers1() {
+    public function getUsers($status) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "SELECT * From [user]";
+            $this->_SQLQuery = "{call getUsers(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_UserDataTable = DataAccessManager::getInstance()->fillData();
-            if (Helper::is_empty_array($this->_UserDataTable)) {
-                $this->_LastError = DataAccessManager::getInstance()->getLastError();
-            }
-        } catch (Exception $ex) {
-            $this->_LastError = $ex->getMessage();
-        }
-        return $this->_UserDataTable;
-    }
-
-    public function getUsers() {
-        try {
-            $this->_reset();
-            $this->_SQLQuery = "{call getUsers}";
-            DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_UserDataTable = DataAccessManager::getInstance()->fillData();
+            $this->_UserDataTable = DataAccessManager::getInstance()->fillData(array($status));
             $this->_Success =DataAccessManager::getInstance()->getSuccess();
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
@@ -74,12 +59,12 @@ class UserBusinessLayer {
         return $this->_UserDataTable;
     }
 
-    public function getUserByName($name) {
+    public function getUserByName($name,$status) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call getUserByName(?)}";
+            $this->_SQLQuery = "{call getUserByName(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_UserDataTable = DataAccessManager::getInstance()->fillData(array($name));
+            $this->_UserDataTable = DataAccessManager::getInstance()->fillData(array($name,$status));
             $this->_Success =DataAccessManager::getInstance()->getSuccess();
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
@@ -91,12 +76,12 @@ class UserBusinessLayer {
         return $this->_UserDataTable;
     }
 
-    public function login($user_name, $password) {
+    public function login($user_name, $password,$status) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call getLogin(?,?)}";
+            $this->_SQLQuery = "{call getLogin(?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_UserDataTable = DataAccessManager::getInstance()->fillData(array($user_name, $password));
+            $this->_UserDataTable = DataAccessManager::getInstance()->fillData(array($user_name, $password,$status));
             $this->_Success =DataAccessManager::getInstance()->getSuccess();
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
@@ -108,12 +93,12 @@ class UserBusinessLayer {
         return $this->_UserDataTable;
     }
 
-    public function getUserByID($user_id) {
+    public function getUserByID($user_id,$status) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call getUserByID(?)}";
+            $this->_SQLQuery = "{call getUserByID(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_UserDataTable = DataAccessManager::getInstance()->fillData(array($user_id));
+            $this->_UserDataTable = DataAccessManager::getInstance()->fillData(array($user_id,$status));
             $this->_Success =DataAccessManager::getInstance()->getSuccess();
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
@@ -157,12 +142,12 @@ class UserBusinessLayer {
         return $this->_Success;
     }
 
-    public function deleteUser($user_id) {
+    public function deleteUser($user_id,$status) {
         try {
             $this->_reset();
             $this->_SQLQuery = "{call deleteUser(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_Success = DataAccessManager::getInstance()->saveData(array($user_id,DESACTIVE));
+            $this->_Success = DataAccessManager::getInstance()->saveData(array($user_id,$status));
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
             }

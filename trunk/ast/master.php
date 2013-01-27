@@ -10,7 +10,6 @@ session_start();
 header('Content-type: text/html; charset=utf-8');
 define('POS_ROOT', getcwd());
 include_once POS_ROOT . '/include/bootstrap.inc';
-
 // Initialize default content page
 $pagename = 'index';
 if (isset($_GET['contentpage'])) {

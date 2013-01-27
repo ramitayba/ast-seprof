@@ -34,12 +34,12 @@ class EventBusinessLayer {
         return $this->_LastError;
     }
 
-    public function getEvents() {
+    public function getEvents($status) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call GetEvents}";
+            $this->_SQLQuery = "{call GetEvents(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_EventsDataTable = DataAccessManager::getInstance()->fillData();
+            $this->_EventsDataTable = DataAccessManager::getInstance()->fillData(array($status));
             $this->_Success = DataAccessManager::getInstance()->getSuccess();
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
@@ -51,12 +51,12 @@ class EventBusinessLayer {
         return $this->_EventsDataTable;
     }
 
-    public function getEventByName($name) {
+    public function getEventByName($name,$status) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call GetEventByName(?)}";
+            $this->_SQLQuery = "{call GetEventByName(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_EventsDataTable = DataAccessManager::getInstance()->fillData(array($name));
+            $this->_EventsDataTable = DataAccessManager::getInstance()->fillData(array($name,$status));
            $this->_Success = DataAccessManager::getInstance()->getSuccess();
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
@@ -68,12 +68,12 @@ class EventBusinessLayer {
         return $this->_EventsDataTable;
     }
 
-    public function getEventByID($id) {
+    public function getEventByID($id,$status) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call GetEventByID(?)}";
+            $this->_SQLQuery = "{call GetEventByID(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_EventsDataTable = DataAccessManager::getInstance()->fillData(array($id));
+            $this->_EventsDataTable = DataAccessManager::getInstance()->fillData(array($id,$status));
            $this->_Success = DataAccessManager::getInstance()->getSuccess();
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
@@ -117,7 +117,7 @@ class EventBusinessLayer {
         return $this->_Success;
     }
 
-    public function deleteEvent($event_id,$status) {
+    public function updateStatusEvent($event_id,$status) {
         try {
             $this->_reset();
             $this->_SQLQuery = "{call DeleteEvent(?,?)}";
