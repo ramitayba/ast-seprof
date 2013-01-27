@@ -7,6 +7,12 @@
  * 
  */
 ?>
+<script>
+    $(function() {
+       $('#color').colorpicker({ flat: true });
+    });
+</script>
+
 <div id="validation" class="widget highlight widget-form widget-categories-form">
     <div class="widget-header">
         <h3>
