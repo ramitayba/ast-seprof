@@ -117,12 +117,12 @@ class CafeteriaBusinessLayer {
         return $this->_Success;
     }
 
-    public function deleteCafeteria($cafeteria_id,$status) {
+    public function deleteCafeteria($cafeteria_id,$status,$user_modification_id) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call DeleteCafeteria(?,?)}";
+            $this->_SQLQuery = "{call DeleteCafeteria(?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_Success = DataAccessManager::getInstance()->saveData(array($cafeteria_id, $status));
+            $this->_Success = DataAccessManager::getInstance()->saveData(array($cafeteria_id, $status,$user_modification_id));
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
             }

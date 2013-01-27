@@ -49,14 +49,14 @@ class AllowanceBusinessLayer {
             $this->_Success = false;
         }
         return $this->_AllowancesDataTable;
-    }
+        }
 
-    public function addAllowance($xml,$user_modification) {
+        public function addAllowance($EmployeeID,$MaxDebit, $user_modification) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call AddAllowance(?,?)}";
+            $this->_SQLQuery = "{call AddAllowance(?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_Success = DataAccessManager::getInstance()->saveData(array($xml, $user_modification));
+            $this->_Success = DataAccessManager::getInstance()->saveData(array($EmployeeID, $MaxDebit, $user_modification));
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
             }
@@ -66,5 +66,6 @@ class AllowanceBusinessLayer {
         }
         return $this->_Success;
     }
+
 }
 

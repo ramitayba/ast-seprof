@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This is the CafeteriaBusinessLayer
+ * This is the LookupBusinessLayer
  * Designed and Developed by SEProf Team
  * Copyright (c) 2013 SEProf Inc.
  * http://seprof.com/
@@ -47,7 +47,7 @@ class LookupBusinessLayer {
     public function getEmployees() {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call getEmployees}";
+            $this->_SQLQuery = "{call GetEmployees}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_EmployeesDataTable = DataAccessManager::getInstance()->fillData();
             $this->_Success =DataAccessManager::getInstance()->getSuccess();
@@ -81,7 +81,7 @@ class LookupBusinessLayer {
     public function getPermission($role_id) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call getPermission(?)}";
+            $this->_SQLQuery = "{call GetPermission(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_PermissionDataTable = DataAccessManager::getInstance()->fillData(array($role_id));
             $this->_Success =DataAccessManager::getInstance()->getSuccess();

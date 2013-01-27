@@ -289,22 +289,29 @@ class Helper {
         $li = '';
         $message = '';
         foreach ($array as $pkey => $row):
-            if (self::is_empty_string($row)):
+            if (self::is_empty_string($row['content'])):
                 $li.='<li>' . $pkey . ' can t be empty</li>';
-            endif;
-        endforeach;
-        if (!self::is_empty_string($li)):
-            $message = '<ul>' . $li . '</ul>';
-        endif;
-        return $message;
-    }
-
-    public static function max_length($array) {
-        $li = '';
-        $message = '';
-        foreach ($array as $pkey => $row):
-            if (strlen($row['word']) > $row['length']):
-                $li.='<li>' . $pkey . ' can t be grand than ' . $row['length'] . '</li>';
+            else:
+                if ($row['type'] == 'string'):
+                    if (strlen($row['content']) > $row['length']):
+                        $li.='<li>' . $pkey . ' can t be grand than ' . $row['length'] . '</li>';
+                    endif;
+                else:
+                    if (!is_numeric($row['content'])):
+                        $li.='<li>' . $pkey . ' must be numeric </li>';
+                    else:
+                        switch ($row['type']):
+                            case 'int':
+                                $li.=!is_int($row['content']) ? '<li>' . $pkey . ' must be digit </li>' : '';
+                                break;
+                            case 'long':
+                                $li.=!is_long($row['content']) ? '<li>' . $pkey . ' must be digit </li>' : '';
+                                break;
+                            default:
+                                break;
+                        endswitch;
+                    endif;
+                endif;
             endif;
         endforeach;
         if (!self::is_empty_string($li)):

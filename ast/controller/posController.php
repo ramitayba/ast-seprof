@@ -14,7 +14,7 @@ $posBusinessLayer = new PosBusinessLayer();
 if ($action == 'cafeterias' && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'):
     if ((!Helper::is_empty_string($query_id) && is_numeric($query_id)) || isset($_SESSION['cafeteria_id'])):
         $_SESSION['cafeteria_id'] = isset($_SESSION['cafeteria_id']) ? $_SESSION['cafeteria_id'] : $query_id;
-        $posDataTable = $posBusinessLayer->getPosByCafeteriaID($_SESSION['cafeteria_id'],ACTIVE);
+        $posDataTable = $posBusinessLayer->getPosByCafeteriaID($_SESSION['cafeteria_id'], ACTIVE);
         $content = Helper::fill_datatable('pos', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $posDataTable, array('Pos Name', 'Cafeteria Name', 'Status'), array('pos_key', 'cafeteria_name', 'status_name'), 'pos_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
                     1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')));
         print $content;
@@ -45,7 +45,7 @@ elseif ($action == 'add'):
     include_once POS_ROOT . '/content/cafeterias/posform.php';
 elseif ($action == 'edit'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
-        $posDataTable = $posBusinessLayer->getPosByID($query_id,ACTIVE);
+        $posDataTable = $posBusinessLayer->getPosByID($query_id, ACTIVE);
         if (count($posDataTable) == 0):
             print Helper::json_encode_array(array('status' => 'error', 'message' => 'Item doesn t  exist '));
             return;
@@ -57,13 +57,13 @@ elseif ($action == 'save'):
     $name = isset($data['pos_key']) ? $data['pos_key'] : '';
     $cafeteria = isset($data['cafeteria']) ? $data['cafeteria'] : '';
     $status = isset($data['status']) ? $data['status'] : '';
-    $array = array('Pos key' => $name, 'Cafeteria' => $cafeteria, 'Status' => $status);
+    $array = array('Pos key' => array('content' => $name, 'type' => 'string', 'length' => '150'), 'Cafetereia Name' => array('content' => $cafeteria, 'type' => 'int'), 'Status' => array('content' => $status, 'type' => 'int'));
     $message = Helper::is_list_empty($array);
     if (!Helper::is_empty_string($message)):
         print Helper::json_encode_array(array('status' => 'error', 'message' => $message));
         return;
     endif;
-    $posDataTable = $posBusinessLayer->getPosByName($name,ACTIVE);
+    $posDataTable = $posBusinessLayer->getPosByName($name, ACTIVE);
     if (Helper::is_empty_string($query_id)):
         if (count($posDataTable) > 0):
             print Helper::json_encode_array(array('status' => 'error', 'message' => 'Pos name already exist'));
@@ -75,7 +75,7 @@ elseif ($action == 'save'):
             print Helper::json_encode_array(array('status' => 'error', 'message' => 'Pos doesn t  exist'));
             return;
         elseif (count($posDataTable) == 0):
-            $posDataTable = $posBusinessLayer->getPosByID($query_id,ACTIVE);
+            $posDataTable = $posBusinessLayer->getPosByID($query_id, ACTIVE);
             if (count($posDataTable) == 0):
                 print Helper::json_encode_array(array('status' => 'error', 'message' => 'Pos doesn t  exist '));
                 return;
@@ -90,8 +90,8 @@ elseif ($action == 'save'):
     endif;
     if ($success):
         $posDataTable = isset($_SESSION['cafeteria_id']) ?
-                $posBusinessLayer->getPosByCafeteriaID($_SESSION['cafeteria_id'],ACTIVE) :
-                $posDataTable = $posBusinessLayer->getPos();
+                $posBusinessLayer->getPosByCafeteriaID($_SESSION['cafeteria_id'], ACTIVE) :
+                $posDataTable = $posBusinessLayer->getPos(ACTIVE);
         if ($posBusinessLayer->getSuccess()):
             $content = Helper::fill_datatable('pos', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $posDataTable, array('Pos Name', 'Cafeteria Name', 'Status'), array('pos_key', 'cafeteria_name', 'status_name'), 'pos_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
                         1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')));
@@ -103,12 +103,12 @@ elseif ($action == 'save'):
     endif;
 elseif ($action == 'delete'):
     if (!Helper::is_empty_string($query_id)):
-        $posDataTable = $posBusinessLayer->getPosById($query_id,ACTIVE);
+        $posDataTable = $posBusinessLayer->getPosById($query_id, ACTIVE);
         if (count($posDataTable) == 0):
             print Helper::json_encode_array(array('status' => 'error', 'message' => 'POS doesn t  exist '));
             return;
         endif;
-        $success = $posBusinessLayer->deletePos($query_id,DESACTIVE);
+        $success = $posBusinessLayer->deletePos($query_id, DESACTIVE,$_SESSION['user_pos']);
         if ($success):
             $container = Helper::set_message('POS ' . $posDataTable [0]['pos_key'] . ' delete succesfuly', 'status');
             print Helper::json_encode($container);

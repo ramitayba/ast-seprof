@@ -10,13 +10,13 @@
 include_once POS_ROOT . '/businessLayer/RoleBusinessLayer.php';
 $roleBusinessLayer = new RoleBusinessLayer();
 if ($action == 'roles' || $action == 'index'):
-    $roleDataTable = $roleBusinessLayer->getRoles();
+    $roleDataTable = $roleBusinessLayer->getRoles(ACTIVE);
     if ($roleBusinessLayer->getSuccess()):
         $content = Helper::fill_datatable('roles', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $roleDataTable, array('Role Name', 'Status Name'), array('role_name', 'status_name'), 'role_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
                     1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete'),
                     2 => array('name' => 'Permissions', 'link' => 'permissions-', 'class' => 'permissions')));
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') :
-            print json_encode($content);
+            print $content;
             return;
         endif;
         unset($_SESSION['messages']);
@@ -24,7 +24,7 @@ if ($action == 'roles' || $action == 'index'):
         $div = Helper::set_message('<li>error Connection</li>', 'error');
         $_SESSION['messages'] = $div;
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') :
-            print json_encode($div);
+            print $div;
             return;
         endif;
     endif;
@@ -32,9 +32,9 @@ elseif ($action == 'add'):
     include POS_ROOT . '/content/users/rolesform.php';
 elseif ($action == 'edit'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
-        $roleDataTable = $roleBusinessLayer->getRoleByID($query_id);
+        $roleDataTable = $roleBusinessLayer->getRoleByID($query_id, ACTIVE);
         if (count($roleDataTable) == 0):
-            print json_encode(array('status' => 'error', 'message' => 'Role doesn t  exist '));
+            print Helper::json_encode_array(array('status' => 'error', 'message' => 'Role doesn t  exist '));
             return;
         endif;
         $forms = array('role_id' => $query_id,
@@ -45,62 +45,62 @@ elseif ($action == 'edit'):
 elseif ($action == 'save'):
     $name = isset($data['role_name']) ? $data['role_name'] : '';
     $status = isset($data['status']) ? $data['status'] : '';
-    $array = array('Role Name ' => $name, 'Status' => $status);
+    $array = array('Role Name ' => array('content' => $name, 'type' => 'string', 'length' => '100'), 'Status' => array('content' => $status, 'type' => 'int'));
     $message = Helper::is_list_empty($array);
     if (!Helper::is_empty_string($message)):
-        print json_encode(array('status' => 'error', 'message' => $message));
+        print Helper::json_encode_array(array('status' => 'error', 'message' => $message));
         return;
     endif;
-    $roleDataTable = $roleBusinessLayer->getRoleByName($name);
+    $roleDataTable = $roleBusinessLayer->getRoleByName($name, ACTIVE);
     if (Helper::is_empty_string($query_id)):
         if (count($roleDataTable) > 0):
-            print json_encode(array('status' => 'error', 'message' => 'Role name already exist'));
+            print Helper::json_encode_array(array('status' => 'error', 'message' => 'Role name already exist'));
             return;
         endif;
         $success = $roleBusinessLayer->addRole($name, $status, $_SESSION['user_pos']);
     else:
         if (!is_numeric($query_id)):
-            print json_encode(array('status' => 'error', 'message' => 'Role doesn t  exist'));
+            print Helper::json_encode_array(array('status' => 'error', 'message' => 'Role doesn t  exist'));
             return;
         elseif (count($roleDataTable) == 0):
-            $roleDataTable = $roleBusinessLayer->getRoleByID($query_id);
+            $roleDataTable = $roleBusinessLayer->getRoleByID($query_id, ACTIVE);
             if (count($roleDataTable) == 0):
-                print json_encode(array('status' => 'error', 'message' => 'Role doesn t  exist '));
+                print Helper::json_encode_array(array('status' => 'error', 'message' => 'Role doesn t  exist '));
                 return;
             endif;
         else:
             if ($roleDataTable [0]['role_id'] != $query_id):
-                print json_encode(array('status' => 'error', 'message' => 'Can t be save because Role name already exist'));
+                print Helper::json_encode_array(array('status' => 'error', 'message' => 'Can t be save because Role name already exist'));
                 return;
             endif;
         endif;
         $success = $roleBusinessLayer->editRole($query_id, $name, $status, $_SESSION['user_pos']);
     endif;
     if ($success):
-        $roleDataTable = $roleBusinessLayer->getRoles();
+        $roleDataTable = $roleBusinessLayer->getRoles(ACTIVE);
         if ($roleBusinessLayer->getSuccess()):
             $content = Helper::fill_datatable('roles', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $roleDataTable, array('Role Name', 'Status Name'), array('role_name', 'status_name'), 'role_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
                         1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete'),
                         2 => array('name' => 'Permissions', 'link' => 'permissions-', 'class' => 'permissions')));
         endif;
         $container = Helper::set_message('Role saved succesfuly', 'status') . $content;
-        print json_encode($container);
+        print $container;
     else:
-        print json_encode(array('status' => 'error', 'message' => 'Role not saved '));
+        print Helper::json_encode_array(array('status' => 'error', 'message' => 'Role not saved '));
     endif;
 elseif ($action == 'delete'):
     if (!Helper::is_empty_string($query_id)):
-        $roleDataTable = $roleBusinessLayer->getRoleByID($query_id);
+        $roleDataTable = $roleBusinessLayer->getRoleByID($query_id, ACTIVE);
         if (count($roleDataTable) == 0):
-            print json_encode(array('status' => 'error', 'message' => 'Role doesn t  exist '));
+            print Helper::json_encode_array(array('status' => 'error', 'message' => 'Role doesn t  exist '));
             return;
         endif;
-        $success = $roleBusinessLayer->deleteRole($query_id, $_SESSION['user_pos']);
+        $success = $roleBusinessLayer->deleteRole($query_id, DESACTIVE, $_SESSION['user_pos']);
         if ($success):
             $container = Helper::set_message('Role ' . $roleDataTable [0]['role_name'] . ' delete succesfuly', 'status');
-            print json_encode($container);
+            print Helper::json_encode($container);
         else:
-            print json_encode(array('status' => 'error', 'message' => 'Role not deleted '));
+            print Helper::json_encode_array(array('status' => 'error', 'message' => 'Role not deleted '));
         endif;
     endif;
 endif;

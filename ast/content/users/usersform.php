@@ -1,6 +1,6 @@
 <?php
 /**
- * This is the Helper
+ * This is the User Form
  * Designed and Developed by SEProf Team
  * Copyright (c) 2013 SEProf Inc.
  * http://seprof.com/
@@ -29,7 +29,7 @@
                 <div class="control-group">
                     <label class="control-label" for="username">Username</label>
                     <div class="controls">
-                        <input type="text" class="input-large" name="user_name" id="username"
+                        <input type="text" class="input-large" name="user_name" id="username" maxlength="50"
          value="<?php if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['user_name'];
 endif;
 ?>">
@@ -38,7 +38,7 @@ endif;
                 <div class="control-group">
                     <label class="control-label" for="password">Password</label>
                     <div class="controls">
-                        <input type="password" class="input-large" name="user_password" id="password"
+                        <input type="password" class="input-large" name="user_password" id="password" maxlength="50"
                                value="<?php if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['user_password'];
                                endif;
 ?>">

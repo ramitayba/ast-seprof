@@ -27,7 +27,8 @@ $routes=array(
     'itemsController'=>array('products/items'),
     'posController'=>array('cafeterias/pos'),
     'cafeteriasController'=>array('cafeterias/index'),
-    'eventsController'=>array('events/index')
+    'eventsController'=>array('events/index'),
+    'allowanceController'=>array('settings/allowance'),
 );
 
 $actions=array('add','edit','delete');
