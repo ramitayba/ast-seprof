@@ -11,6 +11,7 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTE
     $controllerDirs = POS_ROOT . '/controller/' . $name . 'Controller.php';
     $datainput = isset($_POST['datainput']) ? $_POST['datainput'] : '';
     $sequence= isset($_POST['sequence']) ? $_POST['sequence'] : '';
+    $datatable=isset($_POST['datatable']) ? $_POST['datatable'] : '';
     if ($datainput != ''):
         $array = explode('&', $datainput);
         foreach ($array as $row):
@@ -21,16 +22,7 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTE
     if (!file_exists($controllerDirs)):
         return;
     endif;
-    if ($action == 'add' or $action == 'edit'):
-        ob_start();
-        include
-                $controllerDirs;
-        $html = ob_get_contents();
-        ob_end_clean();
-        print json_encode($html);
-    else:
         include $controllerDirs;
-    endif;
 else:
     Helper::redirect();
 endif;

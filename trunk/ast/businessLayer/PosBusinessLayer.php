@@ -34,12 +34,12 @@ class PosBusinessLayer {
         return $this->_LastError;
     }
 
-    public function getPos() {
+    public function getPos($status) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call getPos}";
+            $this->_SQLQuery = "{call GetPos(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_PosDataTable = DataAccessManager::getInstance()->fillData();
+            $this->_PosDataTable = DataAccessManager::getInstance()->fillData(array($status));
            $this->_Success =DataAccessManager::getInstance()->getSuccess();
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
@@ -51,12 +51,12 @@ class PosBusinessLayer {
         return $this->_PosDataTable;
     }
 
-    public function getPosByName($name) {
+    public function getPosByName($name,$status) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call getPosByName(?)}";
+            $this->_SQLQuery = "{call GetPosByName(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_PosDataTable = DataAccessManager::getInstance()->fillData(array($name));
+            $this->_PosDataTable = DataAccessManager::getInstance()->fillData(array($name,$status));
             $this->_Success =DataAccessManager::getInstance()->getSuccess();
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
@@ -68,12 +68,12 @@ class PosBusinessLayer {
         return $this->_PosDataTable;
     }
 
-    public function getPosByID($id) {
+    public function getPosByID($id,$status) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call getPosByID(?)}";
+            $this->_SQLQuery = "{call GetPosByID(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_PosDataTable = DataAccessManager::getInstance()->fillData(array($id));
+            $this->_PosDataTable = DataAccessManager::getInstance()->fillData(array($id,$status));
             $this->_Success =DataAccessManager::getInstance()->getSuccess();
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
@@ -85,12 +85,12 @@ class PosBusinessLayer {
         return $this->_PosDataTable;
     }
 
-    public function getPosByCafeteriaID($id) {
+    public function getPosByCafeteriaID($id,$status) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call getPosByCafeteriaID(?)}";
+            $this->_SQLQuery = "{call GetPosByCafeteriaID(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_PosDataTable = DataAccessManager::getInstance()->fillData(array($id));
+            $this->_PosDataTable = DataAccessManager::getInstance()->fillData(array($id,$status));
             $this->_Success =DataAccessManager::getInstance()->getSuccess();
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
@@ -135,12 +135,12 @@ class PosBusinessLayer {
     }
 
 
-    public function deletePos($pos_id) {
+    public function deletePos($pos_id,$status) {
         try {
             $this->_reset();
             $this->_SQLQuery = "{call DeletePos(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_Success = DataAccessManager::getInstance()->saveData(array($pos_id,DESACTIVE));
+            $this->_Success = DataAccessManager::getInstance()->saveData(array($pos_id,$status));
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
             }

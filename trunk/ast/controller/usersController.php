@@ -32,7 +32,7 @@ elseif ($action == 'login'):
 elseif ($action == 'index'):
     $userDataTable = $userBusinessLayer->getUsers();
     if ($userBusinessLayer->getSuccess()):
-        $content = Helper::fill_datatable('users', $userDataTable, array('User Name', 'Password', 'Pin Code', 'Role Name', 'Employee Name'), array('user_name', 'user_password', 'user_pin', 'role_name', 'employee_name'), 'user_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
+        $content = Helper::fill_datatable('users', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $userDataTable, array('User Name', 'Password', 'Pin Code', 'Role Name', 'Employee Name'), array('user_name', 'user_password', 'user_pin', 'role_name', 'employee_name'), 'user_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
                     1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')));
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') :
             print json_encode($content);
@@ -103,9 +103,8 @@ elseif ($action == 'save'):
     if ($success):
         $userDataTable = $userBusinessLayer->getUsers();
         if ($userBusinessLayer->getSuccess()):
-            $content = Helper::fill_datatable('users', $userDataTable, array('User Name', 'Password', 'Pin Code', 'Role Name', 'Employee Name'), array('user_name', 'user_password', 'user_pin', 'role_name', 'employee_name'), 'user_id',
-                    array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
-                    1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')));
+            $content = Helper::fill_datatable('users', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $userDataTable, array('User Name', 'Password', 'Pin Code', 'Role Name', 'Employee Name'), array('user_name', 'user_password', 'user_pin', 'role_name', 'employee_name'), 'user_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
+                        1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')));
         endif;
         $container = Helper::set_message('User saved succesfuly', 'status') . $content;
         print json_encode($container);

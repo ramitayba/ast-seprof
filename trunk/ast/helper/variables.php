@@ -15,6 +15,7 @@ $query_id = '';
 $data=array();
 $forms;
 $sequence;
+$datatable;
 
 define('ACTIVE', 1);
 define('DESACTIVE', 2);

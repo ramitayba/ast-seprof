@@ -13,8 +13,7 @@ unset($_SESSION['category_id']);
 if ($action == 'index' || $action == 'categories'):
     $categoryDataTable = $categoryBusinessLayer->getCategories();
     if ($categoryBusinessLayer->getSuccess()):
-        $content = Helper::fill_datatable('categories', $categoryDataTable, array('Category Name', 'Category Parent', 'Category Color Code', 'Category Description', 'Status'), array('category_name', 'category_parent_name', 'color_code', 'category_description', 'status_name'), 'category_id',
-                  array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
+        $content = Helper::fill_datatable('categories', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $categoryDataTable, array('Category Name', 'Category Parent', 'Category Color Code', 'Category Description', 'Status'), array('category_name', 'category_parent_name', 'color_code', 'category_description', 'status_name'), 'category_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
                     1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')));
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') :
             print json_encode($content);
@@ -60,6 +59,7 @@ elseif ($action == 'save'):
     $categoryDataTable = $categoryBusinessLayer->getCategoryByName($name);
     if (Helper::is_empty_string($query_id)):
         if (count($categoryDataTable) > 0):
+           
             print json_encode(array('status' => 'error', 'message' => 'Category name already exist'));
             return;
         endif;
@@ -90,7 +90,7 @@ elseif ($action == 'save'):
           else: */
         $categoryDataTable = $categoryBusinessLayer->getCategories();
         if ($categoryBusinessLayer->getSuccess()):
-            $content = Helper::fill_datatable('categories', $categoryDataTable, array('Category Name', 'Category Parent', 'Category Color Code', 'Category Description', 'Status'), array('category_name', 'category_parent_name', 'color_code', 'category_description', 'status_name'), 'category_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
+            $content = Helper::fill_datatable('categories', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $categoryDataTable, array('Category Name', 'Category Parent', 'Category Color Code', 'Category Description', 'Status'), array('category_name', 'category_parent_name', 'color_code', 'category_description', 'status_name'), 'category_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
                         1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')));
         endif;
         $container = Helper::set_message('Category saved succesfuly', 'status') . $content;
@@ -113,6 +113,28 @@ elseif ($action == 'delete'):
         else:
             print json_encode(array('status' => 'error', 'message' => 'Category not deleted '));
         endif;
+    endif;
+elseif ($action == 'get'):
+    $container='';
+    if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
+        $categoryDataTable = $categoryBusinessLayer->getCategoryChildrenByParentID($query_id);
+        if (!Helper::is_empty_array($categoryDataTable)):
+            $container = ' <label class="control-label" for="children-category">Category Childen Name</label>
+                    <div class="controls">';
+            $container.=Helper::form_construct_drop_down('category-children', $categoryDataTable, '', 'category_name', 'category_id', '', '', '');
+            $container.=' </div>';
+        else:
+            include_once POS_ROOT . '/businessLayer/ItemBusinessLayer.php';
+            $itemBusinessLayer = new ItemBusinessLayer();
+            $itemDataTable = $itemBusinessLayer->GetItemByCategory($query_id);
+            if (!Helper::is_empty_array($itemDataTable)):
+                $container = '<label class="control-label" for="items">Item Name</label>
+                    <div class="controls">';
+                $container.=Helper::form_construct_drop_down('item', $itemDataTable, '', 'item_name', 'item_id', '', '', '');
+                $container.=' </div>';
+            endif;
+        endif;
+        print $container;
     endif;
 endif;
 ?>

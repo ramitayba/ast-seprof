@@ -28,7 +28,7 @@
                 <div class="control-group">
                     <label class="control-label" for="cafeterianame">Cafeteria Name</label>
                     <div class="controls">
-                        <input type="text" class="input-large" name="cafeteria_name" id="cafeterianame" value="<?php
+                        <input type="text" class="input-large" name="cafeteria_name" id="cafeterianame" maxlength="50" value="<?php
 if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['cafeteria_name'];
 endif;
 ?>">

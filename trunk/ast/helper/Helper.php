@@ -82,10 +82,6 @@ class Helper {
         if (!isset($timezones[$timezone])) {
             $timezones[$timezone] = timezone_open($timezone);
         }
-        global $language;
-        if (empty($langcode)) {
-            $langcode = isset($language->language) ? $language->language : 'en';
-        }
         switch ($type) {
             case 'short':
                 $format = 'm/d/Y - H:i';
@@ -303,6 +299,20 @@ class Helper {
         return $message;
     }
 
+    public static function max_length($array) {
+        $li = '';
+        $message = '';
+        foreach ($array as $pkey => $row):
+            if (strlen($row['word']) > $row['length']):
+                $li.='<li>' . $pkey . ' can t be grand than ' . $row['length'] . '</li>';
+            endif;
+        endforeach;
+        if (!self::is_empty_string($li)):
+            $message = '<ul>' . $li . '</ul>';
+        endif;
+        return $message;
+    }
+
     public static function mssql_escape($data) {
         if (!isset($data) or empty($data))
             return '';
@@ -329,6 +339,7 @@ class Helper {
         $data = str_replace("%2B", "+", $data);
         $data = str_replace("%3D", "=", $data);
         $data = str_replace("%2F", "/", $data);
+        $data = str_replace("%3A", ":", $data);
         $data = str_replace("+", " ", $data);
         $data = self::check_plain($data);
         return $data;
@@ -418,11 +429,16 @@ class Helper {
         return $list;
     }
 
-    public static function fill_datatable($name, $array, $header, $fields, $id_name, $linkcontrol = array(), $control = true) {
+    public static function fill_datatable($name, $header_buttons, $table, $header, $fields, $id_name, $linkcontrol = array(), $control = true, $column_hide = -1) {
         $datatable = '<div id="widget-table"> <div class="widget-header"><h3><i class="icon-th-list"></i>'
-                . ucfirst($name) . '</h3></div><script>$(function () {    var oTable = table("' . $name . '");});</script>
-            <div class="widget-content" id="widget-content-' . $name . '-table">';
-        $datatable.=$control ? ' <span><a id="new-' . $name . '" class="new btn"  href="">Add New Record</a></span>' : '';
+                . ucfirst($name) . '</h3></div><script>$(function () {     oTable = table("' . $name . '",' . $column_hide . ');});</script> 
+                    <div class="widget-content" id="widget-content-' . $name . '-table">';
+        if ($control):
+            foreach ($header_buttons as $headerlink):
+                $link = $headerlink['link'] . $name;
+                $datatable.= '<span><a class="' . $headerlink['class'] . ' btn" id="' . $link . '" href="">' . $headerlink['name'] . '</a></span>';
+            endforeach;
+        endif;
         $datatable.= '<table class="table table-striped table-bordered table-highlight" id="' . $name . '-table">';
         $thead = ' <thead><tr>';
         foreach ($header as $row):
@@ -432,21 +448,22 @@ class Helper {
         $tbody = '<tbody>';
         $i = 1;
         $tr = '';
-        foreach ($array as $row):
+        foreach ($table as $row):
             $class = $i % 2 ? ' even' : ' odd';
             $tr = '<tr class="gradeA ' . $class . '">';
             foreach ($fields as $rowfields):
                 $tr.= '<td>' . $row[$rowfields] . '</td>';
             endforeach;
-            $tr.='<td>';
+
             if ($control):
-                $extra = '';
+                $extra = '<td>';
                 foreach ($linkcontrol as $rowlink):
                     $link = $rowlink['link'] . $name . '-' . $row[$id_name];
                     $extra.= '<span><a class="' . $rowlink['class'] . ' btn" id="' . $link . '" href="">' . $rowlink['name'] . '</a></span>';
                 endforeach;
+                $extra .= '</td>';
             endif;
-            $tr.=$extra . '</td></tr>';
+            $tr.=$extra . '</tr>';
             $tbody.=$tr;
             $i++;
         endforeach;
@@ -490,15 +507,40 @@ class Helper {
         return $pagename;
     }
 
-    public static function form_construct_drop_down($name, $array, $current, $field_name, $field_id, $disable = '') {
-        $select = "<select $disable id name = '" . strtolower($name) . "'><option value = ''>Select</option>";
+    public static function form_construct_drop_down($name, $array, $current, $field_name, $field_id, $disable = '', $class = '', $script = '') {
+        $select = ' <select class="' . $class . '" ' . $disable . ' id="' . strtolower($name) . '" name = "' . strtolower($name) . '"><option value = "">Select</option>';
         foreach ($array as $key => $value) {
             $val_option = $value[$field_name];
             $selected = $current == $value[$field_id] ? 'selected' : '';
-            $select.= "<option $selected value = '" . $value[$field_id] . "'>" . $val_option . "</option>";
+            $select.= '<option ' . $selected . ' value = "' . $value[$field_id] . '">' . $val_option . '</option>';
         }
-        $select.="</select>";
-        return $select;
+        $select.='</select>';
+        return $select . $script;
+    }
+
+    public static function array_to_xml($array, &$xml) {
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                if (!is_numeric($key)) {
+                    $subnode = $xml->addChild("$key");
+                    self::array_to_xml($value, $subnode);
+                } else {
+                    self::array_to_xml($value, $xml);
+                }
+            } else {
+                $xml->addChild("$key", "$value");
+            }
+        }
+    }
+
+    public static function json_encode($string) {
+        header('Content-type: text/json');
+        return json_encode($string);
+    }
+
+    public static function json_encode_array($array = array()) {
+        header('Content-type: text/json');
+        return json_encode($array);
     }
 
 }

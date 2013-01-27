@@ -914,7 +914,7 @@ label.error {
 */
 
 .widget-table .widget-content {
-    padding: 10px 0 0;
+    padding: 10px 0 0!important;
 }
 
 .widget-table .table-bordered {
@@ -1184,10 +1184,12 @@ label.error {
 .widget-form .control-group {
     padding: 15px 25px;
     margin-bottom: 0;
-
-    border-top: 1px dotted #CCC;
 }
-
+.widget-form .control-min-group
+{
+    width:45%;
+    float:left;
+}
 .widget-form .control-group:first-child {
     border-top: none;
 }
@@ -1658,4 +1660,14 @@ div.messages ul li {
 
 .element-invisible{display:none;}
 
-.PermLinks { border:2px solid #ccc; width:300px; height: 150px; overflow-y: scroll; }
+.PermLinks {  width:300px; height: 150px;  }
+
+.clearfix:after {
+      content: "\0020";
+      display: block;
+      height: 0;
+      clear: both;
+      overflow: hidden;
+      visibility: hidden;
+    }
+    
