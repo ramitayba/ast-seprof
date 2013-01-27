@@ -1,4 +1,4 @@
-var dataRow, nRow,oTable,count=0,row_id='', baseurl="/ast/process.php";;
+var dataRow, nRow,oTable,count=0,row_id='', baseurl="/ast/process.php";
 $(function () {
     jQuery.extend({
         seprof: function(url,data,callback,errorCallback,type) {
@@ -364,6 +364,16 @@ function table(name,column_hide)
         sPaginationType: "bootstrap",
         oLanguage: {
             "sLengthMenu": "_MENU_ records per page"
+        },
+        bProcessing: true,
+        fnDrawCallback: function () {
+            $('#'+name+'-table tbody td.tdedit').editable('/ast/process.php',{
+                "callback": function( sValue, y ) {
+                    /* Redraw the table from the new data on the server */
+                    table.fnDraw();
+                },
+                "height": "14px"
+            } );
         }
     });
     if(column_hide!=-1){
