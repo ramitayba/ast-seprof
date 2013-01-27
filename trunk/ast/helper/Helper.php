@@ -452,7 +452,7 @@ class Helper {
             $class = $i % 2 ? ' even' : ' odd';
             $tr = '<tr class="gradeA ' . $class . '">';
             foreach ($fields as $rowfields):
-                $tr.= '<td>' . $row[$rowfields] . '</td>';
+                $tr.= '<td class="tdedit">' . $row[$rowfields] . '</td>';
             endforeach;
 
             if ($control):
