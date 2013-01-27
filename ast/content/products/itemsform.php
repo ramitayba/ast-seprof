@@ -7,6 +7,32 @@
  * 
  */
 ?>
+<script>
+
+    $(document).ready( function () {
+
+        maxLength = $("textarea#comment").attr("maxlength");
+        $("textarea#comment").after("<div><span id='remainingLengthTempId'>"
+            + maxLength + "</span> remaining</div>");
+
+        $("textarea#comment").bind("keyup change", function(){checkMaxLength(this.id,  maxLength); } )
+
+    });
+
+    function checkMaxLength(textareaID, maxLength){
+
+        currentLengthInTextarea = $("#"+textareaID).val().length;
+        $(remainingLengthTempId).text(parseInt(maxLength) - parseInt(currentLengthInTextarea));
+
+        if (currentLengthInTextarea > (maxLength)) {
+
+            // Trim the field current length over the maxlength.
+            $("textarea#comment").val($("textarea#comment").val().slice(0, maxLength));
+            $(remainingLengthTempId).text(0);
+
+        }
+    }
+</script>
 
 <div id="validation" class="widget highlight widget-form widget-items-form">
 
@@ -66,7 +92,7 @@ endif;
                 <div class="control-group">
                     <label class="control-label" for="item-description">Description</label>
                     <div class="controls">
-                        <textarea class="input-large" name="item_description" id="item-description"
+                        <textarea id="comment" maxlength="150" class="input-large" name="item_description" id="item-description"
                                  ><?php
                                if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['item_description'];
                                endif;
