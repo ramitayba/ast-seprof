@@ -22,16 +22,6 @@
             $role_id=$_SESSION['user_pos_role'];
             print Menu::getInstance()->constructMenu($role_id) ?>
             
-            <ul class="nav pull-right">
-
-                <li class="">
-                    <form class="navbar-search pull-left">
-                        <input type="text" class="search-query" placeholder="Search">
-                        <button class="search-btn"><i class="icon-search"></i></button>
-                    </form>	    				
-                </li>
-
-            </ul>
 
         </div> <!-- /.nav-collapse -->
 

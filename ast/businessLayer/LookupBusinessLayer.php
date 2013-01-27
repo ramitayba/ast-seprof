@@ -41,6 +41,9 @@ class LookupBusinessLayer {
         return $this->_LastError;
     }
 
+     public function getSuccess() {
+        return $this->_Success;
+    }
     public function getEmployees() {
         try {
             $this->_reset();

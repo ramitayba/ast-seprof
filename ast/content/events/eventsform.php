@@ -7,7 +7,11 @@
  * 
  */
 ?>
-
+<script>
+    $(function() {
+        $( "#datepicker" ).datepicker();
+    });
+</script>
 <div id="validation" class="widget highlight widget-form widget-events-form">
     <div class="widget-header">
         <h3>
@@ -32,10 +36,11 @@ endif;
 ?>">                   
                     </div>
                 </div>
+
                 <div class="control-group control-min-group">
                     <label class="control-label" for="event-date">Event Date</label>
                     <div class="controls">
-                        <input type="text" id="event_date" class="datepicker" name="event_date" value="<?php
+                        <input type="text" id="datepicker" name="event_date" value="<?php
                                if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['event_date'];
                                endif;
 ?>"/>
@@ -66,36 +71,30 @@ endif;
                         print Helper::form_construct_drop_down('employee', LookupBusinessLayer::getInstance()->getEmployees(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['employee_id'] : '', 'employee_name', 'employee_id');
                         ?> 
                     </div>
-                </div>            
-                <div class="control-group">
-                    <label class="control-label" for="item">Item Name</label>
+                </div>    
+                <div class="clear"></div>
+                <div class="control-group control-min-group control-category">
+                    <label class="control-label" for="category">Category Parent Name</label>
                     <div class="controls">
                         <?php
-                        $item = new ItemBusinessLayer();
-                        print Helper::form_construct_drop_down('item', $item->getItems(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['item_id'] : '', 'item_name', 'item_id');
+                        $parent = new CategoryBusinessLayer();
+                        print Helper::form_construct_drop_down('category', $parent->getParentCategories(), '', 'category_name', 'category_id', '', '', ''); // '<script type="text/javascript"> $(".chzn-select").chosen(); $(".chzn-select-deselect").chosen({allow_single_deselect:true}); </script>');
                         ?> 
                     </div>
                 </div>              
-               
-                 <div class="control-group">
-                    <label class="control-label" for="item-quantity">Item Quantity</label>
+ <div class="control-group control-min-group control-category-children"></div>
+ <div class="control-group control-min-group control-item"></div>
+                <div class="control-group control-min-group">
+                    <label class="control-label" for="number">Item Quantity</label>
                     <div class="controls">
-                        <input type="text" class="input-large" name="item_quantity" id="item_quantity" onkeypress="return isNumberKey(event)"
-                               value="<?php
-                               if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['item_quantity'];
-                               endif;
-                        ?>" >
+                        <input type="text" class="input-large" name="number" id="number" onkeypress="return isNumberKey(event)">
                     </div>
                 </div>
-                <div class="form-actions">
-                     <input type="hidden" name="event_id"  value="<?php
-                               if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['event_id'];
-                               endif;
-                        ?>" >
-                    <button type="submit" id="add" class="add btn btn-primary btn-large">Add New Row</button>
-                </div>
-            </fieldset>
-        </form>
+                <div class="control-group">
+                    <div class="widget widget-table">
+
+                        <?php print $content ?>
+                    </div> </div>
                 <div class="form-actions">
                     <button type="submit" id="save-events-<?php
                         if (isset($forms)): print $forms['event_id'];
@@ -104,6 +103,7 @@ endif;
                             class="save btn btn-primary btn-large">Save changes</button>
                     <button type="reset" id="cancel-events" class="cancel btn btn-large">Cancel</button>
                 </div>
+
             </fieldset>
         </form>
 

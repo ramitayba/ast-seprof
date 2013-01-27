@@ -85,12 +85,12 @@ class EventBusinessLayer {
         return $this->_EventsDataTable;
     }
 
-    public function addEvent($event_name, $event_date, $event_invitees_nb, $department_id, $employee_id, $status_id, $user_creation) {
+    public function addEvent($event_name, $event_date, $event_invitees_nb, $department_id, $employee_id, $xml, $user_creation) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call AddEvent(?,?,?,?,?,?,?)}";
+            $this->_SQLQuery = "{call AddEvent(?,?,?,?,?,?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_Success = DataAccessManager::getInstance()->saveData(array($event_name, $event_date, $event_invitees_nb, $department_id, $employee_id, $status_id, $user_creation));
+            $this->_Success = DataAccessManager::getInstance()->saveData(array($event_name, $event_date, $event_invitees_nb, $department_id, $employee_id, $xml,UNDER_PROCESSING, $user_creation));
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
             }
@@ -101,12 +101,12 @@ class EventBusinessLayer {
         return $this->_Success;
     }
 
-    public function editEvent($event_id, $event_name, $event_date, $event_invitees_nb, $department_id, $employee_id, $status_id, $user_modification) {
+    public function editEvent($event_id, $event_name, $event_date, $event_invitees_nb, $department_id, $employee_id, $xml, $user_modification) {
         try {
             $this->_reset();
             $this->_SQLQuery = "{call editEvent(?,?,?,?,?,?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_Success = DataAccessManager::getInstance()->saveData(array($event_id, $event_name, $event_date, $event_invitees_nb, $department_id, $employee_id, $status_id, $user_modification));
+            $this->_Success = DataAccessManager::getInstance()->saveData(array($event_id, $event_name, $event_date, $event_invitees_nb, $department_id, $employee_id, $xml ,$user_modification));
            if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
             }

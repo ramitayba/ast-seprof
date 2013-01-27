@@ -55,6 +55,24 @@ class CategoryBusinessLayer {
         return $this->_CategoriesDataTable;
     }
 
+    public function getParentCategories() {
+        try {
+            $this->_reset();
+            $this->_SQLQuery = "{call getParentCategories}";
+            DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
+            $this->_CategoriesDataTable = DataAccessManager::getInstance()->fillData();
+            $this->_Success = DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
+                $this->_LastError = DataAccessManager::getInstance()->getLastError();
+            }
+        } catch (Exception $ex) {
+            $this->_LastError = $ex->getMessage();
+            $this->_Success = false;
+        }
+        return $this->_CategoriesDataTable;
+    }
+
+    
     public function getCategoryByName($name) {
         try {
             $this->_reset();
@@ -89,6 +107,23 @@ class CategoryBusinessLayer {
         return $this->_CategoriesDataTable;
     }
 
+    public function getCategoryChildrenByParentID($id) {
+        try {
+            $this->_reset();
+            $this->_SQLQuery = "{call GetCategoryChildrenByParentID(?)}";
+            DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
+            $this->_CategoriesDataTable = DataAccessManager::getInstance()->fillData(array($id));
+            $this->_Success = DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
+                $this->_LastError = DataAccessManager::getInstance()->getLastError();
+            }
+        } catch (Exception $ex) {
+            $this->_LastError = $ex->getMessage();
+            $this->_Success = false;
+        }
+        return $this->_CategoriesDataTable;
+    }
+    
     public function addCategory($category_name, $category_parent_id, $color_code, $category_description, $status_id, $user_creation) {
         try {
             $this->_reset();

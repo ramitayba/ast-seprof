@@ -1,4 +1,4 @@
-var dataRow, nRow,oTable,count=0,row_id='';
+var dataRow, nRow,oTable,count=0,row_id='', baseurl="/ast/process.php";;
 $(function () {
     jQuery.extend({
         seprof: function(url,data,callback,errorCallback,type) {
@@ -15,12 +15,10 @@ $(function () {
                 data: data,
                 success: callback,
                 error: errorCallback,
-                dataType: type,
                 async:true
             });
         }
     });
-    var baseurl="/ast/process.php";
     /* $('#cafeterias-table a.edit').live('click', function (e) {
         e.preventDefault();
         /* Get the row as a parent of the link that was clicked on */
@@ -66,7 +64,7 @@ $(function () {
             }
         },function(httpReq, status, exception,a){
             error(httpReq, status, exception,a);
-        },"json")
+        })
     } );
     $('.add').live('click', function (e) {
         e.preventDefault();
@@ -103,7 +101,8 @@ $(function () {
         if(nRow!=null){
             oTable.fnUpdate([row_id,$('#id option:selected').text(),$('#number').val(),'<span><a class="delete-table btn" id="delete-'+a+'" href="">Delete</a></span>'],nRow);
         };
-    } );     
+    } );
+     
     $('.table tbody tr td').live('click', function (e) {
         e.preventDefault();
         nRow = $(this).parents('tr')[0];
@@ -149,7 +148,15 @@ $(function () {
             showform(k,a)
         },function(httpReq, status, exception,a){
             error(httpReq, status, exception,a)
-        },"json")
+        })
+    } );
+    $('#category').live('change', function (e) {
+        e.preventDefault();
+        getDropDown('category','category-children');
+    } );
+    $('#category-children').live('change', function (e) {
+        e.preventDefault();
+        getDropDown('category-children','item');
     } );
     $('.permissions').live('click', function (e) {
         e.preventDefault();
@@ -172,7 +179,7 @@ $(function () {
             showform(k,c)
         },function(httpReq, status, exception,c){
             error(httpReq, status, exception,c)
-        },"json")
+        })
     } );
     $('.items').live('click', function (e) {
         e.preventDefault();
@@ -196,7 +203,7 @@ $(function () {
             showform(k,c)
         },function(httpReq, status, exception,c){
             error(httpReq, status, exception,c)
-        },"json")
+        })
     } );
     $('.pos').live('click', function (e) {
         e.preventDefault();
@@ -219,7 +226,7 @@ $(function () {
             showform(k,a)
         },function(httpReq, status, exception,a){
             error(httpReq, status, exception,a)
-        },"json")
+        })
     } );
     $('.edit').live('click', function (e) {
         e.preventDefault();
@@ -242,7 +249,7 @@ $(function () {
             showform(k,a)
         },function(httpReq, status, exception,a){
             error(httpReq, status, exception,a)
-        },"json")
+        })
     } );
     $('.save').live('click', function (e) {
         //if(!validate())return;
@@ -274,7 +281,7 @@ $(function () {
         },function(k){
             if(k.status=='error')
             {
-                error('','', k.message,a)  
+                error('','',k.message,a)  
             }
             else if(k.status=='success')
             {
@@ -284,7 +291,7 @@ $(function () {
             }
         },function(httpReq, status, exception,a){
             error(httpReq, status, exception,a);
-        },"json")
+        })
     } ); 
     $('.cancel').live('click', function (e) {
         e.preventDefault();
@@ -300,9 +307,21 @@ $(function () {
             showTable(k,a)
         },function(httpReq, status, exception,a){
             error(httpReq, status, exception,a)
-        },"json")
+        })
     } );
 });
+function getDropDown(a,b)
+{
+    $.seprof(baseurl,{
+        name:'categories',
+        action:'get',
+        query:$('#'+a).val()
+    },function(k){
+        showSelect(k,b)
+    },function(httpReq, status, exception,a){
+        error(httpReq, status, exception,a)
+    });
+}
 function deleteRow(nRow)
 {
     oTable.fnDeleteRow( nRow );
@@ -322,6 +341,10 @@ function showTable(b,a)
         $(".widget-form").replaceWith(b); 
         $("#widget-"+a+"-form img:last-child").remove();
     }
+}
+function showSelect(b,a)
+{
+    $(".control-"+a).append(b); 
 }
 function error(httpReq, status, exception,a){
 
