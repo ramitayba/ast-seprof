@@ -37,6 +37,10 @@ class Helper {
         }
     }
 
+    public static function valid_date($date) {
+        return (preg_match("/^([0-9]{4})-([0-9]{2})-([0-9]{2})$/", $date));
+    }
+
     public static function format_string($string, array $args = array()) {
 // Transform arguments before inserting them.
         foreach ($args as $key => $value) {
@@ -130,7 +134,6 @@ class Helper {
     public static function request_path() {
         if (isset($_GET['q']) && is_string($_GET['q'])) {
 // This is a request with a ?q=foo/bar query string. $_GET['q'] is
-// overwritten in drupal_path_initialize(), but request_path() is called
 // very early in the bootstrap process, so the original value is saved in
 // $path and returned in later calls.
             $path = $_GET['q'];
@@ -144,7 +147,6 @@ class Helper {
 // If the path equals the script filename, either because 'index.php' was
 // explicitly provided in the URL, or because the server added it to
 // $_SERVER['REQUEST_URI'] even when it wasn't provided in the URL (some
-// versions of Microsoft IIS do this), the front page should be served.
             if ($path == basename($_SERVER['PHP_SELF'])) {
                 $path = '';
             }
@@ -296,20 +298,23 @@ class Helper {
                     if (strlen($row['content']) > $row['length']):
                         $li.='<li>' . $pkey . ' can t be grand than ' . $row['length'] . '</li>';
                     endif;
-                else:
+                elseif ($row['type'] == 'string'):
+                    if (self::valid_date($row['content'])):
+                        $li.='<li>' . $pkey . ' must be date </li>';
+                    endif;
                     if (!is_numeric($row['content'])):
                         $li.='<li>' . $pkey . ' must be numeric </li>';
                     else:
-                        switch ($row['type']):
-                            case 'int':
-                                $li.=!is_int($row['content']) ? '<li>' . $pkey . ' must be digit </li>' : '';
-                                break;
-                            case 'long':
-                                $li.=!is_long($row['content']) ? '<li>' . $pkey . ' must be digit </li>' : '';
-                                break;
-                            default:
-                                break;
-                        endswitch;
+                    /* switch ($row['type']):
+                      case 'int':
+                      $li.=!intva($row['content']) ? '<li>' . $pkey . ' must be digit </li>' : '';
+                      break;
+                      case 'long':
+                      $li.=!is_long($row['content']) ? '<li>' . $pkey . ' must be digit </li>' : '';
+                      break;
+                      default:
+                      break;
+                      endswitch; */
                     endif;
                 endif;
             endif;
@@ -347,6 +352,7 @@ class Helper {
         $data = str_replace("%3D", "=", $data);
         $data = str_replace("%2F", "/", $data);
         $data = str_replace("%3A", ":", $data);
+        $data = str_replace("%23", "", $data);
         $data = str_replace("+", " ", $data);
         $data = self::check_plain($data);
         return $data;
@@ -436,15 +442,17 @@ class Helper {
         return $list;
     }
 
-    public static function fill_datatable($name, $header_buttons, $table, $header, $fields, $id_name, $linkcontrol = array(), $control = true, $column_hide = -1) {
+    public static function fill_datatable($name, $header_buttons, $table, $header, $fields, $id_name, $linkcontrol = array(), $control = true, $column_hide = -1, $editable = '', $class_td_edit = '') {
         $datatable = '<div id="widget-table"> <div class="widget-header"><h3><i class="icon-th-list"></i>'
-                . ucfirst($name) . '</h3></div><script>$(function () {     oTable = table("' . $name . '",' . $column_hide . ');});</script> 
+                . ucfirst($name) . '</h3></div><script>$(function () {     oTable = table("' . $name . '",' . $column_hide . ',"' . $editable . '");});</script> 
                     <div class="widget-content" id="widget-content-' . $name . '-table">';
         if ($control):
+            $datatable.='<div class="header-table">';
             foreach ($header_buttons as $headerlink):
                 $link = $headerlink['link'] . $name;
-                $datatable.= '<span><a class="' . $headerlink['class'] . ' btn" id="' . $link . '" href="">' . $headerlink['name'] . '</a></span>';
+                $datatable.= '<span class="header-table-link"><a class="' . $headerlink['class'] . ' btn" id="' . $link . '" href="">' . $headerlink['name'] . '</a></span>';
             endforeach;
+            $datatable.='</div>';
         endif;
         $datatable.= '<table class="table table-striped table-bordered table-highlight" id="' . $name . '-table">';
         $thead = ' <thead><tr>';
@@ -459,9 +467,9 @@ class Helper {
             $class = $i % 2 ? ' even' : ' odd';
             $tr = '<tr class="gradeA ' . $class . '">';
             foreach ($fields as $rowfields):
-                $tr.= '<td class="tdedit">' . $row[$rowfields] . '</td>';
+                $class = $rowfields == $class_td_edit ? 'tdedit' : '';
+                $tr.= '<td class="' . $class . '">' . $row[$rowfields] . '</td>';
             endforeach;
-
             if ($control):
                 $extra = '<td>';
                 foreach ($linkcontrol as $rowlink):

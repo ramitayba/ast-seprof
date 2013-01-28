@@ -23,8 +23,7 @@ function validate_login(){
 function enable_text(status,links)
 {
     status=!status;
-    //for (i = 0; i < links.length; i++)
-    links.disabled=status;
+        links.disabled=status;
 }
 
 /*

@@ -52,9 +52,9 @@ include Helper::load_controller($pagename);
             require_once("include/template/header.php");
             // navigation menu
             require_once("include/template/nav.php");
-            /*if (!Menu::getInstance()->getAccessMenu($pagename)):
+            if (!Menu::getInstance()->getAccessMenu($pagename)):
                 $pagename = 'index';
-            endif;*/
+            endif;
             ?>
             <div id="content">
                 <div class="container">

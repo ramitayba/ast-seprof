@@ -27,7 +27,7 @@
                 <div class="control-group">
                     <label class="control-label" for="role-name">Role Name</label>
                     <div class="controls">
-                        <input type="text" class="input-large" name="role_name" id="role_name" maxlength="50" value="<?php
+                        <input type="text" class="input-large" name="role_name" id="role_name" maxlength="100" value="<?php
 if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['role_name'];
 endif;
 ?>">

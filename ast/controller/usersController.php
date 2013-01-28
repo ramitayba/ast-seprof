@@ -30,7 +30,7 @@ elseif ($action == 'login'):
         $_SESSION['messages'] = $div;
     endif;
 elseif ($action == 'index'):
-    $userDataTable = $userBusinessLayer->getUsers();
+    $userDataTable = $userBusinessLayer->getUsers(ACTIVE);
     if ($userBusinessLayer->getSuccess()):
         $content = Helper::fill_datatable('users', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $userDataTable, array('User Name', 'Password', 'Pin Code', 'Role Name', 'Employee Name'), array('user_name', 'user_password', 'user_pin', 'role_name', 'employee_name'), 'user_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
                     1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')));

@@ -44,11 +44,11 @@ elseif ($action == 'edit'):
     endif;
 elseif ($action == 'save'):
     $name = isset($data['category_name']) ? $data['category_name'] : '';
-    $parent = isset($data['category']) ? $data['category'] : '0';
+    $parent = isset($data['category']) && !Helper::is_empty_string($data['category'])? $data['category'] : '0';
     $color = isset($data['color_code']) ? $data['color_code'] : '';
     $description = isset($data['category_description']) ? $data['category_description'] : '';
     $status = isset($data['status']) ? $data['status'] : '';
-    $array = array('Category Name'=> array('content'=>$name,'type'=>'string','length' => '100'),  'Category Color Code'=> array('content'=>$color,'type'=>'string','length' => '8'),
+    $array = array('Category Name'=> array('content'=>$name,'type'=>'string','length' => '100'),  'Category Color Code'=> array('content'=>$color,'type'=>'string','length' => '6'),
         'Status' =>  array('content' => $status, 'type' => 'int'));
     $message = Helper::is_list_empty($array);
     if (!Helper::is_empty_string($message)):
@@ -112,19 +112,20 @@ elseif ($action == 'get'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
         $categoryDataTable = $categoryBusinessLayer->getCategoryChildrenByParentID($query_id,ACTIVE);
         if (!Helper::is_empty_array($categoryDataTable)):
-            $container = ' <label class="control-label" for="children-category">Category Childen Name</label>
+            $container = ' <div class="control-category-children"> <div class="clear"></div>
+                <label class="control-label" for="children-category">Category Childen Name</label>
                     <div class="controls">';
             $container.=Helper::form_construct_drop_down('category-children', $categoryDataTable, '', 'category_name', 'category_id', '', '', '');
-            $container.=' </div>';
+            $container.=' </div></div>';
         else:
             include_once POS_ROOT . '/businessLayer/ItemBusinessLayer.php';
             $itemBusinessLayer = new ItemBusinessLayer();
             $itemDataTable = $itemBusinessLayer->GetItemByCategory($query_id,ACTIVE);
             if (!Helper::is_empty_array($itemDataTable)):
-                $container = '<label class="control-label" for="items">Item Name</label>
+                $container = '<div class="control-item"> <div class="clear"></div><label class="control-label" for="items">Item Name</label>
                     <div class="controls">';
-                $container.=Helper::form_construct_drop_down('item', $itemDataTable, '', 'item_name', 'item_id', '', '', '');
-                $container.=' </div>';
+                $container.=Helper::form_construct_drop_down('id', $itemDataTable, '', 'item_name', 'item_id', '', '', '');
+                $container.=' </div></div>';
             endif;
         endif;
         print $container;

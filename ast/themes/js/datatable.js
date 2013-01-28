@@ -1,4 +1,4 @@
-var dataRow, nRow,oTable,count=0,row_id='', baseurl="/ast/process.php";
+var dataRow, nRow,oTable, baseurl="/ast/process.php",date_obj_time;
 $(function () {
     jQuery.extend({
         seprof: function(url,data,callback,errorCallback,type) {
@@ -19,6 +19,15 @@ $(function () {
             });
         }
     });
+    var date_obj = new Date();
+    var  date_obj_hours = date_obj.getHours();
+    var date_obj_mins = date_obj.getMinutes();
+
+    if (date_obj_mins < 10) {
+        date_obj_mins = "0" + date_obj_mins;
+    }
+    date_obj_time = "'"+date_obj_hours+":"+date_obj_mins+"'";
+    
     /* $('#cafeterias-table a.edit').live('click', function (e) {
         e.preventDefault();
         /* Get the row as a parent of the link that was clicked on */
@@ -68,6 +77,7 @@ $(function () {
     } );
     $('.add').live('click', function (e) {
         e.preventDefault();
+        
         name=$(this).attr("id");
         array=name.split("-");
         if(array.length>1){
@@ -77,17 +87,15 @@ $(function () {
             a='';
         }
         oTable =  $('#'+a+'-table').dataTable();
-        row_id='';
         if(existRow(oTable,$('#id').val()))
         {
             return;
         }
-        count++;
-        oTable.fnAddData([count,$('#id option:selected').text(),$('#number').val(),'<span><a class="delete-table btn" id="delete-'+a+'" href="">Delete</a></span>']);
+        oTable.fnAddData([$('#id option:selected').val(),$('#id option:selected').text(),$('#number').val(),'<span><a class="delete-table btn" id="delete-'+a+'" href="">Delete</a></span>']);
         $('#id').val('');
         $('#number').val('');  
     } );
-    $('.edit-table').live('click', function (e) {
+    /*$('.edit-table').live('click', function (e) {
         e.preventDefault();
         name=$(this).attr("id");
         array=name.split("-");
@@ -113,7 +121,7 @@ $(function () {
         row_id=dataRow[0];
         $('#id :selected').text(dataRow[1]);
         $('#number').val(dataRow[2]);
-    } );
+    } );*/
     
     $('.delete-table').live('click', function (e) {
         e.preventDefault();
@@ -152,11 +160,14 @@ $(function () {
     } );
     $('#category').live('change', function (e) {
         e.preventDefault();
-        getDropDown('category','category-children');
+        $('.control-category-children').remove();
+        $('.control-item').remove();
+        getDropDown('category');
     } );
     $('#category-children').live('change', function (e) {
         e.preventDefault();
-        getDropDown('category-children','item');
+        $('.control-item').remove();
+        getDropDown('category-children');
     } );
     $('.permissions').live('click', function (e) {
         e.preventDefault();
@@ -181,7 +192,7 @@ $(function () {
             error(httpReq, status, exception,c)
         })
     } );
-    $('.items').live('click', function (e) {
+    /*$('.items').live('click', function (e) {
         e.preventDefault();
         name=$(this).attr("id");
         array=name.split("-");
@@ -204,7 +215,7 @@ $(function () {
         },function(httpReq, status, exception,c){
             error(httpReq, status, exception,c)
         })
-    } );
+    } );/*/
     $('.pos').live('click', function (e) {
         e.preventDefault();
         name=$(this).attr("id");
@@ -251,8 +262,7 @@ $(function () {
             error(httpReq, status, exception,a)
         })
     } );
-    $('.save').live('click', function (e) {
-        //if(!validate())return;
+    $('.approved').live('click', function (e) {
         e.preventDefault();
         name=$(this).attr("id");
         array=name.split("-");
@@ -264,6 +274,68 @@ $(function () {
             a='';
             b='';
         }
+        $.seprof(baseurl,{
+            name:a,
+            action:'approved',
+            query:b
+        },function(k){
+            if(k.status=='error')
+            {
+                error('','',k.message,a)  
+            }
+            else if(k.status=='success')
+            {
+                $('.messages').remove();
+                $( '.widget').before(k.message)  ;
+            }
+        },function(httpReq, status, exception,a){
+            error(httpReq, status, exception,a)
+        })
+    } );
+    $('.rejected').live('click', function (e) {
+        e.preventDefault();
+        name=$(this).attr("id");
+        array=name.split("-");
+        if(array.length>1){
+            a=array[1];
+            b=array[2];
+        }
+        else{
+            a='';
+            b='';
+        }
+        $.seprof(baseurl,{
+            name:a,
+            action:'rejected',
+            query:b
+        },function(k){
+            if(k.status=='error')
+            {
+                error('','',k.message,a)  
+            }
+            else if(k.status=='success')
+            {
+                $('.messages').remove();
+                $( '.widget').before(k.message)  ;
+            }
+        },function(httpReq, status, exception,a){
+            error(httpReq, status, exception,a)
+        })
+    } );
+    $('.save').live('click', function (e) {
+        name=$(this).attr("id");
+        array=name.split("-");
+        if(array.length>1){
+            a=array[1];
+            b=array[2];
+        }
+        else{
+            a='';
+            b='';
+        }
+        if(!validate(a,b))return;
+        
+    /* $('.'+a+'-form').trigger('submit');
         var sequence="";
         $('input[name=check]:checked').each(function(){
             sequence+=$(this).val()+",";
@@ -291,7 +363,7 @@ $(function () {
             }
         },function(httpReq, status, exception,a){
             error(httpReq, status, exception,a);
-        })
+        })*/
     } ); 
     $('.cancel').live('click', function (e) {
         e.preventDefault();
@@ -310,14 +382,14 @@ $(function () {
         })
     } );
 });
-function getDropDown(a,b)
+function getDropDown(a)
 {
     $.seprof(baseurl,{
         name:'categories',
         action:'get',
         query:$('#'+a).val()
     },function(k){
-        showSelect(k,b)
+        showSelect(k,a)
     },function(httpReq, status, exception,a){
         error(httpReq, status, exception,a)
     });
@@ -338,7 +410,7 @@ function showTable(b,a)
 {
     $(".messages").remove();
     if(b !=null){
-        $(".widget-form").replaceWith(b); 
+        $('.widget-form').replaceWith(b);
         $("#widget-"+a+"-form img:last-child").remove();
     }
 }
@@ -357,8 +429,9 @@ function error(httpReq, status, exception,a){
 function success(message,a){
     $("#block").replaceWith(message);
 }
-function table(name,column_hide)
+function table(name,column_hide,editable)
 {
+    var sequence='';
     var table =  $('#'+name+'-table').dataTable( {
         sDom: "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
         sPaginationType: "bootstrap",
@@ -367,11 +440,39 @@ function table(name,column_hide)
         },
         bProcessing: true,
         fnDrawCallback: function () {
-            $('#'+name+'-table tbody td.tdedit').editable('/ast/process.php',{
+            $('#'+editable+'-table tbody td.tdedit').editable(baseurl+'?name='+editable+'&action=save',{
                 "callback": function( sValue, y ) {
                     /* Redraw the table from the new data on the server */
-                    table.fnDraw();
+                    /* alert(sValue);
+                    var aPos = oTable.fnGetPosition( this );*/
+                    
+                    oTable.fnUpdate([ dataRow[0], dataRow[1],sValue] );
+                    oTable.fnDraw();
                 },
+                "submitdata": function ( value, settings ) {
+                    nRow = $(this).parents('tr')[0];
+                    dataRow=oTable.fnGetData(nRow);
+                    $("#id").val(dataRow[0]);
+                //$('#formeditable').append($(input));
+                /*  nRow = $(this).parents('tr')[0];
+                    dataRow=oTable.fnGetData(nRow);
+                    alert(dataRow[0]+','+ dataRow[1]+','+ value)
+                 $.seprof(baseurl,{
+                        name:'allowance',
+                        action:'get',
+                        query:$('#'+a).val()
+                    },function(k){
+                        showSelect(k,a)
+                    },function(httpReq, status, exception,a){
+                        error(httpReq, status, exception,a)
+                    });
+                    oTable.fnUpdate( [dataRow[0], dataRow[1], value] );
+                    return {
+                        "row_id": this.parentNode.getAttribute('id'),
+                        "column": oTable.fnGetPosition( this )[2]
+                    };*/
+                },
+                "formid":"formeditable",
                 "height": "14px"
             } );
         }
@@ -381,24 +482,44 @@ function table(name,column_hide)
     }
     return table;
 }
-function validate()
+
+function checkMaxLength(textareaID, maxLength){
+
+    currentLengthInTextarea = $("#"+textareaID).val().length;
+    $(remainingLengthTempId).text(parseInt(maxLength) - parseInt(currentLengthInTextarea));
+
+    if (currentLengthInTextarea > (maxLength)) {
+
+        // Trim the field current length over the maxlength.
+        $("textarea#comment").val($("textarea#comment").val().slice(0, maxLength));
+        $(remainingLengthTempId).text(0);
+
+    }
+}
+function validate(a,b)
 {
     $('#users-form').validate({
         rules: {
             user_name: {
-                required: true
+                required: true,
+                maxlength:50
             },
             user_password: {
-                required: true
+                required: true,
+                maxlength:50
             },
             user_pin: {
-                required: true
+                required: true,
+                maxlength:4
             },
             roles: {
                 required: true
             },
             employees: {
                 required: true
+            },
+            status: {
+                required: true
             }
         },
         focusCleanup: false,
@@ -413,12 +534,19 @@ function validate()
         },
         errorPlacement: function(error, element) {
             error.appendTo( element.parents ('.controls') );
+        },
+        submitHandler: function (form) {
+            ajaxSubhmit(a,b);
         }
     });
 
     $('#roles-form').validate({
         rules: {
             role_name: {
+                required: true,
+                maxlength:100
+            },
+            status:{
                 required: true
             }
         },
@@ -434,34 +562,17 @@ function validate()
         },
         errorPlacement: function(error, element) {
             error.appendTo( element.parents ('.controls') );
-        }
-    });
-
-    $('#permissions-form').validate({
-        rules: {
-            links : {
-                required: true
-            }
         },
-        focusCleanup: false,
-
-        highlight: function(label) {
-            $(label).closest('.control-group').removeClass ('success').addClass('error');
-        },
-        success: function(label) {
-            label
-            .text('OK!').addClass('valid')
-            .closest('.control-group').addClass('success');
-        },
-        errorPlacement: function(error, element) {
-            error.appendTo( element.parents ('.controls') );
+        submitHandler: function (form) {
+            ajaxSubhmit(a,b);
         }
     });
 
     $('#pos-form').validate({
         rules: {
             pos_key: {
-                required: true
+                required: true,
+                maxlength:150
             },
             cafeteria : {
                 required: true
@@ -483,13 +594,17 @@ function validate()
         },
         errorPlacement: function(error, element) {
             error.appendTo( element.parents ('.controls') );
+        },
+        submitHandler: function (form) {
+            ajaxSubhmit(a,b);
         }
     });
 
     $('#cafeterias-form').validate({
         rules: {
             cafeteria_name: {
-                required: true
+                required: true,
+                maxlength:50
             }
         },
         focusCleanup: false,
@@ -505,22 +620,24 @@ function validate()
         },
         errorPlacement: function(error, element) {
             error.appendTo( element.parents ('.controls') );
+        },
+        submitHandler: function (form) {
+            ajaxSubhmit(a,b);
         }
     });
 
     $('#categories-form').validate({
         rules: {
             category_name: {
-                required: true
+                required: true,
+                maxlength:100
             },
-            category: {
-                required: true
-            },
-            category_description: {
+            status: {
                 required: true
             },
             color_code: {
-                required: true
+                required: true,
+                maxlength:7
             }
         },
         focusCleanup: false,
@@ -535,24 +652,26 @@ function validate()
         },
         errorPlacement: function(error, element) {
             error.appendTo( element.parents ('.controls') );
+        },
+        submitHandler: function (form) {
+            ajaxSubhmit(a,b);
         }
     });
 
     $('#items-form').validate({
         rules: {
             item_name: {
-                required: true
+                required: true,
+                maxlength:100
             },
-            categories: {
+            category: {
                 required: true
             },
             item_price: {
-                required: true
+                required: true,
+                maxlength:18
             },
-            item_photo: {
-                required: true
-            },
-            item_description: {
+            status: {
                 required: true
             }
         },
@@ -568,26 +687,31 @@ function validate()
         },
         errorPlacement: function(error, element) {
             error.appendTo( element.parents ('.controls') );
+        },
+        submitHandler: function (form) {
+            ajaxSubhmit(a,b);
         }
     });
 
-    $('.form').eq (0).find ('input').eq (0).focus ();
+    // $('.form').eq (0).find ('input').eq (0).focus ();
 
-    $('#event-form').validate({
+    $('#events-form').validate({
         rules: {
             event_name: {
-                required: true
+                required: true,
+                maxlength:50
             },
             datepicker: {
                 required: true
             },
-            invitees_nb: {
-                required: true
+            event_invitees_nb: {
+                required: true,
+                maxlength:9
             },
             department: {
                 required: true
             },
-            users: {
+            employee: {
                 required: true
             }
         },
@@ -603,6 +727,9 @@ function validate()
         },
         errorPlacement: function(error, element) {
             error.appendTo( element.parents ('.controls') );
+        },
+        submitHandler: function (form) {
+            ajaxSubhmit(a,b);
         }
     });
 
@@ -621,14 +748,13 @@ function existRow(oTable,name)
     for(var i=0;i<nodes.length;i++)
     {
         var data=oTable.fnGetData(nodes[i]);
-        if(data[1]==name&&data[0]!=row_id){
+        if(data[1]==name){
             alert('already exist');
             return true;
         }
     }
     return false;
 }
-
 function getData(oTable,name,select)
 {
     if(oTable==null)
@@ -640,11 +766,42 @@ function getData(oTable,name,select)
     for(var i=0;i<nodes.length;i++)
     {
         var data=oTable.fnGetData(nodes[i]);
-        var idSelect=$("#"+select+" option:contains('" + $.trim(data[1]) + "')").val();
+        var idSelect=data[0];
         obj[i]= {
             id:idSelect,
             number:data[2]
         };
     }
     return obj;
+}
+function ajaxSubhmit(a,b)
+{
+    var sequence="";
+    $('input[name=check]:checked').each(function(){
+        sequence+=$(this).val()+",";
+    });
+    datatable=getData(oTable,a,'id');
+    var data =$('.'+a+'-form').serialize();
+    $("#widget-content-"+a+"-table").append('<img src="/ast/themes/img/loader.gif" alt="Loading...."/>');
+    $.seprof(baseurl,{
+        name:a,
+        action:'save',
+        query:b,
+        datainput:data,
+        sequence:sequence,
+        datatable:datatable
+    },function(k){
+        if(k.status=='error')
+        {
+            error('','',k.message,a)  
+        }
+        else if(k.status=='success')
+        {
+            success( k.message,a)  
+        }else{
+            showTable(k,a);
+        }
+    },function(httpReq, status, exception,a){
+        error(httpReq, status, exception,a);
+    });
 }

@@ -21,20 +21,6 @@
         $("textarea#comment").bind("keyup change", function(){checkMaxLength(this.id,  maxLength); } )
 
     });
-
-    function checkMaxLength(textareaID, maxLength){
-
-        currentLengthInTextarea = $("#"+textareaID).val().length;
-        $(remainingLengthTempId).text(parseInt(maxLength) - parseInt(currentLengthInTextarea));
-
-        if (currentLengthInTextarea > (maxLength)) {
-
-            // Trim the field current length over the maxlength.
-            $("textarea#comment").val($("textarea#comment").val().slice(0, maxLength));
-            $(remainingLengthTempId).text(0);
-
-        }
-    }
 </script>
 
 <div id="validation" class="widget highlight widget-form widget-categories-form">
@@ -77,8 +63,8 @@
                     <label class="control-label">Color Code</label>
                     <div class="controls">
                         <input type="text" class="input-large" name="color_code" id="color"
-                               value="<?php
-                        if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['color_code'];
+                               maxlength="9"    value="<?php
+                        if (isset($forms) && !Helper::is_empty_array($forms)):print '#'.$forms['color_code'];
                         else:print DEFAULT_COLOR;
                         endif;
                         ?>">

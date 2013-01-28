@@ -28,10 +28,19 @@ $routes=array(
     'posController'=>array('cafeterias/pos'),
     'cafeteriasController'=>array('cafeterias/index'),
     'eventsController'=>array('events/index'),
-    'allowanceController'=>array('settings/allowance'),
+    'allowancesController'=>array('settings/allowance'),
 );
 
 $actions=array('add','edit','delete');
+
+
+
+define('ACTIVE', 1);
+define('DESACTIVE', 2);
+define('UNDER_PROCESSING', 3);
+define('APPROVED', 4);
+define('REJECTED', 5);
+define('DEFAULT_COLOR', '#00000000');
 
 /**
  * Some distributions of Linux (most notably Debian) ship their PHP
