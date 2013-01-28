@@ -430,7 +430,7 @@ class Helper {
                 $li = '</ul></li>';
             endif;
             $li .= '<li><input type="checkbox" name="check" id="' . $row['menu_id'] . '" value="' . $row['menu_id'] . '" ' . $checked . ' ><label>' . $row['menu_name'] . '</label>';
-            if ($row['menu_parent_id'] == 0||$row['menu_link'] =='#'):
+            if ($row['menu_parent_id'] == 0 || $row['menu_link'] == '#'):
                 $lastID = $row['menu_id'];
                 $li.='<ul>';
             else:
@@ -556,6 +556,27 @@ class Helper {
     public static function json_encode_array($array = array()) {
         header('Content-type: text/json');
         return json_encode($array);
+    }
+
+    public static function get_url() {
+        $protocol = strtolower(substr($_SERVER["SERVER_PROTOCOL"], 0, 5)) == 'https://' ? 'https://' : 'http://';
+        $path = $_SERVER['PHP_SELF'];
+
+        /*
+         * returns an array with:
+         * Array (
+         *  [dirname] => /myproject/
+         *  [basename] => index.php
+         *  [extension] => php
+         *  [filename] => index
+         * )
+         */
+        $path_parts = pathinfo($path);
+        $directory = $path_parts['dirname'];
+        $directory = ($directory == "/") ? "" : $directory;
+        $host = $_SERVER['HTTP_HOST'];
+        //return $protocol . $host . $directory;
+        return $directory."/";
     }
 
 }

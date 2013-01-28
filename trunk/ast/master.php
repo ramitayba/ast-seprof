@@ -17,11 +17,11 @@ if (isset($_GET['contentpage'])) {
     $pagename = $_GET["contentpage"];
 }
 // the web root
-$root = '/ast/';
+$root = Helper::get_url();
 
 if (strpos($pagename, 'form')):
     $pagename = explode('form', $pagename);
-	$pagename=$pagename[0];
+    $pagename = $pagename[0];
 endif;
 
 $pagename = Helper::findPage($pagename);
@@ -34,7 +34,9 @@ include Helper::load_controller($pagename);
             <?php
             // If a header file exists for the target content page, then use it. Otherwise
             // use the default header file
-            require_once("include/header/index.php");
+            if (isset($_SESSION['user_pos'])):
+                require_once("include/header/index.php");
+            endif;
             if (Helper::findRealPath("include/header/$pagename.php")):
                 require_once("include/header/$pagename.php");
             elseif (!isset($_SESSION['user_pos'])):

@@ -38,7 +38,9 @@ class Menu {
         endif;
         foreach ($this->_MenuTable as $obj):
             $split = explode($obj['menu_link'] . '/', $url);
-            $split = $split[1];
+            if (count($split) > 2):
+                $split = $split[1];
+            endif;
             if ($split == 'index'):
                 return true;
             endif;
@@ -99,7 +101,7 @@ class Menu {
                     foreach ($pval['children'] as $sval) {
                         if ($id_parent == $sval['parent'] && $sval['link'] != '#') {
                             $menu .= '
-            <li><a title="' . $sval['label'] . '"  href="/ast/' . $sval['link'] . '">' . $sval['label'] . '</a></li>';
+            <li><a title="' . $sval['label'] . '"  href="' . $root . $sval['link'] . '">' . $sval['label'] . '</a></li>';
                         } else {
                             $array = array($sval);
                             if (array_key_exists('children', $sval)) {

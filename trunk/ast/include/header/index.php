@@ -24,15 +24,6 @@
 <script src="<?php echo $root; ?>themes/js/plugins/datatables/DT_bootstrap.js"></script>
 <script src="<?php echo $root; ?>themes/js/datatable.js"></script>
 
-<!-- Datepicker -->
-<script src="<?php echo $root; ?>themes/js/plugins/datepicker/jquery.ui.datepicker.js"></script>
-
-<!-- Colorpicker -->
-<script src="<?php echo $root; ?>themes/js/plugins/colorpicker/js/bootstrap-colorpicker.js"></script>
-<link href="<?php echo $root; ?>themes/js/plugins/colorpicker/css/colorpicker.css" rel="stylesheet">
-
-<script src="<?php echo $root; ?>themes/js/plugins/datatables/jquery.jeditable.js"></script>
-
 <script src="<?php echo $root; ?>themes/js/validate.js"></script>
 
 
