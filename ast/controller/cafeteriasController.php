@@ -43,7 +43,7 @@ elseif ($action == 'edit'):
     endif;
 elseif ($action == 'save'):
     $name = isset($data['cafeteria_name']) ? $data['cafeteria_name'] : '';
-    $list = array('Cafeteria Name ' => array('content'=>$name,'type'=>'string','length' => '50'));
+    $list = array('Cafeteria Name ' => array('content' => $name, 'type' => 'string', 'length' => '50'));
     $message = Helper::is_list_empty($list);
     if (!Helper::is_empty_string($message)):
         print Helper::json_encode_array(array('status' => 'error', 'message' => $message));
@@ -93,7 +93,7 @@ elseif ($action == 'delete'):
             print Helper::json_encode_array(array('status' => 'error', 'message' => 'Cafeteria doesn t  exist '));
             return;
         endif;
-        $success = $cafeteriaBusinessLayer->deleteCafeteria($query_id, DESACTIVE ,$_SESSION['user_pos']);
+        $success = $cafeteriaBusinessLayer->deleteCafeteria($query_id, DESACTIVE, $_SESSION['user_pos']);
         if ($success):
             $container = Helper::set_message('Cafeteria ' . $cafeteriaDataTable [0]['cafeteria_name'] . ' delete succesfuly', 'status');
             print Helper::json_encode($container);

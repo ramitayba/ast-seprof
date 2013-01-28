@@ -29,6 +29,7 @@ if ($action == 'roles' || $action == 'index'):
         endif;
     endif;
 elseif ($action == 'add'):
+    $forms = array('status_id' => ACTIVE);
     include POS_ROOT . '/content/users/rolesform.php';
 elseif ($action == 'edit'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):

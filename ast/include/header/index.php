@@ -23,9 +23,7 @@
 <script src="<?php echo $root; ?>themes/js/plugins/datatables/jquery.dataTables.js"></script>
 <script src="<?php echo $root; ?>themes/js/plugins/datatables/DT_bootstrap.js"></script>
 <script src="<?php echo $root; ?>themes/js/datatable.js"></script>
-
-<script src="<?php echo $root; ?>themes/js/validate.js"></script>
-
+<script src="<?php echo $root; ?>themes/js/plugins/datatables/jquery.jeditable.js"></script>
 
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>

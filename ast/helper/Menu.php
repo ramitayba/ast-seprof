@@ -38,7 +38,7 @@ class Menu {
         endif;
         foreach ($this->_MenuTable as $obj):
             $split = explode($obj['menu_link'] . '/', $url);
-            if (count($split) > 2):
+            if (count($split)>= 2):
                 $split = $split[1];
             endif;
             if ($split == 'index'):
@@ -89,14 +89,13 @@ class Menu {
                     </a>	    				
                 </li>';
         }
+      
         if (!Helper::is_empty_array($parent_array)) {
             foreach ($parent_array as $pval) {
                 $id_parent = $pval['menu_id'];
-                $menu .= '
-        <li id="menu-' . $id_parent . '" class="dropdown">
-            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">';
-                $menu.=!$recursive ? $icon . $pval['label'] . '<b class="caret"></b>' : $pval['label'] . $icon . '</a>';
-                if (array_key_exists('children', $pval)) {
+                $val=!$recursive ? $icon . $pval['label'] . '<b class="caret"></b>' : $pval['label'] . $icon;
+                $menu .= ' <li id="menu-' . $id_parent . '" class="dropdown"> <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">'.$val. '</a>';
+                 if (array_key_exists('children', $pval)) {
                     $menu .= '<ul class="' . $sub_id . '">';
                     foreach ($pval['children'] as $sval) {
                         if ($id_parent == $sval['parent'] && $sval['link'] != '#') {

@@ -442,7 +442,7 @@ class Helper {
         return $list;
     }
 
-    public static function fill_datatable($name, $header_buttons, $table, $header, $fields, $id_name, $linkcontrol = array(), $control = true, $column_hide = -1, $editable = '', $class_td_edit = '') {
+    public static function fill_datatable($name, $header_buttons, $table, $header, $fields, $id_name, $linkcontrol = array(), $control = true, $column_hide = -1, $editable = '', $class_td_edit = '', $tdicon = '') {
         $datatable = '<div id="widget-table"> <div class="widget-header"><h3><i class="icon-th-list"></i>'
                 . ucfirst($name) . '</h3></div><script>$(function () {     oTable = table("' . $name . '",' . $column_hide . ',"' . $editable . '");});</script> 
                     <div class="widget-content" id="widget-content-' . $name . '-table">';
@@ -456,6 +456,7 @@ class Helper {
         endif;
         $datatable.= '<table class="table table-striped table-bordered table-highlight" id="' . $name . '-table">';
         $thead = ' <thead><tr>';
+        $thead .=!self::is_empty_string($tdicon) ? '<th></th>' : '';
         foreach ($header as $row):
             $thead .= '<th>' . $row . '</th>';
         endforeach;
@@ -466,6 +467,7 @@ class Helper {
         foreach ($table as $row):
             $class = $i % 2 ? ' even' : ' odd';
             $tr = '<tr class="gradeA ' . $class . '">';
+            $tr.=!self::is_empty_string($tdicon) ? '<td><img src="' . $tdicon . '"></td>' : '';
             foreach ($fields as $rowfields):
                 $class = $rowfields == $class_td_edit ? 'tdedit' : '';
                 $tr.= '<td class="' . $class . '">' . $row[$rowfields] . '</td>';
@@ -576,7 +578,7 @@ class Helper {
         $directory = ($directory == "/") ? "" : $directory;
         $host = $_SERVER['HTTP_HOST'];
         //return $protocol . $host . $directory;
-        return $directory."/";
+        return $directory . "/";
     }
 
 }
