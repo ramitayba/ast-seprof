@@ -21,9 +21,11 @@ if ($action == 'cafeterias' && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empt
         return;
     endif;
 endif;
-unset($_SESSION['cafeteria_id']);
+if ($action == 'pos'):
+    unset($_SESSION['cafeteria_id']);
+endif;
 if ($action == 'index' || $action == 'pos'):
-    $posDataTable = $posBusinessLayer->getPos(ACTIVE);
+    $posDataTable = isset($_SESSION['cafeteria_id']) ? $posBusinessLayer->getPosByCafeteriaID($_SESSION['cafeteria_id'], ACTIVE) : $posBusinessLayer->getPos(ACTIVE);
     if ($posBusinessLayer->getSuccess()):
         $content = Helper::fill_datatable('pos', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $posDataTable, array('Pos Name', 'Cafeteria Name', 'Status'), array('pos_key', 'cafeteria_name', 'status_name'), 'pos_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
                     1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')));
@@ -108,7 +110,7 @@ elseif ($action == 'delete'):
             print Helper::json_encode_array(array('status' => 'error', 'message' => 'POS doesn t  exist '));
             return;
         endif;
-        $success = $posBusinessLayer->deletePos($query_id, DESACTIVE,$_SESSION['user_pos']);
+        $success = $posBusinessLayer->deletePos($query_id, DESACTIVE, $_SESSION['user_pos']);
         if ($success):
             $container = Helper::set_message('POS ' . $posDataTable [0]['pos_key'] . ' delete succesfuly', 'status');
             print Helper::json_encode($container);

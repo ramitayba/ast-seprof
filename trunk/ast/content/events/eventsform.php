@@ -1,6 +1,6 @@
 <?php
 /**
- * This is the Helper
+ * This is the EventForm
  * Designed and Developed by SEProf Team
  * Copyright (c) 2013 SEProf Inc.
  * http://seprof.com/
@@ -9,7 +9,7 @@
 ?>
 <script>
     $(function() {
-        $( "#datepicker" ).datepicker();
+        $("#datepicker").datepicker({dateFormat: 'yy-mm-dd'+' ' +date_obj_time}); 
     });
 </script>
 <div id="validation" class="widget highlight widget-form widget-events-form">
@@ -30,7 +30,7 @@
                 <div class="control-group control-min-group">
                     <label class="control-label" for="event-name">Event Name</label>
                     <div class="controls">
-                        <input type="text" class="input-large" name="event_name" id="event_name" value="<?php
+                        <input type="text" class="input-large" name="event_name"  maxlength="50" id="event_name" value="<?php
 if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['event_name'];
 endif;
 ?>">                   
@@ -49,7 +49,7 @@ endif;
                 <div class="control-group control-min-group">
                     <label class="control-label" for="invitees-nb">Invitees Number</label>
                     <div class="controls">
-                        <input type="text" class="input-large" name="event_invitees_nb" id="event_invitees_nb" onkeypress="return isNumberKey(event)"
+                        <input type="text" class="input-large" name="event_invitees_nb" maxlength="9" id="event_invitees_nb" onkeypress="return isNumberKey(event)"
                                value="<?php
                                if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['event_invitees_nb'];
                                endif;
@@ -78,16 +78,15 @@ endif;
                     <div class="controls">
                         <?php
                         $parent = new CategoryBusinessLayer();
-                        print Helper::form_construct_drop_down('category', $parent->getParentCategories(), '', 'category_name', 'category_id', '', '', ''); // '<script type="text/javascript"> $(".chzn-select").chosen(); $(".chzn-select-deselect").chosen({allow_single_deselect:true}); </script>');
+                        print Helper::form_construct_drop_down('category', $parent->getParentCategories(ACTIVE), '', 'category_name', 'category_id', '', '', ''); // '<script type="text/javascript"> $(".chzn-select").chosen(); $(".chzn-select-deselect").chosen({allow_single_deselect:true}); </script>');
                         ?> 
                     </div>
                 </div>              
- <div class="control-group control-min-group control-category-children"></div>
- <div class="control-group control-min-group control-item"></div>
+
                 <div class="control-group control-min-group">
                     <label class="control-label" for="number">Item Quantity</label>
                     <div class="controls">
-                        <input type="text" class="input-large" name="number" id="number" onkeypress="return isNumberKey(event)">
+                        <input type="text" class="input-large" maxlength="9" name="number" id="number" onkeypress="return isNumberKey(event)">
                     </div>
                 </div>
                 <div class="control-group">
@@ -102,8 +101,7 @@ endif;
                         ?>"
                             class="save btn btn-primary btn-large">Save changes</button>
                     <button type="reset" id="cancel-events" class="cancel btn btn-large">Cancel</button>
-                </div>
-
+                </div>   
             </fieldset>
         </form>
 

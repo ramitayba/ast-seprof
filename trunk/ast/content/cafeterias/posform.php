@@ -28,7 +28,7 @@
                 <div class="control-group">
                     <label class="control-label" for="key">Key</label>
                     <div class="controls">
-                        <input type="text" class="input-large" name="pos_key" id="pos-key"
+                        <input type="text" class="input-large" name="pos_key" id="pos-key" maxlength="150"
                                value="<?php
 if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['pos_key'];
 endif;
@@ -41,7 +41,7 @@ endif;
                     <div class="controls">
                         <?php
                         $cafeteria = new CafeteriaBusinessLayer();
-                        print Helper::form_construct_drop_down('cafeteria', $cafeteria->getCafeterias(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['cafeteria_id'] : '', 'cafeteria_name', 'cafeteria_id');
+                        print Helper::form_construct_drop_down('cafeteria', $cafeteria->getCafeterias(ACTIVE), isset($forms) && !Helper::is_empty_array($forms) ? $forms['cafeteria_id'] : '', 'cafeteria_name', 'cafeteria_id');
                         ?> 
                     </div>
                 </div>

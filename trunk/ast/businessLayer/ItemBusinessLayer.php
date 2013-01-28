@@ -137,7 +137,7 @@ class ItemBusinessLayer {
     public function deleteItem($item_id,$status,$user_modification_id) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call DeleteItem(?,??)}";
+            $this->_SQLQuery = "{call DeleteItem(?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_Success = DataAccessManager::getInstance()->saveData(array($item_id,$status,$user_modification_id));
             if (!$this->_Success) {

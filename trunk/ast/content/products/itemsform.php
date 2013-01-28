@@ -18,20 +18,6 @@
         $("textarea#comment").bind("keyup change", function(){checkMaxLength(this.id,  maxLength); } )
 
     });
-
-    function checkMaxLength(textareaID, maxLength){
-
-        currentLengthInTextarea = $("#"+textareaID).val().length;
-        $(remainingLengthTempId).text(parseInt(maxLength) - parseInt(currentLengthInTextarea));
-
-        if (currentLengthInTextarea > (maxLength)) {
-
-            // Trim the field current length over the maxlength.
-            $("textarea#comment").val($("textarea#comment").val().slice(0, maxLength));
-            $(remainingLengthTempId).text(0);
-
-        }
-    }
 </script>
 
 <div id="validation" class="widget highlight widget-form widget-items-form">
@@ -55,7 +41,7 @@
                     <label class="control-label" for="item-name">Item Name</label>
                     <div class="controls">
                         <input type="text" class="input-large" name="item_name" id="item-name"
-                               value="<?php
+                               maxlength="100"       value="<?php
 if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['item_name'];
 endif;
 ?>">
@@ -66,20 +52,20 @@ endif;
                     <div class="controls">
                         <?php
                         $category = new CategoryBusinessLayer();
-                        print Helper::form_construct_drop_down('category', $category->getCategories(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['category_id'] : '', 'category_name', 'category_id');
+                        print Helper::form_construct_drop_down('category', $category->getCategories(ACTIVE), isset($forms) && !Helper::is_empty_array($forms) ? $forms['category_id'] : '', 'category_name', 'category_id');
                         ?> 
                     </div></div>
                 <div class="control-group">
                     <label class="control-label" for="item-price">Price</label>
                     <div class="controls">
                         <input type="text" class="input-large" name="item_price" id="item-price"
-                               value="<?php
+                            onkeypress="return isNumberKey(event)" maxlength="18"  value="<?php
                         if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['item_price'];
                         endif;
                         ?>">
                     </div>
                 </div>
-                <div class="control-group">
+               <!-- <div class="control-group">
                     <label class="control-label">Photo</label>
                     <div class="controls">
                         <input type="text" class="input-large" name="item_photo" id="item-photo"
@@ -88,12 +74,12 @@ endif;
                                endif;
                         ?>">
                     </div>
-                </div>
+                </div>-->
                 <div class="control-group">
                     <label class="control-label" for="item-description">Description</label>
                     <div class="controls">
                         <textarea id="comment" maxlength="150" class="input-large" name="item_description" id="item-description"
-                                 ><?php
+                              cols="45" rows="5"    ><?php
                                if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['item_description'];
                                endif;
                         ?> </textarea>

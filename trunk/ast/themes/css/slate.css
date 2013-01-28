@@ -549,6 +549,7 @@ label.error {
     font-weight: bold;
     color: #B94A48;
     margin-top: 2px;
+    width:60%;
 }
 
 
@@ -1229,13 +1230,14 @@ label.error {
     border-radius: 0;
 }
 
-.widget-table .dataTables_wrapper .row {
-    margin: 1em 0;
-    width: 70%;
-    float: right;
-    margin-top: -30px;
+.widget-table .header-table {
+    width: 30%;
+    position: absolute;
+    alignment-baseline: central;
+    left: 200px;
 }
-
+.widget-table .header-table-link{padding:5px;}
+.widget-table .dataTables_processing{display:none;}
 .widget-table .dataTables_wrapper .row .span6 {
     padding: 0 10px;
 
@@ -1663,11 +1665,12 @@ div.messages ul li {
 .PermLinks {  width:300px; height: 150px;  }
 
 .clearfix:after {
-      content: "\0020";
-      display: block;
-      height: 0;
-      clear: both;
-      overflow: hidden;
-      visibility: hidden;
-    }
-    
+    content: "\0020";
+    display: block;
+    height: 0;
+    clear: both;
+    overflow: hidden;
+    visibility: hidden;
+}
+.clear{height:5px;}
+.span12 .span12{margin-left:0px;}
