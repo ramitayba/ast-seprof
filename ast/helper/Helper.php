@@ -430,7 +430,7 @@ class Helper {
                 $li = '</ul></li>';
             endif;
             $li .= '<li><input type="checkbox" name="check" id="' . $row['menu_id'] . '" value="' . $row['menu_id'] . '" ' . $checked . ' ><label>' . $row['menu_name'] . '</label>';
-            if ($row['menu_parent_id'] == 0):
+            if ($row['menu_parent_id'] == 0||$row['menu_link'] =='#'):
                 $lastID = $row['menu_id'];
                 $li.='<ul>';
             else:
