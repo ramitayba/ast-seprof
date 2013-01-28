@@ -1,13 +1,12 @@
 <?php
 /**
- * This is the Helper
+ * This is the Permission Form
  * Designed and Developed by SEProf Team
  * Copyright (c) 2013 SEProf Inc.
  * http://seprof.com/
  * 
  */
 ?>
-
 <div id="validation" class="widget highlight widget-form widget-permission-form">
 
     <div class="widget-header">

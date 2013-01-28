@@ -1,6 +1,7 @@
 <?php
 /**
- * This is the Helper
+ * 
+ * This is the categories form
  * Designed and Developed by SEProf Team
  * Copyright (c) 2013 SEProf Inc.
  * http://seprof.com/
@@ -8,18 +9,12 @@
  */
 ?>
 <script>
-    $(function() {
-        $('#color').colorpicker({ flat: true });
-    });
-
     $(document).ready( function () {
-
+        $('#color').colorpicker({ flat: true });
         maxLength = $("textarea#comment").attr("maxlength");
         $("textarea#comment").after("<div><span id='remainingLengthTempId'>"
             + maxLength + "</span> remaining</div>");
-
         $("textarea#comment").bind("keyup change", function(){checkMaxLength(this.id,  maxLength); } )
-
     });
 </script>
 
@@ -43,9 +38,9 @@
                     <div class="controls">
                         <input type="text" class="input-large" name="category_name" id="category-name" 
                                maxlength="100"      value="<?php
-                               if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['category_name'];
-                               endif;
-                               ?>">
+if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['category_name'];
+endif;
+?>">
                     </div>
                 </div>
                 <div class="control-group">
@@ -64,7 +59,7 @@
                     <div class="controls">
                         <input type="text" class="input-large" name="color_code" id="color"
                                maxlength="9"    value="<?php
-                        if (isset($forms) && !Helper::is_empty_array($forms)):print '#'.$forms['color_code'];
+                        if (isset($forms) && !Helper::is_empty_array($forms)):print '#' . $forms['color_code'];
                         else:print DEFAULT_COLOR;
                         endif;
                         ?>">
@@ -76,9 +71,9 @@
                         <textarea id="comment" maxlength="150"  class="input-large" name="category_description"
                                   cols="45" rows="5"
                                   ><?php
-                                      if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['category_description'];
-                                      endif;
-                            ?></textarea>
+                               if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['category_description'];
+                               endif;
+                        ?></textarea>
                     </div>
                 </div>
                 <div class="control-group">
@@ -91,9 +86,9 @@
                 </div>
                 <div class="form-actions">
                     <button type="submit" id="save-categories-<?php
-                    if (isset($forms)): print $forms['category_id'];
-                    endif;
-                            ?>"
+                        if (isset($forms)): print $forms['category_id'];
+                        endif;
+                        ?>"
                             class="save btn btn-primary btn-large">Save changes</button>
                     <button type="reset" id="cancel-categories" class="cancel btn btn-large">Cancel</button>
                 </div>

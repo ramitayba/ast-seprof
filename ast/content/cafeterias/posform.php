@@ -1,6 +1,6 @@
 <?php
 /**
- * This is the Helper
+ * This is the Pos
  * Designed and Developed by SEProf Team
  * Copyright (c) 2013 SEProf Inc.
  * http://seprof.com/
