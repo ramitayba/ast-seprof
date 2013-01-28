@@ -13,8 +13,7 @@
 
         <div class="content clearfix">
 
-            <form id="login-form" action="./login" method="post" class="login_form  form-horizontal"
-                onClick="javascript:return validate_login();">
+            <form id="login-form" action="./login" method="post" class="login_form  form-horizontal">
                 <h1>Sign In</h1>
 
                 <div class="login-fields">
@@ -37,9 +36,7 @@
 
                 <div class="login-actions">
 
-                   
-
-                    <button class="button btn btn-secondary btn-large">Sign In</button>
+                   <button class="button btn btn-secondary btn-large" onClick="javascript:return validate_login();">Sign In</button>
 
                 </div> <!-- .actions -->
 

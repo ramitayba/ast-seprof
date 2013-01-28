@@ -92,7 +92,10 @@ $(function () {
         }
         if($('#number').val()==''||$('#id option:selected').val()=='')return;
         nRow=oTable.fnAddData([$('#id option:selected').val(),$('#id option:selected').text(),$('#number').val(),'<span><a class="delete-table btn" id="delete-'+a+'" href="">Delete</a></span>']);
-        $(nRow[2]).addClass('tdedit');
+        var nTds = $('td', nRow);
+        $(nTds[1]).addClass('tdedit');
+        oTable.fnDraw();
+        //$(nRow[2]).attr('td').addClass('tdedit');
         $('#id').val('');
         $('#number').val('');  
     } );
@@ -111,10 +114,12 @@ $(function () {
             oTable.fnUpdate([row_id,$('#id option:selected').text(),$('#number').val(),'<span><a class="delete-table btn" id="delete-'+a+'" href="">Delete</a></span>'],nRow);
         };
     } );
-     
-    $('.table tbody tr td').live('click', function (e) {
+     */
+    /* $('.table tbody tr').live('click', function (e) {
         e.preventDefault();
-        nRow = $(this).parents('tr')[0];
+        var nTds = $('td', this);
+        $(nTds[1]).addClass('tdedit');
+     nRow = $(this).parents('tr')[0];
         oTable=null;
         var table=  $('tr').parents('table')[0];
         oTable =  $('#'+table['id']).dataTable();
@@ -122,8 +127,9 @@ $(function () {
         row_id=dataRow[0];
         $('#id :selected').text(dataRow[1]);
         $('#number').val(dataRow[2]);
-    } );*/
-    
+        
+    } );
+    */
     $('.delete-table').live('click', function (e) {
         e.preventDefault();
         if (! confirm("Are you sure you want to delete?")){
@@ -448,7 +454,7 @@ function table(name,column_hide,editable)
                     var aPos = oTable.fnGetPosition( this );*/
                     
                     oTable.fnUpdate([ dataRow[0], dataRow[1],sValue] );
-                    oTable.fnDraw();
+                // oTable.fnDraw();
                 },
                 "submitdata": function ( value, settings ) {
                     nRow = $(this).parents('tr')[0];
@@ -743,13 +749,13 @@ function isNumberKey(evt)
 
     return true;
 }
-function existRow(oTable,name)
+function existRow(oTable,value)
 {
     var nodes=oTable.fnGetNodes();
     for(var i=0;i<nodes.length;i++)
     {
         var data=oTable.fnGetData(nodes[i]);
-        if(data[1]==name){
+        if(data[0]==value){
             alert('already exist');
             return true;
         }
@@ -805,4 +811,10 @@ function ajaxSubhmit(a,b)
     },function(httpReq, status, exception,a){
         error(httpReq, status, exception,a);
     });
+}
+
+function enable_text(status,links)
+{
+    status=!status;
+    links.disabled=status;
 }
