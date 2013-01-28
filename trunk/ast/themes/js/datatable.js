@@ -76,8 +76,6 @@ $(function () {
         })
     } );
     $('.add').live('click', function (e) {
-        e.preventDefault();
-        
         name=$(this).attr("id");
         array=name.split("-");
         if(array.length>1){
@@ -91,9 +89,7 @@ $(function () {
         {
             return;
         }
-        oTable.fnAddData([$('#id option:selected').val(),$('#id option:selected').text(),$('#number').val(),'<span><a class="delete-table btn" id="delete-'+a+'" href="">Delete</a></span>']);
-        $('#id').val('');
-        $('#number').val('');  
+       if(!validateEvent(a,oTable))return;
     } );
     /*$('.edit-table').live('click', function (e) {
         e.preventDefault();
@@ -804,4 +800,40 @@ function ajaxSubhmit(a,b)
     },function(httpReq, status, exception,a){
         error(httpReq, status, exception,a);
     });
+}
+function validateEvent(a,oTable)
+{
+    $('#events-form').validate({
+        rules: {
+            number: {
+                required: true,
+                maxlength:9
+            },
+            id: {
+                required: true
+            },
+            employee: {
+                required: true
+            }
+        },
+        focusCleanup: false,
+
+        highlight: function(label) {
+            $(label).closest('.control-group').removeClass ('success').addClass('error');
+        },
+        success: function(label) {
+            label
+            .text('OK!').addClass('valid')
+            .closest('.control-group').addClass('success');
+        },
+        errorPlacement: function(error, element) {
+            error.appendTo( element.parents ('.controls') );
+        },
+        submitHandler: function (form) {
+            oTable.fnAddData([$('#id option:selected').val(),$('#id option:selected').text(),$('#number').val(),'<span><a class="delete-table btn" id="delete-'+a+'" href="">Delete</a></span>']);
+            $('#id').val('');
+            $('#number').val('');  
+        }
+    });
+       
 }
