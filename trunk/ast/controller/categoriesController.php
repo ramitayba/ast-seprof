@@ -11,10 +11,10 @@ include_once POS_ROOT . '/businessLayer/CategoryBusinessLayer.php';
 $categoryBusinessLayer = new CategoryBusinessLayer();
 unset($_SESSION['category_id']);
 if ($action == 'index' || $action == 'categories'):
-    $categoryDataTable = $categoryBusinessLayer->getCategories(ACTIVE);
+    $categoryDataTable = $categoryBusinessLayer->getParentCategories(ACTIVE);
     if ($categoryBusinessLayer->getSuccess()):
         $content = Helper::fill_datatable('categories', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $categoryDataTable, array('Category Name', 'Category Parent', 'Category Color Code', 'Category Description', 'Status'), array('category_name', 'category_parent_name', 'color_code', 'category_description', 'status_name'), 'category_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
-                    1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')));
+                    1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')),true,-1,'','',$root.'themes/img/details_open.png');
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') :
             print $content;
             return;
@@ -29,6 +29,7 @@ if ($action == 'index' || $action == 'categories'):
         endif;
     endif;
 elseif ($action == 'add'):
+    $forms = array('status_id' => ACTIVE);
     include_once POS_ROOT . '/content/products/categoriesform.php';
 elseif ($action == 'edit'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):

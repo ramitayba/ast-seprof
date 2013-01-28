@@ -154,7 +154,7 @@ $(function () {
         name=$(this).attr("id");
         array=name.split("-");
         a=array[1];
-        $("#widget-content-"+a+"-table").html('<div style="width:'+width+';height:'+height+'"><img src="/ast/themes/img/loader.gif"  style="vertical-align: middle; alt="Loading...."/></div>');
+        $("#widget-content-"+a+"-table").html('<div align="center" style="width:'+width+';height:'+height+'"><img src="/ast/themes/img/loader.gif" alt="Loading...."/></div>');
         $.seprof(baseurl,{
             name:a,
             action:'add',
@@ -188,7 +188,9 @@ $(function () {
         else{
             a=b=c='';
         }
-        $("#widget-content-"+c+"-table").append('<img src="/ast/themes/img/loader.gif" alt="Uploading...."/>');
+        var width=$('.widget-table').height();
+        var height=$('.widget-table').width();
+        $("#widget-content-"+c+"-table").html('<div align="center" style="width:'+width+';height:'+height+'"><img src="/ast/themes/img/loader.gif" alt="Loading...."/></div>');
         $.seprof(baseurl,{
             name:a,
             action:'add',
@@ -341,7 +343,6 @@ $(function () {
             b='';
         }
         if(!validate(a,b))return;
-        
     /* $('.'+a+'-form').trigger('submit');
         var sequence="";
         $('input[name=check]:checked').each(function(){
@@ -739,7 +740,30 @@ function validate(a,b)
             ajaxSubhmit(a,b);
         }
     });
+    $('#allowances-form').validate({
+        rules: {
+            number: {
+                required: true,
+                maxlength:18
+            }
+        },
+        focusCleanup: false,
 
+        highlight: function(label) {
+            $(label).closest('.control-group').removeClass ('success').addClass('error');
+        },
+        success: function(label) {
+            label
+            .text('OK!').addClass('valid')
+            .closest('.control-group').addClass('success');
+        },
+        errorPlacement: function(error, element) {
+            error.appendTo( element.parents ('.controls') );
+        },
+        submitHandler: function (form) {
+            ajaxSubhmit(a,b);
+        }
+    });
 }
 function isNumberKey(evt)
 {

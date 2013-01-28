@@ -43,7 +43,8 @@ if ($action == 'index' || $action == 'pos'):
         endif;
     endif;
 elseif ($action == 'add'):
-    $forms = array('cafeteria_id' => isset($_SESSION['cafeteria_id']) ? $_SESSION['cafeteria_id'] : '');
+    $forms = array('cafeteria_id' => isset($_SESSION['cafeteria_id']) ? $_SESSION['cafeteria_id'] : '',
+        'status_id' => ACTIVE);
     include_once POS_ROOT . '/content/cafeterias/posform.php';
 elseif ($action == 'edit'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):

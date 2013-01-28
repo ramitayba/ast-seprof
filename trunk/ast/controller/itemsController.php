@@ -34,6 +34,7 @@ if ($action == 'index' || $action == 'items'):
         endif;
     endif;
 elseif ($action == 'add'):
+     $forms = array('status_id' => ACTIVE);
     include_once POS_ROOT . '/content/products/itemsform.php';
 elseif ($action == 'edit'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
