@@ -20,7 +20,7 @@
             <?php
             
             $role_id=$_SESSION['user_pos_role'];
-            print Menu::getInstance()->constructMenu($role_id) ?>
+            print Menu::getInstance()->constructMenu($role_id,$root) ?>
             
 
         </div> <!-- /.nav-collapse -->

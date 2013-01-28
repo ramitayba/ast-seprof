@@ -26,10 +26,10 @@ class Menu {
         return self::$_Instance;
     }
 
-    public function constructMenu($role_id) {
+    public function constructMenu($role_id,$root) {
         $this->_MenuTable = LookupBusinessLayer::getInstance()->getPermission($role_id);
         $this->_ready_memu_table();
-        return $this->_build_menu($this->_ParentMenu);
+        return $this->_build_menu($this->_ParentMenu,$root);
     }
 
     public function getAccessMenu($url) {
@@ -79,7 +79,7 @@ class Menu {
         }
     }
 
-    private function _build_menu($parent_array, $main_id = 'nav', $sub_id = 'dropdown-menu', $icon = '<i class="icon-th"></i>', $recursive = false) {
+    private function _build_menu($parent_array, $root,$main_id = 'nav', $sub_id = 'dropdown-menu', $icon = '<i class="icon-th"></i>', $recursive = false) {
         if (!$recursive) {
             $menu = '
     <ul id="' . $main_id . '" class="' . $main_id . '"><li class="nav-icon active">
@@ -103,9 +103,10 @@ class Menu {
                             $menu .= '
             <li><a title="' . $sval['label'] . '"  href="' . $root . $sval['link'] . '">' . $sval['label'] . '</a></li>';
                         } else {
+                           // print_r($sval);
                             $array = array($sval);
                             if (array_key_exists('children', $sval)) {
-                                $menu.=$this->_build_menu($array, $main_id, 'dropdown-menu sub-menu', '<i class="icon-chevron-right sub-menu-caret"></i>', true);
+                                $menu.=$this->_build_menu($array,$root, $main_id, 'dropdown-menu sub-menu', '<i class="icon-chevron-right sub-menu-caret"></i>', true);
                             }
                         }
                     }
