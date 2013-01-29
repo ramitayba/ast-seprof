@@ -73,40 +73,48 @@ endif;
                     </div>
                 </div>    
                 <div class="clear"></div>
-                <fieldset>
-                    <legend>Items</legend>
-                    <div class="control-group control-min-group control-category">
-                        <label class="control-label" for="category">Category Parent Name</label>
-                        <div class="controls">
-                            <?php
-                            $parent = new CategoryBusinessLayer();
-                            print Helper::form_construct_drop_down('category', $parent->getParentCategories(ACTIVE), '', 'category_name', 'category_id', '', '', ''); // '<script type="text/javascript"> $(".chzn-select").chosen(); $(".chzn-select-deselect").chosen({allow_single_deselect:true}); </script>');
-                            ?> 
-                        </div>
-                    </div>              
-
-                    <div class="control-group control-min-group">
-                        <label class="control-label" for="number">Item Quantity</label>
-                        <div class="controls">
-                            <input type="text" class="input-large" maxlength="9" name="number" id="number" onkeypress="return isNumberKey(event)">
-                        </div>
+                <div class="widget-sub-content">
+                    <div class="widget-header ">	      				
+                        <h3>
+                            <i class="icon-pencil"></i>
+                            Event Items      					
+                        </h3>	
                     </div>
-                    <div class="control-group control-min-group">
-                        <div class="controls">
-                            <a class="add btn" id="add-items" href="">Add New Record</a>
-                        </div>
-                    </div>
-                </fieldset>
-                <div class="control-group">
-                    <div class="widget widget-table">
+                    <div class="widget-content">
+                        <div class="control-group control-min-group control-category">
+                            <label class="control-label" for="category">Category Name</label>
+                            <div class="controls">
+                                <?php
+                                $parent = new CategoryBusinessLayer();
+                                print Helper::form_construct_drop_down('category', $parent->getParentCategories(ACTIVE), '', 'category_name', 'category_id', '', '', ''); // '<script type="text/javascript"> $(".chzn-select").chosen(); $(".chzn-select-deselect").chosen({allow_single_deselect:true}); </script>');
+                                ?> 
+                            </div>
+                        </div>              
 
-                        <?php print $content ?>
-                    </div> </div>
+                        <div class="control-group control-min-group">
+                            <label class="control-label" for="number">Item Quantity</label>
+                            <div class="controls">
+                                <input type="text" class="input-large" maxlength="9" name="number" id="number" onkeypress="return isNumberKey(event)">
+                            </div>
+                        </div>
+                        <div class="control-group control-min-group">
+                            <div >
+                                <a class="add " id="add-items" href="" title="Add New Record"></a>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <div class="widget widget-table">
+
+                                <?php print $content ?>
+                            </div> </div>
+                    </div>
+                </div>
                 <div class="form-actions">
                     <button type="submit" id="save-events-<?php
-                        if (isset($forms)): print $forms['event_id'];
-                        endif;
-                        ?>"
+                                if (isset($forms)): print $forms['event_id'];
+                                endif;
+                                ?>"
                             class="save btn btn-primary btn-large">Save changes</button>
                     <button type="reset" id="cancel-events" class="cancel btn btn-large">Cancel</button>
                 </div>   

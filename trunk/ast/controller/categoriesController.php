@@ -13,7 +13,7 @@ unset($_SESSION['category_id']);
 if ($action == 'index' || $action == 'categories'):
     $categoryDataTable = $categoryBusinessLayer->getParentCategories(ACTIVE);
     if ($categoryBusinessLayer->getSuccess()):
-        $content = Helper::fill_datatable('categories', 'categories', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $categoryDataTable, array('Category ID', 'Category Name', 'Category Parent', 'Category Color Code', 'Category Description', 'Status'), array('category_id', 'category_name', 'category_parent_name', 'color_code', 'category_description', 'status_name'), 'category_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
+        $content = Helper::fill_datatable('categories', 'categories', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $categoryDataTable, array('Category ID', 'Category Name','Category Color Code', 'Category Description', 'Status'), array('category_id', 'category_name', 'color_code', 'category_description', 'status_name'), 'category_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
                     1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')), true, 1, '', '', $root . 'themes/img/details_open.png', 'control-category');
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') :
             print $content;
@@ -120,7 +120,7 @@ elseif ($action == 'get'):
         $categoryDataTable = $categoryBusinessLayer->getCategoryChildrenByParentID($query_id, ACTIVE);
         if (!Helper::is_empty_array($categoryDataTable)):
             $container = ' <div class="control-category-children"> <div class="clear"></div>
-                <label class="control-label" for="children-category">Category Childen Name</label>
+                <label class="control-label" for="children-category">Sub Category Name</label>
                     <div class="controls">';
             $container.=Helper::form_construct_drop_down('category-children', $categoryDataTable, '', 'category_name', 'category_id', '', '', '');
             $container.=' </div></div>';

@@ -69,9 +69,9 @@ endif;
                     <label class="control-label" for="employees">Employees</label>
                     <div class="controls">
                         <?php
-                        $userid = isset($forms) && !Helper::is_empty_array($forms) ? $forms['employee_id'] : '';
+                        $userid = isset($forms) && !Helper::is_empty_array($forms) ? $forms['user_id'] : '';
                         $array = !Helper::is_empty_string($userid) ? LookupBusinessLayer::getInstance()->getEmployeesWithActiveUser($userid) : LookupBusinessLayer::getInstance()->getEmployeesNotHaveUsers();
-                        print Helper::form_construct_drop_down('employees', $array, $userid, 'employee_name', 'employee_id');
+                        print Helper::form_construct_drop_down('employees', $array, isset($forms) && !Helper::is_empty_array($forms) ? $forms['employee_id'] : '', 'employee_name', 'employee_id');
                         ?> 
                     </div>
                 </div>

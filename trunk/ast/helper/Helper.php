@@ -280,7 +280,7 @@ class Helper {
     504 => "HTTP/1.1 504 Gateway Time-out"
         );
         session_write_close();
-        header('Location:'.self::get_url() . $url);
+        header('Location:' . self::get_url() . $url);
     }
 
     public static function is_empty_string($string) {
@@ -389,13 +389,13 @@ class Helper {
     }
 
     public static function set_breadcrumb($url) {
-        $root=self::get_url();
+        $root = self::get_url();
         if ($url != 'login' and $url != 'index' and $url != 'master' and $url != '404'):
             $parts = explode('/', $url);
             $count = count($parts);
             $div = '<ul class="breadcrumb">';
             $div.='  <li>
-			    <a href="'.$root.'">Home</a> <span class="divider">/</span>
+			    <a href="' . $root . '">Home</a> <span class="divider">/</span>
 			  </li>';
             if ($count == 1 || ($count == 2 && $parts[1] == 'index')):
                 $div.=' <li class="active">' . $parts[0] . '</li>';
@@ -408,7 +408,7 @@ class Helper {
                         $div.=' <li class="active">' . str_replace('-', ' & ', ucfirst($value)) . '</li>';
                     else:
                         $div.=' <li>
-			    <a href="'.$root . $link . '">' . str_replace('-', ' & ', ucfirst($value)) . '</a> <span class="divider">/</span>
+			    <a href="' . $root . $link . '">' . str_replace('-', ' & ', ucfirst($value)) . '</a> <span class="divider">/</span>
 			  </li>';
                     endif;
                     $i++;
@@ -443,16 +443,16 @@ class Helper {
         return $list;
     }
 
-    public static function fill_datatable($name,$id, $header_buttons, $table, $header, $fields, $id_name, $linkcontrol = array(), $control = true, $column_hide = -1, $editable = '', $class_td_edit = '', $tdicon = '',$tdicon_class='' ,$script = true) {
+    public static function fill_datatable($name, $id, $header_buttons, $table, $header, $fields, $id_name, $linkcontrol = array(), $control = true, $column_hide = -1, $editable = '', $class_td_edit = '', $tdicon = '', $tdicon_class = '', $script = true) {
         $datatable = '<div id="widget-table"> <div class="widget-header"><h3><i class="icon-th-list"></i>'
                 . ucfirst($name) . '</h3></div>';
         $datatable.= $script ? ' <script>$(function () {     oTable = table("' . $name . '",' . $column_hide . ',"' . $editable . '");});</script>' : '';
-        $datatable.='<div class="widget-content" id="widget-content-' . $name. '-table">';
+        $datatable.='<div class="widget-content" id="widget-content-' . $name . '-table">';
         if ($control):
             $datatable.='<div class="header-table">';
             foreach ($header_buttons as $headerlink):
                 $link = $headerlink['link'] . $id;
-                $datatable.= '<span class="header-table-link"><a class="' . $headerlink['class'] . ' btn" id="' . $link . '" href="">' . $headerlink['name'] . '</a></span>';
+                $datatable.= '<span class="header-table-link"><a class="' . $headerlink['class'] . '" id="' . $link . '" href="" title="' . $headerlink['name'] . '"></a></span>';
             endforeach;
             $datatable.='</div>';
         endif;
@@ -469,7 +469,8 @@ class Helper {
         foreach ($table as $row):
             $class = $i % 2 ? ' even' : ' odd';
             $tr = '<tr class="gradeA ' . $class . '">';
-            $tr.=!self::is_empty_string($tdicon) ? '<td class="'.$tdicon_class.'"><img src="' . $tdicon . '"></td>' : '';
+            $img=!self::is_empty_string($row['count_number']) && $row['count_number'] != 0?'<img src="' . $tdicon . '">':'';
+            $tr.=!self::is_empty_string($tdicon) ? '<td class="' . $tdicon_class . '">'.$img.'</td>' : '';
             foreach ($fields as $rowfields):
                 $class = $rowfields == $class_td_edit ? 'tdedit' : '';
                 $tr.= '<td class="' . $class . '">' . $row[$rowfields] . '</td>';
@@ -478,7 +479,7 @@ class Helper {
                 $extra = '<td class="controls">';
                 foreach ($linkcontrol as $rowlink):
                     $link = $rowlink['link'] . $id . '-' . $row[$id_name];
-                    $extra.= '<span><a class="' . $rowlink['class'] . ' btn" id="' . $link . '" href="">' . $rowlink['name'] . '</a></span>';
+                    $extra.= '<span class="content-link"> <a class="' . $rowlink['class'] . '" id="' . $link . '" href="" title="' . $rowlink['name'] . '"></a></span>';
                 endforeach;
                 $extra .= '</td>';
             endif;

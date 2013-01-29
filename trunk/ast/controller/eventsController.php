@@ -33,7 +33,7 @@ if ($action == 'index' || $action == 'events'):
         endif;
     endif;
 elseif ($action == 'add'):
-    $content = Helper::fill_datatable('items', 'items', array(0 => array('name' => 'Add New Record', 'link' => 'add-', 'class' => 'add')), array(), array('Item ID', 'Item Name', 'Item Quantity'), array('item_id', 'item_name', 'item_quantity'), 'event_id', array(0 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')), true, 0, 'items', 'item_quantity');
+    $content = Helper::fill_datatable('items', 'items', array(), array(), array('Item ID', 'Item Name', 'Item Quantity'), array('item_id', 'item_name', 'item_quantity'), 'event_id', array(0 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')), true, 0, 'items', 'item_quantity');
     include_once POS_ROOT . '/content/events/eventsform.php';
 elseif ($action == 'edit'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
@@ -50,7 +50,7 @@ elseif ($action == 'edit'):
             , 'employee_id' => $eventDataTable [0]['employee_id']);
         $eventItemBusinessLayer = new EventItemBusinessLayer();
         $eventItemDataTable = $eventItemBusinessLayer->getEventItemsByEventID($eventDataTable [0]['event_id']);
-        $content = Helper::fill_datatable('items', 'items', array(0 => array('name' => 'Add New Record', 'link' => 'add-', 'class' => 'add')), $eventItemDataTable, array('Item ID', 'Item Name', 'Item Quantity'), array('item_id', 'item_name', 'item_quantity'), 'event_id', array(0 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')), true, 0, 'items', 'item_quantity');
+        $content = Helper::fill_datatable('items', 'items', array(), $eventItemDataTable, array('Item ID', 'Item Name', 'Item Quantity'), array('item_id', 'item_name', 'item_quantity'), 'event_id', array(0 => array('name' => 'Delete', 'link' => 'delete-table', 'class' => 'delete')), true, 0, 'items', 'item_quantity');
         include_once POS_ROOT . '/content/events/eventsform.php';
     else:
         print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Events not exist', 'error')));

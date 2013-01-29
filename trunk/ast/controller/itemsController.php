@@ -13,7 +13,7 @@ $itemBusinessLayer = new ItemBusinessLayer();
 if ($action == 'index' || $action == 'items'):
     $itemDataTable = $itemBusinessLayer->getItems(ACTIVE);
     if ($itemBusinessLayer->getSuccess()):
-        $content = Helper::fill_datatable('items', 'items', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $itemDataTable, array('Item Name', 'Category Name', 'Item Price', 'Item Description', 'Status'), array('item_name', 'category_name', 'item_price', 'item_description', 'status_name'), 'item_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
+        $content = Helper::fill_datatable('items', 'items', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $itemDataTable, array('Category Parent Name','Sub Category Name','Item Name', 'Item Price', 'Item Description', 'Status'), array(  'category_parent_name','category_name','item_name', 'item_price', 'item_description', 'status_name'), 'item_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
                     1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')));
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') :
             print $content;
@@ -62,7 +62,7 @@ elseif ($action == 'save'):
         print Helper::json_encode_array(array('status' => 'error', 'message' => $message));
         return;
     endif;
-    $itemDataTable = $itemBusinessLayer->getItemByName($name, ACTIVE);
+    $itemDataTable = $itemBusinessLayer->getItemByName($name,$category_id, ACTIVE);
     if (Helper::is_empty_string($query_id)):
         if (count($itemDataTable) > 0):
             print Helper::json_encode_array(array('status' => 'error', 'message' => 'Item name already exist'));
@@ -90,8 +90,8 @@ elseif ($action == 'save'):
     if ($success):
         $itemDataTable = $itemBusinessLayer->getItems(ACTIVE);
         if ($itemBusinessLayer->getSuccess()):
-            $content = Helper::fill_datatable('items', 'items', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $itemDataTable, array('Item Name', 'Category Name', 'Item Price', 'Item Description', 'Status'), array('item_name', 'category_name', 'item_price', 'item_description', 'status_name'), 'item_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
-                        1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')));
+            $content = Helper::fill_datatable('items', 'items', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $itemDataTable, array('Category Parent Name','Sub Category Name','Item Name', 'Item Price', 'Item Description', 'Status'), array(  'category_parent_name','category_name','item_name', 'item_price', 'item_description', 'status_name'), 'item_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
+                    1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')));
         endif;
         $container = Helper::set_message('Item saved succesfuly', 'status') . $content;
         print $container;
