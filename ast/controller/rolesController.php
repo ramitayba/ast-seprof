@@ -12,7 +12,7 @@ $roleBusinessLayer = new RoleBusinessLayer();
 if ($action == 'roles' || $action == 'index'):
     $roleDataTable = $roleBusinessLayer->getRoles(ACTIVE);
     if ($roleBusinessLayer->getSuccess()):
-        $content = Helper::fill_datatable('roles', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $roleDataTable, array('Role Name', 'Status Name'), array('role_name', 'status_name'), 'role_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
+        $content = Helper::fill_datatable('roles', 'roles',array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $roleDataTable, array('Role Name', 'Status Name'), array('role_name', 'status_name'), 'role_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
                     1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete'),
                     2 => array('name' => 'Permissions', 'link' => 'permissions-', 'class' => 'permissions')));
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') :
@@ -80,7 +80,7 @@ elseif ($action == 'save'):
     if ($success):
         $roleDataTable = $roleBusinessLayer->getRoles(ACTIVE);
         if ($roleBusinessLayer->getSuccess()):
-            $content = Helper::fill_datatable('roles', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $roleDataTable, array('Role Name', 'Status Name'), array('role_name', 'status_name'), 'role_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
+            $content = Helper::fill_datatable('roles','roles', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $roleDataTable, array('Role Name', 'Status Name'), array('role_name', 'status_name'), 'role_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
                         1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete'),
                         2 => array('name' => 'Permissions', 'link' => 'permissions-', 'class' => 'permissions')));
         endif;
@@ -96,7 +96,7 @@ elseif ($action == 'delete'):
             print Helper::json_encode_array(array('status' => 'error', 'message' => 'Role doesn t  exist '));
             return;
         endif;
-        $success = $roleBusinessLayer->deleteRole($query_id, DESACTIVE, $_SESSION['user_pos']);
+        $success = $roleBusinessLayer->deleteRole($query_id, UNDER_PROCESSING, $_SESSION['user_pos']);
         if ($success):
             $container = Helper::set_message('Role ' . $roleDataTable [0]['role_name'] . ' delete succesfuly', 'status');
             print Helper::json_encode($container);

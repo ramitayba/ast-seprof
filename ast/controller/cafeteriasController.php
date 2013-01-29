@@ -13,7 +13,7 @@ unset($_SESSION['cafeteria_id']);
 if ($action == 'index'):
     $cafeteriaDataTable = $cafeteriaBusinessLayer->getCafeterias(ACTIVE);
     if ($cafeteriaBusinessLayer->getSuccess()):
-        $content = Helper::fill_datatable('cafeterias', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $cafeteriaDataTable, array('Cafeteria Name'), array('cafeteria_name'), 'cafeteria_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
+        $content = Helper::fill_datatable('cafeterias', 'cafeterias',array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $cafeteriaDataTable, array('Cafeteria Name'), array('cafeteria_name'), 'cafeteria_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
                     1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete'),
                     2 => array('name' => 'Pos', 'link' => 'pos-', 'class' => 'pos')));
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') :
@@ -77,7 +77,7 @@ elseif ($action == 'save'):
     if ($success):
         $cafeteriaDataTable = $cafeteriaBusinessLayer->getCafeterias(ACTIVE);
         if ($cafeteriaBusinessLayer->getSuccess()):
-            $content = Helper::fill_datatable('cafeterias', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $cafeteriaDataTable, array('Cafeteria Name'), array('cafeteria_name'), 'cafeteria_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
+            $content = Helper::fill_datatable('cafeterias','cafeterias', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $cafeteriaDataTable, array('Cafeteria Name'), array('cafeteria_name'), 'cafeteria_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
                         1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete'),
                         2 => array('name' => 'Pos', 'link' => 'pos-', 'class' => 'pos')));
         endif;
@@ -93,7 +93,7 @@ elseif ($action == 'delete'):
             print Helper::json_encode_array(array('status' => 'error', 'message' => 'Cafeteria doesn t  exist '));
             return;
         endif;
-        $success = $cafeteriaBusinessLayer->deleteCafeteria($query_id, DESACTIVE, $_SESSION['user_pos']);
+        $success = $cafeteriaBusinessLayer->deleteCafeteria($query_id, UNDER_PROCESSING, $_SESSION['user_pos']);
         if ($success):
             $container = Helper::set_message('Cafeteria ' . $cafeteriaDataTable [0]['cafeteria_name'] . ' delete succesfuly', 'status');
             print Helper::json_encode($container);
@@ -101,5 +101,6 @@ elseif ($action == 'delete'):
             print Helper::json_encode_array(array('status' => 'error', 'message' => 'Cafeteria not deleted '));
         endif;
     endif;
+
 endif;
 ?>

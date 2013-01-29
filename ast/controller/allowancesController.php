@@ -11,7 +11,7 @@ include_once POS_ROOT . '/businessLayer/AllowanceBusinessLayer.php';
 if ($action == 'allowance'):
     $allowanceDataTable = LookupBusinessLayer::getInstance()->getEmployees();
     if (LookupBusinessLayer::getInstance()->getSuccess()):
-        $content = Helper::fill_datatable('allowances', array(), $allowanceDataTable, array('Employe ID', 'Employee Name', 'Max Debit'), array('employee_id', 'employee_name', 'employee_max_debit'), 'employee_id', array(), false, 0, 'allowances', 'employee_max_debit');
+        $content = Helper::fill_datatable('allowances','allowances', array(), $allowanceDataTable, array('Employe ID', 'Employee Name', 'Max Debit'), array('employee_id', 'employee_name', 'employee_max_debit'), 'employee_id', array(), false, 0, 'allowances', 'employee_max_debit');
         unset($_SESSION['messages']);
     else:
         $div = Helper::set_message('<li>error Connection</li>', 'error');
@@ -31,7 +31,7 @@ elseif ($action == 'save'):
             $message = Helper::set_message('Allowance saved succesfuly', 'status');
             $allowanceDataTable = LookupBusinessLayer::getInstance()->getEmployees();
             if (LookupBusinessLayer::getInstance()->getSuccess()):
-                $container = Helper::fill_datatable('allowances', array(), $allowanceDataTable, array('Employe ID', 'Employee Name', 'Max Debit'), array('employee_id', 'employee_name', 'employee_max_debit'), 'employee_id', array(), false, 0, 'allowances', 'employee_max_debit');
+                $container = Helper::fill_datatable('allowances','allowances', array(), $allowanceDataTable, array('Employe ID', 'Employee Name', 'Max Debit'), array('employee_id', 'employee_name', 'employee_max_debit'), 'employee_id', array(), false, 0, 'allowances', 'employee_max_debit');
                 $content = $message . $container;
                 include_once POS_ROOT . '/content/settings/allowance.php';
             else:

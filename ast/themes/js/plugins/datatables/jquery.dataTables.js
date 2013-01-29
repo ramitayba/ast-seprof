@@ -5124,7 +5124,6 @@
 		{
 			/* Find settings from table node */
 			var oSettings = _fnSettingsFromNode( this[DataTable.ext.iApiIndex] );
-			
 			for ( var i=0 ; i<oSettings.aoOpenRows.length ; i++ )
 			{
 				if ( oSettings.aoOpenRows[i].nParent == nTr )
@@ -5676,11 +5675,10 @@
 			
 			/* the old open one if there is one */
 			this.fnClose( nTr );
-			
 			var nNewRow = document.createElement("tr");
 			var nNewCell = document.createElement("td");
 			nNewRow.appendChild( nNewCell );
-			nNewCell.className = sClass;
+			nNewRow.className = sClass;
 			nNewCell.colSpan = _fnVisbleColumns( oSettings );
 		
 			if (typeof mHtml === "string")

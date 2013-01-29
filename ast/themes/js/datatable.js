@@ -1,4 +1,4 @@
-var dataRow, nRow,oTable, baseurl="/ast/process.php",date_obj_time;
+var dataRow, nRow,oTable, baseurl="/ast/process.php",date_obj_time,sImageUrl="/ast/themes/img/",anOpenCategories = [],anOpenSubCategories = [];
 $(function () {
     jQuery.extend({
         seprof: function(url,data,callback,errorCallback,type) {
@@ -130,6 +130,101 @@ $(function () {
         
     } );
     */
+    $('#categories-table tbody tr td.control-category').live( 'click', function (e) {
+        e.preventDefault();
+        nRow = $(this).parents('tr')[0];
+        var nTr = this.parentNode;
+        var table=  $(this).parents('table')[0];
+        oTable =  $('#'+table['id']).dataTable();
+        dataRow=oTable.fnGetData(nTr);
+        var i = $.inArray( nTr, anOpenCategories );
+   
+        if ( i === -1 ) {
+            if($('.details').parents('tr').length==0)
+            {
+                fnNestedTable(dataRow[1],oTable,nTr,anOpenCategories,'sub-categories');
+                $('img', this).attr( 'src', sImageUrl+"details_close.png" );
+            }
+            else
+            {
+                /*var data=$('.details').html();
+                $('.details').parents('tr').show();
+                oTable.fnOpen( nTr, data, 'details' );
+                anOpen.push( nTr );
+                $('.details #widget-table', $(nTr).next()[0]).css('display', 'block');
+            }*/
+                /* if($('.details').parents('tr').length>0)
+            {
+                $('.details').parents('tr').remove();     
+            }*/
+                anOpenCategories.push( nTr );
+                $('.sub-categories #widget-table', $(nTr).next()[0]).css('display', 'block');
+            }
+        }
+        else {
+            /*oTable.fnClose( nTr );
+            anOpen.splice( i, 1 );
+            $('img', this).attr( 'src', sImageUrl+"details_open.png" );
+            $('.details #widget-table', $(nTr).next()[0]).css('display', 'none');
+            $('#widget-table').slideUp();*/
+            $('img', this).attr( 'src', sImageUrl+"details_open.png" );
+            $('#widget-table', $(nTr).next()[0]).slideUp( function () {
+                oTable.fnClose( nTr );
+                oTable.fnClose($('.sub-categories'));
+                anOpenCategories.splice( i, 1 );
+            } );
+            $('.sub-categories #widget-table', $(nTr).next()[0]).css('display', 'none');
+        //$('.details').parents('tr').remove();
+        }
+    } );
+    
+    $('#categories-children-table tbody tr td.control-sub-category').live( 'click', function (e) {
+        e.preventDefault();
+        nRow = $(this).parents('tr')[0];
+        var nTr = this.parentNode;
+        var table=  $(this).parents('table')[0];
+        oTable =  $('#'+table['id']).dataTable();
+        dataRow=oTable.fnGetData(nTr);
+        var i = $.inArray( nTr, anOpenSubCategories );
+        if ( i === -1 ) {
+            if($('.details').parents('tr').length==0)
+            {
+                fnNestedTable(dataRow[1],oTable,nTr,anOpenSubCategories,'items');
+                $('img', this).attr( 'src', sImageUrl+"details_close.png" );
+            }
+            else
+            {
+                /*var data=$('.details').html();
+                $('.details').parents('tr').show();
+                oTable.fnOpen( nTr, data, 'details' );
+                anOpen.push( nTr );
+                $('.details #widget-table', $(nTr).next()[0]).css('display', 'block');
+            }*/
+                /* if($('.details').parents('tr').length>0)
+            {
+                $('.details').parents('tr').remove();     
+            }*/
+                anOpenSubCategories.push( nTr );
+                $('.items #widget-table', $(nTr).next()[0]).css('display', 'block');
+            }
+        }
+        else {
+            /*oTable.fnClose( nTr );
+            anOpen.splice( i, 1 );
+            $('img', this).attr( 'src', sImageUrl+"details_open.png" );
+            $('.details #widget-table', $(nTr).next()[0]).css('display', 'none');
+            $('#widget-table').slideUp();*/
+            $('img', this).attr( 'src', sImageUrl+"details_open.png" );
+            $('#widget-table', $(nTr).next()[0]).slideUp( function () {
+                oTable.fnClose( nTr );
+                oTable.fnClose($('.items'));
+                anOpenSubCategories.splice( i, 1 );
+            } );
+            
+        //$('.details').parents('tr').remove();
+        }
+    } );
+ 
     $('.delete-table').live('click', function (e) {
         e.preventDefault();
         if (! confirm("Are you sure you want to delete?")){
@@ -254,7 +349,7 @@ $(function () {
         array=name.split("-");
         if(array.length>1){
             a=array[1];
-            b=array[2];
+            b=array.length==4?array[3]:array[2];
         }
         else{
             a='';
@@ -439,10 +534,11 @@ function success(message,a){
 }
 function table(name,column_hide,editable)
 {
-    var sequence='';
     var table =  $('#'+name+'-table').dataTable( {
         sDom: "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
         sPaginationType: "bootstrap",
+        bStateSave: false, 
+        bRetrieve: true,
         oLanguage: {
             "sLengthMenu": "_MENU_ records per page"
         },
@@ -841,4 +937,16 @@ function enable_text(status,links)
 {
     status=!status;
     links.disabled=status;
+}
+function fnNestedTable(id,oTable,nTr,anOpen,name )
+{
+    $.seprof(baseurl,{
+        name:'categories',
+        action:'nested',
+        query:id
+    },function(data){
+        var nDetailsRow=oTable.fnOpen( nTr, data, name );
+        $('#widget-table', nDetailsRow).show('slow');
+        anOpen.push( nTr );
+    });
 }
