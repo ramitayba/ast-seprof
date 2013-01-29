@@ -3,7 +3,7 @@
 
     <div class="widget widget-table">
 
-                <?php print $content ?>
+        <?php print $content ?>
 
     </div> <!-- /widget -->	
 

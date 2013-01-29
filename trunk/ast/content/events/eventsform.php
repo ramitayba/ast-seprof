@@ -73,22 +73,30 @@ endif;
                     </div>
                 </div>    
                 <div class="clear"></div>
-                <div class="control-group control-min-group control-category">
-                    <label class="control-label" for="category">Category Parent Name</label>
-                    <div class="controls">
-                        <?php
-                        $parent = new CategoryBusinessLayer();
-                        print Helper::form_construct_drop_down('category', $parent->getParentCategories(ACTIVE), '', 'category_name', 'category_id', '', '', ''); // '<script type="text/javascript"> $(".chzn-select").chosen(); $(".chzn-select-deselect").chosen({allow_single_deselect:true}); </script>');
-                        ?> 
-                    </div>
-                </div>              
+                <fieldset>
+                    <legend>Items</legend>
+                    <div class="control-group control-min-group control-category">
+                        <label class="control-label" for="category">Category Parent Name</label>
+                        <div class="controls">
+                            <?php
+                            $parent = new CategoryBusinessLayer();
+                            print Helper::form_construct_drop_down('category', $parent->getParentCategories(ACTIVE), '', 'category_name', 'category_id', '', '', ''); // '<script type="text/javascript"> $(".chzn-select").chosen(); $(".chzn-select-deselect").chosen({allow_single_deselect:true}); </script>');
+                            ?> 
+                        </div>
+                    </div>              
 
-                <div class="control-group control-min-group">
-                    <label class="control-label" for="number">Item Quantity</label>
-                    <div class="controls">
-                        <input type="text" class="input-large" maxlength="9" name="number" id="number" onkeypress="return isNumberKey(event)">
+                    <div class="control-group control-min-group">
+                        <label class="control-label" for="number">Item Quantity</label>
+                        <div class="controls">
+                            <input type="text" class="input-large" maxlength="9" name="number" id="number" onkeypress="return isNumberKey(event)">
+                        </div>
                     </div>
-                </div>
+                    <div class="control-group control-min-group">
+                        <div class="controls">
+                            <a class="add btn" id="add-items" href="">Add New Record</a>
+                        </div>
+                    </div>
+                </fieldset>
                 <div class="control-group">
                     <div class="widget widget-table">
 

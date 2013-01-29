@@ -462,7 +462,7 @@ class Helper {
         foreach ($header as $row):
             $thead .= '<th>' . $row . '</th>';
         endforeach;
-        $thead.= $control == true ? '<th>Actions</th></tr> </thead>' : '</tr> </thead>';
+        $thead.= $control == true ? '<th class="controls">Actions</th></tr> </thead>' : '</tr> </thead>';
         $tbody = '<tbody>';
         $i = 1;
         $tr = '';
@@ -475,7 +475,7 @@ class Helper {
                 $tr.= '<td class="' . $class . '">' . $row[$rowfields] . '</td>';
             endforeach;
             if ($control):
-                $extra = '<td>';
+                $extra = '<td class="controls">';
                 foreach ($linkcontrol as $rowlink):
                     $link = $rowlink['link'] . $id . '-' . $row[$id_name];
                     $extra.= '<span><a class="' . $rowlink['class'] . ' btn" id="' . $link . '" href="">' . $rowlink['name'] . '</a></span>';
