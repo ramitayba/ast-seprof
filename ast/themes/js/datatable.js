@@ -85,13 +85,14 @@ $(function () {
         else{
             a='';
         }
+        if($('#id').length==0)return;
         oTable =  $('#'+a+'-table').dataTable();
         if(existRow(oTable,$('#id').val()))
         {
             return;
         }
         if($('#number').val()==''||$('#id option:selected').val()=='')return;
-        nRow=oTable.fnAddData([$('#id option:selected').val(),$('#id option:selected').text(),$('#number').val(),'<span><a class="delete-table btn" id="delete-'+a+'" href="">Delete</a></span>']);
+        nRow=oTable.fnAddData([$('#id option:selected').val(),$('#id option:selected').text(),$('#number').val(),'<span><a class="delete-table " id="delete-'+a+'" href="" title="Delete"></a></span>']);
         var nTds = $('td', nRow);
         $(nTds[1]).addClass('tdedit');
         oTable.fnDraw();
@@ -262,6 +263,7 @@ $(function () {
     } );
     $('#category').live('change', function (e) {
         e.preventDefault();
+        $('.add').disabled=true;
         $('.control-category-children').remove();
         $('.control-item').remove();
         getDropDown('category');
@@ -524,7 +526,10 @@ function showTable(b,a)
 }
 function showSelect(b,a)
 {
-    $(".control-"+a).append(b); 
+    if(b!=null)
+    {
+        $(".control-"+a).append(b); 
+    }
 }
 function error(httpReq, status, exception,a){
 
@@ -540,7 +545,7 @@ function success(message,a){
 function table(name,column_hide,editable)
 {
     var table =  $('#'+name+'-table').dataTable( {
-        sDom: "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
+        sDom:"<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",//"rlfrtip"//
         sPaginationType: "bootstrap",
         bStateSave: false, 
         bRetrieve: true,
@@ -946,8 +951,7 @@ function ajaxSubhmit(a,b)
 
 function enable_text(status,links)
 {
-    status=!status;
-    links.disabled=status;
+    links.disabled=!status;
 }
 function fnNestedTable(id,oTable,nTr,anOpen,name )
 {

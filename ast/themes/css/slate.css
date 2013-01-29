@@ -730,6 +730,7 @@ label.error {
 [*. Widget]
 */
 
+.widget-sub-content{margin:0 auto; width:80%;}
 .widget {	
     position: relative;
     clear: both;
@@ -964,25 +965,31 @@ label.error {
 }
 .widget-table .controls
 {
-    width:18%;
+    width:15%;
 }
-.widget-table .controls .edit{
-    /*background:url(../img/edit-icon.png) no-repeat;
-    padding: 0 0 0 20px;
-    background-position: left center;
-    display: inline-block;
-    vertical-align: baseline;
-    width: auto;
-    height: 16px;
-    line-height: 16px;
-    padding: 0;
-    margin: 0;*/}
-
-.widget-table .table-highlight thead:first-child tr:first-child th {
-    border-top: 1px solid #292C32;
+.widget-table .controls a,.widget-table .header-table-link a{padding: 0 20px;
+                                                             background-position:center;
+                                                             display:block;
+                                                             height: 30px;}
+.widget-table .controls .content-link{float:left;}
+.widget-table .controls .edit{background:url(../img/edit-icon.png) no-repeat;}
+.widget-table .controls .delete,.widget-table .controls .delete-table{ background:url(../img/delete-icon.png) no-repeat;}
+.widget-table .controls .pos{background:url(../img/pos-icon.png) no-repeat;;}
+.widget-table .controls .permissions{background:url(../img/permission.png) no-repeat;}
+.widget-table .controls .approved{background:url(../img/approve.png) no-repeat;}
+.widget-table .controls .rejected{background:url(../img/reject.png) no-repeat;}
+.widget-table .table-highlight thead:first-child tr:first-child th { border-top: 1px solid #292C32;
 }
-
-
+.widget-table .header-table-link a{background:url(../img/add-icon.png) no-repeat;}
+.add{background:url(../img/add-icon.png) no-repeat;
+     padding: 0 20px;
+     background-position:center;
+     display:block;
+     height: 30px;float: left;}
+/*.pagination li.prev a{padding: 0 20px;
+                    background-position:center;
+                    display:block;
+                    height: 30px; background:url(../img/previous.png) no-repeat;}*/
 
 /*------------------------------------------------------------------
 [*. Toolbar]
@@ -1249,7 +1256,7 @@ label.error {
     alignment-baseline: central;
     left: 200px;
 }
-.widget-table .header-table-link{padding:5px;}
+/*.widget-table .header-table-link{padding:5px;}*/
 .widget-table .dataTables_processing{display:none;}
 .widget-table .dataTables_wrapper .row .span6 {
     padding: 0 10px;

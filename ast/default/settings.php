@@ -21,26 +21,30 @@ $databases = array (
 
 
 $routes=array(
-    'usersController'=>array('login','logout','users/index'),
+    'usersController'=>array('login','logout','users/index','users/usersform'),
     'rolesController'=>array('users/roles'),
     'categoriesController'=>array('products/categories'),
     'itemsController'=>array('products/items'),
     'posController'=>array('cafeterias/pos'),
-    'cafeteriasController'=>array('cafeterias/index'),
+    'cafeteriasController'=>array('cafeterias/index','cafeterias/cafeteriasform'),
     'eventsController'=>array('events/index'),
     'allowancesController'=>array('settings/allowance'),
 );
 
 $actions=array('add','edit','delete');
 
-
+/**
+ * 
+ * Define status
+ * 
+ */
 
 define('ACTIVE', 1);
 define('DESACTIVE', 2);
 define('UNDER_PROCESSING', 3);
 define('APPROVED', 4);
 define('REJECTED', 5);
-define('DEFAULT_COLOR', '#00000000');
+define('DEFAULT_COLOR', '#000000');
 
 /**
  * Some distributions of Linux (most notably Debian) ship their PHP

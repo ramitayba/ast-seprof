@@ -51,12 +51,12 @@ class ItemBusinessLayer {
         return $this->_ItemsDataTable;
     }
 
-    public function getItemByName($name,$status) {
+    public function getItemByName($name,$category_id,$status) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call GetItemByName(?,?)}";
+            $this->_SQLQuery = "{call GetItemByName(?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_ItemsDataTable = DataAccessManager::getInstance()->fillData(array($name,$status));
+            $this->_ItemsDataTable = DataAccessManager::getInstance()->fillData(array($name,$category_id,$status));
             $this->_Success = DataAccessManager::getInstance()->getSuccess();
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
