@@ -42,7 +42,6 @@ elseif ($action == 'edit'):
         include_once POS_ROOT . '/content/cafeterias/cafeteriasform.php';
     else:
         print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Cafeteria not exist', 'error')));
-        return;
     endif;
 elseif ($action == 'save'):
     $name = isset($data['cafeteria_name']) ? $data['cafeteria_name'] : '';
@@ -105,8 +104,6 @@ elseif ($action == 'delete'):
         endif;
     else:
         print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Cafeteria not exist', 'error')));
-        return;
     endif;
-
 endif;
 ?>

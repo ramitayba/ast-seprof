@@ -27,6 +27,9 @@ elseif ($action == 'add'):
         $forms = array('role_id' => $query_id,
             'permissions' => $permissionDataTable);
         include_once POS_ROOT . '/content/users/permissionsform.php';
+   else:
+        print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Permissions not exist', 'error')));
+        return;
     endif;
 elseif ($action == 'save'):
     $permissions = isset($sequence) ? $sequence : '';

@@ -537,8 +537,7 @@ body.nav-fixed #nav .container {
 
 label.valid {
     position: relative;
-    top: 1px;
-
+    top: 30px;
     width: 24px;
     height: 24px;
     background: url(../img/validate/valid.png) center top no-repeat;
@@ -965,7 +964,7 @@ label.error {
 }
 .widget-table .controls
 {
-    width:15%;
+    width:18%;
 }
 .widget-table .controls .edit{
     /*background:url(../img/edit-icon.png) no-repeat;
