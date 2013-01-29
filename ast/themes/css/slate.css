@@ -963,6 +963,21 @@ label.error {
     border-radius: 0 !important;
 
 }
+.widget-table .controls
+{
+    width:15%;
+}
+.widget-table .controls .edit{
+    /*background:url(../img/edit-icon.png) no-repeat;
+    padding: 0 0 0 20px;
+    background-position: left center;
+    display: inline-block;
+    vertical-align: baseline;
+    width: auto;
+    height: 16px;
+    line-height: 16px;
+    padding: 0;
+    margin: 0;*/}
 
 .widget-table .table-highlight thead:first-child tr:first-child th {
     border-top: 1px solid #292C32;

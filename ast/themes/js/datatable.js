@@ -62,8 +62,8 @@ $(function () {
             query:b
         },function(k){
             if(k.status=='error')
-            {
-                error('','', k.message,a)  
+            { 
+                errorBefore(k.message);
             }else{
                 if ( nRow!=null ) {
                     $(".messages").remove();
@@ -361,7 +361,12 @@ $(function () {
             action:'edit',
             query:b
         },function(k){
-            showform(k,a)
+            if(k.status=='error')
+            {
+                errorBefore(k.message,"#widget-content-"+a+"-table");
+            }else{
+                showform(k,a);
+            }
         },function(httpReq, status, exception,a){
             error(httpReq, status, exception,a)
         })
@@ -949,4 +954,10 @@ function fnNestedTable(id,oTable,nTr,anOpen,name )
         $('#widget-table', nDetailsRow).show('slow');
         anOpen.push( nTr );
     });
+}
+function errorBefore(message,name)
+{
+    $(name+" img:last-child").remove();
+    $('.messages').remove();
+    $( '.widget').before(message)  ;
 }
