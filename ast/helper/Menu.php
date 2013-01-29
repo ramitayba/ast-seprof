@@ -80,6 +80,7 @@ class Menu {
     }
 
     private function _build_menu($parent_array, $root,$main_id = 'nav', $sub_id = 'dropdown-menu', $icon = '<i class="icon-th"></i>', $recursive = false) {
+         $menu='';
         if (!$recursive) {
             $menu = '
     <ul id="' . $main_id . '" class="' . $main_id . '"><li class="nav-icon active">
