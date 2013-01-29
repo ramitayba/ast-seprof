@@ -74,7 +74,7 @@ class RoleBusinessLayer {
             $this->_reset();
             $this->_SQLQuery = "{call GetRoleByID(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_RoleDataTable = DataAccessManager::getInstance()->saveData(array($role_id,$status));
+            $this->_RoleDataTable = DataAccessManager::getInstance()->fillData(array($role_id,$status));
             $this->_Success = DataAccessManager::getInstance()->getSuccess();
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();

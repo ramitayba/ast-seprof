@@ -19,10 +19,10 @@
 
     <div class="widget-content">
         <div id="block" style="visibility:hidden;" class="alert alert-block">
-              <a class="close" data-dismiss="alert" href="#">&times;</a>
+            <a class="close" data-dismiss="alert" href="#">&times;</a>
         </div>
         <form action="#" id="users-form" name="users-form" class="users-form form-horizontal"
-          method="post" accept-charset="UTF-8">    
+              method="post" accept-charset="UTF-8">    
 
 
             <fieldset>
@@ -30,7 +30,8 @@
                     <label class="control-label" for="username">Username</label>
                     <div class="controls">
                         <input type="text" class="input-large" name="user_name" id="username" maxlength="50"
-         value="<?php if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['user_name'];
+                               value="<?php
+if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['user_name'];
 endif;
 ?>">
                     </div>
@@ -39,7 +40,8 @@ endif;
                     <label class="control-label" for="password">Password</label>
                     <div class="controls">
                         <input type="password" class="input-large" name="user_password" id="password" maxlength="50"
-                               value="<?php if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['user_password'];
+                               value="<?php
+                               if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['user_password'];
                                endif;
 ?>">
                     </div>
@@ -48,7 +50,8 @@ endif;
                     <label class="control-label" for="pincode">Pincode</label>
                     <div class="controls">
                         <input type="text" class="input-large" name="user_pin" id="pincode" maxlength="4"
-                               value="<?php if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['user_pin'];
+                               value="<?php
+                               if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['user_pin'];
                                endif;
 ?>">
                     </div>
@@ -58,20 +61,22 @@ endif;
                     <div class="controls">
                         <?php
                         $role = new RoleBusinessLayer();
-                        print Helper::form_construct_drop_down('roles', $role->getRoles(ACTIVE), isset($forms) && !Helper::is_empty_array($forms) ? $forms['role_id'] : '', 'role_name','role_id');
+                        print Helper::form_construct_drop_down('roles', $role->getRoles(ACTIVE), isset($forms) && !Helper::is_empty_array($forms) ? $forms['role_id'] : '', 'role_name', 'role_id');
                         ?> 
                     </div>
                 </div>
-                    <div class="control-group">
-                        <label class="control-label" for="employees">Employees</label>
-                        <div class="controls">
-<?php
-print Helper::form_construct_drop_down('employees', LookupBusinessLayer::getInstance()->getEmployees(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['employee_id'] : '', 'employee_name','employee_id');
-?> 
-                        </div>
+                <div class="control-group">
+                    <label class="control-label" for="employees">Employees</label>
+                    <div class="controls">
+                        <?php
+                        $userid = isset($forms) && !Helper::is_empty_array($forms) ? $forms['employee_id'] : '';
+                        $array = !Helper::is_empty_string($userid) ? LookupBusinessLayer::getInstance()->getEmployeesWithActiveUser($userid) : LookupBusinessLayer::getInstance()->getEmployeesNotHaveUsers();
+                        print Helper::form_construct_drop_down('employees', $array, $userid, 'employee_name', 'employee_id');
+                        ?> 
                     </div>
-                
-                 <div class="control-group">
+                </div>
+
+                <div class="control-group">
                     <label class="control-label" for="status">Status</label>
                     <div class="controls">
                         <?php
@@ -79,13 +84,13 @@ print Helper::form_construct_drop_down('employees', LookupBusinessLayer::getInst
                         ?> 
                     </div>
                 </div>
-                    <div class="form-actions">
-                        <button type="submit" id="save-users-<?php
-if (isset($forms)): print $forms['user_id'];
-endif;
-?>" class="save btn btn-primary btn-large">Save changes</button>
-                        <button type="reset" id="cancel-users" class="cancel btn btn-large">Cancel</button>
-                    </div>
+                <div class="form-actions">
+                    <button type="submit" id="save-users-<?php
+                        if (isset($forms)): print $forms['user_id'];
+                        endif;
+                        ?>" class="save btn btn-primary btn-large">Save changes</button>
+                    <button type="reset" id="cancel-users" class="cancel btn btn-large">Cancel</button>
+                </div>
             </fieldset>
         </form>
 

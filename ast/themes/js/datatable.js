@@ -676,7 +676,13 @@ function validate(a,b)
             ajaxSubhmit(a,b);
         }
     });
-
+    $('#permissions-form').validate({
+       
+        focusCleanup: false,
+        submitHandler: function (form) {
+            ajaxSubhmit(a,b);
+        }
+    });
     $('#pos-form').validate({
         rules: {
             pos_key: {

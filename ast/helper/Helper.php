@@ -352,7 +352,7 @@ class Helper {
         $data = str_replace("%3D", "=", $data);
         $data = str_replace("%2F", "/", $data);
         $data = str_replace("%3A", ":", $data);
-        $data = str_replace("%23", "", $data);
+        $data = str_replace("%23", "#", $data);
         $data = str_replace("+", " ", $data);
         $data = self::check_plain($data);
         return $data;

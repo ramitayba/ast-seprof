@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This is the roleController
+ * This is the rolesController
  * Designed and Developed by SEProf Team
  * Copyright (c) 2013 SEProf Inc.
  * http://seprof.com/
@@ -12,7 +12,7 @@ $roleBusinessLayer = new RoleBusinessLayer();
 if ($action == 'roles' || $action == 'index'):
     $roleDataTable = $roleBusinessLayer->getRoles(ACTIVE);
     if ($roleBusinessLayer->getSuccess()):
-        $content = Helper::fill_datatable('roles', 'roles',array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $roleDataTable, array('Role Name', 'Status Name'), array('role_name', 'status_name'), 'role_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
+        $content = Helper::fill_datatable('roles', 'roles', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $roleDataTable, array('Role Name', 'Status Name'), array('role_name', 'status_name'), 'role_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
                     1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete'),
                     2 => array('name' => 'Permissions', 'link' => 'permissions-', 'class' => 'permissions')));
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') :
@@ -42,6 +42,8 @@ elseif ($action == 'edit'):
             'role_name' => $roleDataTable [0]['role_name'],
             'status_id' => $roleDataTable [0]['status_id']);
         include_once POS_ROOT . '/content/users/rolesform.php';
+    else:
+        print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Roles not exist', 'error')));
     endif;
 elseif ($action == 'save'):
     $name = isset($data['role_name']) ? $data['role_name'] : '';
@@ -80,7 +82,7 @@ elseif ($action == 'save'):
     if ($success):
         $roleDataTable = $roleBusinessLayer->getRoles(ACTIVE);
         if ($roleBusinessLayer->getSuccess()):
-            $content = Helper::fill_datatable('roles','roles', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $roleDataTable, array('Role Name', 'Status Name'), array('role_name', 'status_name'), 'role_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
+            $content = Helper::fill_datatable('roles', 'roles', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $roleDataTable, array('Role Name', 'Status Name'), array('role_name', 'status_name'), 'role_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
                         1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete'),
                         2 => array('name' => 'Permissions', 'link' => 'permissions-', 'class' => 'permissions')));
         endif;
@@ -90,7 +92,7 @@ elseif ($action == 'save'):
         print Helper::json_encode_array(array('status' => 'error', 'message' => 'Role not saved '));
     endif;
 elseif ($action == 'delete'):
-    if (!Helper::is_empty_string($query_id)):
+   if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
         $roleDataTable = $roleBusinessLayer->getRoleByID($query_id, ACTIVE);
         if (count($roleDataTable) == 0):
             print Helper::json_encode_array(array('status' => 'error', 'message' => 'Role doesn t  exist '));
@@ -103,6 +105,8 @@ elseif ($action == 'delete'):
         else:
             print Helper::json_encode_array(array('status' => 'error', 'message' => 'Role not deleted '));
         endif;
+   else:
+        print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Roles not exist', 'error')));
     endif;
 endif;
 ?>
