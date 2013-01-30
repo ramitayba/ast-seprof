@@ -346,7 +346,24 @@ $(function () {
         var height=$('.widget-content').width();
         var data =$('#'+name+'-form').serialize();
         $("#widget-content").html('<div align="center" style="width:'+width+';height:'+height+'"><img src="/ast/themes/img/loader.gif" alt="Loading...."/></div>');
-        validateReport(name,data);
+        validateReport(name,'show',data);
+    } );
+    
+    $('.back').live('click', function (e) {
+          e.preventDefault();
+        name=$(this).attr("id");
+        var width=$('.widget-content').height();
+        var height=$('.widget-content').width();
+        $("#widget-content").html('<div align="center" style="width:'+width+';height:'+height+'"><img src="/ast/themes/img/loader.gif" alt="Loading...."/></div>');
+        $.seprof(baseurl,{
+            name:'reports',
+            action:name,
+            query:'back'
+        },function(k){
+            showReports(k);
+        },function(httpReq, status, exception,c){
+            error(httpReq, status, exception,c)
+        })
     } );
     /*$('.items').live('click', function (e) {
         e.preventDefault();
@@ -1012,7 +1029,7 @@ function ajaxSubhmit(a,b)
         error(httpReq, status, exception,a);
     });
 }
-function validateReport(a,b)
+function validateReport(a,c,b)
 {
     $('#cafeteria-balance-form').validate({
         rules: {
@@ -1040,17 +1057,17 @@ function validateReport(a,b)
             error.appendTo( element.parents ('.controls') );
         },
         submitHandler: function (form) {
-            ajaxReport(a,b);
+            ajaxReport(a,c,b);
         }
     });
     
 }
-function ajaxReport(name,data)
+function ajaxReport(name,query,data)
 {
     $.seprof(baseurl,{
             name:'reports',
             action:name,
-            query:'show',
+            query:query,
             datainput:data
         },function(k){
             showReports(k);
