@@ -536,8 +536,8 @@ body.nav-fixed #nav .container {
 
 
 label.valid {
-    position: relative;
-    top: 10px;
+
+    left : 220px;
     width: 24px;
     height: 24px;
     background: url(../img/validate/valid.png) center top no-repeat;
@@ -545,7 +545,6 @@ label.valid {
     text-indent: -9999px;
 }
 label.error {
-    font-weight: bold;
     color: #B94A48;
     margin-top: 2px;
 }
