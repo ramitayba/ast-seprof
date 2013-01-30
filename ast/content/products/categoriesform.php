@@ -38,7 +38,7 @@
                     <div class="controls">
                         <input type="text" class="input-large" name="category_name" id="category-name" 
                                maxlength="100"      value="<?php
-if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['category_name'];
+if (isset($forms)&& array_key_exists('category_name', $forms)):print $forms['category_name'];
 endif;
 ?>">
                     </div>
@@ -48,7 +48,7 @@ endif;
                     <div class="controls">
                         <?php
                         $category = new CategoryBusinessLayer();
-                        print Helper::form_construct_drop_down('category', $category->getParentCategories(ACTIVE), isset($forms) && !Helper::is_empty_array($forms) ? $forms['category_parent_id'] : '', 'category_name', 'category_id', 'disabled');
+                        print Helper::form_construct_drop_down('category', $category->getParentCategories(ACTIVE), isset($forms) && array_key_exists('category_parent_id', $forms) ? $forms['category_parent_id'] : '', 'category_name', 'category_id', 'disabled');
                         ?>
                         <input type="checkbox" name="others" onclick="enable_text(this.checked,document.categoriesform.category)" >
                     </div>
@@ -59,7 +59,7 @@ endif;
                     <div class="controls">
                         <input type="text" class="input-large" name="color_code" id="color"
                                maxlength="9"    value="<?php
-                        if (isset($forms) && !Helper::is_empty_array($forms)):print '#' . $forms['color_code'];
+                        if (isset($forms) &&  array_key_exists('color_code', $forms)):print '#' . $forms['color_code'];
                         else:print DEFAULT_COLOR;
                         endif;
                         ?>">
@@ -71,7 +71,7 @@ endif;
                         <textarea id="comment" maxlength="150"  class="input-large" name="category_description"
                                   cols="45" rows="5"
                                   ><?php
-                               if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['category_description'];
+                               if (isset($forms) && array_key_exists('category_description', $forms)):print $forms['category_description'];
                                endif;
                         ?></textarea>
                     </div>
@@ -80,7 +80,7 @@ endif;
                     <label class="control-label" for="status">Status</label>
                     <div class="controls">
                         <?php
-                        print Helper::form_construct_drop_down('status', LookupBusinessLayer::getInstance()->getActivityStatus(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['status_id'] : '', 'status_name', 'status_id');
+                        print Helper::form_construct_drop_down('status', LookupBusinessLayer::getInstance()->getActivityStatus(), isset($forms)&& array_key_exists('status_id', $forms) ? $forms['status_id'] : '', 'status_name', 'status_id');
                         ?>
                     </div>
                 </div>

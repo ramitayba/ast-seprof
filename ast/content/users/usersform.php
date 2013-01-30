@@ -31,7 +31,7 @@
                     <div class="controls">
                         <input type="text" class="input-large" name="user_name" id="username" maxlength="50"
                                value="<?php
-if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['user_name'];
+if (isset($forms) && array_key_exists('user_name', $forms)):print $forms['user_name'];
 endif;
 ?>">
                     </div>
@@ -41,7 +41,7 @@ endif;
                     <div class="controls">
                         <input type="password" class="input-large" name="user_password" id="password" maxlength="50"
                                value="<?php
-                               if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['user_password'];
+                               if (isset($forms) && array_key_exists('user_password', $forms) ):print $forms['user_password'];
                                endif;
 ?>">
                     </div>
@@ -51,7 +51,7 @@ endif;
                     <div class="controls">
                         <input type="text" class="input-large" name="user_pin" id="pincode" maxlength="4"
                                value="<?php
-                               if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['user_pin'];
+                               if (isset($forms)&& array_key_exists('user_pin', $forms) ):print $forms['user_pin'];
                                endif;
 ?>">
                     </div>
@@ -61,7 +61,7 @@ endif;
                     <div class="controls">
                         <?php
                         $role = new RoleBusinessLayer();
-                        print Helper::form_construct_drop_down('roles', $role->getRoles(DELETED), isset($forms) && !Helper::is_empty_array($forms) ? $forms['role_id'] : '', 'role_name', 'role_id');
+                        print Helper::form_construct_drop_down('roles', $role->getRoles(DELETED), isset($forms)&& array_key_exists('role_id', $forms)  ? $forms['role_id'] : '', 'role_name', 'role_id');
                         ?> 
                     </div>
                 </div>
@@ -69,9 +69,9 @@ endif;
                     <label class="control-label" for="employees">Employees</label>
                     <div class="controls">
                         <?php
-                        $userid = isset($forms) && !Helper::is_empty_array($forms) ? $forms['user_id'] : '';
+                        $userid = isset($forms) && array_key_exists('user_id', $forms)  ? $forms['user_id'] : '';
                         $array = !Helper::is_empty_string($userid) ? LookupBusinessLayer::getInstance()->getEmployeesWithActiveUser($userid,DELETED) : LookupBusinessLayer::getInstance()->getEmployeesNotHaveUsers(DELETED);
-                        print Helper::form_construct_drop_down('employees', $array, isset($forms) && !Helper::is_empty_array($forms) ? $forms['employee_id'] : '', 'employee_name', 'employee_id');
+                        print Helper::form_construct_drop_down('employees', $array, isset($forms)&& array_key_exists('employee_id', $forms) && !Helper::is_empty_array($forms) ? $forms['employee_id'] : '', 'employee_name', 'employee_id');
                         ?> 
                     </div>
                 </div>
@@ -80,7 +80,7 @@ endif;
                     <label class="control-label" for="status">Status</label>
                     <div class="controls">
                         <?php
-                        print Helper::form_construct_drop_down('status', LookupBusinessLayer::getInstance()->getActivityStatus(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['status_id'] : '', 'status_name', 'status_id');
+                        print Helper::form_construct_drop_down('status', LookupBusinessLayer::getInstance()->getActivityStatus(), isset($forms) && array_key_exists('status_id', $forms) ? $forms['status_id'] : '', 'status_name', 'status_id');
                         ?> 
                     </div>
                 </div>

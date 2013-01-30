@@ -1257,7 +1257,7 @@ label.error {
     width: 30%;
     position: absolute;
     alignment-baseline: central;
-    left: 200px;
+    left: 50px;
 }
 /*.widget-table .header-table-link{padding:5px;}*/
 .widget-table .dataTables_processing{display:none;}

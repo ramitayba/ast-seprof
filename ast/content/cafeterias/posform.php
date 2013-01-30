@@ -30,7 +30,7 @@
                     <div class="controls">
                         <input type="text" class="input-large" name="pos_key" id="pos-key" maxlength="150"
                                value="<?php
-if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['pos_key'];
+if (isset($forms)&& array_key_exists('pos_key', $forms) && !Helper::is_empty_array($forms)):print $forms['pos_key'];
 endif;
 ?>">
                     </div>

@@ -475,6 +475,7 @@ class Helper {
                 $class = $rowfields == $class_td_edit ? 'tdedit' : '';
                 $tr.= '<td class="' . $class . '">' . $row[$rowfields] . '</td>';
             endforeach;
+            $extra='';
             if ($control):
                 $extra = '<td class="controls">';
                 foreach ($linkcontrol as $rowlink):

@@ -28,7 +28,7 @@
                     <label class="control-label" for="role-name">Role Name</label>
                     <div class="controls">
                         <input type="text" class="input-large" name="role_name" id="role_name" maxlength="100" value="<?php
-if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['role_name'];
+if (isset($forms) && array_key_exists('role_name', $forms)):print $forms['role_name'];
 endif;
 ?>">
                     </div>
@@ -37,7 +37,7 @@ endif;
                     <label class="control-label" for="status">Status</label>
                     <div class="controls">
                         <?php
-                        print Helper::form_construct_drop_down('status', LookupBusinessLayer::getInstance()->getActivityStatus(), isset($forms) && !Helper::is_empty_array($forms) ? $forms['status_id'] : '', 'status_name', 'status_id');
+                        print Helper::form_construct_drop_down('status', LookupBusinessLayer::getInstance()->getActivityStatus(), isset($forms) && array_key_exists('status_id', $forms) ? $forms['status_id'] : '', 'status_name', 'status_id');
                         ?> 
                     </div>
                 </div>
