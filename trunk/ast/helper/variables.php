@@ -12,10 +12,14 @@ $action = 'view';
 $content = '';
 $query_string = '';
 $query_id = '';
-$data=array();
+$data = array();
 $forms;
 $sequence;
 $datatable;
+$filter_id;
+$mindate;
+$maxdate;
+$reportsDataTable=array();
 
 
 
