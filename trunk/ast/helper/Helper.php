@@ -132,11 +132,11 @@ class Helper {
     }
 
     public static function request_path() {
-        if (isset($_GET['q']) && is_string($_GET['q'])) {
+        if (isset($_GET['contentpage']) && is_string($_GET['contentpage'])) {
 // This is a request with a ?q=foo/bar query string. $_GET['q'] is
 // very early in the bootstrap process, so the original value is saved in
 // $path and returned in later calls.
-            $path = $_GET['q'];
+            $path = $_GET['contentpage'];
         } elseif (isset($_SERVER['REQUEST_URI'])) {
 // This request is either a clean URL, or 'index.php', or nonsense.
 // Extract the path from REQUEST_URI.
@@ -443,10 +443,10 @@ class Helper {
         return $list;
     }
 
-    public static function fill_datatable($name, $id, $header_buttons, $table, $header, $fields, $id_name, $linkcontrol = array(), $control = true, $column_hide = -1, $editable = '', $class_td_edit = '', $tdicon = '', $tdicon_class = '', $script = true) {
+    public static function fill_datatable($name, $id, $header_buttons, $table, $header, $fields, $id_name, $linkcontrol = array(), $control = true, $column_hide = -1, $editable = '', $class_td_edit = '', $tdicon = '', $tdicon_class = '', $sdom = "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>", $script = true) {
         $datatable = '<div id="widget-table"> <div class="widget-header"><h3><i class="icon-th-list"></i>'
                 . ucfirst($name) . '</h3></div>';
-        $datatable.= $script ? ' <script>$(function () {     oTable = table("' . $name . '",' . $column_hide . ',"' . $editable . '");});</script>' : '';
+        $datatable.= $script ? ' <script>$(function () {     oTable = table("' . $name . '","' . $sdom . '",' . $column_hide . ',"' . $editable . '");});</script>' : '';
         $datatable.='<div class="widget-content" id="widget-content-' . $name . '-table">';
         if ($control):
             $datatable.='<div class="header-table">';
@@ -469,8 +469,8 @@ class Helper {
         foreach ($table as $row):
             $class = $i % 2 ? ' even' : ' odd';
             $tr = '<tr class="gradeA ' . $class . '">';
-            $img=!self::is_empty_string($row['count_number']) && $row['count_number'] != 0?'<img src="' . $tdicon . '">':'';
-            $tr.=!self::is_empty_string($tdicon) ? '<td class="' . $tdicon_class . '">'.$img.'</td>' : '';
+            $img =  array_key_exists('count_number', $row) && !self::is_empty_string($row['count_number']) && $row['count_number'] != 0 ? '<img src="' . $tdicon . '">' : '';
+            $tr.=!self::is_empty_string($tdicon) ? '<td class="' . $tdicon_class . '">' . $img . '</td>' : '';
             foreach ($fields as $rowfields):
                 $class = $rowfields == $class_td_edit ? 'tdedit' : '';
                 $tr.= '<td class="' . $class . '">' . $row[$rowfields] . '</td>';
@@ -579,9 +579,22 @@ class Helper {
         $path_parts = pathinfo($path);
         $directory = $path_parts['dirname'];
         $directory = ($directory == "/") ? "" : $directory;
-        $host = $_SERVER['HTTP_HOST'];
+        //$host = $_SERVER['HTTP_HOST'];
         //return $protocol . $host . $directory;
-        return $directory . "/";
+        return $directory;
+    }
+
+   
+
+    public static function catchFatalErrors($p_OnOff = 'On', $error) {
+        ini_set('display_errors', 'On');
+        ini_set('error_prepend_string', $error);
+    }
+
+    public static function generate_container_pdf($url_pdf, $url) {
+        $container = '<iframe style="border:none" width="100%" height="400" src="' . $url_pdf . '"></iframe>
+            <div class="form-actions"><a class="btn btn-inverse" href="' . $url . '">Back</a></div>';
+        return $container;
     }
 
 }

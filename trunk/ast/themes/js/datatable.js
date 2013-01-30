@@ -1,4 +1,4 @@
-var dataRow, nRow,oTable, baseurl="/ast/process.php",date_obj_time,sImageUrl="/ast/themes/img/",anOpenCategories = [],anOpenSubCategories = [];
+var dataRow, nRow,oTable, baseurl="/ast/process.php",date_obj_time,sImageUrl="/ast/themes/img/",anOpenCategories = [],anOpenSubCategories = [],requiredUsername=true,requiredPassword=true,requiredPincode=true,resetForm;
 $(function () {
     jQuery.extend({
         seprof: function(url,data,callback,errorCallback,type) {
@@ -64,12 +64,16 @@ $(function () {
             if(k.status=='error')
             { 
                 errorBefore(k.message);
-            }else{
+            }else if(k.status=='success')
+            {
                 if ( nRow!=null ) {
                     $(".messages").remove();
                     oTable.fnDeleteRow( nRow );
                     $(".widget").before(k);
                 }
+            }else
+            {
+                replaceTable(k,a); 
             }
         },function(httpReq, status, exception,a){
             error(httpReq, status, exception,a);
@@ -273,6 +277,44 @@ $(function () {
         $('.control-item').remove();
         getDropDown('category-children');
     } );
+    $('#roles').live('change', function (e) {
+        if(resetForm!=null)
+        {
+            resetForm.resetForm();
+            resetForm.hideErrors();
+            resetForm.clean();
+        }
+        $('#users-form .control-group').removeClass('error');
+        var value=$('#roles').val();
+        if (value==1 ||value==4){
+            $('#pincode').attr('disabled','disabled').toggleClass('disabled');
+            $('#pincode').val('');
+            $('#username').removeAttr('disabled');
+            $('#password').removeAttr('disabled');
+            requiredUsername=true;
+            requiredPassword=true;
+            requiredPincode=false;
+        }
+        else if(value==3)
+        {
+            $('#username').attr('disabled','disabled').toggleClass('disabled');
+            $('#username').val('');
+            $('#password').attr('disabled','disabled').toggleClass('disabled');
+            $('#password').val('');
+            $('#pincode').removeAttr('disabled');
+            requiredUsername=false;
+            requiredPassword=false;
+            requiredPincode=true;
+        }else{
+            $('#pincode').removeAttr('disabled');
+            $('#username').removeAttr('disabled');
+            $('#password').removeAttr('disabled');
+            requiredUsername=true;
+            requiredPassword=true;
+            requiredPincode=true;
+        }
+    //validate('','');
+    } );
     $('.permissions').live('click', function (e) {
         e.preventDefault();
         name=$(this).attr("id");
@@ -297,6 +339,14 @@ $(function () {
         },function(httpReq, status, exception,c){
             error(httpReq, status, exception,c)
         })
+    } );
+    $('.show-reports').live('click', function (e) {
+        name=$(this).attr("id");
+        var width=$('.widget-content').height();
+        var height=$('.widget-content').width();
+        var data =$('#'+name+'-form').serialize();
+        $("#widget-content").html('<div align="center" style="width:'+width+';height:'+height+'"><img src="/ast/themes/img/loader.gif" alt="Loading...."/></div>');
+        validateReport(name,data);
     } );
     /*$('.items').live('click', function (e) {
         e.preventDefault();
@@ -524,6 +574,18 @@ function showTable(b,a)
         $("#widget-"+a+"-form img:last-child").remove();
     }
 }
+
+function replaceTable(b,a)
+{
+    $(".messages").remove();
+    if(b !=null){
+        $('.widget-table').replaceWith(b);
+    }
+}
+function showReports(k)
+{
+     $('.widget-content').replaceWith(k);
+}
 function showSelect(b,a)
 {
     if(b!=null)
@@ -542,10 +604,10 @@ function error(httpReq, status, exception,a){
 function success(message,a){
     $("#block").replaceWith(message);
 }
-function table(name,column_hide,editable)
+function table(name,sdom,column_hide,editable)
 {
     var table =  $('#'+name+'-table').dataTable( {
-        sDom:"<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",//"rlfrtip"//
+        sDom:sdom,//;"<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",//"rlfrtip"//
         sPaginationType: "bootstrap",
         bStateSave: false, 
         bRetrieve: true,
@@ -612,18 +674,18 @@ function checkMaxLength(textareaID, maxLength){
 }
 function validate(a,b)
 {
-    $('#users-form').validate({
+    resetForm=$('#users-form').validate({
         rules: {
             user_name: {
-                required: true,
+                required: requiredUsername,
                 maxlength:50
             },
             user_password: {
-                required: true,
+                required: requiredPassword,
                 maxlength:50
             },
             user_pin: {
-                required: true,
+                required: requiredPincode,
                 maxlength:4
             },
             roles: {
@@ -650,7 +712,9 @@ function validate(a,b)
             error.appendTo( element.parents ('.controls') );
         },
         submitHandler: function (form) {
-            ajaxSubhmit(a,b);
+            if(a!='' || b!=''){
+                ajaxSubhmit(a,b);
+            }
         }
     });
 
@@ -948,7 +1012,52 @@ function ajaxSubhmit(a,b)
         error(httpReq, status, exception,a);
     });
 }
+function validateReport(a,b)
+{
+    $('#cafeteria-balance-form').validate({
+        rules: {
+           cafeteria: {
+                required: true
+            },
+            mindate:{
+                required: true
+            },
+             maxdate:{
+                required: true
+            }
+        },
+        focusCleanup: false,
 
+        highlight: function(label) {
+            $(label).closest('.control-group').removeClass ('success').addClass('error');
+        },
+        success: function(label) {
+            label
+            .text('OK!').addClass('valid')
+            .closest('.control-group').addClass('success');
+        },
+        errorPlacement: function(error, element) {
+            error.appendTo( element.parents ('.controls') );
+        },
+        submitHandler: function (form) {
+            ajaxReport(a,b);
+        }
+    });
+    
+}
+function ajaxReport(name,data)
+{
+    $.seprof(baseurl,{
+            name:'reports',
+            action:name,
+            query:'show',
+            datainput:data
+        },function(k){
+            showReports(k);
+        },function(httpReq, status, exception,c){
+            error(httpReq, status, exception,c)
+        })
+}
 function enable_text(status,links)
 {
     links.disabled=!status;

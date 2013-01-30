@@ -17,13 +17,10 @@ if (isset($_GET['contentpage'])) {
     $pagename = $_GET["contentpage"];
 }
 // the web root
-$root = Helper::get_url();
+$root = Helper::get_url().'/';
 
 if (strpos($pagename, 'form')):
     $pagename = explode('form', $pagename);
-    $pagename = $pagename[0];
-elseif (strpos($pagename, 'add')):
-    $pagename = explode('add', $pagename);
     $pagename = $pagename[0];
 endif;
 
@@ -35,17 +32,19 @@ include Helper::load_controller($pagename);
     <head>
         <meta http-equiv="Content-Type" content="text/html; utf-8">
             <?php
-            // If a header file exists for the target content page, then use it. Otherwise
-            // use the default header file
-            if (isset($_SESSION['user_pos'])):
-                require_once("include/header/index.php");
-            endif;
-            if (Helper::findRealPath("include/header/$pagename.php")):
-                require_once("include/header/$pagename.php");
-            elseif (!isset($_SESSION['user_pos'])):
-                require_once("include/header/login.php");
-            else :
-                print' <title>Dashboard | POS Nesma Administration</title>';
+            if (strpos($pagename, 'pdf') == 0):
+                // If a header file exists for the target content page, then use it. Otherwise
+                // use the default header file
+                if (isset($_SESSION['user_pos'])):
+                    require_once("include/header/index.php");
+                endif;
+                if (Helper::findRealPath("include/header/$pagename.php")):
+                    require_once("include/header/$pagename.php");
+                elseif (!isset($_SESSION['user_pos'])):
+                    require_once("include/header/login.php");
+                else :
+                    print' <title>Dashboard | POS Nesma Administration</title>';
+                endif;
             endif;
             ?>
     </head>
@@ -53,13 +52,15 @@ include Helper::load_controller($pagename);
 
         <?php
         if (isset($_SESSION['user_pos'])):
-            // Top header
-            require_once("include/template/header.php");
-            // navigation menu
-            require_once("include/template/nav.php");
+            if (strpos($pagename, 'pdf') == 0):
+                // Top header
+                require_once("include/template/header.php");
+                // navigation menu
+                require_once("include/template/nav.php");
             /* if (!Menu::getInstance()->getAccessMenu($pagename)):
               $pagename = 'index';
               endif; */
+            endif;
             ?>
             <div id="content">
                 <div class="container">
@@ -95,7 +96,7 @@ include Helper::load_controller($pagename);
             <?php
             // Footer
             require_once("include/template/footer.php");
-        else : require("content/login.php");
+        elseif (strpos($pagename, 'pdf') == 0): require("content/login.php");
         endif;
         ?>
     </body>
