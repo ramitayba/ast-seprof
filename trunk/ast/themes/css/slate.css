@@ -536,7 +536,10 @@ body.nav-fixed #nav .container {
 
 
 label.valid {
-
+   /*
+   position : relative;
+   top :10px;
+   */
     left : 220px;
     width: 24px;
     height: 24px;
