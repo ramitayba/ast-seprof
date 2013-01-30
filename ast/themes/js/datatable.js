@@ -69,7 +69,7 @@ $(function () {
                 if ( nRow!=null ) {
                     $(".messages").remove();
                     oTable.fnDeleteRow( nRow );
-                    $(".widget").before(k);
+                    $(".widget").before(k.message);
                 }
             }else
             {
