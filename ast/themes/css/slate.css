@@ -537,7 +537,7 @@ body.nav-fixed #nav .container {
 
 label.valid {
     position: relative;
-    top: 30px;
+    top: 10px;
     width: 24px;
     height: 24px;
     background: url(../img/validate/valid.png) center top no-repeat;
@@ -967,6 +967,7 @@ label.error {
 {
     width:15%;
 }
+
 .widget-table .controls a,.widget-table .header-table-link a{padding: 0 20px;
                                                              background-position:center;
                                                              display:block;
@@ -981,6 +982,7 @@ label.error {
 .widget-table .table-highlight thead:first-child tr:first-child th { border-top: 1px solid #292C32;
 }
 .widget-table .header-table-link a{background:url(../img/add-icon.png) no-repeat;}
+
 .add{background:url(../img/add-icon.png) no-repeat;
      padding: 0 20px;
      background-position:center;
@@ -990,6 +992,7 @@ label.error {
                     background-position:center;
                     display:block;
                     height: 30px; background:url(../img/previous.png) no-repeat;}*/
+.widget-table .sub-categories #widget-table,.widget-table .sub-categories #widget-table .items #widget-table{width:95%; margin:0 auto;}
 
 /*------------------------------------------------------------------
 [*. Toolbar]
@@ -1249,7 +1252,7 @@ label.error {
 
     border-radius: 0;
 }
-
+.widget-table .sub-categories .header-table,.widget-table .sub-categories .items .header-table,.widget-table .categories .items .header-table{position:relative;left:0;}
 .widget-table .header-table {
     width: 30%;
     position: absolute;

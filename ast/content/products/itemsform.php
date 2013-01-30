@@ -52,7 +52,7 @@ endif;
                     <div class="controls">
                         <?php
                         $category = new CategoryBusinessLayer();
-                        print Helper::form_construct_drop_down('category', $category->getCategories(ACTIVE), isset($forms) && !Helper::is_empty_array($forms) ? $forms['category_id'] : '', 'category_name', 'category_id');
+                        print Helper::form_construct_drop_down('category', $category->getCategories(DELETED), isset($forms) && !Helper::is_empty_array($forms) ? $forms['category_id'] : '', 'category_name', 'category_id');
                         ?> 
                     </div></div>
                 <div class="control-group">

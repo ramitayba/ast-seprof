@@ -30,7 +30,7 @@ elseif ($action == 'login'):
         $_SESSION['messages'] = $div;
     endif;
 elseif ($action == 'index'):
-    $userDataTable = $userBusinessLayer->getUsers(ACTIVE);
+    $userDataTable = $userBusinessLayer->getUsers(DELETED);
     if ($userBusinessLayer->getSuccess()):
         $content = Helper::fill_datatable('users', 'users', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $userDataTable, array('User Name', 'Pin Code', 'Role Name', 'Employee Name'), array('user_name', 'user_pin', 'role_name', 'employee_name'), 'user_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
                     1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')));
@@ -51,7 +51,7 @@ elseif ($action == 'add'):
     include POS_ROOT . '/content/users/usersform.php';
 elseif ($action == 'edit'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
-        $userDataTable = $userBusinessLayer->getUserByID($query_id, ACTIVE);
+        $userDataTable = $userBusinessLayer->getUserByID($query_id, DELETED);
         if (count($userDataTable) == 0):
             print Helper::json_encode_array(array('status' => 'error', 'message' => 'User doesn t  exist '));
             return;
@@ -70,14 +70,35 @@ elseif ($action == 'save'):
     $role = isset($data['roles']) ? $data['roles'] : '';
     $employee = isset($data['employees']) ? $data['employees'] : '';
     $status = isset($data['status']) ? $data['status'] : '';
-    $array = array('User Name ' => array('content' => $name, 'type' => 'string', 'length' => '50'), 'Password' => array('content' => $password, 'type' => 'string', 'length' => '50'),
-        'Pin Code' => array('content' => $pin, 'type' => 'string', 'length' => '4'), 'Role' => array('content' => $role, 'type' => 'int'), 'Employee' => array('content' => $employee, 'type' => 'int'), 'Status' => array('content' => $status, 'type' => 'int'));
+    $array = array('Role' => array('content' => $role, 'type' => 'int'), 'Employee' => array('content' => $employee, 'type' => 'int'), 'Status' => array('content' => $status, 'type' => 'int'));
     $message = Helper::is_list_empty($array);
     if (!Helper::is_empty_string($message)):
         print Helper::json_encode_array(array('status' => 'error', 'message' => $message));
         return;
     endif;
-    $userDataTable = $userBusinessLayer->getUserByName($name, ACTIVE);
+    $array = array();
+    switch ($role):
+        case ADMINISTRATOR:
+            $array = array('User Name ' => array('content' => $name, 'type' => 'string', 'length' => '50'), 'Password' => array('content' => $password, 'type' => 'string', 'length' => '50'));
+            break;
+        case SUPERVISOR:
+            $array = array('User Name ' => array('content' => $name, 'type' => 'string', 'length' => '50'), 'Password' => array('content' => $password, 'type' => 'string', 'length' => '50'),
+                'Pin Code' => array('content' => $pin, 'type' => 'string', 'length' => '4'));
+            break;
+        case OPERATOR:
+            $array = array('Pin Code' => array('content' => $pin, 'type' => 'string', 'length' => '4'));
+            break;
+        case MANAGER:
+            $array = array('User Name ' => array('content' => $name, 'type' => 'string', 'length' => '50'), 'Password' => array('content' => $password, 'type' => 'string', 'length' => '50'));
+            break;
+        default :break;
+    endswitch;
+    $message = Helper::is_list_empty($array);
+    if (!Helper::is_empty_string($message)):
+        print Helper::json_encode_array(array('status' => 'error', 'message' => $message));
+        return;
+    endif;
+    $userDataTable = $userBusinessLayer->getUserByName($name, DELETED);
     if (Helper::is_empty_string($query_id)):
         if (count($userDataTable) > 0):
             print Helper::json_encode_array(array('status' => 'error', 'message' => 'User name already exist'));
@@ -89,7 +110,7 @@ elseif ($action == 'save'):
             print Helper::json_encode_array(array('status' => 'error', 'message' => 'User doesn t  exist'));
             return;
         elseif (count($userDataTable) == 0):
-            $userDataTable = $userBusinessLayer->getUserByID($query_id, ACTIVE);
+            $userDataTable = $userBusinessLayer->getUserByID($query_id, DELETED);
             if (count($userDataTable) == 0):
                 print Helper::json_encode_array(array('status' => 'error', 'message' => 'User doesn t  exist '));
                 return;
@@ -103,9 +124,9 @@ elseif ($action == 'save'):
         $success = $userBusinessLayer->editUser($query_id, $name, $password, $pin, $role, $employee, $status);
     endif;
     if ($success):
-        $userDataTable = $userBusinessLayer->getUsers(ACTIVE);
+        $userDataTable = $userBusinessLayer->getUsers(DELETED);
         if ($userBusinessLayer->getSuccess()):
-            $content = Helper::fill_datatable('users', 'users', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $userDataTable, array('User Name', 'Pin Code', 'Role Name', 'Employee Name'), array('user_name',  'user_pin', 'role_name', 'employee_name'), 'user_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
+            $content = Helper::fill_datatable('users', 'users', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $userDataTable, array('User Name', 'Pin Code', 'Role Name', 'Employee Name'), array('user_name', 'user_pin', 'role_name', 'employee_name'), 'user_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
                         1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')));
         endif;
         $container = Helper::set_message('User saved succesfuly', 'status') . $content;
@@ -115,15 +136,15 @@ elseif ($action == 'save'):
     endif;
 elseif ($action == 'delete'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
-        $userDataTable = $userBusinessLayer->getUserByID($query_id, ACTIVE);
+        $userDataTable = $userBusinessLayer->getUserByID($query_id, DELETED);
         if (count($userDataTable) == 0):
             print Helper::json_encode_array(array('status' => 'error', 'message' => 'User  doesn t  exist '));
             return;
         endif;
-        $success = $userBusinessLayer->deleteUser($query_id, UNDER_PROCESSING);
+        $success = $userBusinessLayer->deleteUser($query_id, DELETED);
         if ($success):
             $container = Helper::set_message('Role ' . $userDataTable [0]['user_name'] . ' delete succesfuly', 'status');
-            print Helper::json_encode($container);
+            print Helper::json_encode_array(array('status' => 'success', 'message' =>$container));
         else:
             print Helper::json_encode_array(array('status' => 'error', 'message' => 'User not deleted '));
         endif;

@@ -1,50 +1,66 @@
 <?php
 
-
 /**
- * This is the settings
+ * This is the Settings
  * Designed and Developed by SEProf Team
  * Copyright (c) 2013 SEProf Inc.
  * http://seprof.com/
  * 
  */
-
-$databases = array (
-      'database' => 'pos_back',
-      'username' => '',
-      'password' => '',
-      'host' => '.\SQLEXPRESS',
-      'port' => '',
-      'driver' => '',
-      'prefix' => '',
+$databases = array(
+    'database' => 'pos_back',
+    'username' => '',
+    'password' => '',
+    'host' => '.\SQLEXPRESS',
+    'port' => '',
+    'driver' => '',
+    'prefix' => '',
 );
 
 
-$routes=array(
-    'usersController'=>array('login','logout','users/index','users/usersform'),
-    'rolesController'=>array('users/roles'),
-    'categoriesController'=>array('products/categories'),
-    'itemsController'=>array('products/items'),
-    'posController'=>array('cafeterias/pos'),
-    'cafeteriasController'=>array('cafeterias/index','cafeterias/cafeteriasform'),
-    'eventsController'=>array('events/index'),
-    'allowancesController'=>array('settings/allowance'),
+$routes = array(
+    'usersController' => array('login', 'logout', 'users/index', 'users/usersform'),
+    'rolesController' => array('users/roles', 'users/rolesform'),
+    'categoriesController' => array('products/categories', 'products/categoriesform'),
+    'itemsController' => array('products/items', 'products/itemsform'),
+    'posController' => array('cafeterias/pos', 'cafeterias/posform'),
+    'cafeteriasController' => array('cafeterias/index', 'cafeterias/cafeteriasform'),
+    'eventsController' => array('events/index', 'events/add'),
+    'allowancesController' => array('settings/allowance'),
+    'erpController' => array('settings/erp'),
+    'synchronizeController' => array('settings/manual', 'settings/automatic'),
+    'reportsController' => array('reports/cafeteria-balance', 'reports/users-purchases',
+        'reports/detailed-users-purchases', 'reports/purchased-inventory',
+        'reports/events-listing', 'reports/menu-report', 'reports/detailed-event'),
 );
 
-$actions=array('add','edit','delete');
+$actions = array('add', 'edit', 'delete');
 
 /**
  * 
  * Define status
  * 
  */
-
 define('ACTIVE', 1);
 define('DESACTIVE', 2);
-define('UNDER_PROCESSING', 3);
-define('APPROVED', 4);
-define('REJECTED', 5);
+define('DELETED', 3);
+define('UNDER_PROCESSING', 4);
+define('APPROVED', 5);
+define('REJECTED', 6);
 define('DEFAULT_COLOR', '#000000');
+
+
+/**
+ * 
+ * 
+ * define role
+ * 
+ */
+define('ADMINISTRATOR', 1);
+define('SUPERVISOR', 2);
+define('OPERATOR', 3);
+define('MANAGER', 4);
+
 
 /**
  * Some distributions of Linux (most notably Debian) ship their PHP
@@ -70,3 +86,4 @@ ini_set('session.gc_maxlifetime', 200000);
  */
 ini_set('session.cookie_lifetime', 2000000);
 
+ //ini_set('display_errors','off');

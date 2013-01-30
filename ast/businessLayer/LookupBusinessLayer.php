@@ -62,12 +62,12 @@ class LookupBusinessLayer {
         return $this->_EmployeesDataTable;
     }
     
-    public function getEmployeesWithActiveUser($userid) {
+    public function getEmployeesWithActiveUser($userid,$status) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call getEmployeesWithActiveUser(?)}";
+            $this->_SQLQuery = "{call getEmployeesWithActiveUser(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_EmployeesDataTable = DataAccessManager::getInstance()->fillData(array($userid));
+            $this->_EmployeesDataTable = DataAccessManager::getInstance()->fillData(array($userid,$status));
             $this->_Success = DataAccessManager::getInstance()->getSuccess();
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
@@ -79,12 +79,12 @@ class LookupBusinessLayer {
         return $this->_EmployeesDataTable;
     }
 
-    public function getEmployeesNotHaveUsers() {
+    public function getEmployeesNotHaveUsers($status) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call GetEmployeesNotHaveUsers}";
+            $this->_SQLQuery = "{call GetEmployeesNotHaveUsers(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_EmployeesDataTable = DataAccessManager::getInstance()->fillData();
+            $this->_EmployeesDataTable = DataAccessManager::getInstance()->fillData(array($status));
             $this->_Success = DataAccessManager::getInstance()->getSuccess();
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();

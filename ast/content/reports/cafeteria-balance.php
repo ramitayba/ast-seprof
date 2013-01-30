@@ -7,36 +7,36 @@
                 Reports: Cafeteria Balance
         </div> <!-- /widget-header -->
         <div class="widget-content">
-            <?php if (isset($_POST['submit'])): ?>
-                <iframe style="border:none" width="100%" height="400" src="<?php echo $url . "-pdf?cid=" . $_POST['cid']; ?>"></iframe>
-                <div class="form-actions">
-                    <a class="btn btn-inverse" href="<?php echo $url; ?>">Back</a>
-                </div>
-                <?php
-            else:
-                include_once POS_ROOT . '/businessLayer/CafeteriaBusinessLayer.php';
-                $cafeteriaBusinessLayer = new CafeteriaBusinessLayer();
-                $cafeteriaDataTable = $cafeteriaBusinessLayer->getCafeterias(1);
-                ?>
-                <form method="post" class="form-horizontal" action="<?php echo $url; ?>">
+           
+                <form method="post" id="cafeteria-balance-form" name="cafeteria-balance-form" class="cafeteria-balance-form form-horizontal" action="#">
                     <div class="control-group">
                         <label for="cid" class="control-label">Select Cafeteria</label>
                         <div class="controls">
-                            <select name="cid" id="validateSelect">
-                                <option value="">Select...</option>
-                                <?php
-                                foreach ($cafeteriaDataTable as $caf):
-                                    echo '<option value="' . $caf['cafeteria_id'] . '">' . $caf['cafeteria_name'] . '</option>';
-                                endforeach;
-                                ?>
-                            </select>
+                            <?php
+                       $cafeteriaBusinessLayer = new CafeteriaBusinessLayer();
+                        print Helper::form_construct_drop_down('cafeteria', $cafeteriaDataTable = $cafeteriaBusinessLayer->getCafeterias(ACTIVE), '', 'cafeteria_name', 'cafeteria_id');
+                        ?> 
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="datepicker-inline-mindate" class="control-label">From</label>
+                        <div class="controls">
+                            <input type="text" name="mindate" id="mindate" placeholder="Click for Datepicker" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="datepicker-inline-maxdate" class="control-label">To</label>
+                        <div class="controls">
+                            <input type="text" name="maxdate" id="maxdate" placeholder="Click for Datepicker" />
                         </div>
                     </div>
                     <div class="form-actions">
-                        <button class="btn btn-primary btn-medium" name="submit" type="submit">Show Report</button>
+                         <button type="submit" id="<?php
+                        print $action;
+                        ?>"
+                            class="show-reports btn btn-primary btn-large">Show Report</button>
                     </div>
                 </form>
-            <?php endif; ?>
         </div> <!-- /widget-content -->
     </div> <!-- /widget -->
 </div>

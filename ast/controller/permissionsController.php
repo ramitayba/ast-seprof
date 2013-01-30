@@ -10,7 +10,7 @@
 include_once POS_ROOT . '/businessLayer/RoleBusinessLayer.php';
 $roleBusinessLayer = new RoleBusinessLayer();
 if ($action == 'index'):
-    $roleDataTable = $roleBusinessLayer->getRoles(ACTIVE);
+    $roleDataTable = $roleBusinessLayer->getRoles(DELETED);
     if ($roleBusinessLayer->getSuccess()):
         $content = Helper::fill_datatable('roles','roles', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $roleDataTable, array('Role Name', 'Status Name'), array('role_name', 'status_name'), 'role_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
                     1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete'),
@@ -39,7 +39,7 @@ elseif ($action == 'save'):
     endif;
     $success = $roleBusinessLayer->assignPermission($query_id, $permissions);
     if ($success):
-        $roleDataTable = $roleBusinessLayer->getRoles(ACTIVE);
+        $roleDataTable = $roleBusinessLayer->getRoles(DELETED);
         if ($roleBusinessLayer->getSuccess()):
             $content = Helper::fill_datatable('roles','roles', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $roleDataTable, array('Role Name', 'Status Name'), array('role_name', 'status_name'), 'role_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
                         1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete'),

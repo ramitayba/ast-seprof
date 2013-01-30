@@ -61,7 +61,7 @@ endif;
                     <div class="controls">
                         <?php
                         $role = new RoleBusinessLayer();
-                        print Helper::form_construct_drop_down('roles', $role->getRoles(ACTIVE), isset($forms) && !Helper::is_empty_array($forms) ? $forms['role_id'] : '', 'role_name', 'role_id');
+                        print Helper::form_construct_drop_down('roles', $role->getRoles(DELETED), isset($forms) && !Helper::is_empty_array($forms) ? $forms['role_id'] : '', 'role_name', 'role_id');
                         ?> 
                     </div>
                 </div>
@@ -70,7 +70,7 @@ endif;
                     <div class="controls">
                         <?php
                         $userid = isset($forms) && !Helper::is_empty_array($forms) ? $forms['user_id'] : '';
-                        $array = !Helper::is_empty_string($userid) ? LookupBusinessLayer::getInstance()->getEmployeesWithActiveUser($userid) : LookupBusinessLayer::getInstance()->getEmployeesNotHaveUsers();
+                        $array = !Helper::is_empty_string($userid) ? LookupBusinessLayer::getInstance()->getEmployeesWithActiveUser($userid,DELETED) : LookupBusinessLayer::getInstance()->getEmployeesNotHaveUsers(DELETED);
                         print Helper::form_construct_drop_down('employees', $array, isset($forms) && !Helper::is_empty_array($forms) ? $forms['employee_id'] : '', 'employee_name', 'employee_id');
                         ?> 
                     </div>
