@@ -591,9 +591,9 @@ class Helper {
         ini_set('error_prepend_string', $error);
     }
 
-    public static function generate_container_pdf($url_pdf, $url) {
+    public static function generate_container_pdf($url_pdf, $action) {
         $container = '<iframe style="border:none" width="100%" height="400" src="' . $url_pdf . '"></iframe>
-            <div class="form-actions"><a class="btn btn-inverse" href="' . $url . '">Back</a></div>';
+            <div class="form-actions"><a id="'.$action.'"class="back btn btn-large btn-inverse" href="">Back</a></div>';
         return $container;
     }
 
