@@ -62,7 +62,7 @@ class DataAccessManager {
     public function getOutputParam() {
         return $this->_OutputParam;
     }
-    
+
     public function getDataTable() {
         return $this->_DataTable;
     }
@@ -72,15 +72,18 @@ class DataAccessManager {
             $this->_reset();
             Connection::getInstance()->openConnection();
             $this->_Statment = odbc_prepare(Connection::getInstance()->getDB(), self::$_SQLQuery);
-            $this->_Success = odbc_execute($this->_Statment, $array);
+            $this->_Success = odbc_execute($this->_Statment, $array);    
             $i = 0;
-            while ($row = odbc_fetch_array($this->_Statment)):
-                $this->_DataTable[$i] = $row;
-                $i++;
-            endwhile;
+            if ($this->_Success) {
+                while ($row = odbc_fetch_array($this->_Statment)):
+                    $this->_DataTable[$i] = $row;
+                    $i++;
+                endwhile;
+            }
             // $this->_DataTable = $this->_Success === true ? odbc_result_all($this->_Statment) : array();
         } catch (Exception $ex) {
             self::$_LastError = $ex->getMessage();
+           // Helper::trigger_error('Error Connection', E_USER_ERROR);
             $this->_Success = false;
             $this->_DataTable = array();
         }

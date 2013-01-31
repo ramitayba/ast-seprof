@@ -12,8 +12,6 @@ class Menu {
     private static $_Instance;
     private $_MenuTable;
     private $_ParentMenu;
-    private $_SubMenu;
-    private $_SubParentMenu;
 
     private function __construct() {
         
@@ -53,7 +51,6 @@ class Menu {
 
     private function _ready_memu_table() {
         unset($this->_ParentMenu);
-        unset($this->_SubMenu);
         foreach ($this->_MenuTable as $obj) {
             if ($obj['menu_parent_id'] == 0) {
                 $id_parent = $id_sub_parent = $obj['menu_id'];
@@ -73,9 +70,6 @@ class Menu {
                 }
                 $id_sub_parent = $obj['menu_link'] == '#' ? $obj['menu_id'] : $id_sub_parent;
             }
-        }
-        if (!isset($this->_SubMenu)) {
-            $this->_SubMenu = array();
         }
     }
 

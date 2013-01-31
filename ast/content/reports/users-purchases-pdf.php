@@ -1,34 +1,24 @@
 <?php
 
-if (isset($_GET['uid'])) {
-    $uid = $_GET['uid'];
-    //require('include/fpdf17/fpdf.php');
-//    $pdf = new FPDF();
-//    $pdf->AddPage();
-//    $pdf->SetFont('Arial', 'B', 16);
-//    $pdf->Cell(40, 10, 'Hello World!!!' . $_GET['userid']);
-//    $pdf->Output();
-
-    require('helper/BuilderPDF.php');
-    include_once POS_ROOT . '/businessLayer/ReportsBusinessLayer.php';
-    $reportsBusinessLayer = new ReportsBusinessLayer();
-
-    $reportsDataTable = $reportsBusinessLayer->getMiniReportsByUser($uid);
-    $data = array();
-    foreach ($reportsDataTable as $row) {
-        $data[] = array($row['order_id'], $row['cafeteria_name'], $row['order_date'], $row['order_total_payment']);
-    }
-//echo '<pre>';print_r($reportsDataTable);echo '</pre>';die();
+require('helper/BuilderPDF.php');
+    $data_report = $_SESSION['data_report'];
+    $mindate = $data_report['mindate'];
+    $maxdate = $data_report['maxdate'];
+    $reportsDataTable = $data_report['reports_data_table'];
+    $fields = array('employee_name', 'total');
     $pdf = new BuilderPDF();
-    $title = 'Mini Reports for user #' . $uid;
+    $title = 'Users Purchases';
     $pdf->SetTitle($title);
-
-    $header = array('Order #', 'Cafeteria', 'Date', 'Total');
-//// Data loading
-//$data = $pdf->LoadData('countries.txt');
+    $header = array('Employee Name ', 'Balance Total');
     $pdf->SetFont('Arial', '', 14);
     $pdf->AddPage();
-    $pdf->BuildTable($header, $data);
+    //$pdf->Cell(120);
+    //$image=Helper::get_url() . '/settings/default/files/nesma.png';
+    //$pdf->Image('logo.png', 10, 10, -300);
+    $pdf->Cell(130, 1, 'From : ' . $mindate);
+    $pdf->Cell(100, 1, 'To : ' . $maxdate);
+    $pdf->Ln(20);
+    $pdf->BuildTable($header,$reportsDataTable, $fields,95);
     $pdf->Output();
-}
+    unset($_SESSION['data_report']);
 ?>

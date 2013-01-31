@@ -345,12 +345,15 @@ $(function () {
         var width=$('.widget-content').height();
         var height=$('.widget-content').width();
         var data =$('#'+name+'-form').serialize();
+        if($('#filter_select').length!=0){
+            data+="&select="+$('#filter_select option:selected').text();
+        }
         $("#widget-content").html('<div align="center" style="width:'+width+';height:'+height+'"><img src="/ast/themes/img/loader.gif" alt="Loading...."/></div>');
-        validateReport(name,'show',data);
+        if(!validateReport(name,'show',data))return;
     } );
     
     $('.back').live('click', function (e) {
-          e.preventDefault();
+        e.preventDefault();
         name=$(this).attr("id");
         var width=$('.widget-content').height();
         var height=$('.widget-content').width();
@@ -360,7 +363,7 @@ $(function () {
             action:name,
             query:'back'
         },function(k){
-            showReports(k);
+            showFormPrepareReports(k);
         },function(httpReq, status, exception,c){
             error(httpReq, status, exception,c)
         })
@@ -601,7 +604,11 @@ function replaceTable(b,a)
 }
 function showReports(k)
 {
-     $('.widget-content').replaceWith(k);
+    $('.widget-content').replaceWith(k);
+}
+function showFormPrepareReports(k)
+{
+    $('.span12').replaceWith(k);
 }
 function showSelect(b,a)
 {
@@ -1033,13 +1040,91 @@ function validateReport(a,c,b)
 {
     $('#cafeteria-balance-form').validate({
         rules: {
-           cafeteria: {
+            cafeteria: {
                 required: true
             },
             mindate:{
                 required: true
             },
-             maxdate:{
+            maxdate:{
+                required: true
+            }
+        },
+        focusCleanup: false,
+
+        highlight: function(label) {
+            $(label).closest('.control-group').removeClass ('success').addClass('error');
+        },
+        success: function(label) {
+            label
+            .text('OK!').addClass('valid')
+            .closest('.control-group').addClass('success');
+        },
+        errorPlacement: function(error, element) {
+            error.appendTo( element.parents ('.controls') );
+        },
+        submitHandler: function (form) {
+            ajaxReport(a,c,b);
+        }
+    });
+    $('#users-purchases-form').validate({
+        rules: {
+            mindate:{
+                required: true
+            },
+            maxdate:{
+                required: true
+            }
+        },
+        focusCleanup: false,
+
+        highlight: function(label) {
+            $(label).closest('.control-group').removeClass ('success').addClass('error');
+        },
+        success: function(label) {
+            label
+            .text('OK!').addClass('valid')
+            .closest('.control-group').addClass('success');
+        },
+        errorPlacement: function(error, element) {
+            error.appendTo( element.parents ('.controls') );
+        },
+        submitHandler: function (form) {
+            ajaxReport(a,c,b);
+        }
+    });
+    $('#purchased-inventory-form').validate({
+        rules: {
+            mindate:{
+                required: true
+            },
+            maxdate:{
+                required: true
+            }
+        },
+        focusCleanup: false,
+
+        highlight: function(label) {
+            $(label).closest('.control-group').removeClass ('success').addClass('error');
+        },
+        success: function(label) {
+            label
+            .text('OK!').addClass('valid')
+            .closest('.control-group').addClass('success');
+        },
+        errorPlacement: function(error, element) {
+            error.appendTo( element.parents ('.controls') );
+        },
+        submitHandler: function (form) {
+            ajaxReport(a,c,b);
+        }
+    });
+    $('#events-listing-form').validate({
+        rules: {
+            mindate:{
+                required: true
+            },
+            maxdate:{
                 required: true
             }
         },
@@ -1061,19 +1146,79 @@ function validateReport(a,c,b)
         }
     });
     
+    $('#detailed-event-form').validate({
+        rules: {
+            mindate:{
+                required: true
+            },
+            maxdate:{
+                required: true
+            }
+        },
+        focusCleanup: false,
+
+        highlight: function(label) {
+            $(label).closest('.control-group').removeClass ('success').addClass('error');
+        },
+        success: function(label) {
+            label
+            .text('OK!').addClass('valid')
+            .closest('.control-group').addClass('success');
+        },
+        errorPlacement: function(error, element) {
+            error.appendTo( element.parents ('.controls') );
+        },
+        submitHandler: function (form) {
+            ajaxReport(a,c,b);
+        }
+    });
+    $('#menu-report-form').validate({
+        submitHandler: function (form) {
+            ajaxReport(a,c,b);
+        }
+    });
+    $('#detailed-users-purchases-form').validate({
+        rules: {
+            employee:{
+                required: true
+            },
+            mindate:{
+                required: true
+            },
+            maxdate:{
+                required: true
+            }
+        },
+        focusCleanup: false,
+
+        highlight: function(label) {
+            $(label).closest('.control-group').removeClass ('success').addClass('error');
+        },
+        success: function(label) {
+            label
+            .text('OK!').addClass('valid')
+            .closest('.control-group').addClass('success');
+        },
+        errorPlacement: function(error, element) {
+            error.appendTo( element.parents ('.controls') );
+        },
+        submitHandler: function (form) {
+            ajaxReport(a,c,b);
+        }
+    });
 }
 function ajaxReport(name,query,data)
 {
     $.seprof(baseurl,{
-            name:'reports',
-            action:name,
-            query:query,
-            datainput:data
-        },function(k){
-            showReports(k);
-        },function(httpReq, status, exception,c){
-            error(httpReq, status, exception,c)
-        })
+        name:'reports',
+        action:name,
+        query:query,
+        datainput:data
+    },function(k){
+        showReports(k);
+    },function(httpReq, status, exception,c){
+        error(httpReq, status, exception,c)
+    })
 }
 function enable_text(status,links)
 {

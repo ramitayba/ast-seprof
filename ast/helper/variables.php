@@ -7,7 +7,7 @@
  * http://seprof.com/
  * 
  */
-$root = '/ast/';
+$root ;
 $action = 'view';
 $content = '';
 $query_string = '';
@@ -19,7 +19,8 @@ $datatable;
 $filter_id;
 $mindate;
 $maxdate;
-$reportsDataTable=array();
+$reportsDataTable = array();
+$name_select;
 
 
 

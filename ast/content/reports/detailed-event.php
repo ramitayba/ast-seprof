@@ -3,17 +3,29 @@
         <div class="widget-header">						
             <h3>
                 <i class="icon-th-list"></i>
-                Reports	<?php echo isset($_GET['uid'])? 'User #'.$_GET['uid']:'Users'; ?>			
-            </h3>
+                Reports: Detailed Event
         </div> <!-- /widget-header -->
-        <?php if (isset($_GET['uid'])) : ?>
-            <iframe width="100%" height="400" src="<?php echo "http://" . $_SERVER['HTTP_HOST'] . $root . "/reports/users-purchases-pdf?uid=" . $_GET['uid'] ?>"></iframe>
-            <a href="#">Back</a>
-        <?php else: ?>
-            <a href="?uid=2">user 2</a><hr>
-            <a href="?uid=3">user 3</a><hr>
-        <?php endif; ?>
-    </div> <!-- /widget-content -->
-</div> <!-- /widget -->	
-<?php
+        <div class="widget-content">
 
+            <form method="post" id="detailed-event-form" name="detailed-event-form" class="detailed-event-form form-horizontal" action="#">
+
+                <div class="control-group">
+                    <label for="cid" class="control-label">Select Event</label>
+                    <div class="controls">
+                        <?php
+                        include_once POS_ROOT . '/businessLayer/EventBusinessLayer.php';
+                        $eventBusinessLayer = new EventBusinessLayer();
+                        print Helper::form_construct_drop_down('filter_select', $eventBusinessLayer->getEvents(), '', 'event_name', 'event_id');
+                        ?> </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" id="<?php
+                        print $action;
+                        ?>"
+                            class="show-reports btn btn-primary btn-large">Show Report</button>
+                </div>
+            </form>
+        </div> <!-- /widget-content -->
+    </div> <!-- /widget -->
+</div>
