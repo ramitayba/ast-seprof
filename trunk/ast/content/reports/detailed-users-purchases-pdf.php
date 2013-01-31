@@ -1,31 +1,21 @@
 <?php
 
-if (isset($_GET['uid']) && $_GET['uid'] != '' && isset($_GET['mindate']) && isset($_GET['maxdate'])) {
-    $uid = $_GET['uid'];
-    $min = $_GET['mindate'];
-    $max = $_GET['maxdate'];
-    require('helper/BuilderPDF.php');
-    include_once POS_ROOT . '/businessLayer/UserBusinessLayer.php';
-    $userBusinessLayer = new UserBusinessLayer();
-    include_once POS_ROOT . '/businessLayer/ReportsBusinessLayer.php';
-    $reportsBusinessLayer = new ReportsBusinessLayer();
-
-    $reportsDataTable = $reportsBusinessLayer->getUserPurchasesByPeriod($uid, $min, $max);
-    $user = $userBusinessLayer->getUserByID($uid);
-    
-    $data = array();
-    foreach ($reportsDataTable as $row) {
-        $data[] = array($row['order_id'], $row['cafeteria_name'], $row['cdate'], $row['order_total_payment']);
-    }
-    
+require('helper/BuilderPDF.php');
+    $data_report = $_SESSION['data_report'];
+    $mindate = $data_report['mindate'];
+    $maxdate = $data_report['maxdate'];
+    $reportsDataTable = $data_report['reports_data_table'];
+    $fields = array('employee_name', 'balance','order_date');
     $pdf = new BuilderPDF();
-    $title = 'Detail Purchases For ' . $user[0]['user_name'];
+    $title = 'Detailed User Purchases';
     $pdf->SetTitle($title);
-
-    $header = array('Order #', 'Cafeteria', 'Date', 'Total');
+    $header = array('Employee Name ', 'Balance Total','Order Date');
     $pdf->SetFont('Arial', '', 14);
     $pdf->AddPage();
-    $pdf->BuildTable($header, $data);
+    $pdf->Cell(130, 1, 'From : ' . $mindate);
+    $pdf->Cell(100, 1, 'To : ' . $maxdate);
+    $pdf->Ln(20);
+    $pdf->BuildTable($header,$reportsDataTable, $fields,65);
     $pdf->Output();
-}
+    unset($_SESSION['data_report']);
 ?>

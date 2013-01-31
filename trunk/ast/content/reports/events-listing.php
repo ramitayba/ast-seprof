@@ -3,17 +3,30 @@
         <div class="widget-header">						
             <h3>
                 <i class="icon-th-list"></i>
-                Reports	<?php echo isset($_GET['uid'])? 'User #'.$_GET['uid']:'Users'; ?>			
-            </h3>
+                Reports: Events Listing
         </div> <!-- /widget-header -->
-        <?php if (isset($_GET['uid'])) : ?>
-            <iframe width="100%" height="400" src="<?php echo "http://" . $_SERVER['HTTP_HOST'] . $root . "/reports/users-purchases-pdf?uid=" . $_GET['uid'] ?>"></iframe>
-            <a href="#">Back</a>
-        <?php else: ?>
-            <a href="?uid=2">user 2</a><hr>
-            <a href="?uid=3">user 3</a><hr>
-        <?php endif; ?>
-    </div> <!-- /widget-content -->
-</div> <!-- /widget -->	
-<?php
+        <div class="widget-content">
 
+            <form method="post" id="events-listing-form" name="events-listing-form" class="events-listing-form form-horizontal" action="#">
+                <div class="control-group">
+                    <label for="mindate" class="control-label">From</label>
+                    <div class="controls">
+                        <input type="text" name="mindate" id="mindate" placeholder="Click for Datepicker" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="maxdate" class="control-label">To</label>
+                    <div class="controls">
+                        <input type="text" name="maxdate" id="maxdate" placeholder="Click for Datepicker" />
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" id="<?php
+                        print $action;
+                        ?>"
+                            class="show-reports btn btn-primary btn-large">Show Report</button>
+                </div>
+            </form>
+        </div> <!-- /widget-content -->
+    </div> <!-- /widget -->
+</div>

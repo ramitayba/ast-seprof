@@ -469,13 +469,13 @@ class Helper {
         foreach ($table as $row):
             $class = $i % 2 ? ' even' : ' odd';
             $tr = '<tr class="gradeA ' . $class . '">';
-            $img =  array_key_exists('count_number', $row) && !self::is_empty_string($row['count_number']) && $row['count_number'] != 0 ? '<img src="' . $tdicon . '">' : '';
+            $img = array_key_exists('count_number', $row) && !self::is_empty_string($row['count_number']) && $row['count_number'] != 0 ? '<img src="' . $tdicon . '">' : '';
             $tr.=!self::is_empty_string($tdicon) ? '<td class="' . $tdicon_class . '">' . $img . '</td>' : '';
             foreach ($fields as $rowfields):
                 $class = $rowfields == $class_td_edit ? 'tdedit' : '';
                 $tr.= '<td class="' . $class . '">' . $row[$rowfields] . '</td>';
             endforeach;
-            $extra='';
+            $extra = '';
             if ($control):
                 $extra = '<td class="controls">';
                 foreach ($linkcontrol as $rowlink):
@@ -585,17 +585,19 @@ class Helper {
         return $directory;
     }
 
-   
-
     public static function catchFatalErrors($p_OnOff = 'On', $error) {
         ini_set('display_errors', 'On');
         ini_set('error_prepend_string', $error);
     }
 
     public static function generate_container_pdf($url_pdf, $action) {
-        $container = '<iframe style="border:none" width="100%" height="400" src="' . $url_pdf . '"></iframe>
-            <div class="form-actions"><a id="'.$action.'"class="back btn btn-large btn-inverse" href="">Back</a></div>';
+        $container = '<div class="widget-content"><iframe style="border:none" width="100%" height="500" src="' . $url_pdf . '"></iframe>
+            <div class="form-actions"><a id="' . $action . '"class="back btn btn-large btn-inverse" href="">Back</a></div></div>';
         return $container;
+    }
+
+    public static function trigger_error($message,$type) {
+        trigger_error($message, $type);
     }
 
 }

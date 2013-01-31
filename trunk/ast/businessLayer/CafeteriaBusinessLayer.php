@@ -79,8 +79,8 @@ class CafeteriaBusinessLayer {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
             }
         } catch (Exception $ex) {
-            $this->_LastError = $ex->getMessage();
             $this->_Success = false;
+            $this->_LastError = $ex->getMessage();
         }
         return $this->_CafeteriasDataTable;
     }

@@ -39,12 +39,12 @@ class ReportsBusinessLayer {
      * @param type $user_id
      * @return type 
      */
-    public function getMiniReportsByUser($user_id) {
+    public function getMiniReportsByUser($user_id, $from_date, $to_date) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call getMiniReportsByUser(?)}";
+            $this->_SQLQuery = "{call getMiniReportsByUser(?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_ReportsDataTable = DataAccessManager::getInstance()->fillData(array($user_id));
+            $this->_ReportsDataTable = DataAccessManager::getInstance()->fillData(array($user_id, $from_date, $to_date));
             if (Helper::is_empty_array($this->_ReportsDataTable)) {
                 $this->_Success = false;
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
@@ -57,12 +57,108 @@ class ReportsBusinessLayer {
         }
         return $this->_ReportsDataTable;
     }
-    public function getCafeteriaBalanceByID($cafeteria_id,$status) {
+
+    public function getCafeteriaBalanceByID($cafeteria_id, $from_date, $to_date, $status) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call getCafeteriaBalanceByID(?,?)}";
+            $this->_SQLQuery = "{call getCafeteriaBalanceByID(?,?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_ReportsDataTable = DataAccessManager::getInstance()->fillData(array($cafeteria_id,$status));
+            $this->_ReportsDataTable = DataAccessManager::getInstance()->fillData(array($cafeteria_id, $from_date, $to_date, $status));
+            if (Helper::is_empty_array($this->_ReportsDataTable)) {
+                $this->_Success = false;
+                $this->_LastError = DataAccessManager::getInstance()->getLastError();
+            } else {
+                $this->_Success = true;
+            }
+        } catch (Exception $ex) {
+            $this->_LastError = $ex->getMessage();
+            $this->_Success = false;
+        }
+        return $this->_ReportsDataTable;
+    }
+
+    public function getUsersPurchases($from_date, $to_date) {
+        try {
+            $this->_reset();
+            $this->_SQLQuery = "{call getUsersPurchases(?,?)}";
+            DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
+            $this->_ReportsDataTable = DataAccessManager::getInstance()->fillData(array($from_date, $to_date));
+            if (Helper::is_empty_array($this->_ReportsDataTable)) {
+                $this->_Success = false;
+                $this->_LastError = DataAccessManager::getInstance()->getLastError();
+            } else {
+                $this->_Success = true;
+            }
+        } catch (Exception $ex) {
+            $this->_LastError = $ex->getMessage();
+            $this->_Success = false;
+        }
+        return $this->_ReportsDataTable;
+    }
+
+    public function getPurchasedInventory($from_date, $to_date) {
+        try {
+            $this->_reset();
+            $this->_SQLQuery = "{call getPurchasedInventory(?,?)}";
+            DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
+            $this->_ReportsDataTable = DataAccessManager::getInstance()->fillData(array($from_date, $to_date));
+            if (Helper::is_empty_array($this->_ReportsDataTable)) {
+                $this->_Success = false;
+                $this->_LastError = DataAccessManager::getInstance()->getLastError();
+            } else {
+                $this->_Success = true;
+            }
+        } catch (Exception $ex) {
+            $this->_LastError = $ex->getMessage();
+            $this->_Success = false;
+        }
+        return $this->_ReportsDataTable;
+    }
+
+    public function getEventListing($from_date, $to_date) {
+        try {
+            $this->_reset();
+            $this->_SQLQuery = "{call getEventListing(?,?)}";
+            DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
+            $this->_ReportsDataTable = DataAccessManager::getInstance()->fillData(array($from_date, $to_date));
+            if (Helper::is_empty_array($this->_ReportsDataTable)) {
+                $this->_Success = false;
+                $this->_LastError = DataAccessManager::getInstance()->getLastError();
+            } else {
+                $this->_Success = true;
+            }
+        } catch (Exception $ex) {
+            $this->_LastError = $ex->getMessage();
+            $this->_Success = false;
+        }
+        return $this->_ReportsDataTable;
+    }
+
+    public function getEventDetailed($event_id) {
+        try {
+            $this->_reset();
+            $this->_SQLQuery = "{call getEventDetailed(?,?)}";
+            DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
+            $this->_ReportsDataTable = DataAccessManager::getInstance()->fillData(array($event_id));
+            if (Helper::is_empty_array($this->_ReportsDataTable)) {
+                $this->_Success = false;
+                $this->_LastError = DataAccessManager::getInstance()->getLastError();
+            } else {
+                $this->_Success = true;
+            }
+        } catch (Exception $ex) {
+            $this->_LastError = $ex->getMessage();
+            $this->_Success = false;
+        }
+        return $this->_ReportsDataTable;
+    }
+    
+    public function getMenuReports($status) {
+        try {
+            $this->_reset();
+            $this->_SQLQuery = "{call getMenuReports(?)}";
+            DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
+            $this->_ReportsDataTable = DataAccessManager::getInstance()->fillData(array($status));
             if (Helper::is_empty_array($this->_ReportsDataTable)) {
                 $this->_Success = false;
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();

@@ -24,6 +24,7 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTE
     $value = isset($_POST['value']) ? $_POST['value'] : '';
     $action = Helper::is_empty_string($action_get) ? $action : $action_get;
     $name = Helper::is_empty_string($name_get) ? $name : $name_get;
+    $root = Helper::get_url() . '/';
     $controllerDirs = POS_ROOT . '/controller/' . $name . 'Controller.php';
     if ($name_get == 'items'):
         print $value;
@@ -33,7 +34,9 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTE
         $array = explode('&', $datainput);
         foreach ($array as $row):
             $split = explode('=', $row);
-            $data[$split[0]] = Helper::mssql_escape($split[1]);
+            if (count($split)== 2) {
+                $data[$split[0]] = Helper::mssql_escape($split[1]);
+            }
         endforeach;
     endif;
     if (Helper::is_empty_array($data) && $name == 'allowances'):
