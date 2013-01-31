@@ -7,6 +7,12 @@
  * http://seprof.com/
  * 
  */
+
+/**
+ * 
+ * Define Databases
+ * 
+ */
 $databases = array(
     'database' => 'pos_back',
     'username' => '',
@@ -17,7 +23,11 @@ $databases = array(
     'prefix' => '',
 );
 
-
+/**
+ * 
+ * Routes
+ * 
+ */
 $routes = array(
     'usersController' => array('login', 'logout', 'users/index', 'users/usersform'),
     'rolesController' => array('users/roles', 'users/rolesform'),
@@ -34,8 +44,36 @@ $routes = array(
         'reports/events-listing', 'reports/menu-report', 'reports/detailed-event'),
 );
 
+/**
+ * 
+ * Actions
+ * 
+ */
 $actions = array('add', 'edit', 'delete');
+/**
+ * 
+ * Define error
+ * 
+ */
 
+$error = array(
+    '1' => array('01002','Disconnect error'),
+    '2' => array('01004','Data truncated'),
+    '3' => array('01S00','Invalid connection string attribute'),
+    '4' => array('07001','Wrong number of parameters'),
+    '5' => array('07002','Mismatching parameters'),
+    '6' => array('08000','Connection exception'),
+    '7' => array('08003','Connection not open'),
+    '8' => array('08007','Connection failure during transaction'),
+    '9' => array('21S01','Insert value list does not match column list'),
+    '10' => array('22001','String data, right truncation'),
+    '11' => array('22003','Numeric value out of range'),
+    '12' => array('22007','Invalid datetime format'),
+    '13' => array('22026','String data, length mismatch'),
+    '14' => array('23000','Integrity constraint violation'),
+    '15' => array('HY002','Invalid column number'),
+    '16' => array('HY004','Invalid SQL Data type')
+);
 /**
  * 
  * Define status
@@ -63,7 +101,7 @@ define('MANAGER', 4);
 
 /**
  * Some distributions of Linux (most notably Debian) ship their PHP
- * installations with garbage collection (gc) disabled. Since Drupal depends on
+ * installations with garbage collection (gc) disabled. Since SEProf depends on
  * PHP's garbage collection for clearing sessions, ensure that garbage
  * collection occurs by using the most common settings.
  */
@@ -107,7 +145,7 @@ error_reporting(E_ALL);
 error_reporting(-1);
 
 // Same as error_reporting(E_ALL);
-ini_set('error_reporting', E_ALL);
-*/
+ini_set('error_reporting', E_ALL);*/
+
  ini_set('display_errors','off');
 
