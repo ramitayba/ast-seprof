@@ -33,7 +33,7 @@ elseif ($action == 'edit'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
         $cafeteriaDataTable = $cafeteriaBusinessLayer->getCafeteriaByID($query_id, DELETED);
         if (count($cafeteriaDataTable) == 0):
-            //print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Cafeteria doesn t exist', 'error')));
+            print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Cafeteria doesn t exist', 'error')));
             return;
         endif;
         $forms = array('cafeteria_id' => $cafeteriaDataTable [0]['cafeteria_id'],

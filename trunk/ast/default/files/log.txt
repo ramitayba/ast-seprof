@@ -31,3 +31,4 @@ Unknown error type:odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver
 Unknown error type:require(makefont/makefont.php): failed to open stream: No such file or directory   |  Date:  31.01.2013 06:30:12
 Unknown error type:file(C:\xampp\htdocs\ast\include\fpdf17\makefont/aller.map): failed to open stream: No such file or directory   |  Date:  31.01.2013 06:31:16
 Unknown error type:in_array() expects parameter 2 to be array, null given   |  Date:  31.01.2013 06:36:29
+Unknown error type:odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Numeric value out of range, SQL state 22003 in SQLExecute   |  Date:  31.01.2013 07:43:01

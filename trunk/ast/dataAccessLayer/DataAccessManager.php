@@ -72,7 +72,11 @@ class DataAccessManager {
             $this->_reset();
             Connection::getInstance()->openConnection();
             $this->_Statment = odbc_prepare(Connection::getInstance()->getDB(), self::$_SQLQuery);
-            $this->_Success = odbc_execute($this->_Statment, $array);    
+            $this->_Success = odbc_execute($this->_Statment, $array);
+            if (odbc_error()) {
+                self::$_LastError = odbc_errormsg(Connection::getInstance()->getDB());
+                $this->_Success = false;
+            }
             $i = 0;
             if ($this->_Success) {
                 while ($row = odbc_fetch_array($this->_Statment)):
@@ -81,9 +85,9 @@ class DataAccessManager {
                 endwhile;
             }
             // $this->_DataTable = $this->_Success === true ? odbc_result_all($this->_Statment) : array();
-        } catch (Exception $ex) {
+        } catch (OdbcException $ex) {
             self::$_LastError = $ex->getMessage();
-           // Helper::trigger_error('Error Connection', E_USER_ERROR);
+            // Helper::trigger_error('Error Connection', E_USER_ERROR);
             $this->_Success = false;
             $this->_DataTable = array();
         }
@@ -95,14 +99,15 @@ class DataAccessManager {
         try {
             $this->_reset();
             Connection::getInstance()->openConnection();
-            //$this->_Statment = odbc_prepare(Connection::getInstance()->getDB(), self::$_SQLQuery);
-            //$this->_Statment = odbc_exec(Connection::getInstance()->getDB(), self::$_SQLQuery);
-            //$this->_DataTable = odbc_result_all($this->_Statment);
-            // $this->_DataTable = $this->_Success === true ? odbc_result_all($this->_Statment) : array();
             $this->_Statment = odbc_prepare(Connection::getInstance()->getDB(), self::$_SQLQuery);
             $this->_Success = odbc_execute($this->_Statment, $array);
+            if (odbc_error()) {
+                self::$_LastError = odbc_errormsg(Connection::getInstance()->getDB());
+                $this->_Success = false;
+            }
         } catch (OdbcException $ex) {
             self::$_LastError = $ex->getMessage();
+            $this->_Success = false;
         }
         Connection::getInstance()->closeConnection();
         return $this->_Success;
@@ -114,13 +119,20 @@ class DataAccessManager {
             Connection::getInstance()->openConnection();
             $this->_Statment = odbc_prepare(Connection::getInstance()->getDB(), self::$_SQLQuery);
             $this->_Success = odbc_execute($this->_Statment, $array);
+            if (odbc_error()) {
+                self::$_LastError = odbc_errormsg(Connection::getInstance()->getDB());
+                $this->_Success = false;
+            }
             $i = 0;
-            while ($row = odbc_fetch_array($this->_Statment)):
-                $this->_DataTable[$i] = $row;
-                $i++;
-            endwhile;
+            if ($this->_Success) {
+                while ($row = odbc_fetch_array($this->_Statment)):
+                    $this->_DataTable[$i] = $row;
+                    $i++;
+                endwhile;
+            }
         } catch (OdbcException $ex) {
             self::$_LastError = $ex->getMessage();
+            $this->_Success = false;
         }
         Connection::getInstance()->closeConnection();
         return $this->_Success;
