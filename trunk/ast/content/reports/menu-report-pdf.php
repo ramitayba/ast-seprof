@@ -13,7 +13,7 @@ if (isset($_SESSION['data_report'])):
     $header_category = array('Category Name');
     $header_sub = array('Sub Category Name');
     $header_item = array('Item Name', 'Item Price');
-    $pdf->Image(POS_ROOT.'/default/files/images/header-report.png');
+    //$pdf->Image(POS_ROOT.'/default/files/images/header-report.png');
     $pdf->SetFont('Arial', '', 14);
     $pdf->AddPage();
     //$pdf->Cell(120);

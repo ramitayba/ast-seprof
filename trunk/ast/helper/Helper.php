@@ -443,6 +443,50 @@ class Helper {
         return $list;
     }
 
+    public static function fill_datatable_event($name, $id, $header_buttons, $table, $header, $fields, $id_name, $linkcontrol = array(), $sdom = "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>") {
+        $datatable = '<div id="widget-table"> <div class="widget-header"><h3><i class="icon-th-list"></i>'
+                . ucfirst($name) . '</h3></div>';
+        $datatable.= ' <script>$(function () {     oTable = table("' . $name . '","' . $sdom . '",-1,"");});</script>';
+        $datatable.='<div class="widget-content" id="widget-content-' . $name . '-table">';
+        $datatable.='<div class="header-table">';
+        foreach ($header_buttons as $headerlink):
+            $link = $headerlink['link'] . $id;
+            $datatable.= '<span class="header-table-link"><a class="' . $headerlink['class'] . '" id="' . $link . '" href="" title="' . $headerlink['name'] . '"></a></span>';
+        endforeach;
+        $datatable.='</div>';
+        $datatable.= '<table class="table table-striped table-bordered table-highlight" id="' . $name . '-table">';
+        $thead = ' <thead><tr>';
+        foreach ($header as $row):
+            $thead .= '<th>' . $row . '</th>';
+        endforeach;
+        $thead.= '<th class="controls">Actions</th></tr> </thead>';
+        $tbody = '<tbody>';
+        $i = 1;
+        $tr = '';
+        foreach ($table as $row):
+            $class = $i % 2 ? ' even' : ' odd';
+            $tr = '<tr class="gradeA ' . $class . '">';
+            foreach ($fields as $rowfields):
+                $tr.= '<td class="">' . $row[$rowfields] . '</td>';
+            endforeach;
+            $extra = '<td class="controls">';
+            foreach ($linkcontrol as $rowlink):
+                $link = $rowlink['link'] . $id . '-' . $row[$id_name];
+                if ($row['status_id'] != APPROVED && $row['status_id'] != REJECTED):
+                    $extra.= '<span class="content-link"> <a class="' . $rowlink['class'] . '" id="' . $link . '" href="" title="' . $rowlink['name'] . '"></a></span>';
+                endif;
+            endforeach;
+            $extra .= '</td>';
+
+            $tr.=$extra . '</tr>';
+            $tbody.=$tr;
+            $i++;
+        endforeach;
+        $tbody.= '</tbody>';
+        $datatable.= $thead . $tbody . '</table></div>';
+        return $datatable;
+    }
+
     public static function fill_datatable($name, $id, $header_buttons, $table, $header, $fields, $id_name, $linkcontrol = array(), $control = true, $column_hide = -1, $editable = '', $class_td_edit = '', $tdicon = '', $tdicon_class = '', $sdom = "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>", $script = true) {
         $datatable = '<div id="widget-table"> <div class="widget-header"><h3><i class="icon-th-list"></i>'
                 . ucfirst($name) . '</h3></div>';
@@ -585,14 +629,9 @@ class Helper {
         return $directory;
     }
 
-    public static function catchFatalErrors($p_OnOff = 'On', $error) {
-        ini_set('display_errors', 'On');
-        ini_set('error_prepend_string', $error);
-    }
-
-    public static function generate_container_pdf($url_pdf, $action) {
-        $container = '<div class="widget-content"><iframe style="border:none" width="100%" height="500" src="' . $url_pdf . '"></iframe>
-            <div class="form-actions"><a id="' . $action . '"class="back btn btn-large btn-inverse" href="">Back</a></div></div>';
+    public static function generate_container_pdf($url_pdf, $action, $exist = true) {
+        $container = '<div class="widget-content"><iframe style="border:none" width="100%" height="500" src="' . $url_pdf . '"></iframe>';
+        $container.= $exist ? '<div class="form-actions"><a id="' . $action . '"class="back btn btn-large btn-inverse" href="">Back</a></div></div>' : '';
         return $container;
     }
 
