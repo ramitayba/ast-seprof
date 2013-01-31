@@ -182,7 +182,7 @@ $(function () {
                 anOpenCategories.splice( i, 1 );
             } );
             $('.sub-categories #widget-table', $(nTr).next()[0]).css('display', 'none');
-            //$('.details').parents('tr').remove();
+        //$('.details').parents('tr').remove();
         }
     } );
     
@@ -229,7 +229,7 @@ $(function () {
                 anOpenSubCategories.splice( i, 1 );
             } );
             
-            //$('.details').parents('tr').remove();
+        //$('.details').parents('tr').remove();
         }
     } );
  
@@ -326,7 +326,7 @@ $(function () {
             requiredPassword=true;
             requiredPincode=true;
         }
-        //validate('','');
+    //validate('','');
     } );
     $('.permissions').live('click', function (e) {
         e.preventDefault();
@@ -487,6 +487,8 @@ $(function () {
             {
                 $('.messages').remove();
                 $( '.widget').before(k.message)  ;
+                row=  $(this).parents('td')[0];
+                row.remove();
             }
         },function(httpReq, status, exception,a){
             error(httpReq, status, exception,a)
@@ -536,7 +538,7 @@ $(function () {
             return;
         }
         if(!validate(a,b))return;
-        /* $('.'+a+'-form').trigger('submit');
+    /* $('.'+a+'-form').trigger('submit');
         var sequence="";
         $('input[name=check]:checked').each(function(){
             sequence+=$(this).val()+",";
@@ -648,8 +650,8 @@ function showSelect(b,a)
 function error(httpReq, status, exception,a){
 
     b="<div id='block' class='alert alert-block'>"+
-        "<a class='close' data-dismiss='alert' href='#'>&times;</a>"+
-        exception+"</div>";
+    "<a class='close' data-dismiss='alert' href='#'>&times;</a>"+
+    exception+"</div>";
     $("#block").replaceWith(b);
     $(".alert").show();
 }
@@ -675,14 +677,14 @@ function table(name,sdom,column_hide,editable)
                     var aPos = oTable.fnGetPosition( this );*/
                     
                     oTable.fnUpdate([ dataRow[0], dataRow[1],sValue] );
-                    // oTable.fnDraw();
+                // oTable.fnDraw();
                 },
                 "submitdata": function ( value, settings ) {
                     nRow = $(this).parents('tr')[0];
                     dataRow=oTable.fnGetData(nRow);
                     $("#id").val(dataRow[0]);
-                    //$('#formeditable').append($(input));
-                    /*  nRow = $(this).parents('tr')[0];
+                //$('#formeditable').append($(input));
+                /*  nRow = $(this).parents('tr')[0];
                     dataRow=oTable.fnGetData(nRow);
                     alert(dataRow[0]+','+ dataRow[1]+','+ value)
                  $.seprof(baseurl,{
