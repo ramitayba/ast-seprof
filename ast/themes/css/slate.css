@@ -1256,10 +1256,9 @@ label.error {
 }
 .widget-table .sub-categories .header-table,.widget-table .sub-categories .items .header-table,.widget-table .categories .items .header-table{position:relative;left:0;}
 .widget-table .header-table {
-    width: 30%;
     position: absolute;
     alignment-baseline: central;
-    left: 50px;
+    left: 200px;
 }
 /*.widget-table .header-table-link{padding:5px;}*/
 .widget-table .dataTables_processing{display:none;}
