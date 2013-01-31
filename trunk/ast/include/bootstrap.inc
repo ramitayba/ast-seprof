@@ -8,28 +8,31 @@ include_once POS_ROOT . '/dataAccessLayer/DataAccessManager.php';
 include_once POS_ROOT . '/businessLayer/LookupBusinessLayer.php';
 include_once POS_ROOT . '/helper/Menu.php';
 
+
 function error_handler($errno, $errstr, $errfile, $errline) {
     if (!(error_reporting() & $errno)) {
-        // This error code is not included in error_reporting
         return;
     }
     $message = '';
     switch ($errno) {
         case E_USER_ERROR:
-            $message = '<b>My ERROR</b>' . $errno . $errstr . '<br />' .
+            $message = '<b>My ERROR</b>' . $errno . $errstr . '\n' .
                     'Fatal error on line' . $errline . 'in file ' . $errfile;
             break;
         case E_USER_WARNING:
-            $message = '<b>My WARNING</b>' . $errno . $errstr . '<br />';
+            $message = '<b>My WARNING</b>' . $errno . $errstr;
             break;
         case E_USER_NOTICE:
-            $message = '<b>My NOTICE</b> ' . $errno . $errstr . '<br />';
+            $message = '<b>My NOTICE</b> ' . $errno . $errstr;
             break;
-
         default:
-            $message = 'Unknown error type:'. $errstr . '<br />';
+            $message = 'Unknown error type:' . $errstr;
             break;
     }
+    $date = date('d.m.Y h:i:s');
+    $log = $message . "   |  Date:  " . $date . "\n";
+    error_log($log, 3, POS_ROOT . '/default/files/log.txt');
+    //error_mail( format_error( $errno, $errstr, $errfile, $errline ) );
     if (!Helper::is_empty_string($message)) {
         print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message($message, 'error')));
         return true;

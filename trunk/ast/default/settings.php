@@ -85,7 +85,7 @@ ini_set('session.gc_maxlifetime', 200000);
  */
 ini_set('session.cookie_lifetime', 2000000);
 
-
+/*
 // Turn off all error reporting
 error_reporting(0);
 
@@ -108,6 +108,6 @@ error_reporting(-1);
 
 // Same as error_reporting(E_ALL);
 ini_set('error_reporting', E_ALL);
-
-// ini_set('display_errors','off');
+*/
+ ini_set('display_errors','off');
 
