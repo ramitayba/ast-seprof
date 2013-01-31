@@ -11,3 +11,23 @@ Unknown error type:odbc_connect(): SQL error: [Microsoft][ODBC SQL Server Driver
 Unknown error type:odbc_prepare() expects parameter 1 to be resource, boolean given   |  Date:  31.01.2013 01:23:49
 Unknown error type:odbc_execute() expects parameter 1 to be resource, null given   |  Date:  31.01.2013 01:23:49
 Unknown error type:odbc_close() expects parameter 1 to be resource, boolean given   |  Date:  31.01.2013 01:23:49
+Unknown error type:odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Numeric value out of range, SQL state 22003 in SQLExecute   |  Date:  31.01.2013 02:27:16
+Unknown error type:Object of class DateTime could not be converted to string   |  Date:  31.01.2013 03:17:20
+Unknown error type:odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver][SQL Server]Conversion failed when converting date and/or time from character string., SQL state 22008 in SQLExecute   |  Date:  31.01.2013 03:17:21
+Unknown error type:Object of class DateTime could not be converted to string   |  Date:  31.01.2013 03:17:32
+Unknown error type:odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver][SQL Server]Conversion failed when converting date and/or time from character string., SQL state 22008 in SQLExecute   |  Date:  31.01.2013 03:17:32
+Unknown error type:Object of class DateTime could not be converted to string   |  Date:  31.01.2013 03:34:31
+Unknown error type:odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecute   |  Date:  31.01.2013 03:34:31
+Unknown error type:Object of class DateTime could not be converted to string   |  Date:  31.01.2013 03:35:06
+Unknown error type:odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecute   |  Date:  31.01.2013 03:35:06
+Unknown error type:Object of class DateTime could not be converted to string   |  Date:  31.01.2013 03:35:28
+Unknown error type:odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecute   |  Date:  31.01.2013 03:35:28
+Unknown error type:odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecute   |  Date:  31.01.2013 03:37:05
+Unknown error type:odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecute   |  Date:  31.01.2013 03:37:38
+Unknown error type:odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecute   |  Date:  31.01.2013 03:38:18
+Unknown error type:odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecute   |  Date:  31.01.2013 03:38:45
+Unknown error type:odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecute   |  Date:  31.01.2013 03:39:09
+Unknown error type:odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecute   |  Date:  31.01.2013 03:39:33
+Unknown error type:require(makefont/makefont.php): failed to open stream: No such file or directory   |  Date:  31.01.2013 06:30:12
+Unknown error type:file(C:\xampp\htdocs\ast\include\fpdf17\makefont/aller.map): failed to open stream: No such file or directory   |  Date:  31.01.2013 06:31:16
+Unknown error type:in_array() expects parameter 2 to be array, null given   |  Date:  31.01.2013 06:36:29

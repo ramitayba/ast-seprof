@@ -11,9 +11,13 @@ require('include/fpdf17/fpdf.php');
 
 class BuilderPDF extends FPDF {
 
+    public function __construct() {
+        AddFont('Aller', 'B', 'aller.php');
+    }
+
     function Header() {
         global $title;
-        $this->SetFont('Arial', 'B', 18);
+        $this->SetFont('Aller', 'Bold', 14);
         $this->Cell(0, 9, $title, 1, 1, 'C');
         $this->ln(20);
     }
@@ -33,7 +37,7 @@ class BuilderPDF extends FPDF {
      * @return type 
      */
     function LoadData($source) {
-        //TODO
+//TODO
         return $data;
     }
 
@@ -43,11 +47,11 @@ class BuilderPDF extends FPDF {
      * @param type $data 
      */
     function BuildTable($header, $data, $fields, $width) {
-        // Header
+// Header
         foreach ($header as $col)
             $this->Cell($width, 10, $col, 1, 0, 'C');
         $this->Ln();
-        // Data
+// Data
         foreach ($data as $row) {
             foreach ($fields as $col)
                 $this->Cell($width, 10, $row[$col], 1, 0, 'C');
@@ -56,7 +60,7 @@ class BuilderPDF extends FPDF {
     }
 
     function BuildTableMenuReport($header_category, $header_sub, $header_item, $data, $fields_category, $fields_item, $width) {
-        // Header
+// Header
         $countHeader = count($header_category);
         $counter = 0;
         while ($counter < $countHeader) {
