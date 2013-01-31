@@ -45,14 +45,15 @@ $(function () {
             return;
         }
         name=$(this).attr("id");
+        if(name=='')return;
         array=name.split("-");
         if(array.length>1){
             a=array[1];
             b=array[2];
         }
         else{
-            a='';
-            b='';
+            a=b='';
+            return;
         }
         oTable =  $('#'+a+'-table').dataTable();
         var nRow = $(this).parents('tr')[0];
@@ -82,12 +83,14 @@ $(function () {
     $('.add').live('click', function (e) {
         e.preventDefault();
         name=$(this).attr("id");
+        if(name=='')return;
         array=name.split("-");
         if(array.length>1){
             a=array[1];
         }
         else{
             a='';
+            return;
         }
         if($('#id').length==0)return;
         oTable =  $('#'+a+'-table').dataTable();
@@ -236,12 +239,14 @@ $(function () {
             return;
         }
         name=$(this).attr("id");
+        if(name=='')return;
         array=name.split("-");
         if(array.length>1){
             a=array[1];
         }
         else{
             a='';
+            return;
         }
         oTable =  $('#'+a+'-table').dataTable();
         var nRow = $(this).parents('tr')[0];
@@ -252,7 +257,15 @@ $(function () {
         var width=$('.widget-table').height();
         var height=$('.widget-table').width();
         name=$(this).attr("id");
+        if(name=='')return;
         array=name.split("-");
+        if(array.length>1){
+            a=array[1];
+        }
+        else{
+            a='';
+            return;
+        }
         a=array[1];
         $("#widget-content-"+a+"-table").html('<div align="center" style="width:'+width+';height:'+height+'"><img src="/ast/themes/img/loader.gif" alt="Loading...."/></div>');
         $.seprof(baseurl,{
@@ -318,6 +331,7 @@ $(function () {
     $('.permissions').live('click', function (e) {
         e.preventDefault();
         name=$(this).attr("id");
+        if(name=='')return;
         array=name.split("-");
         if(array.length>1){
             a=array[0];
@@ -326,6 +340,7 @@ $(function () {
         }
         else{
             a=b=c='';
+            return;
         }
         var width=$('.widget-table').height();
         var height=$('.widget-table').width();
@@ -395,6 +410,7 @@ $(function () {
     $('.pos').live('click', function (e) {
         e.preventDefault();
         name=$(this).attr("id");
+        if(name=='')return;
         array=name.split("-");
         if(array.length>1){
             a=array[0];
@@ -402,6 +418,7 @@ $(function () {
             b=array[2];
         }
         else{
+            return;
             a=b=c='';
         }
         $("#widget-content-"+c+"-table").append('<img src="/ast/themes/img/loader.gif" alt="Uploading...."/>');
@@ -418,14 +435,15 @@ $(function () {
     $('.edit').live('click', function (e) {
         e.preventDefault();
         name=$(this).attr("id");
+        if(name=='')return;
         array=name.split("-");
         if(array.length>1){
             a=array[1];
             b=array.length==4?array[3]:array[2];
         }
         else{
-            a='';
-            b='';
+            a= b='';
+            return;
         }
         $("#widget-content-"+a+"-table").append('<img src="/ast/themes/img/loader.gif" alt="Uploading...."/>');
         $.seprof(baseurl,{
@@ -446,14 +464,15 @@ $(function () {
     $('.approved').live('click', function (e) {
         e.preventDefault();
         name=$(this).attr("id");
+        if(name=='')return;
         array=name.split("-");
         if(array.length>1){
             a=array[1];
             b=array[2];
         }
         else{
-            a='';
-            b='';
+            a=b='';
+            return;
         }
         $.seprof(baseurl,{
             name:a,
@@ -476,14 +495,15 @@ $(function () {
     $('.rejected').live('click', function (e) {
         e.preventDefault();
         name=$(this).attr("id");
+        if(name=='')return;
         array=name.split("-");
         if(array.length>1){
             a=array[1];
             b=array[2];
         }
         else{
-            a='';
-            b='';
+            a=b='';
+            return;
         }
         $.seprof(baseurl,{
             name:a,
@@ -505,14 +525,15 @@ $(function () {
     } );
     $('.save').live('click', function (e) {
         name=$(this).attr("id");
+        if(name=='')return;
         array=name.split("-");
         if(array.length>1){
             a=array[1];
             b=array[2];
         }
         else{
-            a='';
-            b='';
+            a=b='';
+            return;
         }
         if(!validate(a,b))return;
     /* $('.'+a+'-form').trigger('submit');
@@ -548,8 +569,15 @@ $(function () {
     $('.cancel').live('click', function (e) {
         e.preventDefault();
         name=$(this).attr("id");
+        if(name=='')return;
         array=name.split("-");
-        a=array[1];
+        if(array.length>1){
+            a=array[1];
+        }
+        else{
+            a='';
+            return;
+        }
         $("#widget-"+a+"-form").append('<img src="/ast/themes/img/loader.gif" alt="Uploading...."/>');
         $.seprof(baseurl,{
             name:a,
