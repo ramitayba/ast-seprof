@@ -9,7 +9,7 @@
 ?>
 <script>
     $(function() {
-        $("#datepicker").datepicker({dateFormat: 'yy-mm-dd'+' ' +date_obj_time}); 
+        $("#datepicker").datepicker({dateFormat: 'mm-dd-yy'+' ' +date_obj_time}); 
     });
 </script>
 <?php
@@ -48,7 +48,7 @@ if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUES
                         <div class="control-group control-min-group">
                             <label class="control-label" for="event-date">Event Date</label>
                             <div class="controls">
-                                <input type="text" id="datepicker" name="event_date" value="<?php
+                                <input type="text" id="datepicker" name="event_date" class="" value="<?php
         if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['event_date'];
         endif;
         ?>"/>

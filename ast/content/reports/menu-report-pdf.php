@@ -9,7 +9,7 @@ if (isset($_SESSION['data_report'])):
     $fields_item = array('item_name', 'item_price');
     $pdf = new BuilderPDF();
     $title = 'Menu Reports';
-    $pdf->SetTitle($title);
+    //$pdf->SetTitle($title);
     $header_category = array('Category Name');
     $header_sub = array('Sub Category Name');
     $header_item = array('Item Name', 'Item Price');

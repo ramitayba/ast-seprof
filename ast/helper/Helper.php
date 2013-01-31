@@ -596,7 +596,7 @@ class Helper {
         return $container;
     }
 
-    public static function trigger_error($message,$type) {
+    public static function trigger_error($message, $type) {
         trigger_error($message, $type);
     }
 
