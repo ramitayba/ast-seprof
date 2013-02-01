@@ -73,7 +73,7 @@ class EventItemBusinessLayer {
             $this->_reset();
             $this->_SQLQuery = "{call GetEventItemByItemID(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_EventItemsDataTable = DataAccessManager::getInstance()->fillData(array($eventid,$itemid));
+            $this->_EventItemsDataTable = DataAccessManager::getInstance()->fillData(array($event_id,$itemid));
             $this->_Success = DataAccessManager::getInstance()->getSuccess();
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
