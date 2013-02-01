@@ -755,8 +755,8 @@ ul.dropdown-menu .sub-menu-caret {
     background:-o-linear-gradient(top, #006ecb 0%,#008bef 100%); /* Opera11.10+ */
     background:-ms-linear-gradient(top, #006ecb 0%,#008bef 100%); /* IE10+ */
     background:linear-gradient(top, #006ecb 0%,#008bef 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#006ecb', endColorstr='#008bef');
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#006ecb', endColorstr='#008bef')";		
+    /*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#006ecb', endColorstr='#008bef');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#006ecb', endColorstr='#008bef')";*/		
 
     border: 1px solid #008bef;
 
