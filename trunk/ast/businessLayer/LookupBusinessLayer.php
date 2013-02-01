@@ -65,7 +65,7 @@ class LookupBusinessLayer {
     public function getEmployeesWithActiveUser($userid,$status) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call getEmployeesWithActiveUser(?,?)}";
+            $this->_SQLQuery = "{call GetEmployeesWithActiveUser(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_EmployeesDataTable = DataAccessManager::getInstance()->fillData(array($userid,$status));
             $this->_Success = DataAccessManager::getInstance()->getSuccess();
