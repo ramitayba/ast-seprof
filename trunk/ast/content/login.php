@@ -13,7 +13,7 @@
 
         <div class="content clearfix">
 
-            <form id="login-form" action="./login" method="post" class="login_form  form-horizontal">
+            <form id="login-form" action="" method="post" class="login_form  form-horizontal">
                 <h1>Sign In</h1>
 
                 <div class="login-fields">
