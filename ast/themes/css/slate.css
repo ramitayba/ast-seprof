@@ -1254,7 +1254,7 @@ label.error {
 
     border-radius: 0;
 }
-.widget-table .sub-categories .header-table,.widget-table .sub-categories .items .header-table,.widget-table .categories .items .header-table{position:relative;left:0;}
+.widget-table .sub-categories .header-table,.widget-table .sub-categories .items .header-table,.widget-table .categories .items .header-table{position:relative;left:0;width:3%;}
 .widget-table .header-table {
     position: absolute;
     alignment-baseline: central;
