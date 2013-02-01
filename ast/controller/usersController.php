@@ -18,7 +18,7 @@ elseif ($action == 'login'):
     if (Helper::is_empty_string($user_name) || Helper::is_empty_string($password)):
         return;
     endif;
-    $userRow = $userBusinessLayer->login(Helper::mssql_escape($user_name), Helper::mssql_escape($password), ACTIVE);
+    $userRow = $userBusinessLayer->login(Helper::mssql_escape($user_name), md5(Helper::mssql_escape($password)), ACTIVE);
     if ($userBusinessLayer->getSuccess()):
         $_SESSION['user_pos'] = $userRow[0]['user_id'];
         $_SESSION['user_pos_role'] = $userRow[0]['role_id'];
@@ -104,7 +104,7 @@ elseif ($action == 'save'):
             print Helper::json_encode_array(array('status' => 'error', 'message' => 'User name already exist'));
             return;
         endif;
-        $success = $userBusinessLayer->addUser($name, $password, $pin, $role, $employee, $status);
+        $success = $userBusinessLayer->addUser($name,  md5($password), $pin, $role, $employee, $status);
     else:
         if (!is_numeric($query_id)):
             print Helper::json_encode_array(array('status' => 'error', 'message' => 'User doesn t  exist'));
@@ -121,7 +121,7 @@ elseif ($action == 'save'):
                 return;
             endif;
         endif;
-        $success = $userBusinessLayer->editUser($query_id, $name, $password, $pin, $role, $employee, $status);
+        $success = $userBusinessLayer->editUser($query_id, $name, md5($password), $pin, $role, $employee, $status);
     endif;
     if ($success):
         $userDataTable = $userBusinessLayer->getUsers(DELETED);

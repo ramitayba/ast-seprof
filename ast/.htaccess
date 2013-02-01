@@ -8,8 +8,8 @@
 # Set the default handler.
   DirectoryIndex master.php master.html master.htm
 # Make Seprof handle any 404 errors.
-  ErrorDocument 404 /ast/404
-  php_value include_path ".;/ast/include"
+  #ErrorDocument 404 /404
+  #php_value include_path ".;/include"
 
 # PHP 5, Apache 1 and 2.
 <IfModule mod_php5.c>
