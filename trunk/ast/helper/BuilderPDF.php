@@ -24,7 +24,7 @@ class BuilderPDF extends FPDF {
         $this->Image(POS_ROOT . '/default/files/images/header-report.png', '', '', '250', '30');
         //$this->SetFont('Arial', '', 14);
         $this->ln(13);
-        $this->Cell(315, 9, $title . ' Date:' . date("d-m-Y"), 0, 0, 'C');
+        $this->Cell(300, 9, $title . ' Date:' . date("d-m-Y"), 0, 0, 'C');
         $this->ln(20);
     }
 
