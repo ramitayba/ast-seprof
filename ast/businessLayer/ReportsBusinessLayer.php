@@ -42,7 +42,7 @@ class ReportsBusinessLayer {
     public function getMiniReportsByUser($user_id, $from_date, $to_date) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call getMiniReportsByUser(?,?,?)}";
+            $this->_SQLQuery = "{call GetMiniReportsByUser(?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_ReportsDataTable = DataAccessManager::getInstance()->fillData(array($user_id, $from_date, $to_date));
             if (Helper::is_empty_array($this->_ReportsDataTable)) {
@@ -61,7 +61,7 @@ class ReportsBusinessLayer {
     public function getCafeteriaBalanceByID($cafeteria_id, $from_date, $to_date, $status) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call getCafeteriaBalanceByID(?,?,?,?)}";
+            $this->_SQLQuery = "{call GetCafeteriaBalanceByID(?,?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_ReportsDataTable = DataAccessManager::getInstance()->fillData(array($cafeteria_id, $from_date, $to_date, $status));
             if (Helper::is_empty_array($this->_ReportsDataTable)) {
@@ -80,7 +80,7 @@ class ReportsBusinessLayer {
     public function getUsersPurchases($from_date, $to_date) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call getUsersPurchases(?,?)}";
+            $this->_SQLQuery = "{call GetUsersPurchases(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_ReportsDataTable = DataAccessManager::getInstance()->fillData(array($from_date, $to_date));
             if (Helper::is_empty_array($this->_ReportsDataTable)) {
@@ -99,7 +99,7 @@ class ReportsBusinessLayer {
     public function getPurchasedInventory($from_date, $to_date) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call getPurchasedInventory(?,?)}";
+            $this->_SQLQuery = "{call GetPurchasedInventory(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_ReportsDataTable = DataAccessManager::getInstance()->fillData(array($from_date, $to_date));
             if (Helper::is_empty_array($this->_ReportsDataTable)) {
@@ -118,7 +118,7 @@ class ReportsBusinessLayer {
     public function getEventListing($from_date, $to_date) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call getEventListing(?,?)}";
+            $this->_SQLQuery = "{call GetEventListing(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_ReportsDataTable = DataAccessManager::getInstance()->fillData(array($from_date, $to_date));
             if (Helper::is_empty_array($this->_ReportsDataTable)) {
@@ -137,7 +137,7 @@ class ReportsBusinessLayer {
     public function getEventDetailed($event_id) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call getEventDetailed(?,?)}";
+            $this->_SQLQuery = "{call GetEventDetailed(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_ReportsDataTable = DataAccessManager::getInstance()->fillData(array($event_id));
             if (Helper::is_empty_array($this->_ReportsDataTable)) {
@@ -156,7 +156,7 @@ class ReportsBusinessLayer {
     public function getMenuReports($status) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call getMenuReports(?)}";
+            $this->_SQLQuery = "{call GetMenuReports(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_ReportsDataTable = DataAccessManager::getInstance()->fillData(array($status));
             if (Helper::is_empty_array($this->_ReportsDataTable)) {

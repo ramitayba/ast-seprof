@@ -99,9 +99,10 @@ $(function () {
             return;
         }
         if($('#number').val()==''||$('#id option:selected').val()=='')return;
-        nRow=oTable.fnAddData([$('#id option:selected').val(),$('#id option:selected').text(),$('#number').val(),'<span><a class="delete-table " id="delete-'+a+'" href="" title="Delete"></a></span>']);
+        nRow=oTable.fnAddData([$('#id option:selected').val(),$('#id option:selected').text(),$('#number').val(),'<span class="content-link"><a class="delete-table " id="delete-'+a+'" href="" title="Delete"></a></span>']);
         var nTds = $('td', nRow);
         $(nTds[1]).addClass('tdedit');
+        $(nTds[2]).addClass('controls');
         oTable.fnDraw();
         //$(nRow[2]).attr('td').addClass('tdedit');
         $('#id').val('');
@@ -117,6 +118,7 @@ $(function () {
         else{
             a='';
         }
+
         oTable =  $('#'+a+'-table').dataTable();
         if(nRow!=null){
             oTable.fnUpdate([row_id,$('#id option:selected').text(),$('#number').val(),'<span><a class="delete-table btn" id="delete-'+a+'" href="">Delete</a></span>'],nRow);
@@ -483,12 +485,10 @@ $(function () {
             {
                 error('','',k.message,a)  
             }
-            else if(k.status=='success')
+            else 
             {
                 $('.messages').remove();
-                $( '.widget').before(k.message)  ;
-                row=  $(this).parents('td')[0];
-                row.remove();
+                replaceTable(k,a);
             }
         },function(httpReq, status, exception,a){
             error(httpReq, status, exception,a)
@@ -516,10 +516,10 @@ $(function () {
             {
                 error('','',k.message,a)  
             }
-            else if(k.status=='success')
+            else 
             {
-                $('.messages').remove();
-                $( '.widget').before(k.message)  ;
+               $('.messages').remove();
+                replaceTable(k,a);
             }
         },function(httpReq, status, exception,a){
             error(httpReq, status, exception,a)
@@ -629,7 +629,7 @@ function replaceTable(b,a)
 {
     $(".messages").remove();
     if(b !=null){
-        $('.widget-table').replaceWith(b);
+        $('#widget-table').replaceWith(b);
     }
 }
 function showReports(k)

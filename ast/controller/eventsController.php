@@ -33,7 +33,7 @@ if ($action == 'index' || $action == 'events'):
     endif;
 elseif ($action == 'add'):
     $content = Helper::fill_datatable('items', 'items', array(), array(), array('Item ID', 'Item Name', 'Item Quantity'), array('item_id', 'item_name', 'item_quantity'), 'event_id', array(0 => array('name' => 'Delete', 'link' => 'delete-table', 'class' => 'delete')), true, 0
-            , 'items', 'item_quantity', '', '', 'rt');
+                    , 'items', 'item_quantity', '', '', 'rt');
     if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
             strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') :
         include_once POS_ROOT . '/content/events/add.php';
@@ -53,7 +53,7 @@ elseif ($action == 'edit'):
             , 'employee_id' => $eventDataTable [0]['employee_id']);
         $eventItemBusinessLayer = new EventItemBusinessLayer();
         $eventItemDataTable = $eventItemBusinessLayer->getEventItemsByEventID($eventDataTable [0]['event_id']);
-        $content = Helper::fill_datatable('items', 'items', array(), $eventItemDataTable, array('Item ID', 'Item Name', 'Item Quantity'), array('item_id', 'item_name', 'item_quantity'), 'event_id', array(0 => array('name' => 'Delete', 'link' => 'delete-table', 'class' => 'delete')), true, 0, 'items', 'item_quantity',  '', '', 'rt');
+        $content = Helper::fill_datatable('items', 'items', array(), $eventItemDataTable, array('Item ID', 'Item Name', 'Item Quantity'), array('item_id', 'item_name', 'item_quantity'), 'event_id', array(0 => array('name' => 'Delete', 'link' => 'delete-table', 'class' => 'delete')), true, 0, 'items', 'item_quantity', '', '', 'rt');
         include_once POS_ROOT . '/content/events/add.php';
     else:
         print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Events not exist', 'error')));
@@ -64,10 +64,12 @@ elseif ($action == 'save'):
     $event_invitees_nb = isset($data['event_invitees_nb']) ? $data['event_invitees_nb'] : '';
     $department_id = isset($data['department']) ? $data['department'] : '';
     $employee_id = isset($data['employee']) ? $data['employee'] : '';
-    $xml = new SimpleXMLElement('<items_event></items_event>');
-    $datatable = !Helper::is_empty_array($datatable) ? $datatable : array();
-    Helper::array_to_xml($datatable, $xml);
-    $xml = $xml->asXML();
+    $xml = '';
+    if (!Helper::is_empty_array($datatable)):
+        $xml = new SimpleXMLElement('<items_event></items_event>');
+        Helper::array_to_xml($datatable, $xml);
+        $xml = $xml->asXML();
+    endif;
     $array = array('Event Name' => array('content' => $name, 'type' => 'string', 'length' => '50'),
         'Event Date' => array('content' => $event_date, 'type' => 'date', 'length' => '17'),
         'Invitess Number' => array('content' => $event_invitees_nb, 'type' => 'decimal'), 'Department' => array('content' => $department_id, 'type' => 'int'),
@@ -145,7 +147,7 @@ elseif ($action == 'save'):
         endif;
         print $container;
     else:
-        print Helper::json_encode_array(array('status' => 'error', 'message' => 'Event not saved '));
+        print Helper::json_encode_array(array('status' => 'error', 'message' => 'Event not saved'));
     endif;
 elseif ($action == 'approved' || 'rejected'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
@@ -158,14 +160,14 @@ elseif ($action == 'approved' || 'rejected'):
         $success = $eventBusinessLayer->updateStatusEvent($query_id, $status, $_SESSION['user_pos']);
         if ($success):
             $container = Helper::set_message('Event ' . $eventDataTable [0]['event_name'] . ' ' . $action . ' succesfuly', 'status');
-             $eventDataTable = $eventBusinessLayer->getEvents();
+            $eventDataTable = $eventBusinessLayer->getEvents();
             if ($eventBusinessLayer->getSuccess()):
                 $content = Helper::fill_datatable_event('events', 'events', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $eventDataTable, array('Event Name', 'Event Date', 'Event invitees Number', 'Department Name', 'Employee Name', 'Status'), array('event_name', 'event_date', 'event_invitees_nb', 'department_name', 'employee_name', 'status_name'), 'event_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
                             1 => array('name' => 'Approved', 'link' => 'approved-', 'class' => 'approved'),
                             2 => array('name' => 'Rejected', 'link' => 'rejected-', 'class' => 'rejected')));
             endif;
             $container .= $content;
-             print $container;
+            print $container;
         else:
             print Helper::json_encode_array(array('status' => 'error', 'message' => 'Event not saved '));
         endif;
