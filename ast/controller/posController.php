@@ -108,7 +108,7 @@ elseif ($action == 'delete'):
      if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
         $posDataTable = $posBusinessLayer->getPosById($query_id, DELETED);
         if (count($posDataTable) == 0):
-            print Helper::json_encode_array(array('status' => 'error', 'message' => 'POS doesn t  exist '));
+            print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Cafeteria not exist', 'error')));
             return;
         endif;
         $success = $posBusinessLayer->deletePos($query_id, DELETED, $_SESSION['user_pos']);

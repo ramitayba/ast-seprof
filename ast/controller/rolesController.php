@@ -95,7 +95,7 @@ elseif ($action == 'delete'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
         $roleDataTable = $roleBusinessLayer->getRoleByID($query_id, DELETED);
         if (count($roleDataTable) == 0):
-            print Helper::json_encode_array(array('status' => 'error', 'message' => 'Role doesn t  exist '));
+            print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Cafeteria not exist', 'error')));
             return;
         endif;
         $success = $roleBusinessLayer->deleteRole($query_id, DELETED, $_SESSION['user_pos']);

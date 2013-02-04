@@ -102,7 +102,7 @@ elseif ($action == 'delete'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
         $itemDataTable = $itemBusinessLayer->getItemById($query_id, DELETED);
         if (count($itemDataTable) == 0):
-            print Helper::json_encode_array(array('status' => 'error', 'message' => 'Item doesn t  exist '));
+            print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Cafeteria not exist', 'error')));
             return;
         endif;
         $success = $itemBusinessLayer->deleteItem($query_id, DELETED, $_SESSION['user_pos']);

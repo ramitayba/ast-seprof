@@ -100,7 +100,7 @@ elseif ($action == 'delete'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
         $categoryDataTable = $categoryBusinessLayer->getCategoryByID($query_id, DELETED);
         if (count($categoryDataTable) == 0):
-            print json_encode(array('status' => 'error', 'message' => 'Category doesn t  exist '));
+            print json_encode(array('status' => 'error', 'message' => Helper::set_message('Cafeteria not exist', 'error')));
             return;
         endif;
         $success = $categoryBusinessLayer->deleteCategory($query_id, DELETED, $_SESSION['user_pos']);
