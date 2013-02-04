@@ -1,5 +1,6 @@
 var dataRow, nRow,oTable, baseurl="/ast/process.php",date_obj_time,sImageUrl="/ast/themes/img/",anOpenCategories = [],anOpenSubCategories = [],requiredUsername=true,requiredPassword=true,requiredPincode=true,resetForm;
 $(function () {
+
     jQuery.extend({
         seprof: function(url,data,callback,errorCallback,type) {
             if(jQuery.isFunction(data)) {

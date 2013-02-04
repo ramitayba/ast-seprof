@@ -26,7 +26,7 @@ function error_handler($errno, $errstr, $errfile, $errline) {
                 $message = '<b>My NOTICE</b> ' . $errno . $errstr;
                 break;
             default:
-                $message = 'Unknown error type:' . $errstr;
+                //$message = 'Unknown error type:' . $errstr;
                 break;
         }
         $date = date('d.m.Y h:i:s');
@@ -40,5 +40,5 @@ function error_handler($errno, $errstr, $errfile, $errline) {
         return false;
     }
     
-    //set_error_handler("error_handler");
+    set_error_handler("error_handler");
 ?>
