@@ -138,7 +138,7 @@ elseif ($action == 'delete'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
         $userDataTable = $userBusinessLayer->getUserByID($query_id, DELETED);
         if (count($userDataTable) == 0):
-            print Helper::json_encode_array(array('status' => 'error', 'message' => 'User  doesn t  exist '));
+            print Helper::json_encode_array(array('status' => 'error','message' => Helper::set_message('Cafeteria not exist', 'error')));
             return;
         endif;
         $success = $userBusinessLayer->deleteUser($query_id, DELETED);
