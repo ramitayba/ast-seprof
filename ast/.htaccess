@@ -59,11 +59,11 @@
   # directories from your webroot or otherwise protect them from being
   # downloaded.
   RewriteRule "(^|/)\." - [F]
-  RewriteRule ^(.*)/$ /ast/master.php?contentpage=$1/index [L]
+  RewriteRule ^(.*)/$ master.php?contentpage=$1/index [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_URI} !=/favicon.ico
-  RewriteRule ^(.*)$ /ast/master.php?contentpage=$1&%{QUERY_STRING} [L]
+  RewriteRule ^(.*)$ master.php?contentpage=$1&%{QUERY_STRING} [L]
 
 
 
