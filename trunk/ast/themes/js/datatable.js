@@ -1,4 +1,4 @@
-var dataRow, nRow,oTable, baseurl="/ast/process.php",date_obj_time,sImageUrl="/ast/themes/img/",anOpenCategories = [],anOpenSubCategories = [],requiredUsername=true,requiredPassword=true,requiredPincode=true,resetForm;
+var dataRow, nRow,oTable, baseurl="./process.php",date_obj_time,sImageUrl="./themes/img/",anOpenCategories = [],anOpenSubCategories = [],requiredUsername=true,requiredPassword=true,requiredPincode=true,resetForm;
 $(function () {
 
     jQuery.extend({
@@ -270,7 +270,7 @@ $(function () {
             return;
         }
         a=array[1];
-        $("#widget-content-"+a+"-table").html('<div align="center" style="width:'+width+';height:'+height+'"><img src="/ast/themes/img/loader.gif" alt="Loading...."/></div>');
+        $("#widget-content-"+a+"-table").html('<div align="center" style="width:'+width+';height:'+height+'"><img src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
         $.seprof(baseurl,{
             name:a,
             action:'add',
@@ -347,7 +347,7 @@ $(function () {
         }
         var width=$('.widget-table').height();
         var height=$('.widget-table').width();
-        $("#widget-content-"+c+"-table").html('<div align="center" style="width:'+width+';height:'+height+'"><img src="/ast/themes/img/loader.gif" alt="Loading...."/></div>');
+        $("#widget-content-"+c+"-table").html('<div align="center" style="width:'+width+';height:'+height+'"><img src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
         $.seprof(baseurl,{
             name:a,
             action:'add',
@@ -366,7 +366,7 @@ $(function () {
         if($('#filter_select').length!=0){
             data+="&select="+$('#filter_select option:selected').text();
         }
-        $("#widget-content").html('<div align="center" style="width:'+width+';height:'+height+'"><img src="/ast/themes/img/loader.gif" alt="Loading...."/></div>');
+        $("#widget-content").html('<div align="center" style="width:'+width+';height:'+height+'"><img src="'+sImageUrl+'"loader.gif" alt="Loading...."/></div>');
         if(!validateReport(name,'show',data))return;
     } );
     
@@ -375,7 +375,7 @@ $(function () {
         name=$(this).attr("id");
         var width=$('.widget-content').height();
         var height=$('.widget-content').width();
-        $("#widget-content").html('<div align="center" style="width:'+width+';height:'+height+'"><img src="/ast/themes/img/loader.gif" alt="Loading...."/></div>');
+        $("#widget-content").html('<div align="center" style="width:'+width+';height:'+height+'"><img src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
         $.seprof(baseurl,{
             name:'reports',
             action:name,
@@ -399,7 +399,7 @@ $(function () {
             b='';
         }
         c='events';
-        $("#widget-content-"+c+"-table").append('<img src="/ast/themes/img/loader.gif" alt="Uploading...."/>');
+        $("#widget-content-"+c+"-table").append('<img src="'+sImageUrl+'"loader.gif" alt="Uploading...."/>');
         $.seprof(baseurl,{
             name:'eventItems',
             action:'index',
@@ -424,7 +424,7 @@ $(function () {
             return;
             a=b=c='';
         }
-        $("#widget-content-"+c+"-table").append('<img src="/ast/themes/img/loader.gif" alt="Uploading...."/>');
+        $("#widget-content-"+c+"-table").append('<img src="'+sImageUrl+'loader.gif" alt="Uploading...."/>');
         $.seprof(baseurl,{
             name:a,
             action:c,
@@ -448,7 +448,7 @@ $(function () {
             a= b='';
             return;
         }
-        $("#widget-content-"+a+"-table").append('<img src="/ast/themes/img/loader.gif" alt="Uploading...."/>');
+        $("#widget-content-"+a+"-table").append('<img src="'+sImageUrl+'loader.gif" alt="Uploading...."/>');
         $.seprof(baseurl,{
             name:a,
             action:'edit',
@@ -546,7 +546,7 @@ $(function () {
         });
         datatable=getData(oTable,a,'id');
         var data =$('.'+a+'-form').serialize();
-        $("#widget-content-"+a+"-table").append('<img src="/ast/themes/img/loader.gif" alt="Loading...."/>');
+        $("#widget-content-"+a+"-table").append('<img src="+sImageUrl+"loader.gif" alt="Loading...."/>');
         $.seprof(baseurl,{
             name:a,
             action:'save',
@@ -581,7 +581,7 @@ $(function () {
             a='';
             return;
         }
-        $("#widget-"+a+"-form").append('<img src="/ast/themes/img/loader.gif" alt="Uploading...."/>');
+        $("#widget-"+a+"-form").append('<img src="'+sImageUrl+'loader.gif" alt="Uploading...."/>');
         $.seprof(baseurl,{
             name:a,
             action:'index',
@@ -1045,7 +1045,7 @@ function ajaxSubhmit(a,b)
     });
     datatable=getData(oTable,a,'id');
     var data =$('.'+a+'-form').serialize();
-    $("#widget-content-"+a+"-table").append('<img src="/ast/themes/img/loader.gif" alt="Loading...."/>');
+    $("#widget-content-"+a+"-table").append('<img src="'+sImageUrl+'loader.gif" alt="Loading...."/>');
     $.seprof(baseurl,{
         name:a,
         action:'save',
