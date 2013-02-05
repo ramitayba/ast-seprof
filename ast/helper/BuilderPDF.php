@@ -30,6 +30,7 @@ class BuilderPDF extends FPDF {
         $this->SetTextColor(000);
         $this->Cell(300, 15, $title . ' Date:' . date("d-m-Y"), 0, 0, 'C');
         $this->ln(20);
+        
     }
 
     function Footer() {
@@ -59,6 +60,7 @@ class BuilderPDF extends FPDF {
      */
     function BuildTable($header, $data, $fields, $width) {
 // Header
+            $this->SetFont('Arial', '', 10);
         foreach ($header as $col)
             $this->Cell($width, 10, $col, 1, 0, 'C');
         $this->Ln();

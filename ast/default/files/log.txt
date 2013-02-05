@@ -197,3 +197,18 @@ Unknown error type:8192 Function ereg_replace() is deprecated   |  Date:  04.02.
 <b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecute   |  Date:  05.02.2013 03:14:37
 <b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  05.02.2013 03:14:37
 <b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  05.02.2013 03:15:09
+<b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  05.02.2013 03:16:48
+<b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  05.02.2013 03:17:41
+<b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  05.02.2013 03:23:52
+<b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  05.02.2013 03:24:31
+<b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  05.02.2013 03:25:14
+<b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  05.02.2013 03:26:08
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  05.02.2013 03:26:17
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  05.02.2013 03:26:17
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  05.02.2013 03:27:31
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  05.02.2013 03:27:31
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver][SQL Server]The conversion of a nvarchar data type to a datetime data type resulted in an out-of-range value., SQL state 22008 in SQLExecute   |  Date:  05.02.2013 03:27:32
+<b>NOTICE</b> 8 Undefined index: category_id   |  Date:  05.02.2013 03:28:20
+<b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  05.02.2013 03:28:57
+<b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  05.02.2013 03:29:16
+<b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  05.02.2013 03:32:19
