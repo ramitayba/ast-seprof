@@ -103,12 +103,11 @@ if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUES
                                     <label class="control-label" for="number">Item Quantity</label>
                                     <div class="controls">
                                         <input type="text" class="input-large" maxlength="9" name="number" id="number" onkeypress="return isNumberKey(event)">
+                                     <a class="add " id="add-items" href="" title="Add New Record"></a>
                                     </div>
-                                </div>
-                                <div class="control-group control-min-group">
-                                    <div >
-                                        <a class="add " id="add-items" href="" title="Add New Record"></a>
-                                    </div>
+                                 
+                                       
+                                   
                                 </div>
 
                                 <div class="control-group">

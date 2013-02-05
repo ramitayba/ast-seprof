@@ -58,7 +58,7 @@ endif;
                     <label class="control-label">Color Code</label>
                     <div class="controls">
                         <input type="text" class="input-large" name="color_code" id="color"
-                               maxlength="9"    value="<?php
+                               maxlength="7"    value="<?php
                         if (isset($forms) &&  array_key_exists('color_code', $forms)):print '#' . $forms['color_code'];
                         else:print DEFAULT_COLOR;
                         endif;

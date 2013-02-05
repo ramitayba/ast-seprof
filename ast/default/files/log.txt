@@ -1,0 +1,183 @@
+<b>NOTICE</b> 8Undefined index: item   |  Date:  04.02.2013 09:10:18
+<b>NOTICE</b> 8 Undefined index: item   |  Date:  04.02.2013 09:14:13
+<b>NOTICE</b> 8 Undefined index: employee_name   |  Date:  04.02.2013 09:37:30
+<b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  04.02.2013 09:37:31
+<b>NOTICE</b> 8 Undefined index: employee_name   |  Date:  04.02.2013 09:37:31
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver][SQL Server]There is insufficient system memory in resource pool 'internal' to run this query., SQL state 37000 in SQLDescribeParameter   |  Date:  04.02.2013 09:58:39
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver][SQL Server]There is insufficient system memory in resource pool 'internal' to run this query., SQL state 37000 in SQLDescribeParameter   |  Date:  04.02.2013 09:58:39
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver][SQL Server]There is insufficient system memory in resource pool 'internal' to run this query., SQL state 37000 in SQLDescribeParameter   |  Date:  04.02.2013 09:58:40
+<b>NOTICE</b> 8 Undefined index: employee_name   |  Date:  04.02.2013 09:59:23
+<b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  04.02.2013 09:59:23
+<b>NOTICE</b> 8 Undefined index: employee_name   |  Date:  04.02.2013 09:59:23
+<b>NOTICE</b> 8 Array to string conversion   |  Date:  04.02.2013 10:02:56
+<b>NOTICE</b> 8 Array to string conversion   |  Date:  04.02.2013 10:03:27
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver][SQL Server]XML parsing: line 2, character 15, illegal qualified name character, SQL state 37000 in SQLExecute   |  Date:  04.02.2013 10:11:51
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver][SQL Server]XML parsing: line 2, character 15, illegal qualified name character, SQL state 37000 in SQLExecute   |  Date:  04.02.2013 10:12:12
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver][SQL Server]Cannot insert the value NULL into column 'item_id', table 'pos_back.dbo.event_item'; column does not allow nulls. INSERT fails., SQL state 23000 in SQLExecute   |  Date:  04.02.2013 10:14:25
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 10:16:55
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 10:16:55
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 10:17:36
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 10:17:36
+<b>WARNING</b> 2 include(array2xml.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 10:19:04
+<b>WARNING</b> 2 include(): Failed opening 'array2xml.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 10:19:04
+<b>WARNING</b> 2 include(class.array2xml.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 10:19:49
+<b>WARNING</b> 2 include(): Failed opening 'class.array2xml.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 10:19:49
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 10:25:29
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 10:25:29
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 10:28:13
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 10:28:13
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 10:28:15
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 10:28:15
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 10:28:16
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 10:28:17
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 10:28:20
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 10:28:20
+Unknown error type:8192 Function ereg_replace() is deprecated   |  Date:  04.02.2013 10:28:20
+Unknown error type:8192 Function ereg_replace() is deprecated   |  Date:  04.02.2013 10:28:20
+Unknown error type:8192 Function ereg_replace() is deprecated   |  Date:  04.02.2013 10:28:20
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 10:28:47
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 10:28:47
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 10:28:50
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 10:28:50
+Unknown error type:8192 Function ereg_replace() is deprecated   |  Date:  04.02.2013 10:28:50
+Unknown error type:8192 Function ereg_replace() is deprecated   |  Date:  04.02.2013 10:28:50
+Unknown error type:8192 Function ereg_replace() is deprecated   |  Date:  04.02.2013 10:28:50
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 10:30:04
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 10:30:04
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 10:30:14
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 10:30:14
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 10:30:18
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 10:30:18
+Unknown error type:8192 Function ereg_replace() is deprecated   |  Date:  04.02.2013 10:30:18
+Unknown error type:8192 Function ereg_replace() is deprecated   |  Date:  04.02.2013 10:30:18
+Unknown error type:8192 Function ereg_replace() is deprecated   |  Date:  04.02.2013 10:30:18
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 10:31:14
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 10:31:14
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 10:31:16
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 10:31:16
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver][SQL Server]XML parsing: line 1, character 2, illegal qualified name character, SQL state 37000 in SQLExecute   |  Date:  04.02.2013 10:31:16
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 10:44:10
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 10:44:10
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 10:44:12
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 10:44:12
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 10:44:22
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 10:44:22
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 10:44:39
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 10:44:39
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 10:44:41
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 10:44:41
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 10:44:43
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 10:44:43
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 10:44:53
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 10:44:53
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 10:45:20
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 10:45:20
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 10:45:22
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 10:45:22
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 10:45:24
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 10:45:24
+<b>WARNING</b> 2 Missing argument 2 for Helper::array_to_xml(), called in C:\xampp\htdocs\ast\controller\eventsController.php on line 72 and defined   |  Date:  04.02.2013 10:45:24
+<b>NOTICE</b> 8 Undefined variable: xml   |  Date:  04.02.2013 10:45:24
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 10:46:07
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 10:46:07
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 10:46:11
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 10:46:11
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 10:46:14
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 10:46:14
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:00:31
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:00:31
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:00:36
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:00:36
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:00:39
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:00:39
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:01:28
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:01:28
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:01:45
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:01:45
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:01:49
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:01:49
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:05:41
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:05:41
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:05:47
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:05:47
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:05:50
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:05:50
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:07:42
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:07:42
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:07:47
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:07:47
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:07:50
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:07:50
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:08:30
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:08:30
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:08:35
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:08:35
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:08:36
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:08:36
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver][SQL Server]Cannot insert the value NULL into column 'item_id', table 'pos_back.dbo.event_item'; column does not allow nulls. INSERT fails., SQL state 23000 in SQLExecute   |  Date:  04.02.2013 11:08:37
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:09:11
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:09:11
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:09:34
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:09:34
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:09:36
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:09:36
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:09:39
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:09:39
+<b>WARNING</b> 2 SimpleXMLElement::__construct(): Entity: line 1: parser error : XML declaration allowed only at the start of the document   |  Date:  04.02.2013 11:09:39
+<b>WARNING</b> 2 SimpleXMLElement::__construct(): &lt;?xml?&gt;   |  Date:  04.02.2013 11:09:39
+<b>WARNING</b> 2 SimpleXMLElement::__construct():      ^   |  Date:  04.02.2013 11:09:39
+<b>WARNING</b> 2 SimpleXMLElement::__construct(): Entity: line 1: parser error : Start tag expected, '&lt;' not found   |  Date:  04.02.2013 11:09:39
+<b>WARNING</b> 2 SimpleXMLElement::__construct(): &lt;?xml?&gt;   |  Date:  04.02.2013 11:09:39
+<b>WARNING</b> 2 SimpleXMLElement::__construct():        ^   |  Date:  04.02.2013 11:09:39
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:10:06
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:10:06
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:10:08
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:10:08
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:10:10
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:10:10
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:11:28
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:11:28
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:12:16
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:12:16
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:13:52
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:13:52
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:13:55
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:13:55
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:13:58
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:13:58
+<b>WARNING</b> 2 SimpleXMLElement::__construct(): Entity: line 1: parser error : StartTag: invalid element name   |  Date:  04.02.2013 11:13:58
+<b>WARNING</b> 2 SimpleXMLElement::__construct(): &lt;/root&gt;   |  Date:  04.02.2013 11:13:58
+<b>WARNING</b> 2 SimpleXMLElement::__construct():  ^   |  Date:  04.02.2013 11:13:58
+<b>WARNING</b> 2 SimpleXMLElement::__construct(): Entity: line 1: parser error : Extra content at the end of the document   |  Date:  04.02.2013 11:13:58
+<b>WARNING</b> 2 SimpleXMLElement::__construct(): &lt;/root&gt;   |  Date:  04.02.2013 11:13:58
+<b>WARNING</b> 2 SimpleXMLElement::__construct():  ^   |  Date:  04.02.2013 11:13:58
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:14:12
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:14:12
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:14:16
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:14:16
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:14:19
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:14:19
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:14:38
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:14:38
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:15:23
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:15:23
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:15:27
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:15:27
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:15:50
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:15:50
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:22:51
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:22:51
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:23:12
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:23:12
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver][SQL Server]Cannot insert the value NULL into column 'event_item_id', table 'pos_back.dbo.event_item_history'; column does not allow nulls. INSERT fails., SQL state 23000 in SQLExecute   |  Date:  04.02.2013 11:23:12
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:23:57
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:23:57
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver][SQL Server]Cannot insert the value NULL into column 'event_item_id', table 'pos_back.dbo.event_item_history'; column does not allow nulls. INSERT fails., SQL state 23000 in SQLExecute   |  Date:  04.02.2013 11:23:58
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:24:39
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:24:39
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver][SQL Server]Cannot insert the value NULL into column 'event_item_id', table 'pos_back.dbo.event_item_history'; column does not allow nulls. INSERT fails., SQL state 23000 in SQLExecute   |  Date:  04.02.2013 11:24:39
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:25:44
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:25:44
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver][SQL Server]Cannot insert the value NULL into column 'event_item_id', table 'pos_back.dbo.event_item_history'; column does not allow nulls. INSERT fails., SQL state 23000 in SQLExecute   |  Date:  04.02.2013 11:25:44
+<b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:26:57
+<b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:26:57

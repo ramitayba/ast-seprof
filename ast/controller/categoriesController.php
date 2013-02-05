@@ -52,7 +52,7 @@ elseif ($action == 'save'):
     $color = isset($data['color_code']) ? $data['color_code'] : '';
     $description = isset($data['category_description']) ? $data['category_description'] : '';
     $status = isset($data['status']) ? $data['status'] : '';
-    $array = array('Category Name' => array('content' => $name, 'type' => 'string', 'length' => '100'), 'Category Color Code' => array('content' => $color, 'type' => 'string', 'length' => '6'),
+    $array = array('Category Name' => array('content' => $name, 'type' => 'string', 'length' => '100'), 'Category Color Code' => array('content' => $color, 'type' => 'string', 'length' => '7'),
         'Status' => array('content' => $status, 'type' => 'int'));
     $message = Helper::is_list_empty($array);
     if (!Helper::is_empty_string($message)):
@@ -77,18 +77,21 @@ elseif ($action == 'save'):
                 return;
             endif;
         else:
-            if ($categoryDataTable [0]['category_id'] != $query_id):
-                print Helper::json_encode_array(array('status' => 'error', 'message' => 'Can t be save'));
+             if ($categoryDataTable[0]['category_name'] == $name && $categoryDataTable[0]['category_id'] != $query_id):
+                print Helper::json_encode_array(array('status' => 'error', 'message' => 'Role name already exist'));
+                return;
+            elseif ($categoryDataTable [0]['category_id'] != $query_id):
+                print Helper::json_encode_array(array('status' => 'error', 'message' => 'Can t be saved'));
                 return;
             endif;
         endif;
         $success = $categoryBusinessLayer->editCategory($query_id, $name, $parent, $color, $description, $status, $_SESSION['user_pos']);
     endif;
     if ($success):
-        $categoryDataTable = $categoryBusinessLayer->getCategories(DELETED);
+            $categoryDataTable = $categoryBusinessLayer->getParentCategories(DELETED);
         if ($categoryBusinessLayer->getSuccess()):
-            $content = Helper::fill_datatable('categories', 'categories', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $categoryDataTable, array('Category Name', 'Category Parent', 'Category Color Code', 'Category Description', 'Status'), array('category_name', 'category_parent_name', 'color_code', 'category_description', 'status_name'), 'category_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
-                        1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')));
+             $content = Helper::fill_datatable('categories', 'categories', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $categoryDataTable, array('Category ID', 'Category Name', 'Category Color Code', 'Category Description', 'Status'), array('category_id', 'category_name', 'color_code', 'category_description', 'status_name'), 'category_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
+                    1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')), true, 1, '', '', $root . 'themes/img/details_open.png', 'control-category');
         endif;
         $container = Helper::set_message('Category saved succesfuly', 'status') . $content;
         print $container;

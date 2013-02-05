@@ -11,6 +11,7 @@ include_once POS_ROOT . '/businessLayer/EventBusinessLayer.php';
 include_once POS_ROOT . '/businessLayer/EventItemBusinessLayer.php';
 include_once POS_ROOT . '/businessLayer/ItemBusinessLayer.php';
 include_once POS_ROOT . '/businessLayer/CategoryBusinessLayer.php';
+include 'Array2XML.php';
 unset($_SESSION['event_id']);
 $eventBusinessLayer = new EventBusinessLayer();
 if ($action == 'index' || $action == 'events'):
@@ -66,9 +67,8 @@ elseif ($action == 'save'):
     $employee_id = isset($data['employee']) ? $data['employee'] : '';
     $xml = '';
     if (!Helper::is_empty_array($datatable)):
-        $xml = new SimpleXMLElement('<items_event></items_event>');
-        Helper::array_to_xml($datatable, $xml);
-        $xml = $xml->asXML();
+        $xml = new SimpleXMLElement('<root></root>');
+        $xml = Helper::array_to_xml($datatable, $xml);
     endif;
     $array = array('Event Name' => array('content' => $name, 'type' => 'string', 'length' => '50'),
         'Event Date' => array('content' => $event_date, 'type' => 'date', 'length' => '17'),
@@ -100,7 +100,10 @@ elseif ($action == 'save'):
                 return;
             endif;
         else:
-            if ($eventDataTable [0]['event_id'] != $query_id):
+            if ($eventDataTable[0]['event_name'] == $name && $eventDataTable[0]['event_id'] != $query_id):
+                print Helper::json_encode_array(array('status' => 'error', 'message' => 'Event name already exist'));
+                return;
+            elseif ($eventDataTable [0]['event_id'] != $query_id):
                 print Helper::json_encode_array(array('status' => 'error', 'message' => 'Can t be save'));
                 return;
             endif;
@@ -147,6 +150,7 @@ elseif ($action == 'save'):
         endif;
         print $container;
     else:
+        print $eventBusinessLayer->getLastError();
         print Helper::json_encode_array(array('status' => 'error', 'message' => 'Event not saved'));
     endif;
 elseif ($action == 'approved' || 'rejected'):

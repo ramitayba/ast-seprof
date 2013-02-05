@@ -116,7 +116,10 @@ elseif ($action == 'save'):
                 return;
             endif;
         else:
-            if ($userDataTable [0]['user_id'] != $query_id):
+            if ($userDataTable[0]['user_name'] == $name && $userDataTable[0]['user_id'] != $query_id):
+                print Helper::json_encode_array(array('status' => 'error', 'message' => 'User name already exist'));
+                return;
+            elseif ($userDataTable [0]['user_id'] != $query_id):
                 print Helper::json_encode_array(array('status' => 'error', 'message' => 'Can t be save because User name already exist'));
                 return;
             endif;

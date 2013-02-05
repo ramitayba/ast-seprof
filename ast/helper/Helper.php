@@ -352,7 +352,7 @@ class Helper {
         $data = str_replace("%3D", "=", $data);
         $data = str_replace("%2F", "/", $data);
         $data = str_replace("%3A", ":", $data);
-        $data = str_replace("%23", "#", $data);
+        $data = str_replace("%23", "", $data);
         $data = str_replace("+", " ", $data);
         $data = self::check_plain($data);
         return $data;
@@ -389,7 +389,7 @@ class Helper {
     }
 
     public static function set_breadcrumb($url) {
-        $root = self::get_url();
+        $root = self::get_url() . '/';
         if ($url != 'login' and $url != 'index' and $url != 'master' and $url != '404'):
             $parts = explode('/', $url);
             $count = count($parts);
@@ -487,8 +487,7 @@ class Helper {
         return $datatable;
     }
 
-    public static function fill_datatable($name, $id, $header_buttons, $table, $header, $fields, $id_name, $linkcontrol = array(), $control = true, 
-            $column_hide = -1, $editable = '', $class_td_edit = '', $tdicon = '', $tdicon_class = '', $sdom = "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>", $script = true) {
+    public static function fill_datatable($name, $id, $header_buttons, $table, $header, $fields, $id_name, $linkcontrol = array(), $control = true, $column_hide = -1, $editable = '', $class_td_edit = '', $tdicon = '', $tdicon_class = '', $sdom = "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>", $script = true) {
         $datatable = '<div id="widget-table"> <div class="widget-header"><h3><i class="icon-th-list"></i>'
                 . ucfirst($name) . '</h3></div>';
         $datatable.= $script ? ' <script>$(function () {     oTable = table("' . $name . '","' . $sdom . '",' . $column_hide . ',"' . $editable . '");});</script>' : '';
@@ -584,7 +583,7 @@ class Helper {
         return $select . $script;
     }
 
-    public static function array_to_xml($array, &$xml) {
+    public static function array_to_xml($array, $xml) {
         foreach ($array as $key => $value) {
             if (is_array($value)) {
                 if (!is_numeric($key)) {
@@ -597,6 +596,7 @@ class Helper {
                 $xml->addChild("$key", "$value");
             }
         }
+        return $xml->asXML();
     }
 
     public static function json_encode($string) {
