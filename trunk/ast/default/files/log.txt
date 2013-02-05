@@ -181,3 +181,19 @@ Unknown error type:8192 Function ereg_replace() is deprecated   |  Date:  04.02.
 <b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver][SQL Server]Cannot insert the value NULL into column 'event_item_id', table 'pos_back.dbo.event_item_history'; column does not allow nulls. INSERT fails., SQL state 23000 in SQLExecute   |  Date:  04.02.2013 11:25:44
 <b>WARNING</b> 2 include(Array2XML.php): failed to open stream: No such file or directory   |  Date:  04.02.2013 11:26:57
 <b>WARNING</b> 2 include(): Failed opening 'Array2XML.php' for inclusion (include_path='.;C:\xampp\php\PEAR')   |  Date:  04.02.2013 11:26:57
+<b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  05.02.2013 03:04:35
+<b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  05.02.2013 03:05:08
+<b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  05.02.2013 03:08:45
+<b>NOTICE</b> 8 Use of undefined constant HEADER_TITLE - assumed 'HEADER_TITLE'   |  Date:  05.02.2013 03:08:45
+<b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  05.02.2013 03:10:03
+<b>NOTICE</b> 8 Use of undefined constant HEADER_TITLE - assumed 'HEADER_TITLE'   |  Date:  05.02.2013 03:10:03
+<b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  05.02.2013 03:10:34
+<b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  05.02.2013 03:11:10
+<b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  05.02.2013 03:11:30
+<b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  05.02.2013 03:12:52
+<b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  05.02.2013 03:13:07
+<b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  05.02.2013 03:13:15
+<b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  05.02.2013 03:13:40
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecute   |  Date:  05.02.2013 03:14:37
+<b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  05.02.2013 03:14:37
+<b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  05.02.2013 03:15:09

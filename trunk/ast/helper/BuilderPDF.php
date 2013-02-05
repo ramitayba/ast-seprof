@@ -21,10 +21,14 @@ class BuilderPDF extends FPDF {
     function Header() {
         global $title;
         $this->SetFont('Aller-Bold', '', 14);
-        $this->Image(POS_ROOT . '/default/files/images/header-report.png', '', '', '250', '30');
+        $this->Image(POS_ROOT .PATH_IMAGES_REPORT.HEADER_REPORT_BACKGROUND_IMAGE , '', '', '250', '40');
+        $this->Image(POS_ROOT .PATH_IMAGES_REPORT.HEADER_REPORT_LOGO , 10, 5,50,20);
+         $this->SetTextColor(255, 187);
+         $this->Cell(150, 20, HEADER_TITLE, 0, 0, 'C');
         //$this->SetFont('Arial', '', 14);
-        $this->ln(13);
-        $this->Cell(300, 9, $title . ' Date:' . date("d-m-Y"), 0, 0, 'C');
+        $this->ln(18);
+        $this->SetTextColor(000);
+        $this->Cell(300, 15, $title . ' Date:' . date("d-m-Y"), 0, 0, 'C');
         $this->ln(20);
     }
 
@@ -33,7 +37,7 @@ class BuilderPDF extends FPDF {
         $this->SetFont('Aller', '', 8);
         $this->SetTextColor(255, 187);
         //$this->Cell(0, 10, 'Nisma Cafeterias System', 0, 0, 'L')
-        $this->Image(POS_ROOT . '/default/files/images/footer-report.png', '0', $this->GetY() + 5, '250', '10');
+        $this->Image(POS_ROOT .PATH_IMAGES_REPORT.HEADER_REPORT_FOOTER, '0', $this->GetY() + 5, '250', '10');
         $this->Cell(0, 20, 'Page ' . $this->PageNo() . '/{nb}', 0, 0, 'C');
         $this->AliasNbPages();
     }

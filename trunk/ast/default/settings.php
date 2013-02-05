@@ -85,7 +85,24 @@ define('DELETED', 3);
 define('UNDER_PROCESSING', 4);
 define('APPROVED', 5);
 define('REJECTED', 6);
+
+/**
+ * 
+ * Define default Color catgeroy
+ * 
+ */
 define('DEFAULT_COLOR', '#000000');
+
+/**
+ * 
+ * Define image report
+ * 
+ */
+define('HEADER_REPORT_BACKGROUND_IMAGE', 'header-report.png');
+define('HEADER_REPORT_LOGO', 'nesma-logo-report.png');
+define('HEADER_REPORT_FOOTER', 'footer-report.png');
+define('PATH_IMAGES_REPORT', '/default/files/images/');
+define('HEADER_TITLE', 'POS REPORTS');
 
 /**
  * 
