@@ -69,8 +69,11 @@ elseif ($action == 'save'):
                 return;
             endif;
         else:
-            if ($cafeteriaDataTable [0]['cafeteria_id'] != $query_id):
+            if ($cafeteriaDataTable[0]['cafeteria_name'] == $name&&$cafeteriaDataTable[0]['cafeteria_id'] != $query_id):
                 print Helper::json_encode_array(array('status' => 'error', 'message' => 'Cafeteria name already exist'));
+                return;
+            elseif ($cafeteriaDataTable [0]['cafeteria_id'] != $query_id):
+                print Helper::json_encode_array(array('status' => 'error', 'message' => 'Cafeteria canot be saved'));
                 return;
             endif;
         endif;

@@ -80,7 +80,10 @@ elseif ($action == 'save'):
                 return;
             endif;
         else:
-            if ($itemDataTable [0]['item_id'] != $query_id):
+            if ($itemDataTable[0]['item'] == $name && $itemDataTable[0]['category_id'] != $category_id && $itemDataTable[0]['item_id'] != $query_id):
+                print Helper::json_encode_array(array('status' => 'error', 'message' => 'Role name already exist'));
+                return;
+            elseif ($itemDataTable [0]['item_id'] != $query_id):
                 print Helper::json_encode_array(array('status' => 'error', 'message' => 'Can t be save'));
                 return;
             endif;

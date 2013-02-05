@@ -84,7 +84,10 @@ elseif ($action == 'save'):
                 return;
             endif;
         else:
-            if ($posDataTable[0]['pos_id'] != $query_id):
+            if ($posDataTable[0]['pos_key'] == $name&&$posDataTable[0]['pos_id'] != $query_id):
+                print Helper::json_encode_array(array('status' => 'error', 'message' => 'Pos name already exist'));
+                return;
+            elseif ($posDataTable[0]['pos_id'] != $query_id):
                 print Helper::json_encode_array(array('status' => 'error', 'message' => 'Can t be save'));
                 return;
             endif;
@@ -105,7 +108,7 @@ elseif ($action == 'save'):
         print Helper::json_encode_array(array('status' => 'error', 'message' => 'Pos not saved '));
     endif;
 elseif ($action == 'delete'):
-     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
+    if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
         $posDataTable = $posBusinessLayer->getPosById($query_id, DELETED);
         if (count($posDataTable) == 0):
             print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Cafeteria not exist', 'error')));
@@ -114,7 +117,7 @@ elseif ($action == 'delete'):
         $success = $posBusinessLayer->deletePos($query_id, DELETED, $_SESSION['user_pos']);
         if ($success):
             $container = Helper::set_message('POS ' . $posDataTable [0]['pos_key'] . ' delete succesfuly', 'status');
-             print Helper::json_encode_array(array('status' => 'success', 'message' =>$container));
+            print Helper::json_encode_array(array('status' => 'success', 'message' => $container));
         else:
             print Helper::json_encode_array(array('status' => 'error', 'message' => 'POS not deleted '));
         endif;

@@ -1,6 +1,7 @@
-var dataRow, nRow,oTable, baseurl="./process.php",date_obj_time,sImageUrl="./themes/img/",anOpenCategories = [],anOpenSubCategories = [],requiredUsername=true,requiredPassword=true,requiredPincode=true,resetForm;
+var dataRow, nRow,oTable, baseurl="/ast/process.php",date_obj_time,sImageUrl="/ast/themes/img/",anOpenCategories = [],anOpenSubCategories = [],requiredUsername=true,requiredPassword=true,requiredPincode=true,resetForm;
 $(function () {
-
+var test='<?php print "helloe";?>';
+alert(test);
     jQuery.extend({
         seprof: function(url,data,callback,errorCallback,type) {
             if(jQuery.isFunction(data)) {
@@ -51,6 +52,10 @@ $(function () {
         if(array.length>1){
             a=array[1];
             b=array[2];
+            if(a==''||b=='')
+            {
+                return;
+            }
         }
         else{
             a=b='';
@@ -88,6 +93,10 @@ $(function () {
         array=name.split("-");
         if(array.length>1){
             a=array[1];
+            if(a=='')
+            {
+                return;
+            }
         }
         else{
             a='';
@@ -100,12 +109,17 @@ $(function () {
             return;
         }
         if($('#number').val()==''||$('#id option:selected').val()=='')return;
-        nRow=oTable.fnAddData([$('#id option:selected').val(),$('#id option:selected').text(),$('#number').val(),'<span class="content-link"><a class="delete-table " id="delete-'+a+'" href="" title="Delete"></a></span>']);
-        var nTds = $('td', nRow);
-        $(nTds[1]).addClass('tdedit');
-        $(nTds[2]).addClass('controls');
+        oTable.fnDraw();
+        var row=oTable.fnAddData([$('#id option:selected').val(),$('#id option:selected').text(),$('#number').val(),'<span class="content-link"><a class="delete-table " id="delete-'+a+'" href="" title="Delete"></a></span>']);
+        var nTdsRow = $('td', row);
+        $(nTdsRow[1]).addClass('tdedit');
+        $(nTdsRow[2]).addClass('controls');
         oTable.fnDraw();
         //$(nRow[2]).attr('td').addClass('tdedit');
+        $('#category').val('');
+        $('.add').disabled=true;
+        $('.control-category-children').remove();
+        $('.control-item').remove();
         $('#id').val('');
         $('#number').val('');  
     } );
@@ -246,6 +260,10 @@ $(function () {
         array=name.split("-");
         if(array.length>1){
             a=array[1];
+            if(a=='')
+            {
+                return;
+            }
         }
         else{
             a='';
@@ -264,6 +282,10 @@ $(function () {
         array=name.split("-");
         if(array.length>1){
             a=array[1];
+            if(a=='')
+            {
+                return;
+            }
         }
         else{
             a='';
@@ -336,10 +358,14 @@ $(function () {
         name=$(this).attr("id");
         if(name=='')return;
         array=name.split("-");
-        if(array.length>1){
+        if(array.length==3){
             a=array[0];
             c=array[1];
             b=array[2];
+            if(a==''||b==''||c=='')
+            {
+                return;
+            }
         }
         else{
             a=b=c='';
@@ -347,13 +373,18 @@ $(function () {
         }
         var width=$('.widget-table').height();
         var height=$('.widget-table').width();
-        $("#widget-content-"+c+"-table").html('<div align="center" style="width:'+width+';height:'+height+'"><img src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
+        $("#widget-content-"+c+"-table").append('<div align="center" style="width:'+width+';height:'+height+'"><img src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
         $.seprof(baseurl,{
             name:a,
             action:'add',
             query:b
         },function(k){
-            showform(k,c)
+            if(k.status=='error')
+            {
+                errorBefore(k.message,"#widget-content-"+c+"-table");
+            }else{
+                showform(k,c);
+            }
         },function(httpReq, status, exception,c){
             error(httpReq, status, exception,c)
         })
@@ -415,14 +446,18 @@ $(function () {
         name=$(this).attr("id");
         if(name=='')return;
         array=name.split("-");
-        if(array.length>1){
+        if(array.length==3){
             a=array[0];
             c=array[1];
             b=array[2];
+            if(a==''||b==''||c=='')
+            {
+                return;
+            }
         }
         else{
-            return;
             a=b=c='';
+            return;
         }
         $("#widget-content-"+c+"-table").append('<img src="'+sImageUrl+'loader.gif" alt="Uploading...."/>');
         $.seprof(baseurl,{
@@ -443,6 +478,10 @@ $(function () {
         if(array.length>1){
             a=array[1];
             b=array.length==4?array[3]:array[2];
+            if(a==''||b=='')
+            {
+                return;
+            }
         }
         else{
             a= b='';
@@ -472,6 +511,10 @@ $(function () {
         if(array.length>1){
             a=array[1];
             b=array[2];
+            if(a==''||b=='')
+            {
+                return;
+            }
         }
         else{
             a=b='';
@@ -503,6 +546,10 @@ $(function () {
         if(array.length>1){
             a=array[1];
             b=array[2];
+            if(a==''||b=='')
+            {
+                return;
+            }
         }
         else{
             a=b='';
@@ -519,7 +566,7 @@ $(function () {
             }
             else 
             {
-               $('.messages').remove();
+                $('.messages').remove();
                 replaceTable(k,a);
             }
         },function(httpReq, status, exception,a){
@@ -533,6 +580,10 @@ $(function () {
         if(array.length>1){
             a=array[1];
             b=array[2];
+            if(a=='')
+            {
+                return;
+            }
         }
         else{
             a=b='';
@@ -576,6 +627,10 @@ $(function () {
         array=name.split("-");
         if(array.length>1){
             a=array[1];
+            if(a=='')
+            {
+                return;
+            }
         }
         else{
             a='';
@@ -1030,9 +1085,9 @@ function getData(oTable,name,select)
     {
         var data=oTable.fnGetData(nodes[i]);
         var idSelect=data[0];
-        obj[i]= {
+        obj[i]= {items_event:{
             id:idSelect,
-            number:data[2]
+            number:data[2]}
         };
     }
     return obj;

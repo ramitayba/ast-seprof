@@ -12,7 +12,7 @@ $roleBusinessLayer = new RoleBusinessLayer();
 if ($action == 'index'):
     $roleDataTable = $roleBusinessLayer->getRoles(DELETED);
     if ($roleBusinessLayer->getSuccess()):
-        $content = Helper::fill_datatable('roles','roles', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $roleDataTable, array('Role Name', 'Status Name'), array('role_name', 'status_name'), 'role_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
+        $content = Helper::fill_datatable('roles', 'roles', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $roleDataTable, array('Role Name', 'Status Name'), array('role_name', 'status_name'), 'role_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
                     1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete'),
                     2 => array('name' => 'Permissions', 'link' => 'permissions-', 'class' => 'permissions')));
         print $content;
@@ -21,15 +21,14 @@ elseif ($action == 'add'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
         $permissionDataTable = $roleBusinessLayer->getListMenuUnionAccess($query_id);
         if (count($permissionDataTable) == 0):
-            print Helper::json_encode_array(array('status' => 'error', 'message' => 'Role doesn t  exist '));
-            return;
+            print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Role doesn t  exist ', 'error')));
+        else:
+            $forms = array('role_id' => $query_id,
+                'permissions' => $permissionDataTable);
+            include_once POS_ROOT . '/content/users/permissionsform.php';
         endif;
-        $forms = array('role_id' => $query_id,
-            'permissions' => $permissionDataTable);
-        include_once POS_ROOT . '/content/users/permissionsform.php';
-   else:
+    else:
         print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Permissions not exist', 'error')));
-        return;
     endif;
 elseif ($action == 'save'):
     $permissions = isset($sequence) ? $sequence : '';
@@ -41,7 +40,7 @@ elseif ($action == 'save'):
     if ($success):
         $roleDataTable = $roleBusinessLayer->getRoles(DELETED);
         if ($roleBusinessLayer->getSuccess()):
-            $content = Helper::fill_datatable('roles','roles', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $roleDataTable, array('Role Name', 'Status Name'), array('role_name', 'status_name'), 'role_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
+            $content = Helper::fill_datatable('roles', 'roles', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $roleDataTable, array('Role Name', 'Status Name'), array('role_name', 'status_name'), 'role_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
                         1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete'),
                         2 => array('name' => 'Permissions', 'link' => 'permissions-', 'class' => 'permissions')));
         endif;
