@@ -41,7 +41,7 @@ elseif ($action == 'save'):
             print $MaxDebit;
         endif;
     else:
-        print json_encode(array('status' => 'error', 'message' => 'Allowance not saved '));
+        print Helper::json_encode_array(array('status' => 'error', 'message' => 'Allowance not saved '));
     endif;
 endif;
 ?>

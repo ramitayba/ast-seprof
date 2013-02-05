@@ -12,8 +12,8 @@
 <link href="<?php echo $root; ?>themes/css/pages/dashboard.css" rel="stylesheet">
 <link href="<?php echo $root; ?>themes/js/plugins/datatables/DT_bootstrap.css" rel="stylesheet">
 
-
 <!-- Javascript -->
+<script>var baseurl="<?php print $root;?>process.php",sImageUrl="<?php print $root;?>themes/img/"</script>
 <script src="<?php echo $root; ?>themes/js/jquery-1.7.2.min.js"></script>
 <script src="<?php echo $root; ?>themes/js/jquery-ui-1.10.0.custom.min.js"></script>
 <script src="<?php echo $root; ?>themes/js/jquery-ui-1.10.0.custom.js"></script>

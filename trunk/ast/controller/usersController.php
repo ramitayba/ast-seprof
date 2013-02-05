@@ -53,7 +53,7 @@ elseif ($action == 'edit'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
         $userDataTable = $userBusinessLayer->getUserByID($query_id, DELETED);
         if (count($userDataTable) == 0):
-            print Helper::json_encode_array(array('status' => 'error', 'message' => 'User doesn t  exist '));
+            print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('User doesn t exist', 'error')));
             return;
         endif;
         $forms = array('user_id' => $query_id, 'user_name' => $userDataTable [0]['user_name'], 'user_password' => $userDataTable [0]['user_password'],

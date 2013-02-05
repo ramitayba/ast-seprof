@@ -11,7 +11,6 @@ include_once POS_ROOT . '/businessLayer/EventBusinessLayer.php';
 include_once POS_ROOT . '/businessLayer/EventItemBusinessLayer.php';
 include_once POS_ROOT . '/businessLayer/ItemBusinessLayer.php';
 include_once POS_ROOT . '/businessLayer/CategoryBusinessLayer.php';
-include 'Array2XML.php';
 unset($_SESSION['event_id']);
 $eventBusinessLayer = new EventBusinessLayer();
 if ($action == 'index' || $action == 'events'):

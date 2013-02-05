@@ -4,7 +4,7 @@
         <div class="widget-header">
             <h3>
                 <i class="icon-pencil"></i>
-                Allowane Form
+                Allowance Form
             </h3>
         </div> <!-- /widget-header -->
 
@@ -18,7 +18,7 @@
                     <div class="control-group control-min-group">
                         <label class="control-label" for="number">Max Debit</label>
                         <div class="controls">
-                            <input type="text" class="input-large" name="max_debit" id="number" maxlength="18" onkeypress="return isNumberKey(event)" >
+                            <input type="text" class="input-large" name="max_debit" id="max_debit" maxlength="18" onkeypress="return isNumberKey(event)" >
                         </div>
                     </div>
                     <div class="control-group control-min-group">
@@ -40,7 +40,11 @@
 
                 </fieldset>
             </form>
-
+<script>
+    $(function() {
+        enable_text(this.checked,document.allowancesform.saveallowances);
+    });
+</script>
         </div> <!-- /widget-content -->
     </div>
 

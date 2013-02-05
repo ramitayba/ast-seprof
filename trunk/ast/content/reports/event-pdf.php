@@ -18,10 +18,10 @@ if (isset($_SESSION['data_report'])):
     $pdf->SetFont('Arial', '', 14);
     $pdf->AddPage();
     $pdf->Cell(130, 1, 'Event Name : ' . $event_name);
-    $pdf->Cell(80, 1, 'Department Name : ' . $department_name);
+    $pdf->Cell(80, 1, 'Department: ' . $department_name);
     $pdf->Ln(10);
     $pdf->Cell(130, 1, 'Employee Name : ' . $event_employee);
-    $pdf->Cell(80, 1, 'Event Nb Invitees : ' . $event_invitees);
+    $pdf->Cell(80, 1, 'Event Attendees : ' . $event_invitees);
     $pdf->Ln(10);
     $pdf->Cell(130, 1, 'Event Date : ' . $event_date);
     $pdf->Ln(10);

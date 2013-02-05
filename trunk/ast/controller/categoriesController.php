@@ -35,7 +35,7 @@ elseif ($action == 'edit'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
         $categoryDataTable = $categoryBusinessLayer->getCategoryByID($query_id, DELETED);
         if (count($categoryDataTable) == 0):
-            print Helper::json_encode_array(array('status' => 'error', 'message' => 'Category doesn t  exist '));
+              print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Categories doesn t exist', 'error')));
             return;
         endif;
         $forms = array('category_id' => $categoryDataTable [0]['category_id'], 'category_name' => $categoryDataTable [0]['category_name'],

@@ -37,7 +37,7 @@ function error_handler($errno, $errstr, $errfile, $errline) {
     }
     $date = date('d.m.Y h:i:s');
     $log = $message . "   |  Date:  " . $date . "\n";
-    //error_mail( format_error( $errno, $errstr, $errfile, $errline ) );
+    // error_mail( format_error( $errno, $errstr, $errfile, $errline ) );
     if (!Helper::is_empty_string($message)) {
         error_log($log, 3, POS_ROOT . '/default/files/log.txt');
         //print Helper::set_message($message, 'error');
