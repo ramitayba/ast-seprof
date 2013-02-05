@@ -34,7 +34,7 @@ elseif ($action == 'edit'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
         $itemDataTable = $itemBusinessLayer->getItemByID($query_id, DELETED);
         if (count($itemDataTable) == 0):
-            print Helper::json_encode_array(array('status' => 'error', 'message' => 'Item doesn t  exist '));
+              print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Items doesn t exist', 'error')));
             return;
         endif;
         $forms = array('item_id' => $itemDataTable [0]['item_id']

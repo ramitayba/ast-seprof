@@ -13,6 +13,14 @@ require('helper/BuilderPDF.php');
     $pdf->AddPage();
     $pdf->Cell(130, 1, 'Event Name : ' . $name);
     $pdf->Ln(20);
+     /*$pdf->Cell(130, 1, 'Event Name : ' . $event_name);
+    $pdf->Cell(80, 1, 'Department Name : ' . $department_name);
+    $pdf->Ln(10);
+    $pdf->Cell(130, 1, 'Employee Name : ' . $event_employee);
+    $pdf->Cell(80, 1, 'Event Nb Invitees : ' . $event_invitees);
+    $pdf->Ln(10);
+    $pdf->Cell(130, 1, 'Event Date : ' . $event_date);
+    $pdf->Ln(10);*/
     $pdf->BuildTable($header,$reportsDataTable, $fields,48);
     $pdf->Output();
     unset($_SESSION['data_report']);

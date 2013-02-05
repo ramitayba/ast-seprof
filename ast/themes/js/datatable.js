@@ -1,4 +1,4 @@
-var dataRow, nRow,oTable, baseurl="/ast/process.php",date_obj_time,sImageUrl="/ast/themes/img/",anOpenCategories = [],anOpenSubCategories = [],requiredUsername=true,requiredPassword=true,requiredPincode=true,resetForm;
+var dataRow, nRow,oTable,date_obj_time,anOpenCategories = [],anOpenSubCategories = [],requiredUsername=true,requiredPassword=true,requiredPincode=true,resetForm;
 $(function () {
     jQuery.extend({
         seprof: function(url,data,callback,errorCallback,type) {
@@ -706,6 +706,7 @@ function error(httpReq, status, exception,a){
     b="<div id='block' class='alert alert-block'>"+
     "<a class='close' data-dismiss='alert' href='#'>&times;</a>"+
     exception+"</div>";
+          $("#widget-content-"+a+"-table img:last-child").remove();
     $("#block").replaceWith(b);
     $(".alert").show();
 }
@@ -1027,7 +1028,7 @@ function validate(a,b)
     });
     $('#allowances-form').validate({
         rules: {
-            number: {
+            max_debit: {
                 required: true,
                 maxlength:18
             }

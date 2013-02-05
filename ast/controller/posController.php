@@ -48,7 +48,7 @@ elseif ($action == 'edit'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
         $posDataTable = $posBusinessLayer->getPosByID($query_id, DELETED);
         if (count($posDataTable) == 0):
-            print Helper::json_encode_array(array('status' => 'error', 'message' => 'Item doesn t  exist '));
+             print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Pos doesn t exist', 'error')));
             return;
         endif;
         $forms = array('pos_id' => $posDataTable [0]['pos_id'], 'pos_key' => $posDataTable [0]['pos_key'], 'cafeteria_id' => $posDataTable [0]['cafeteria_id'], 'status_id' => $posDataTable [0]['status_id']);
