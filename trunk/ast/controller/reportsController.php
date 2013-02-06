@@ -17,7 +17,8 @@ $name_select = isset($data) && array_key_exists('select', $data) ? $data['select
 $mindate = isset($data) && array_key_exists('mindate', $data) ? $data['mindate'] : '';
 $maxdate = isset($data) && array_key_exists('maxdate', $data) ? $data['maxdate'] : '';
 $reportsDataTable = array();
-$title=  Helper::get_title_action($action);
+$reportsDetailsDataTable = array();
+$title = Helper::get_title_action($action);
 if ($action == 'cafeteria-balance'):
     include_once POS_ROOT . '/businessLayer/CafeteriaBusinessLayer.php';
     if ($query_id == 'show'):
@@ -44,12 +45,21 @@ elseif ($action == 'events-listing'):
         $reportsBusinessLayer = new ReportsBusinessLayer();
         $reportsDataTable = $reportsBusinessLayer->getEventListing($mindate, $maxdate);
     endif;
-elseif ($action == 'detailed-events'):
+elseif ($action == 'detailed-event'):
     if ($query_id == 'show'):
         $reportsBusinessLayer = new ReportsBusinessLayer();
         $reportsDataTable = $reportsBusinessLayer->getEventDetailed($filter_id);
-    endif;
-elseif ($action == 'menu-report'):
+        $eventDetailsDataTable = $reportsBusinessLayer->getEventItemsDetailed($filter_id);
+        $id_parent = '';
+        foreach ($eventDetailsDataTable as $obj) {
+            $id_parent = $obj['event_history_id'];
+            $reportsDetailsDataTable[$id_parent][$obj['item_id']]['event_history_id'] = $id_parent;
+            $reportsDetailsDataTable[$id_parent][$obj['item_id']]['category_name'] = $obj['category_name'];
+            $reportsDetailsDataTable[$id_parent][$obj['item_id']]['item_name'] = $obj['item_name'];
+            $reportsDetailsDataTable[$id_parent][$obj['item_id']]['item_quantity'] = $obj['item_quantity'];
+            $reportsDetailsDataTable[$id_parent][$obj['item_id']]['item_price'] = $obj['item_price'];
+        }
+    endif; elseif ($action == 'menu-report'):
     if ($query_id == 'show'):
         $reportsBusinessLayer = new ReportsBusinessLayer();
         $menuReport = $reportsBusinessLayer->getMenuReports(DELETED);
@@ -77,7 +87,8 @@ if ($query_id == 'show'):
     $data_report = array('select' => $name_select,
         'mindate' => $mindate,
         'maxdate' => $maxdate,
-        'reports_data_table' => $reportsDataTable);
+        'reports_data_table' => $reportsDataTable,
+        'reports_details_data_table' => $reportsDetailsDataTable);
     $_SESSION['data_report'] = $data_report;
     print Helper::generate_container_pdf($pathreport, $action);
 elseif ($query_id == 'back'):

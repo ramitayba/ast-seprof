@@ -15,11 +15,10 @@
 <?php
 if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
         strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')) :
-    ?> <div class="span12">
-
+    ?> 
+<div class="span12">
         <div class="widget widget-table">
-        <?php endif;
-        ?>
+        <?php endif; ?>
         <div id="validation" class="widget highlight widget-form widget-events-form">
             <div class="widget-header">
                 <h3>
@@ -46,8 +45,8 @@ if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUES
                         </div>
 
                         <div class="control-group control-min-group">
-                            <label class="control-label" for="event-date">Event Date</label>
-                            <div class="controls">
+                            <label class="control-label" for="datepicker">Event Date</label>
+                            <div class="controls date">
                                 <div id="datetimepicker" class="input-append date">
                                     <input type="text" data-format="dd/MM/yyyy hh:mm:ss" id="datepicker" readonly name="event_date" class="" value="<?php
                                        if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['event_date'];
@@ -134,7 +133,6 @@ if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUES
 
             </div> <!-- /widget-content -->
         </div>
-
         <?php
         if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
                 strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')) :

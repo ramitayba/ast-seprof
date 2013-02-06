@@ -1,4 +1,4 @@
-var dataRow, nRow,oTable,date_obj_time,anOpenCategories = [],anOpenSubCategories = [],requiredUsername=true,requiredPassword=true,requiredPincode=true,resetForm;
+var dataRow, nRow,oTable,anOpenCategories = [],anOpenSubCategories = [],requiredUsername=true,requiredPassword=true,requiredPincode=true,resetForm,requiredSelect=true;
 $(function () {
     jQuery.extend({
         seprof: function(url,data,callback,errorCallback,type) {
@@ -19,15 +19,7 @@ $(function () {
             });
         }
     });
-    var date_obj = new Date();
-    var  date_obj_hours = date_obj.getHours();
-    var date_obj_mins = date_obj.getMinutes();
 
-    if (date_obj_mins < 10) {
-        date_obj_mins = "0" + date_obj_mins;
-    }
-    date_obj_time = date_obj;//"'"+date_obj_hours+":"+date_obj_mins+"'";
-    
     /* $('#cafeterias-table a.edit').live('click', function (e) {
         e.preventDefault();
         /* Get the row as a parent of the link that was clicked on */
@@ -107,11 +99,14 @@ $(function () {
             return;
         }
         if($('#number').val()==''||$('#id option:selected').val()=='')return;
-        oTable.fnDraw();
-        var row=oTable.fnAddData([$('#id option:selected').val(),$('#id option:selected').text(),$('#number').val(),'<span class="content-link"><a class="delete-table " id="delete-'+a+'" href="" title="Delete"></a></span>']);
-        var nTdsRow = $('td', row);
-        $(nTdsRow[1]).addClass('tdedit');
-        $(nTdsRow[2]).addClass('controls');
+        //oTable.fnDraw();
+        oTable.fnAddData([$('#id option:selected').val(),$('#id option:selected').text(),$('#number').val(),'<span class="content-link"><a class="delete-table " id="delete-'+a+'" href="" title="Delete"></a></span>']);
+        $('#'+a+'-table tr td:nth-child(2)').addClass('tdedit');
+        $('#'+a+'-table tr td:nth-child(3)').addClass('controls');
+        //var nTdsRow = $('td', row);
+        //var nTdsRow =oTable.fnGetNodes();
+        //$(nTdsRow[1]).addClass('tdedit');
+        //$(nTdsRow[2]).addClass('controls');
         oTable.fnDraw();
         //$(nRow[2]).attr('td').addClass('tdedit');
         $('#category').val('');
@@ -391,12 +386,8 @@ $(function () {
         name=$(this).attr("id");
         var width=$('.widget-content').height();
         var height=$('.widget-content').width();
-        var data =$('#'+name+'-form').serialize();
-        if($('#filter_select').length!=0){
-            data+="&select="+$('#filter_select option:selected').text();
-        }
         $("#widget-content").html('<div align="center" style="width:'+width+';height:'+height+'"><img src="'+sImageUrl+'"loader.gif" alt="Loading...."/></div>');
-        if(!validateReport(name,'show',data,e)){
+        if(!validateReport(name,'show',e)){
             return;
         }
     } );
@@ -663,6 +654,10 @@ $(function () {
             error(httpReq, status, exception,a)
         })
     } );
+    
+    jQuery.validator.addMethod("customdate", function(value, element) { 
+        return this.optional(element) || /^\d{1,2}[\/-]\d{1,2}[\/-]\d{4}$/.test(value); 
+    }, "Please specify the date in DD/MM/YYYY format");
 });
 function getDropDown(a)
 {
@@ -1013,7 +1008,7 @@ function validate(a,b,e)
             },
             datepicker: {
                 required: true,
-                date: true
+                customdate: true
             },
             event_invitees_nb: {
                 required: true,
@@ -1040,15 +1035,17 @@ function validate(a,b,e)
             error.appendTo( element.parents ('.controls') );
         },
         submitHandler: function (form) {
-           /* if( new Date($('#datepicker').val()) < new Date())
+            var date=getDateTime(new Date());
+            var dateevent=$('#datepicker').val();
+            if(dateevent < date)
             {
-                $('.error').remove();
-                $('#datetimepicker').after('<label for="maxdate" generated="true" class="error" style="">Must be greater than Date</label>');
+                $('.date .error').remove();
+                $('#datetimepicker').after('<label for="datepicker" generated="true" class="error" style="">Must be greater than Date</label>');
                 e.preventDefault();
                 return false;           
             }else{
-                $('.error').remove();
-            }*/
+                $('.date .error').remove();
+            }
             ajaxSubhmit(a,b);
         }
     });
@@ -1150,29 +1147,30 @@ function ajaxSubhmit(a,b)
         error(httpReq, status, exception,a);
     });
 }
-function validateReport(a,c,b,e)
+function validateReport(a,c,e)
 {
     if( new Date($('#mindate').val()) > new Date($('#maxdate').val()))
     {
-        $('.error').remove();
+        $('#datetimepickermax .error').remove();
+        $('.date .error').remove();
         $('#datetimepickermax').after('<label for="maxdate" generated="true" class="error" style="">Must be greater than From Date</label>');
         e.preventDefault();
         return false;           
     }else{
-        $('.error').remove();
+        $('#datetimepickermax .error').remove();
     }
-    $('#cafeteria-balance-form').validate({
+    resetForm=$('#cafeteria-balance-form').validate({
         rules: {
             filter_select: {
-                required: true
+                required: requiredSelect
             },
             mindate:{
                 required: true,
-                date: true
+                customdate: true
             },
             maxdate:{
                 required: true,
-                date: true
+                customdate: true
             }
         },
         focusCleanup: false,
@@ -1189,18 +1187,18 @@ function validateReport(a,c,b,e)
             error.appendTo( element.parents ('.controls') );
         },
         submitHandler: function (form) {
-            ajaxReport(a,c,b);
+            ajaxReport(a,c);
         }
     });
-    $('#users-purchases-form').validate({
+    resetForm=$('#users-purchases-form').validate({
         rules: {
             mindate:{
                 required: true,
-                date: true
+                customdate: true
             },
             maxdate:{
                 required: true,
-                date: true
+                customdate: true
             }
         },
         focusCleanup: false,
@@ -1217,18 +1215,18 @@ function validateReport(a,c,b,e)
             error.appendTo( element.parents ('.controls') );
         },
         submitHandler: function (form) {
-            ajaxReport(a,c,b);
+            ajaxReport(a,c);
         }
     });
-    $('#purchased-inventory-form').validate({
+    resetForm=$('#purchased-inventory-form').validate({
         rules: {
             mindate:{
                 required: true,
-                date: true
+                customdate: true
             },
             maxdate:{
                 required: true,
-                date: true
+                customdate: true
             }
         },
         focusCleanup: false,
@@ -1245,18 +1243,18 @@ function validateReport(a,c,b,e)
             error.appendTo( element.parents ('.controls') );
         },
         submitHandler: function (form) {
-            ajaxReport(a,c,b);
+            ajaxReport(a,c);
         }
     });
-    $('#events-listing-form').validate({
+    resetForm= $('#events-listing-form').validate({
         rules: {
             mindate:{
                 required: true,
-                date: true
+                customdate: true
             },
             maxdate:{
                 required: true,
-                date: true
+                customdate: true
             }
         },
         focusCleanup: false,
@@ -1273,19 +1271,19 @@ function validateReport(a,c,b,e)
             error.appendTo( element.parents ('.controls') );
         },
         submitHandler: function (form) {
-            ajaxReport(a,c,b);
+            ajaxReport(a,c);
         }
     });
     
-    $('#detailed-event-form').validate({
+    resetForm= $('#detailed-event-form').validate({
         rules: {
             mindate:{
                 required: true,
-                date: true
+                customdate: true
             },
             maxdate:{
                 required: true,
-                date: true
+                customdate: true
             }
         },
         focusCleanup: false,
@@ -1302,26 +1300,26 @@ function validateReport(a,c,b,e)
             error.appendTo( element.parents ('.controls') );
         },
         submitHandler: function (form) {
-            ajaxReport(a,c,b);
+            ajaxReport(a,c);
         }
     });
-    $('#menu-report-form').validate({
+    resetForm= $('#menu-report-form').validate({
         submitHandler: function (form) {
-            ajaxReport(a,c,b);
+            ajaxReport(a,c);
         }
     });
-    $('#detailed-users-purchases-form').validate({
+    resetForm= $('#detailed-users-purchases-form').validate({
         rules: {
-            employee:{
+            filter_select:{
                 required: true
             },
             mindate:{
                 required: true,
-                date: true
+                customdate: true
             },
             maxdate:{
                 required: true,
-                date: true
+                customdate: true
             }
         },
         focusCleanup: false,
@@ -1338,12 +1336,16 @@ function validateReport(a,c,b,e)
             error.appendTo( element.parents ('.controls') );
         },
         submitHandler: function (form) {
-            ajaxReport(a,c,b);
+            ajaxReport(a,c);
         }
     });
 }
-function ajaxReport(name,query,data)
+function ajaxReport(name,query)
 {
+    var data =$('#'+name+'-form').serialize();
+    if($('#filter_select').length!=0){
+        data+="&select="+$('#filter_select option:selected').text();
+    }
     $.seprof(baseurl,{
         name:'reports',
         action:name,
@@ -1357,7 +1359,7 @@ function ajaxReport(name,query,data)
 }
 function enable_text(status,links)
 {
-    links.disabled=!status;
+    requiredSelect=links.disabled=!status;
 }
 function fnNestedTable(id,oTable,nTr,anOpen,name )
 {
@@ -1376,4 +1378,22 @@ function errorBefore(message,name)
     $(name+" img:last-child").remove();
     $('.messages').remove();
     $( '.widget').before(message)  ;
+}
+
+function getDateTime(d){
+    // padding function
+    var s = function(a,b){
+        return(1e15+a+"").slice(-b)
+    };
+
+    // default date parameter
+    if (typeof d === 'undefined'){
+        d = new Date();
+    };
+    return s(d. getDate(),2)+ '/' +
+    s(d.getMonth()+1,2) + '/' +
+    d.getFullYear()+ ' ' +
+    s(d.getHours(),2) + ':' +
+    s(d.getMinutes(),2) + ':' +
+    s(d.getSeconds(),2);
 }

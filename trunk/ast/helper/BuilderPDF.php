@@ -21,16 +21,15 @@ class BuilderPDF extends FPDF {
     function Header() {
         global $title;
         $this->SetFont('Aller-Bold', '', 14);
-        $this->Image(POS_ROOT .PATH_IMAGES_REPORT.HEADER_REPORT_BACKGROUND_IMAGE , '', '', '250', '40');
-        $this->Image(POS_ROOT .PATH_IMAGES_REPORT.HEADER_REPORT_LOGO , 10, 5,50,20);
-         $this->SetTextColor(255, 187);
-         $this->Cell(150, 20, HEADER_TITLE, 0, 0, 'C');
+        $this->Image(POS_ROOT . PATH_IMAGES_REPORT . HEADER_REPORT_BACKGROUND_IMAGE, '', '', '250', '40');
+        $this->Image(POS_ROOT . PATH_IMAGES_REPORT . HEADER_REPORT_LOGO, 10, 5, 50, 20);
+        $this->SetTextColor(255, 187);
+        $this->Cell(150, 20, HEADER_TITLE, 0, 0, 'C');
         //$this->SetFont('Arial', '', 14);
         $this->ln(18);
         $this->SetTextColor(000);
         $this->Cell(300, 15, $title . ' Date:' . date("d-m-Y"), 0, 0, 'C');
         $this->ln(20);
-        
     }
 
     function Footer() {
@@ -38,7 +37,7 @@ class BuilderPDF extends FPDF {
         $this->SetFont('Aller', '', 8);
         $this->SetTextColor(255, 187);
         //$this->Cell(0, 10, 'Nisma Cafeterias System', 0, 0, 'L')
-        $this->Image(POS_ROOT .PATH_IMAGES_REPORT.HEADER_REPORT_FOOTER, '0', $this->GetY() + 5, '250', '10');
+        $this->Image(POS_ROOT . PATH_IMAGES_REPORT . HEADER_REPORT_FOOTER, '0', $this->GetY() + 5, '250', '10');
         $this->Cell(0, 20, 'Page ' . $this->PageNo() . '/{nb}', 0, 0, 'C');
         $this->AliasNbPages();
     }
@@ -58,9 +57,9 @@ class BuilderPDF extends FPDF {
      * @param type $header
      * @param type $data 
      */
-    function BuildTable($header, $data, $fields, $width,$font=14) {
+    function BuildTable($header, $data, $fields, $width, $font = 14) {
 // Header
-            $this->SetFont('Arial', '', $font);
+        $this->SetFont('Arial', '', $font);
         foreach ($header as $col)
             $this->Cell($width, 10, $col, 1, 0, 'C');
         $this->Ln();
@@ -100,6 +99,22 @@ class BuilderPDF extends FPDF {
                 }
             }
             $counter++;
+        }
+    }
+
+    function BuildTableEventHistoryReport($header_event_item, $date_event, $data_event_item, $fields_event_item, $width) {
+// Header
+        foreach ($date_event as $row_event) {
+            $this->AddPage();
+            $this->Cell(130, 1, 'Event Name : ' . $row_event['event_name']);
+            $this->Cell(80, 1, 'Department : ' . $row_event['department_name']);
+            $this->Ln(10);
+            $this->Cell(130, 1, 'Employee Name : ' . $row_event['employee_name']);
+            $this->Cell(80, 1, 'Event Nb Invitees : ' . $row_event['event_invitees_nb']);
+            $this->Ln(10);
+            $this->Cell(130, 1, 'Event Date : ' . $row_event['event_date']);
+            $this->Ln(10);
+            $this->BuildTable($header_event_item, $data_event_item[$row_event['event_history_id']], $fields_event_item, $width);
         }
     }
 

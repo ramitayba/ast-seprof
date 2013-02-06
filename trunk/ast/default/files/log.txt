@@ -1,74 +1,20 @@
-<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecute   |  Date:  05.02.2013 04:05:59
-<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecute   |  Date:  05.02.2013 04:07:40
-<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecute   |  Date:  05.02.2013 04:09:11
-<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecute   |  Date:  05.02.2013 04:10:02
-<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecute   |  Date:  05.02.2013 04:12:18
-<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecute   |  Date:  05.02.2013 04:12:58
-<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Numeric value out of range, SQL state 22003 in SQLExecute   |  Date:  05.02.2013 04:53:42
-<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Numeric value out of range, SQL state 22003 in SQLExecute   |  Date:  05.02.2013 04:55:00
-<b>NOTICE</b> 8 Undefined index: employee_name   |  Date:  05.02.2013 07:33:10
-<b>NOTICE</b> 8 Undefined index: employee_name   |  Date:  05.02.2013 07:34:44
-<b>NOTICE</b> 8 Undefined index: employee_name   |  Date:  05.02.2013 07:37:30
-<b>NOTICE</b> 8 Undefined index: employee_name   |  Date:  05.02.2013 07:49:54
-<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver][SQL Server]Conversion failed when converting date and/or time from character string., SQL state 22008 in SQLExecute   |  Date:  05.02.2013 07:56:23
-<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver][SQL Server]Conversion failed when converting date and/or time from character string., SQL state 22008 in SQLExecute   |  Date:  05.02.2013 07:56:33
-<b>NOTICE</b> 8 Undefined index: employee_name   |  Date:  05.02.2013 07:56:54
-<b>NOTICE</b> 8 Undefined index: employee_name   |  Date:  05.02.2013 07:59:16
-<b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  05.02.2013 08:02:14
-<b>NOTICE</b> 8 Undefined index: employee_name   |  Date:  05.02.2013 08:05:03
-<b>NOTICE</b> 8 Undefined index: employee_name   |  Date:  05.02.2013 08:08:28
-<b>NOTICE</b> 8 Undefined index: employee_name   |  Date:  05.02.2013 08:13:43
-<b>NOTICE</b> 8 Undefined index: employee_name   |  Date:  05.02.2013 08:15:40
-<b>NOTICE</b> 8 Undefined index: employee_name   |  Date:  05.02.2013 08:18:26
-<b>NOTICE</b> 8 Undefined index: employee_name   |  Date:  05.02.2013 08:19:18
-<b>NOTICE</b> 8 Undefined index: employee_name   |  Date:  05.02.2013 08:22:04
-<b>NOTICE</b> 8 Undefined index: employee_name   |  Date:  05.02.2013 08:38:03
-<b>NOTICE</b> 8 Undefined index: employee_name   |  Date:  05.02.2013 08:39:10
-<b>NOTICE</b> 8 Undefined index: employee_name   |  Date:  05.02.2013 08:48:10
-<b>NOTICE</b> 8 Undefined index: employee_name   |  Date:  05.02.2013 08:56:32
-<b>NOTICE</b> 8 Undefined index: employee_name   |  Date:  05.02.2013 09:05:43
-<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver][SQL Server]There is insufficient system memory in resource pool 'internal' to run this query., SQL state 37000 in SQLDescribeParameter   |  Date:  05.02.2013 09:34:20
-<b>NOTICE</b> 8 Undefined index: category_name   |  Date:  05.02.2013 09:46:28
-<b>NOTICE</b> 8 Undefined index: category_name   |  Date:  05.02.2013 09:46:28
-<b>NOTICE</b> 8 Undefined index: category_name   |  Date:  05.02.2013 10:05:17
-<b>NOTICE</b> 8 Undefined index: category_name   |  Date:  05.02.2013 10:05:17
-<b>NOTICE</b> 8 Undefined index: category_name   |  Date:  05.02.2013 10:05:17
-<b>NOTICE</b> 8 Undefined index: category_name   |  Date:  05.02.2013 10:05:17
-<b>NOTICE</b> 8 Undefined index: category_name   |  Date:  05.02.2013 10:05:17
-<b>NOTICE</b> 8 Undefined index: category_name   |  Date:  05.02.2013 10:05:17
-<b>NOTICE</b> 8 Undefined index: category_id   |  Date:  06.02.2013 07:29:11
-<b>NOTICE</b> 8 Undefined index: category_id   |  Date:  06.02.2013 07:41:29
-<b>NOTICE</b> 8 Undefined index: category_id   |  Date:  06.02.2013 07:44:02
-<b>NOTICE</b> 8 Undefined index: category_id   |  Date:  06.02.2013 07:46:41
-<b>NOTICE</b> 8 Undefined index: category_id   |  Date:  06.02.2013 07:53:30
-<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecute   |  Date:  06.02.2013 08:47:01
-<b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  06.02.2013 08:47:01
-<b>NOTICE</b> 8 Undefined index: event_id   |  Date:  06.02.2013 09:43:38
-<b>NOTICE</b> 8 Undefined index: event_id   |  Date:  06.02.2013 09:43:38
-<b>NOTICE</b> 8 Undefined index: event_id   |  Date:  06.02.2013 09:43:43
-<b>NOTICE</b> 8 Undefined index: event_id   |  Date:  06.02.2013 09:43:43
-<b>NOTICE</b> 8 Undefined index: event_id   |  Date:  06.02.2013 09:44:24
-<b>NOTICE</b> 8 Undefined index: event_id   |  Date:  06.02.2013 09:44:24
-<b>NOTICE</b> 8 Undefined index: event_id   |  Date:  06.02.2013 09:46:04
-<b>NOTICE</b> 8 Undefined index: event_id   |  Date:  06.02.2013 09:46:04
-<b>NOTICE</b> 8 Undefined index: event_id   |  Date:  06.02.2013 09:46:48
-<b>NOTICE</b> 8 Undefined index: event_id   |  Date:  06.02.2013 09:46:48
-<b>NOTICE</b> 8 Undefined index: event_id   |  Date:  06.02.2013 09:47:31
-<b>NOTICE</b> 8 Undefined index: event_id   |  Date:  06.02.2013 09:47:31
-<b>NOTICE</b> 8 Undefined variable: title   |  Date:  06.02.2013 09:48:16
-<b>NOTICE</b> 8 Undefined variable: title   |  Date:  06.02.2013 09:54:46
-<b>NOTICE</b> 8 Undefined variable: title   |  Date:  06.02.2013 09:55:40
-<b>NOTICE</b> 8 Undefined variable: title   |  Date:  06.02.2013 09:57:09
-<b>NOTICE</b> 8 Undefined index: event_id   |  Date:  06.02.2013 09:57:33
-<b>NOTICE</b> 8 Undefined index: event_id   |  Date:  06.02.2013 09:57:33
-<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver][SQL Server]The conversion of a nvarchar data type to a datetime data type resulted in an out-of-range value., SQL state 22008 in SQLExecute   |  Date:  06.02.2013 09:58:36
-<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver][SQL Server]The conversion of a nvarchar data type to a datetime data type resulted in an out-of-range value., SQL state 22008 in SQLExecute   |  Date:  06.02.2013 09:58:45
-<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecute   |  Date:  06.02.2013 10:12:31
-<b>NOTICE</b> 8 Undefined variable: title   |  Date:  06.02.2013 10:12:31
-<b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  06.02.2013 10:12:31
-<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecute   |  Date:  06.02.2013 10:19:56
-<b>NOTICE</b> 8 Undefined variable: title   |  Date:  06.02.2013 10:19:56
-<b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  06.02.2013 10:19:56
-<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecute   |  Date:  06.02.2013 10:37:44
-<b>NOTICE</b> 8 Undefined variable: title   |  Date:  06.02.2013 10:37:44
-<b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  06.02.2013 10:37:44
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver][SQL Server]The conversion of a varchar data type to a datetime data type resulted in an out-of-range value., SQL state 22008 in SQLExecuteFatal WARNING on line75in file C:\xampp\htdocs\ast\dataAccessLayer\DataAccessManager.php   |  Date:  06.02.2013 09:03:38
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver][SQL Server]The conversion of a nvarchar data type to a datetime data type resulted in an out-of-range value., SQL state 22008 in SQLExecuteFatal WARNING on line75in file C:\xampp\htdocs\ast\dataAccessLayer\DataAccessManager.php   |  Date:  06.02.2013 09:03:54
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecuteFatal WARNING on line75in file C:\xampp\htdocs\ast\dataAccessLayer\DataAccessManager.php   |  Date:  06.02.2013 09:04:45
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver][SQL Server]The conversion of a nvarchar data type to a datetime data type resulted in an out-of-range value., SQL state 22008 in SQLExecuteFatal WARNING on line75in file C:\xampp\htdocs\ast\dataAccessLayer\DataAccessManager.php   |  Date:  06.02.2013 09:07:17
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecuteFatal WARNING on line75in file C:\xampp\htdocs\ast\dataAccessLayer\DataAccessManager.php   |  Date:  06.02.2013 09:10:27
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecuteFatal WARNING on line75in file C:\xampp\htdocs\ast\dataAccessLayer\DataAccessManager.php   |  Date:  06.02.2013 09:12:28
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecuteFatal WARNING on line75in file C:\xampp\htdocs\ast\dataAccessLayer\DataAccessManager.php   |  Date:  06.02.2013 09:12:37
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver][SQL Server]The conversion of a nvarchar data type to a datetime data type resulted in an out-of-range value., SQL state 22008 in SQLExecuteFatal WARNING on line75in file C:\xampp\htdocs\ast\dataAccessLayer\DataAccessManager.php   |  Date:  06.02.2013 09:33:02
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecuteFatal WARNING on line75in file C:\xampp\htdocs\ast\dataAccessLayer\DataAccessManager.php   |  Date:  06.02.2013 09:33:08
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecuteFatal WARNING on line75in file C:\xampp\htdocs\ast\dataAccessLayer\DataAccessManager.php   |  Date:  06.02.2013 09:33:08
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecuteFatal WARNING on line75in file C:\xampp\htdocs\ast\dataAccessLayer\DataAccessManager.php   |  Date:  06.02.2013 09:33:35
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecuteFatal WARNING on line75in file C:\xampp\htdocs\ast\dataAccessLayer\DataAccessManager.php   |  Date:  06.02.2013 09:33:35
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecuteFatal WARNING on line75in file C:\xampp\htdocs\ast\dataAccessLayer\DataAccessManager.php   |  Date:  06.02.2013 09:34:16
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecuteFatal WARNING on line75in file C:\xampp\htdocs\ast\dataAccessLayer\DataAccessManager.php   |  Date:  06.02.2013 09:34:16
+<b>WARNING</b> 2 Invalid argument supplied for foreach()Fatal WARNING on line67in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  06.02.2013 09:34:58
+<b>WARNING</b> 2 Invalid argument supplied for foreach()Fatal WARNING on line67in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  06.02.2013 09:34:58
+<b>WARNING</b> 2 Invalid argument supplied for foreach()Fatal WARNING on line67in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  06.02.2013 09:34:58
+<b>WARNING</b> 2 Invalid argument supplied for foreach()Fatal WARNING on line67in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  06.02.2013 09:34:58
+<b>WARNING</b> 2 Invalid argument supplied for foreach()Fatal WARNING on line67in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  06.02.2013 09:34:58
+<b>WARNING</b> 2 Invalid argument supplied for foreach()Fatal WARNING on line67in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  06.02.2013 09:34:58

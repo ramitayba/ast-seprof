@@ -87,7 +87,6 @@ class DataAccessManager {
             // $this->_DataTable = $this->_Success === true ? odbc_result_all($this->_Statment) : array();
         } catch (OdbcException $ex) {
             self::$_LastError = $ex->getMessage();
-            // Helper::trigger_error('Error Connection', E_USER_ERROR);
             $this->_Success = false;
             $this->_DataTable = array();
         }
