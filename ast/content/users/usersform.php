@@ -31,8 +31,22 @@
                     <div class="controls">
                         <?php
                         $role = new RoleBusinessLayer();
-                        print Helper::form_construct_drop_down('roles', $role->getRoles(DELETED), isset($forms) && array_key_exists('role_id', $forms) ? $forms['role_id'] : '', 'role_name', 'role_id');
+                        $role_id = isset($forms) && array_key_exists('role_id', $forms) ? $forms['role_id'] : '';
+                        print Helper::form_construct_drop_down('roles', $role->getRoles(DELETED), $role_id, 'role_name', 'role_id');
                         ?> 
+                        <script>    
+                            $(function() {
+                                var role_id='<?php print $role_id;?>';
+                                if(role_id!=''){
+                                    if(role_id==1||role_id==4){
+                                        requiredUsername= requiredPassword=true;
+                                        requiredPincode=false;}
+                                    else if(role_id==2){
+                                        requiredUsername=requiredPassword=requiredPincode=true;
+                                    }else{
+                                        requiredUsername= requiredPassword=false;
+                                        requiredPincode=true;
+                                    }}});</script>
                     </div>
                 </div>
                 <div class="control-group">

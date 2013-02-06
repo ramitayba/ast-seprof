@@ -1148,10 +1148,12 @@ function validateReport(a,c,b)
                 required: true
             },
             mindate:{
-                required: true
+                required: true,
+                date: true
             },
             maxdate:{
-                required: true
+                required: true,
+                date: true
             }
         },
         focusCleanup: false,
@@ -1174,10 +1176,12 @@ function validateReport(a,c,b)
     $('#users-purchases-form').validate({
         rules: {
             mindate:{
-                required: true
+                required: true,
+                date: true
             },
             maxdate:{
-                required: true
+                required: true,
+                date: true
             }
         },
         focusCleanup: false,
@@ -1200,10 +1204,12 @@ function validateReport(a,c,b)
     $('#purchased-inventory-form').validate({
         rules: {
             mindate:{
-                required: true
+                required: true,
+                date: true
             },
             maxdate:{
-                required: true
+                required: true,
+                date: true
             }
         },
         focusCleanup: false,
@@ -1226,10 +1232,12 @@ function validateReport(a,c,b)
     $('#events-listing-form').validate({
         rules: {
             mindate:{
-                required: true
+                required: true,
+                date: true
             },
             maxdate:{
-                required: true
+                required: true,
+                date: true
             }
         },
         focusCleanup: false,
@@ -1253,10 +1261,12 @@ function validateReport(a,c,b)
     $('#detailed-event-form').validate({
         rules: {
             mindate:{
-                required: true
+                required: true,
+                date: true
             },
             maxdate:{
-                required: true
+                required: true,
+                date: true
             }
         },
         focusCleanup: false,
@@ -1287,10 +1297,12 @@ function validateReport(a,c,b)
                 required: true
             },
             mindate:{
-                required: true
+                required: true,
+                date: true
             },
             maxdate:{
-                required: true
+                required: true,
+                date: true
             }
         },
         focusCleanup: false,

@@ -49,7 +49,7 @@ if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUES
                             <label class="control-label" for="event-date">Event Date</label>
                             <div class="controls">
                                 <div id="datetimepicker" class="input-append date">
-                                    <input type="text" data-format="dd/MM/yyyy hh:mm:ss" id="datepicker" name="event_date" class="" value="<?php
+                                    <input type="text" data-format="dd/MM/yyyy hh:mm:ss" id="datepicker" readonly name="event_date" class="" value="<?php
                                        if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['event_date'];
                                        endif;
         ?>"/><span class="add-on">

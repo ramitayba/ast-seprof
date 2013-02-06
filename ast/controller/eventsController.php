@@ -112,7 +112,7 @@ elseif ($action == 'save'):
         $success = $eventBusinessLayer->editEvent($query_id, $name, $event_date, $event_invitees_nb, $department_id, $employee_id, $xml, $_SESSION['user_pos']);
     endif;
     if ($success):
-        if ($op == 'test'):
+        if ($op == 'update'):
             $eventDataTable = $eventBusinessLayer->getEvents();
             if ($eventBusinessLayer->getSuccess()):
                 $content = Helper::fill_datatable_event('events', 'events', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $eventDataTable, array('Event Name', 'Event Date', 'Event invitees Number', 'Department Name', 'Employee Name', 'Status'), array('event_name', 'event_date', 'event_invitees_nb', 'department_name', 'employee_name', 'status_name'), 'event_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),

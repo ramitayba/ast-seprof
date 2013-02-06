@@ -43,3 +43,23 @@
 <b>NOTICE</b> 8 Undefined index: category_id   |  Date:  06.02.2013 07:53:30
 <b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecute   |  Date:  06.02.2013 08:47:01
 <b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  06.02.2013 08:47:01
+<b>NOTICE</b> 8 Undefined index: event_id   |  Date:  06.02.2013 09:43:38
+<b>NOTICE</b> 8 Undefined index: event_id   |  Date:  06.02.2013 09:43:38
+<b>NOTICE</b> 8 Undefined index: event_id   |  Date:  06.02.2013 09:43:43
+<b>NOTICE</b> 8 Undefined index: event_id   |  Date:  06.02.2013 09:43:43
+<b>NOTICE</b> 8 Undefined index: event_id   |  Date:  06.02.2013 09:44:24
+<b>NOTICE</b> 8 Undefined index: event_id   |  Date:  06.02.2013 09:44:24
+<b>NOTICE</b> 8 Undefined index: event_id   |  Date:  06.02.2013 09:46:04
+<b>NOTICE</b> 8 Undefined index: event_id   |  Date:  06.02.2013 09:46:04
+<b>NOTICE</b> 8 Undefined index: event_id   |  Date:  06.02.2013 09:46:48
+<b>NOTICE</b> 8 Undefined index: event_id   |  Date:  06.02.2013 09:46:48
+<b>NOTICE</b> 8 Undefined index: event_id   |  Date:  06.02.2013 09:47:31
+<b>NOTICE</b> 8 Undefined index: event_id   |  Date:  06.02.2013 09:47:31
+<b>NOTICE</b> 8 Undefined variable: title   |  Date:  06.02.2013 09:48:16
+<b>NOTICE</b> 8 Undefined variable: title   |  Date:  06.02.2013 09:54:46
+<b>NOTICE</b> 8 Undefined variable: title   |  Date:  06.02.2013 09:55:40
+<b>NOTICE</b> 8 Undefined variable: title   |  Date:  06.02.2013 09:57:09
+<b>NOTICE</b> 8 Undefined index: event_id   |  Date:  06.02.2013 09:57:33
+<b>NOTICE</b> 8 Undefined index: event_id   |  Date:  06.02.2013 09:57:33
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver][SQL Server]The conversion of a nvarchar data type to a datetime data type resulted in an out-of-range value., SQL state 22008 in SQLExecute   |  Date:  06.02.2013 09:58:36
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver][SQL Server]The conversion of a nvarchar data type to a datetime data type resulted in an out-of-range value., SQL state 22008 in SQLExecute   |  Date:  06.02.2013 09:58:45
