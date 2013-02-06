@@ -11,6 +11,7 @@ include_once POS_ROOT . '/businessLayer/CategoryBusinessLayer.php';
 $categoryBusinessLayer = new CategoryBusinessLayer();
 unset($_SESSION['category_id']);
 if ($action == 'index' || $action == 'categories'):
+    $title = 'Categories';
     $categoryDataTable = $categoryBusinessLayer->getParentCategories(DELETED);
     if ($categoryBusinessLayer->getSuccess()):
         $content = Helper::fill_datatable('categories', 'categories', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $categoryDataTable, array('Category ID', 'Category Name', 'Category Color Code', 'Category Description', 'Status'), array('category_id', 'category_name', 'color_code', 'category_description', 'status_name'), 'category_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
@@ -35,7 +36,7 @@ elseif ($action == 'edit'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
         $categoryDataTable = $categoryBusinessLayer->getCategoryByID($query_id, DELETED);
         if (count($categoryDataTable) == 0):
-              print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Categories doesn t exist', 'error')));
+            print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Categories doesn t exist', 'error')));
             return;
         endif;
         $forms = array('category_id' => $categoryDataTable [0]['category_id'], 'category_name' => $categoryDataTable [0]['category_name'],
@@ -77,7 +78,7 @@ elseif ($action == 'save'):
                 return;
             endif;
         else:
-             if ($categoryDataTable[0]['category_name'] == $name && $categoryDataTable[0]['category_id'] != $query_id):
+            if ($categoryDataTable[0]['category_name'] == $name && $categoryDataTable[0]['category_id'] != $query_id):
                 print Helper::json_encode_array(array('status' => 'error', 'message' => 'Role name already exist'));
                 return;
             elseif ($categoryDataTable [0]['category_id'] != $query_id):
@@ -88,10 +89,10 @@ elseif ($action == 'save'):
         $success = $categoryBusinessLayer->editCategory($query_id, $name, $parent, $color, $description, $status, $_SESSION['user_pos']);
     endif;
     if ($success):
-            $categoryDataTable = $categoryBusinessLayer->getParentCategories(DELETED);
+        $categoryDataTable = $categoryBusinessLayer->getParentCategories(DELETED);
         if ($categoryBusinessLayer->getSuccess()):
-             $content = Helper::fill_datatable('categories', 'categories', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $categoryDataTable, array('Category ID', 'Category Name', 'Category Color Code', 'Category Description', 'Status'), array('category_id', 'category_name', 'color_code', 'category_description', 'status_name'), 'category_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
-                    1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')), true, 1, '', '', $root . 'themes/img/details_open.png', 'control-category');
+            $content = Helper::fill_datatable('categories', 'categories', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $categoryDataTable, array('Category ID', 'Category Name', 'Category Color Code', 'Category Description', 'Status'), array('category_id', 'category_name', 'color_code', 'category_description', 'status_name'), 'category_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
+                        1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')), true, 1, '', '', $root . 'themes/img/details_open.png', 'control-category');
         endif;
         $container = Helper::set_message('Category saved succesfuly', 'status') . $content;
         print $container;
@@ -151,14 +152,14 @@ elseif ($action == 'nested' && (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !emp
         $categoryDataTable = $categoryBusinessLayer->getCategoryChildrenByParentID($query_id, DELETED);
         if ($categoryBusinessLayer->getSuccess() && !Helper::is_empty_array($categoryDataTable)):
             $content = Helper::fill_datatable('categories-children', 'categories', array(), $categoryDataTable, array('Category ID', 'Category Name', 'Category Color Code', 'Category Description', 'Status'), array('category_id', 'category_name', 'color_code', 'category_description', 'status_name'), 'category_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
-                        1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')), true, 1, '', '', $root . 'themes/img/details_open.png', 'control-sub-category','rt');
+                        1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')), true, 1, '', '', $root . 'themes/img/details_open.png', 'control-sub-category', 'rt');
         else:
             include_once POS_ROOT . '/businessLayer/ItemBusinessLayer.php';
             $itemBusinessLayer = new ItemBusinessLayer();
             $itemDataTable = $itemBusinessLayer->GetItemByCategory($query_id, DELETED);
             if ($itemBusinessLayer->getSuccess() && !Helper::is_empty_array($itemDataTable)):
                 $content = Helper::fill_datatable('items', 'items', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $itemDataTable, array('Item Name', 'Item Price', 'Item Description', 'Status'), array('item_name', 'item_price', 'item_description', 'status_name'), 'item_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
-                            1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')),true, -1, '', '', $root . '', '','rt');
+                            1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')), true, -1, '', '', $root . '', '', 'rt');
             endif;
         endif;
         print $content;

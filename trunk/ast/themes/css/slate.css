@@ -69,6 +69,7 @@ p {
     top: 15px;
     left: 15px;
     height:100px;
+    text-indent: -9999px;
 }
 
 #header h1 a {
@@ -1701,3 +1702,11 @@ div.messages ul li {
 }
 .clear{height:5px;}
 .span12 .span12{margin-left:0px;}
+.content-preview {background:#fff;}
+.content-preview .widget-form{margin:0;}
+.content-preview img{margin:20px;}
+.content-preview .table-content tbody td{border:none;}
+.content-preview #header-container{border-bottom: 0px;}
+.add-on{left: 220px;
+position: relative;
+margin-top: -28px;}

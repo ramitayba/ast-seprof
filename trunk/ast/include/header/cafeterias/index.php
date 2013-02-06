@@ -1,3 +1,0 @@
-<title>Cafeterias </title>
-
-

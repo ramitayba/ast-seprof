@@ -11,6 +11,7 @@ include_once POS_ROOT . '/businessLayer/CafeteriaBusinessLayer.php';
 $cafeteriaBusinessLayer = new CafeteriaBusinessLayer();
 unset($_SESSION['cafeteria_id']);
 if ($action == 'index'):
+    $title='Cafeterias';
     $cafeteriaDataTable = $cafeteriaBusinessLayer->getCafeterias(DELETED);
     if ($cafeteriaBusinessLayer->getSuccess()):
         $content = Helper::fill_datatable('cafeterias', 'cafeterias', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $cafeteriaDataTable, array('Cafeteria Name'), array('cafeteria_name'), 'cafeteria_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),

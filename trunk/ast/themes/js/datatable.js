@@ -26,7 +26,7 @@ $(function () {
     if (date_obj_mins < 10) {
         date_obj_mins = "0" + date_obj_mins;
     }
-    date_obj_time = "'"+date_obj_hours+":"+date_obj_mins+"'";
+    date_obj_time = date_obj;//"'"+date_obj_hours+":"+date_obj_mins+"'";
     
     /* $('#cafeterias-table a.edit').live('click', function (e) {
         e.preventDefault();
@@ -415,6 +415,22 @@ $(function () {
             error(httpReq, status, exception,c)
         })
     } );
+    $('.print').live('click', function (e) {
+        e.preventDefault();
+        /*  var divContents = $(".form-horizontal").html();
+            var printWindow = window.open('', '', 'height=400,width=800');
+            printWindow.document.write('<html><head><title>Event Report</title>');
+            printWindow.document.write('</head><body >');
+            printWindow.document.write(divContents);
+            printWindow.document.write('</body></html>');
+            printWindow.focus();
+            printWindow.document.close();
+            printWindow.print();*/
+        $('.form-actions').hide();
+        $('#header-container').css('background-color','#263849');
+        window.print();
+        $('.form-actions').show();
+    } );
     /*$('.items').live('click', function (e) {
         e.preventDefault();
         name=$(this).attr("id");
@@ -706,7 +722,7 @@ function error(httpReq, status, exception,a){
     b="<div id='block' class='alert alert-block'>"+
     "<a class='close' data-dismiss='alert' href='#'>&times;</a>"+
     exception+"</div>";
-          $("#widget-content-"+a+"-table img:last-child").remove();
+    $("#widget-content-"+a+"-table img:last-child").remove();
     $("#block").replaceWith(b);
     $(".alert").show();
 }
@@ -1084,9 +1100,11 @@ function getData(oTable,name,select)
     {
         var data=oTable.fnGetData(nodes[i]);
         var idSelect=data[0];
-        obj[i]= {items_event:{
-            id:idSelect,
-            number:data[2]}
+        obj[i]= {
+            items_event:{
+                id:idSelect,
+                number:data[2]
+            }
         };
     }
     return obj;

@@ -11,6 +11,9 @@
 <script>
     $(document).ready( function () {
         $('#color').colorpicker({ flat: true });
+        $('#color').colorpicker().on('changeColor', function(ev){
+            $(this).val(ev.color.toHex());
+        });
         maxLength = $("textarea#comment").attr("maxlength");
         $("textarea#comment").after("<div><span id='remainingLengthTempId'>"
             + maxLength + "</span> remaining</div>");
@@ -38,7 +41,7 @@
                     <div class="controls">
                         <input type="text" class="input-large" name="category_name" id="category-name" 
                                maxlength="100"      value="<?php
-if (isset($forms)&& array_key_exists('category_name', $forms)):print $forms['category_name'];
+if (isset($forms) && array_key_exists('category_name', $forms)):print $forms['category_name'];
 endif;
 ?>">
                     </div>
@@ -59,7 +62,7 @@ endif;
                     <div class="controls">
                         <input type="text" class="input-large" name="color_code" id="color"
                                maxlength="7"    value="<?php
-                        if (isset($forms) &&  array_key_exists('color_code', $forms)):print '#' . $forms['color_code'];
+                        if (isset($forms) && array_key_exists('color_code', $forms)):print '#' . $forms['color_code'];
                         else:print DEFAULT_COLOR;
                         endif;
                         ?>">
@@ -80,7 +83,7 @@ endif;
                     <label class="control-label" for="status">Status</label>
                     <div class="controls">
                         <?php
-                        print Helper::form_construct_drop_down('status', LookupBusinessLayer::getInstance()->getActivityStatus(), isset($forms)&& array_key_exists('status_id', $forms) ? $forms['status_id'] : '', 'status_name', 'status_id');
+                        print Helper::form_construct_drop_down('status', LookupBusinessLayer::getInstance()->getActivityStatus(), isset($forms) && array_key_exists('status_id', $forms) ? $forms['status_id'] : '', 'status_name', 'status_id');
                         ?>
                     </div>
                 </div>

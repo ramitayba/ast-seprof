@@ -8,16 +8,27 @@
         <div class="widget-content">
 
             <form method="post" id="events-listing-form" name="events-listing-form" class="events-listing-form form-horizontal" action="#">
-                <div class="control-group">
-                    <label for="mindate" class="control-label">From</label>
+               
+                    <div class="control-group">
+                    <label for="datepicker-inline-mindate" class="control-label">From</label>
                     <div class="controls">
-                        <input type="text" name="mindate" id="mindate" placeholder="Click for Datepicker" readonly/>
+                         <div id="datetimepickermin" class="input-append date">
+                                    <input type="text" data-format="dd/MM/yyyy" id="mindate" name="mindate" class="" readonly/><span class="add-on">
+                                        <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                                        </i>
+                                    </span>
+                                </div> 
                     </div>
                 </div>
                 <div class="control-group">
-                    <label for="maxdate" class="control-label">To</label>
+                    <label for="datepicker-inline-maxdate" class="control-label">To</label>
                     <div class="controls">
-                        <input type="text" name="maxdate" id="maxdate" placeholder="Click for Datepicker" readonly/>
+                       <div id="datetimepickermax" class="input-append date">
+                                    <input type="text" data-format="dd/MM/yyyy" id="maxdate" name="maxdate" class="" readonly/><span class="add-on">
+                                        <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                                        </i>
+                                    </span>
+                                </div> 
                     </div>
                 </div>
                 <div class="form-actions">

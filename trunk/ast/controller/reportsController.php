@@ -17,6 +17,7 @@ $name_select = isset($data) && array_key_exists('select', $data) ? $data['select
 $mindate = isset($data) && array_key_exists('mindate', $data) ? $data['mindate'] : '';
 $maxdate = isset($data) && array_key_exists('maxdate', $data) ? $data['maxdate'] : '';
 $reportsDataTable = array();
+$title=  Helper::get_title_action($action);
 if ($action == 'cafeteria-balance'):
     include_once POS_ROOT . '/businessLayer/CafeteriaBusinessLayer.php';
     if ($query_id == 'show'):

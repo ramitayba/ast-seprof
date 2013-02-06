@@ -21,6 +21,7 @@ $mindate;
 $maxdate;
 $reportsDataTable = array();
 $name_select;
+$title;
 
 
 

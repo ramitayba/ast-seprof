@@ -15,7 +15,7 @@ require('helper/BuilderPDF.php');
     $pdf->Cell(130, 1, 'From : ' . $mindate);
     $pdf->Cell(100, 1, 'To : ' . $maxdate);
     $pdf->Ln(20);
-    $pdf->BuildTable($header,$reportsDataTable, $fields,48);
+    $pdf->BuildTable($header,$reportsDataTable, $fields,48,10);
     $pdf->Output();
     unset($_SESSION['data_report']);
 ?>

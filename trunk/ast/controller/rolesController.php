@@ -10,6 +10,7 @@
 include_once POS_ROOT . '/businessLayer/RoleBusinessLayer.php';
 $roleBusinessLayer = new RoleBusinessLayer();
 if ($action == 'roles' || $action == 'index'):
+       $title='Roles';
     $roleDataTable = $roleBusinessLayer->getRoles(DELETED);
     if ($roleBusinessLayer->getSuccess()):
         $content = Helper::fill_datatable('roles', 'roles', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $roleDataTable, array('Role Name', 'Status Name'), array('role_name', 'status_name'), 'role_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),

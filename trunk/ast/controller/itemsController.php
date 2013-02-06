@@ -11,6 +11,7 @@ include_once POS_ROOT . '/businessLayer/ItemBusinessLayer.php';
 include_once POS_ROOT . '/businessLayer/CategoryBusinessLayer.php';
 $itemBusinessLayer = new ItemBusinessLayer();
 if ($action == 'index' || $action == 'items'):
+     $title='Items';
     $itemDataTable = $itemBusinessLayer->getItems(DELETED);
     if ($itemBusinessLayer->getSuccess()):
         $content = Helper::fill_datatable('items', 'items', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $itemDataTable, array('Category Parent Name', 'Sub Category Name', 'Item Name', 'Item Price', 'Item Description', 'Status'), array('category_parent_name', 'category_name', 'item_name', 'item_price', 'item_description', 'status_name'), 'item_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),

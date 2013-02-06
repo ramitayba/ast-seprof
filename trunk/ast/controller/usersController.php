@@ -11,8 +11,10 @@ include_once POS_ROOT . '/businessLayer/UserBusinessLayer.php';
 include_once POS_ROOT . '/businessLayer/RoleBusinessLayer.php';
 $userBusinessLayer = new UserBusinessLayer();
 if ($action == 'logout'):
+    $title = 'login';
     unset($_SESSION['user_pos']);
 elseif ($action == 'login'):
+    $title = 'login';
     $user_name = isset($_POST['username']) ? $_POST['username'] : '';
     $password = isset($_POST['password']) ? $_POST['password'] : '';
     if (Helper::is_empty_string($user_name) || Helper::is_empty_string($password)):
@@ -104,7 +106,7 @@ elseif ($action == 'save'):
             print Helper::json_encode_array(array('status' => 'error', 'message' => 'User name already exist'));
             return;
         endif;
-        $success = $userBusinessLayer->addUser($name,  md5($password), $pin, $role, $employee, $status);
+        $success = $userBusinessLayer->addUser($name, md5($password), $pin, $role, $employee, $status);
     else:
         if (!is_numeric($query_id)):
             print Helper::json_encode_array(array('status' => 'error', 'message' => 'User doesn t  exist'));
@@ -141,13 +143,13 @@ elseif ($action == 'delete'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
         $userDataTable = $userBusinessLayer->getUserByID($query_id, DELETED);
         if (count($userDataTable) == 0):
-            print Helper::json_encode_array(array('status' => 'error','message' => Helper::set_message('Cafeteria not exist', 'error')));
+            print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Cafeteria not exist', 'error')));
             return;
         endif;
         $success = $userBusinessLayer->deleteUser($query_id, DELETED);
         if ($success):
             $container = Helper::set_message('Role ' . $userDataTable [0]['user_name'] . ' delete succesfuly', 'status');
-            print Helper::json_encode_array(array('status' => 'success', 'message' =>$container));
+            print Helper::json_encode_array(array('status' => 'success', 'message' => $container));
         else:
             print Helper::json_encode_array(array('status' => 'error', 'message' => 'User not deleted '));
         endif;

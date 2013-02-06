@@ -38,6 +38,8 @@ include Helper::load_controller($pagename);
             <link rel="shortcut icon" href="<?php print $root?>default/files/favicon.ico" type="image/x-icon"/>
                 <meta http-equiv="Content-Type" content="text/html; utf-8">
                     <?php
+                                          
+                            print' <title>Dashboard | POS Nesma Administration | '.$title.'</title>';
                     if (strpos($pagename, 'pdf') == 0):
                         // If a header file exists for the target content page, then use it. Otherwise
                         // use the default header file
@@ -48,8 +50,6 @@ include Helper::load_controller($pagename);
                             require_once("include/header/$pagename.php");
                         elseif (!isset($_SESSION['user_pos'])):
                             require_once("include/header/login.php");
-                        else :
-                            print' <title>Dashboard | POS Nesma Administration</title>';
                         endif;
                     endif;
                     ?>
@@ -70,9 +70,6 @@ include Helper::load_controller($pagename);
                             ?>
                             <div id="content">
                                 <div class="container">
-
-
-
                                     <?php if (isset($_SESSION['messages'])): ?>
                                         <div id="system-messages-wrapper" class="clearfix">
                                             <div class="container">
