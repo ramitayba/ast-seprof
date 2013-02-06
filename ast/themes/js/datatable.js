@@ -605,7 +605,7 @@ $(function () {
             a=b='';
             return;
         }
-        if(!validate(a,b))return;
+        if(!validate(a,b,e))return;
     /* $('.'+a+'-form').trigger('submit');
         var sequence="";
         $('input[name=check]:checked').each(function(){
@@ -799,7 +799,7 @@ function checkMaxLength(textareaID, maxLength){
 
     }
 }
-function validate(a,b)
+function validate(a,b,e)
 {
     resetForm=$('#users-form').validate({
         rules: {
@@ -1005,15 +1005,6 @@ function validate(a,b)
     });
 
     // $('.form').eq (0).find ('input').eq (0).focus ();
-    jQuery.validator.addMethod("greaterThan", 
-        function(value, element, params) {
-            params=new Date();
-            if (!/Invalid|NaN/.test(new Date(value))) {
-                return new Date(value) > params;
-            }
-            return isNaN(value)
-            || (Number(value) > Number(params)); 
-        },'Must be greater than to now');
     $('#events-form').validate({
         rules: {
             event_name: {
@@ -1022,8 +1013,7 @@ function validate(a,b)
             },
             datepicker: {
                 required: true,
-                date: true,
-                greaterThan:"#datepicker"
+                date: true
             },
             event_invitees_nb: {
                 required: true,
@@ -1050,6 +1040,15 @@ function validate(a,b)
             error.appendTo( element.parents ('.controls') );
         },
         submitHandler: function (form) {
+           /* if( new Date($('#datepicker').val()) < new Date())
+            {
+                $('.error').remove();
+                $('#datetimepicker').after('<label for="maxdate" generated="true" class="error" style="">Must be greater than Date</label>');
+                e.preventDefault();
+                return false;           
+            }else{
+                $('.error').remove();
+            }*/
             ajaxSubhmit(a,b);
         }
     });
