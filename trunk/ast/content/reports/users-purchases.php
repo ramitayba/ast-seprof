@@ -11,7 +11,7 @@
             <form method="post" id="users-purchases-form" name="users-purchases-form" class="users-purchases-form form-horizontal" action="#">
                    <div class="control-group">
                     <label for="datepicker-inline-mindate" class="control-label">From</label>
-                    <div class="controls">
+                    <div class="controls date">
                          <div id="datetimepickermin" class="input-append date">
                                     <input type="text" data-format="dd/MM/yyyy" id="mindate" name="mindate" class="" readonly/><span class="add-on">
                                         <i data-time-icon="icon-time" data-date-icon="icon-calendar">
@@ -22,7 +22,7 @@
                 </div>
                 <div class="control-group">
                     <label for="datepicker-inline-maxdate" class="control-label">To</label>
-                    <div class="controls">
+                    <div class="controls date">
                        <div id="datetimepickermax" class="input-append date">
                                     <input type="text" data-format="dd/MM/yyyy" id="maxdate" name="maxdate" class="" readonly/><span class="add-on">
                                         <i data-time-icon="icon-time" data-date-icon="icon-calendar">

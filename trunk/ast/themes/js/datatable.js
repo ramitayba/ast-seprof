@@ -396,7 +396,9 @@ $(function () {
             data+="&select="+$('#filter_select option:selected').text();
         }
         $("#widget-content").html('<div align="center" style="width:'+width+';height:'+height+'"><img src="'+sImageUrl+'"loader.gif" alt="Loading...."/></div>');
-        if(!validateReport(name,'show',data))return;
+        if(!validateReport(name,'show',data,e)){
+            return;
+        }
     } );
     
     $('.back').live('click', function (e) {
@@ -1003,7 +1005,15 @@ function validate(a,b)
     });
 
     // $('.form').eq (0).find ('input').eq (0).focus ();
-
+    jQuery.validator.addMethod("greaterThan", 
+        function(value, element, params) {
+            params=new Date();
+            if (!/Invalid|NaN/.test(new Date(value))) {
+                return new Date(value) > params;
+            }
+            return isNaN(value)
+            || (Number(value) > Number(params)); 
+        },'Must be greater than to now');
     $('#events-form').validate({
         rules: {
             event_name: {
@@ -1012,7 +1022,8 @@ function validate(a,b)
             },
             datepicker: {
                 required: true,
-                date: true
+                date: true,
+                greaterThan:"#datepicker"
             },
             event_invitees_nb: {
                 required: true,
@@ -1140,11 +1151,20 @@ function ajaxSubhmit(a,b)
         error(httpReq, status, exception,a);
     });
 }
-function validateReport(a,c,b)
+function validateReport(a,c,b,e)
 {
+    if( new Date($('#mindate').val()) > new Date($('#maxdate').val()))
+    {
+        $('.error').remove();
+        $('#datetimepickermax').after('<label for="maxdate" generated="true" class="error" style="">Must be greater than From Date</label>');
+        e.preventDefault();
+        return false;           
+    }else{
+        $('.error').remove();
+    }
     $('#cafeteria-balance-form').validate({
         rules: {
-            cafeteria: {
+            filter_select: {
                 required: true
             },
             mindate:{

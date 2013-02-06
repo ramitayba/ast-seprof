@@ -63,3 +63,12 @@
 <b>NOTICE</b> 8 Undefined index: event_id   |  Date:  06.02.2013 09:57:33
 <b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver][SQL Server]The conversion of a nvarchar data type to a datetime data type resulted in an out-of-range value., SQL state 22008 in SQLExecute   |  Date:  06.02.2013 09:58:36
 <b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver][SQL Server]The conversion of a nvarchar data type to a datetime data type resulted in an out-of-range value., SQL state 22008 in SQLExecute   |  Date:  06.02.2013 09:58:45
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecute   |  Date:  06.02.2013 10:12:31
+<b>NOTICE</b> 8 Undefined variable: title   |  Date:  06.02.2013 10:12:31
+<b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  06.02.2013 10:12:31
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecute   |  Date:  06.02.2013 10:19:56
+<b>NOTICE</b> 8 Undefined variable: title   |  Date:  06.02.2013 10:19:56
+<b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  06.02.2013 10:19:56
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecute   |  Date:  06.02.2013 10:37:44
+<b>NOTICE</b> 8 Undefined variable: title   |  Date:  06.02.2013 10:37:44
+<b>NOTICE</b> 8 Constant POS_ROOT already defined   |  Date:  06.02.2013 10:37:44
