@@ -9,6 +9,7 @@
  */
 include_once POS_ROOT . '/businessLayer/AllowanceBusinessLayer.php';
 if ($action == 'allowance'):
+    $title='Allowance';
     $allowanceDataTable = LookupBusinessLayer::getInstance()->getEmployees();
     if (LookupBusinessLayer::getInstance()->getSuccess()):
         $content = Helper::fill_datatable('allowances','allowances', array(), $allowanceDataTable, array('Employe ID', 'Employee Name', 'Max Debit'), array('employee_id', 'employee_name', 'employee_max_debit'), 'employee_id', array(), false, 0, 'allowances', 'employee_max_debit');

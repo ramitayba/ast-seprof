@@ -13,6 +13,7 @@ include_once POS_ROOT . '/businessLayer/ItemBusinessLayer.php';
 include_once POS_ROOT . '/businessLayer/CategoryBusinessLayer.php';
 unset($_SESSION['event_id']);
 $eventBusinessLayer = new EventBusinessLayer();
+$title = 'Events';
 if ($action == 'index' || $action == 'events'):
     $eventDataTable = $eventBusinessLayer->getEvents();
     if ($eventBusinessLayer->getSuccess()):
@@ -42,7 +43,7 @@ elseif ($action == 'edit'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
         $eventDataTable = $eventBusinessLayer->getEventByID($query_id);
         if (count($eventDataTable) == 0):
-            print Helper::json_encode_array(array('status' => 'error', 'message' => 'Event doesn t  exist '));
+            print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Event not exist', 'error')));
             return;
         endif;
         $forms = array('event_id' => $eventDataTable [0]['event_id']
@@ -56,7 +57,7 @@ elseif ($action == 'edit'):
         $content = Helper::fill_datatable('items', 'items', array(), $eventItemDataTable, array('Item ID', 'Item Name', 'Item Quantity'), array('item_id', 'item_name', 'item_quantity'), 'event_id', array(0 => array('name' => 'Delete', 'link' => 'delete-table', 'class' => 'delete')), true, 0, 'items', 'item_quantity', '', '', 'rt');
         include_once POS_ROOT . '/content/events/add.php';
     else:
-        print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Events not exist', 'error')));
+        print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Event not exist', 'error')));
     endif;
 elseif ($action == 'save'):
     $name = isset($data['event_name']) ? $data['event_name'] : '';
@@ -111,7 +112,7 @@ elseif ($action == 'save'):
         $success = $eventBusinessLayer->editEvent($query_id, $name, $event_date, $event_invitees_nb, $department_id, $employee_id, $xml, $_SESSION['user_pos']);
     endif;
     if ($success):
-        if ($op == 'update'):
+        if ($op == 'test'):
             $eventDataTable = $eventBusinessLayer->getEvents();
             if ($eventBusinessLayer->getSuccess()):
                 $content = Helper::fill_datatable_event('events', 'events', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $eventDataTable, array('Event Name', 'Event Date', 'Event invitees Number', 'Department Name', 'Employee Name', 'Status'), array('event_name', 'event_date', 'event_invitees_nb', 'department_name', 'employee_name', 'status_name'), 'event_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
@@ -137,15 +138,17 @@ elseif ($action == 'save'):
             endif;
             $eventItemBusinessLayer = new EventItemBusinessLayer();
             $eventItemDataTable = $eventItemBusinessLayer->getEventItemsByEventID($event_id);
-            $data_report = array('event_name' => $event_name,
-                'department_name' => $department_name,
-                'event_employee' => $employee_name,
-                'event_invitees' => $event_invitees,
-                'event_date' => $date,
-                'reports_data_table' => $eventItemDataTable);
+            $data_report = array('event_name' => array('Event Name', $event_name),
+                'department_name' => array('Department Name', $department_name),
+                'employee_name' => array('Employee Name', $employee_name),
+                'event_invitees' => array('Event Attendees', $event_invitees),
+                'event_date' => array('Date', $date),
+                'data_table' => $eventItemDataTable);
+            //$pathreport = $root . 'reports/event-pdf';
+            //$container = Helper::generate_container_pdf($pathreport, '', false);
             $_SESSION['data_report'] = $data_report;
-            $pathreport = $root . 'reports/event-pdf';
-            $container = Helper::generate_container_pdf($pathreport, '', false);
+            include POS_ROOT . '/include/template/preview.php';
+            return;
         endif;
         print $container;
     else:

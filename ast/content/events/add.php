@@ -9,7 +9,7 @@
 ?>
 <script>
     $(function() {
-        $("#datepicker").datepicker({dateFormat: 'mm-dd-yy'+' ' +date_obj_time}); 
+       $("#datetimepicker").datetimepicker({language: 'en'}); 
     });
 </script>
 <?php
@@ -48,19 +48,23 @@ if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUES
                         <div class="control-group control-min-group">
                             <label class="control-label" for="event-date">Event Date</label>
                             <div class="controls">
-                                <input type="text" id="datepicker" name="event_date" class="" value="<?php
-        if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['event_date'];
-        endif;
-        ?>"/>
-                            </div>
+                                <div id="datetimepicker" class="input-append date">
+                                    <input type="text" data-format="dd/MM/yyyy hh:mm:ss" id="datepicker" name="event_date" class="" value="<?php
+                                       if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['event_date'];
+                                       endif;
+        ?>"/><span class="add-on">
+                                        <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                                        </i>
+                                    </span>
+                                </div>    </div>
                         </div>
                         <div class="control-group control-min-group">
                             <label class="control-label" for="invitees-nb">Invitees Number</label>
                             <div class="controls">
                                 <input type="text" class="input-large" name="event_invitees_nb" maxlength="9" id="event_invitees_nb" onkeypress="return isNumberKey(event)"
                                        value="<?php
-        if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['event_invitees_nb'];
-        endif;
+                                           if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['event_invitees_nb'];
+                                           endif;
         ?>" >
                             </div>
                         </div>
@@ -103,25 +107,25 @@ if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUES
                                     <label class="control-label" for="number">Item Quantity</label>
                                     <div class="controls">
                                         <input type="text" class="input-large" maxlength="9" name="number" id="number" onkeypress="return isNumberKey(event)">
-                                     <a class="add " id="add-items" href="" title="Add New Record"></a>
+                                        <a class="add " id="add-items" href="" title="Add New Record"></a>
                                     </div>
-                                 
-                                       
-                                   
+
+
+
                                 </div>
 
                                 <div class="control-group">
                                     <div class="widget widget-table">
 
-<?php print $content ?>
+                                        <?php print $content ?>
                                     </div> </div>
                             </div>
                         </div>
                         <div class="form-actions">
                             <button type="submit" id="save-events-<?php
-if (isset($forms)): print $forms['event_id'];
-endif;
-?>"
+                                        if (isset($forms)): print $forms['event_id'];
+                                        endif;
+                                        ?>"
                                     class="save btn btn-primary btn-large">Save changes</button>
                             <button type="reset" id="cancel-events" class="cancel btn btn-large">Cancel</button>
                         </div>   

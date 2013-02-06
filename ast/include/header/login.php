@@ -1,4 +1,3 @@
-<title>Login</title>
 <link href="<?php echo $root; ?>themes/css/bootstrap.css" rel="stylesheet">
 <link href="<?php echo $root; ?>themes/css/bootstrap-overrides.css" rel="stylesheet">
 <link href="<?php echo $root; ?>themes/css/slate.css" rel="stylesheet">

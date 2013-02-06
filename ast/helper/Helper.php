@@ -636,8 +636,61 @@ class Helper {
         return $container;
     }
 
+    public static function preview($url_preview, $exist = true) {
+        $container = '<div class="widget-content"><iframe style="border:none" width="100%" height="500" src="' . $url_preview . '"></iframe>';
+        $container.= $exist ? '<div class="form-actions"><a id="print"class="back btn btn-large btn-inverse" href="">Print</a></div></div>' : '';
+        return $container;
+    }
+
+    public static function construct_template_view($array, $header, $fields) {
+        $container = '<div class="control-group"><div class="widget widget-table"><div id="widget-table"><table class="table table-content"><tbody><tr> ';
+        $i = 0;
+        foreach ($array as $key => $val):
+            $container.=$i % 2 == 0 && $i != 0 ? '</tr><tr>' : '';
+            if ($key !== 'data_table'):
+                $i++;
+                $container.='<td>' . $val[0] . '</td>';
+                $container.='<td>' . $val[1] . '</td>';
+            else:
+                $container.= '</tr></div></div></div></tbody></table>' . self::_construct_table_view($val, $header, $fields);
+            endif;
+        endforeach;
+        return $container;
+    }
+
+    private static function _construct_table_view($array, $header, $fields) {
+        $container_table = '<div class="control-group"><div class="widget widget-table"><div id="widget-table">';
+        $container_table.=' <table class="table "> <thead><tr>';
+        foreach ($header as $val):
+            $container_table.='<th>' . $val . '</th>';
+        endforeach;
+        $container_table.='</tr></thead><tbody>';
+        $i = 1;
+        $tr = '';
+        foreach ($array as $row):
+            $class = $i % 2 ? ' even' : ' odd';
+            $tr.= '<tr class="gradeA ' . $class . '">';
+            foreach ($fields as $rowfields):
+                $tr.= '<td class="' . $class . '">' . $row[$rowfields] . '</td>';
+            endforeach;
+            $tr.='</tr>';
+            $i++;
+        endforeach;
+        $container_table.=$tr . '</tbody></table></div></div></div>';
+        return $container_table;
+    }
+
     public static function trigger_error($message, $type) {
         trigger_error($message, $type);
+    }
+
+    public static function get_title_action($action) {
+        $title = ' ';
+        $split = explode('-', $action);
+        foreach ($split as $word):
+            $title.= ucfirst($word) . ' ';
+        endforeach;
+        return $title;
     }
 
 }

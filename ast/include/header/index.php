@@ -1,3 +1,4 @@
+
 <meta name="Description" content="POS Nesma Administration" />
 <meta name="Keywords" content="POS Nesma Administration" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -7,7 +8,7 @@
 <link href="<?php echo $root; ?>themes/css/bootstrap-responsive.css" rel="stylesheet">
 <link href="<?php echo $root; ?>themes/css/bootstrap-overrides.css" rel="stylesheet">
 <link href="<?php echo $root; ?>themes/css/ui-lightness/jquery-ui-1.10.0.custom.css" rel="stylesheet">
-<link href="<?php echo $root; ?>themes/css/slate.css" rel="stylesheet">
+<link href="<?php echo $root; ?>themes/css/slate.css" rel="stylesheet" >
 <link href="<?php echo $root; ?>themes/css/slate-responsive.css" rel="stylesheet">
 <link href="<?php echo $root; ?>themes/css/pages/dashboard.css" rel="stylesheet">
 <link href="<?php echo $root; ?>themes/js/plugins/datatables/DT_bootstrap.css" rel="stylesheet">
