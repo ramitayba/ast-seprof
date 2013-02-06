@@ -659,6 +659,7 @@ class Helper {
     }
 
     private static function _construct_table_view($array, $header, $fields) {
+        if(self::is_empty_array($array))return '';
         $container_table = '<div class="control-group"><div class="widget widget-table"><div id="widget-table">';
         $container_table.=' <table class="table "> <thead><tr>';
         foreach ($header as $val):
