@@ -4994,7 +4994,6 @@
 			{
 				return [];
 			}
-			
 			var aiReturn = [];
 			var iTest;
 			

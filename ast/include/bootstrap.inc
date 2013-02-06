@@ -16,23 +16,28 @@ function error_handler($errno, $errstr, $errfile, $errline) {
 
     switch ($errno) {
         case E_USER_ERROR:
-            $message = '<b>My ERROR</b>' . $errno . $errstr . '\n' .
+            $message = '<b>My ERROR</b>' . $errno . ' ' . $errstr . '\n' .
                     'Fatal error on line' . $errline . 'in file ' . $errfile;
             break;
         case E_USER_WARNING:
-            $message = '<b>My WARNING</b>' . $errno . ' ' . $errstr;
+            $message = '<b>My WARNING</b>' . $errno . ' ' . $errstr .
+                    'Fatal USER_WARNING on line' . $errline . 'in file ' . $errfile;
             break;
         case E_USER_NOTICE:
-            $message = '<b>My NOTICE</b> ' . $errno . ' ' . $errstr;
+            $message = '<b>My NOTICE</b> ' . $errno . ' ' . $errstr .
+                    'Fatal USER_NOTICE on line' . $errline . 'in file ' . $errfile;
             break;
         case E_NOTICE:
-            $message = '<b>NOTICE</b> ' . $errno . ' ' . $errstr;
+            $message = '<b>NOTICE</b> ' . $errno . ' ' . $errstr .
+                    'Fatal NOTICE on line' . $errline . 'in file ' . $errfile;
             break;
         case E_WARNING:
-            $message = '<b>WARNING</b> ' . $errno . ' ' . $errstr;
+            $message = '<b>WARNING</b> ' . $errno . ' ' . $errstr .
+                    'Fatal WARNING on line' . $errline . 'in file ' . $errfile;
             break;
         default:
-            $message = 'Unknown error type:' . $errno . ' ' . $errstr;
+            $message = 'Unknown error type:' . $errno . ' ' . $errstr .
+                    'Fatal error on line' . $errline . 'in file ' . $errfile;
             break;
     }
     $date = date('d.m.Y h:i:s');
