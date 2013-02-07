@@ -119,7 +119,7 @@ elseif ($action == 'save'):
                             1 => array('name' => 'Approved', 'link' => 'approved-', 'class' => 'approved'),
                             2 => array('name' => 'Rejected', 'link' => 'rejected-', 'class' => 'rejected')));
             endif;
-            $container = Helper::set_message('Event saved succesfuly', 'status') . $content;
+            $container = Helper::set_message('Event saved successfully', 'status') . $content;
         else:
             $eventDataTable = $eventBusinessLayer->getLastEvent();
             $event_id = '';

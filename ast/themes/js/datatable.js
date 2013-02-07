@@ -192,7 +192,7 @@ $(function () {
                 anOpenCategories.splice( i, 1 );
             } );
             $('.sub-categories #widget-table', $(nTr).next()[0]).css('display', 'none');
-        //$('.details').parents('tr').remove();
+            //$('.details').parents('tr').remove();
         }
     } );
     
@@ -239,7 +239,7 @@ $(function () {
                 anOpenSubCategories.splice( i, 1 );
             } );
             
-        //$('.details').parents('tr').remove();
+            //$('.details').parents('tr').remove();
         }
     } );
  
@@ -344,7 +344,7 @@ $(function () {
             requiredPassword=true;
             requiredPincode=true;
         }
-    //validate('','');
+        //validate('','');
     } );
     $('.permissions').live('click', function (e) {
         e.preventDefault();
@@ -597,7 +597,7 @@ $(function () {
             return;
         }
         if(!validate(a,b,e))return;
-    /* $('.'+a+'-form').trigger('submit');
+        /* $('.'+a+'-form').trigger('submit');
         var sequence="";
         $('input[name=check]:checked').each(function(){
             sequence+=$(this).val()+",";
@@ -717,8 +717,8 @@ function showSelect(b,a)
 function error(httpReq, status, exception,a){
 
     b="<div id='block' class='alert alert-block'>"+
-    "<a class='close' data-dismiss='alert' href='#'>&times;</a>"+
-    exception+"</div>";
+        "<a class='close' data-dismiss='alert' href='#'>&times;</a>"+
+        exception+"</div>";
     $("#widget-content-"+a+"-table img:last-child").remove();
     $("#block").replaceWith(b);
     $(".alert").show();
@@ -745,14 +745,14 @@ function table(name,sdom,column_hide,editable)
                     var aPos = oTable.fnGetPosition( this );*/
                     
                     oTable.fnUpdate([ dataRow[0], dataRow[1],sValue] );
-                // oTable.fnDraw();
+                    // oTable.fnDraw();
                 },
                 "submitdata": function ( value, settings ) {
                     nRow = $(this).parents('tr')[0];
                     dataRow=oTable.fnGetData(nRow);
                     $("#id").val(dataRow[0]);
-                //$('#formeditable').append($(input));
-                /*  nRow = $(this).parents('tr')[0];
+                    //$('#formeditable').append($(input));
+                    /*  nRow = $(this).parents('tr')[0];
                     dataRow=oTable.fnGetData(nRow);
                     alert(dataRow[0]+','+ dataRow[1]+','+ value)
                  $.seprof(baseurl,{
@@ -778,6 +778,17 @@ function table(name,sdom,column_hide,editable)
     if(column_hide!=-1){
         table.fnSetColumnVis(column_hide,false);
     }
+    $('#'+editable+'-table tbody td.tdedit input').live('keypress', function (e) {
+        var value=$('#'+editable+'-table tbody td.tdedit input').val();
+       var arr= value.split('.');
+       /* var success=true;
+        if(value!='')
+        {
+            success =isNumberKey(e)&&$.isNumeric(value);
+        }
+        return success;*/
+        return isNumberKey(e)&&arr.length<3;
+    })
     return table;
 }
 
@@ -794,6 +805,7 @@ function checkMaxLength(textareaID, maxLength){
 
     }
 }
+
 function validate(a,b,e)
 {
     resetForm=$('#users-form').validate({
@@ -1077,9 +1089,9 @@ function validate(a,b,e)
 function isNumberKey(evt)
 {
     var charCode = (evt.which) ? evt.which : event.keyCode
+    if(charCode==46)return true;
     if (charCode > 31 && (charCode < 48 || charCode > 57))
         return false;
-
     return true;
 }
 function existRow(oTable,value)
@@ -1123,7 +1135,7 @@ function ajaxSubhmit(a,b)
         sequence+=$(this).val()+",";
     });
     datatable=getData(oTable,a,'id');
-    var data =$('.'+a+'-form').serialize();
+    var data =decodeURIComponent($('.'+a+'-form').serialize(true));
     $("#widget-content-"+a+"-table").append('<img src="'+sImageUrl+'loader.gif" alt="Loading...."/>');
     $.seprof(baseurl,{
         name:a,
@@ -1391,9 +1403,9 @@ function getDateTime(d){
         d = new Date();
     };
     return s(d. getDate(),2)+ '/' +
-    s(d.getMonth()+1,2) + '/' +
-    d.getFullYear()+ ' ' +
-    s(d.getHours(),2) + ':' +
-    s(d.getMinutes(),2) + ':' +
-    s(d.getSeconds(),2);
+        s(d.getMonth()+1,2) + '/' +
+        d.getFullYear()+ ' ' +
+        s(d.getHours(),2) + ':' +
+        s(d.getMinutes(),2) + ':' +
+        s(d.getSeconds(),2);
 }

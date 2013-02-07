@@ -44,7 +44,7 @@ elseif ($action == 'edit'):
             'status_id' => $roleDataTable [0]['status_id']);
         include_once POS_ROOT . '/content/users/rolesform.php';
     else:
-        print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Roles not exist', 'error')));
+        print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Role not exist', 'error')));
     endif;
 elseif ($action == 'save'):
     $name = isset($data['role_name']) ? $data['role_name'] : '';
@@ -64,12 +64,12 @@ elseif ($action == 'save'):
         $success = $roleBusinessLayer->addRole($name, $status, $_SESSION['user_pos']);
     else:
         if (!is_numeric($query_id)):
-            print Helper::json_encode_array(array('status' => 'error', 'message' => 'Role doesn t  exist'));
+            print Helper::json_encode_array(array('status' => 'error', 'message' => 'Role doesn t exist'));
             return;
         elseif (count($roleDataTable) == 0):
             $roleDataTable = $roleBusinessLayer->getRoleByID($query_id, DELETED);
             if (count($roleDataTable) == 0):
-                print Helper::json_encode_array(array('status' => 'error', 'message' => 'Role doesn t  exist '));
+                print Helper::json_encode_array(array('status' => 'error', 'message' => 'Role doesn t exist '));
                 return;
             endif;
         else:
@@ -90,7 +90,7 @@ elseif ($action == 'save'):
                         1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete'),
                         2 => array('name' => 'Permissions', 'link' => 'permissions-', 'class' => 'permissions')));
         endif;
-        $container = Helper::set_message('Role saved succesfuly', 'status') . $content;
+        $container = Helper::set_message('Role saved successfully', 'status') . $content;
         print $container;
     else:
         print Helper::json_encode_array(array('status' => 'error', 'message' => 'Role not saved '));
@@ -99,12 +99,12 @@ elseif ($action == 'delete'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
         $roleDataTable = $roleBusinessLayer->getRoleByID($query_id, DELETED);
         if (count($roleDataTable) == 0):
-            print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Cafeteria not exist', 'error')));
+            print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Role not exist', 'error')));
             return;
         endif;
         $success = $roleBusinessLayer->deleteRole($query_id, DELETED, $_SESSION['user_pos']);
         if ($success):
-            $container = Helper::set_message('Role ' . $roleDataTable [0]['role_name'] . ' delete succesfuly', 'status');
+            $container = Helper::set_message('Role ' . $roleDataTable [0]['role_name'] . ' deleted successfully', 'status');
             print Helper::json_encode_array(array('status' => 'success', 'message' => $container));
         else:
             print Helper::json_encode_array(array('status' => 'error', 'message' => 'Role not deleted '));
