@@ -97,7 +97,7 @@ elseif ($action == 'save'):
             $content = Helper::fill_datatable('items', 'items', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $itemDataTable, array('Category Parent Name', 'Sub Category Name', 'Item Name', 'Item Price', 'Item Description', 'Status'), array('category_parent_name', 'category_name', 'item_name', 'item_price', 'item_description', 'status_name'), 'item_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
                         1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')));
         endif;
-        $container = Helper::set_message('Item saved succesfuly', 'status') . $content;
+        $container = Helper::set_message('Item saved successfully', 'status') . $content;
         print $container;
     else:
         print Helper::json_encode_array(array('status' => 'error', 'message' => 'item not saved '));
@@ -106,12 +106,12 @@ elseif ($action == 'delete'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
         $itemDataTable = $itemBusinessLayer->getItemById($query_id, DELETED);
         if (count($itemDataTable) == 0):
-            print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Cafeteria not exist', 'error')));
+            print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Item not exist', 'error')));
             return;
         endif;
         $success = $itemBusinessLayer->deleteItem($query_id, DELETED, $_SESSION['user_pos']);
         if ($success):
-            $container = Helper::set_message('Item ' . $itemDataTable [0]['item_name'] . ' delete succesfuly', 'status');
+            $container = Helper::set_message('Item ' . $itemDataTable [0]['item_name'] . ' deleted successfully', 'status');
             print Helper::json_encode_array(array('status' => 'success', 'message' => $container));
         else:
             print Helper::json_encode_array(array('status' => 'error', 'message' => 'Item not deleted '));

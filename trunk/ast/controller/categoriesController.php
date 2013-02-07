@@ -94,7 +94,7 @@ elseif ($action == 'save'):
             $content = Helper::fill_datatable('categories', 'categories', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $categoryDataTable, array('Category ID', 'Category Name', 'Category Color Code', 'Category Description', 'Status'), array('category_id', 'category_name', 'color_code', 'category_description', 'status_name'), 'category_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
                         1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')), true, 1, '', '', $root . 'themes/img/details_open.png', 'control-category');
         endif;
-        $container = Helper::set_message('Category saved succesfuly', 'status') . $content;
+        $container = Helper::set_message('Category saved successfully', 'status') . $content;
         print $container;
 // endif;
     else:
@@ -109,7 +109,7 @@ elseif ($action == 'delete'):
         endif;
         $success = $categoryBusinessLayer->deleteCategory($query_id, DELETED, $_SESSION['user_pos']);
         if ($success):
-            $container = Helper::set_message('Category ' . $categoryDataTable [0]['category_name'] . ' delete succesfuly', 'status');
+            $container = Helper::set_message('Category ' . $categoryDataTable [0]['category_name'] . ' deleted successfully', 'status');
             $categoryDataTable = $categoryBusinessLayer->getParentCategories(DELETED);
             if ($categoryBusinessLayer->getSuccess()):
                 $content = Helper::fill_datatable('categories', 'categories', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $categoryDataTable, array('Category ID', 'Category Name', 'Category Color Code', 'Category Description', 'Status'), array('category_id', 'category_name', 'color_code', 'category_description', 'status_name'), 'category_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),

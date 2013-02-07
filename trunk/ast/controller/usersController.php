@@ -134,7 +134,7 @@ elseif ($action == 'save'):
             $content = Helper::fill_datatable('users', 'users', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $userDataTable, array('User Name', 'Pin Code', 'Role Name', 'Employee Name'), array('user_name', 'user_pin', 'role_name', 'employee_name'), 'user_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
                         1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')));
         endif;
-        $container = Helper::set_message('User saved succesfuly', 'status') . $content;
+        $container = Helper::set_message('User saved successfully', 'status') . $content;
         print $container;
     else:
         print Helper::json_encode_array(array('status' => 'error', 'message' => 'User not saved '));
@@ -143,12 +143,12 @@ elseif ($action == 'delete'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
         $userDataTable = $userBusinessLayer->getUserByID($query_id, DELETED);
         if (count($userDataTable) == 0):
-            print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Cafeteria not exist', 'error')));
+            print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('User not exist', 'error')));
             return;
         endif;
         $success = $userBusinessLayer->deleteUser($query_id, DELETED);
         if ($success):
-            $container = Helper::set_message('Role ' . $userDataTable [0]['user_name'] . ' delete succesfuly', 'status');
+            $container = Helper::set_message('Role ' . $userDataTable [0]['user_name'] . ' deleted successfully', 'status');
             print Helper::json_encode_array(array('status' => 'success', 'message' => $container));
         else:
             print Helper::json_encode_array(array('status' => 'error', 'message' => 'User not deleted '));

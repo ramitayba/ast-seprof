@@ -348,12 +348,12 @@ class Helper {
         $data = str_replace("'", "''", $data);
         $data = str_replace(";", "", $data);
         $data = str_replace("/", "", $data);
-        $data = str_replace("%2B", "+", $data);
+       /* $data = str_replace("%2B", "+", $data);
         $data = str_replace("%3D", "=", $data);
         $data = str_replace("%2F", "/", $data);
         $data = str_replace("%3A", ":", $data);
         $data = str_replace("%23", "", $data);
-        $data = str_replace("+", " ", $data);
+        $data = str_replace("+", " ", $data);*/
         $data = self::check_plain($data);
         return $data;
     }
@@ -659,7 +659,8 @@ class Helper {
     }
 
     private static function _construct_table_view($array, $header, $fields) {
-        if(self::is_empty_array($array))return '';
+        if (self::is_empty_array($array))
+            return '';
         $container_table = '<div class="control-group"><div class="widget widget-table"><div id="widget-table">';
         $container_table.=' <table class="table "> <thead><tr>';
         foreach ($header as $val):
@@ -693,6 +694,7 @@ class Helper {
         endforeach;
         return $title;
     }
+
 
 }
 

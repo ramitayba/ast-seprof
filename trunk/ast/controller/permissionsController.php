@@ -44,7 +44,7 @@ elseif ($action == 'save'):
                         1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete'),
                         2 => array('name' => 'Permissions', 'link' => 'permissions-', 'class' => 'permissions')));
         endif;
-        $container = Helper::set_message('Role Permissions saved succesfuly', 'status') . $content;
+        $container = Helper::set_message('Role Permissions saved successfully', 'status') . $content;
         print $container;
     else:
         print Helper::json_encode_array(array('status' => 'error', 'message' => 'Role Permissions not saved '));
