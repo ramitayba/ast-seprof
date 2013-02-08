@@ -7,6 +7,10 @@
  * 
  */
 ?>
+<script> var $checktree;
+            $(function(){
+                $checktree = $("ul.tree").checkTree({collapseAll:true});
+            });</script>
 <div id="validation" class="widget highlight widget-form widget-permission-form">
 
     <div class="widget-header">
@@ -26,6 +30,7 @@
                 <div class="control-group">
                     <label class="control-label">Permissions List</label>
                     <div class="controls">
+                        
                         <div class="PermLinks">
                             <?php print Helper::fill_list_permission($forms['permissions']); ?>
                         </div>
