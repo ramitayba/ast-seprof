@@ -13,13 +13,15 @@
         $('#nav').hide();
         $('#page-title').hide();
         $('#footer').hide();
-        });</script>
+    });</script>
 <div class="content-preview">
     <div id="header">
         <div class="container" id="header-container">
-           <a href="./"> <img src="<?php print $root ?>/themes/img/title.png"></a>
-    </div> <!-- /.container -->
-</div>
+             <a href="./"> 
+                <img src="<?php print $root ?>themes/img/title.png">
+            </a>
+        </div> <!-- /.container -->
+    </div>
     <div id="content">
         <div class="container">
             <div class="span12">
@@ -27,7 +29,8 @@
                     <div id="validation" class="widget highlight widget-form">
 
                         <div  class="form-horizontal">
-                            <?php $data_report = isset($_SESSION['data_report']) ? $_SESSION['data_report'] : array();
+                            <?php
+                            $data_report = isset($_SESSION['data_report']) ? $_SESSION['data_report'] : array();
                             print $content = Helper::construct_template_view($data_report, array('Category Name', 'Item Name', 'Item Quantity'), array('category_name', 'item_name', 'item_quantity'));
                             ?>
 
@@ -41,5 +44,6 @@
     </div> <!-- /#content -->
     <div class="form-actions">
         <a href="" id="print" class="print btn btn-primary btn-large">Print</a>
+        <a href="" id="back-<?php print $data_report['action'] ?>" class="back-preview btn btn-primary btn-large">Back</a>
     </div>
 </div>
