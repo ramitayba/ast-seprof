@@ -63,6 +63,7 @@
                     <label class="control-label" for="password">Password</label>
                     <div class="controls">
                         <input type="password" class="input-large" name="user_password" id="password" maxlength="50"
+                               onkeypress="return denySpace(event)"
                                value="<?php
                                if (isset($forms) && array_key_exists('user_password', $forms)):print $forms['user_password'];
                                endif;
