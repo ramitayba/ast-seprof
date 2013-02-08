@@ -51,7 +51,9 @@ endif;
                     <div class="controls">
                         <?php
                         $category = new CategoryBusinessLayer();
-                        print Helper::form_construct_drop_down('category', $category->getParentCategories(DELETED), isset($forms) && array_key_exists('category_parent_id', $forms) ? $forms['category_parent_id'] : '', 'category_name', 'category_id', 'disabled');
+                        $id = isset($forms) && array_key_exists('category_id', $forms) ? $forms['category_id'] : '';
+                        $categoryTable = Helper::is_empty_string($id) ? $category->getParentCategories(DELETED) : $category->getParentCategoriesWithoutID($id, DELETED);
+                        print Helper::form_construct_drop_down('category', $categoryTable, $id, 'category_name', 'category_id', 'disabled');
                         ?>
                         <input type="checkbox" name="others" onclick="enable_text(this.checked,document.categoriesform.category)" >
                     </div>

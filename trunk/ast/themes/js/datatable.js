@@ -780,6 +780,7 @@ function table(name,sdom,column_hide,editable)
                 // oTable.fnDraw();
                 },
                 "submitdata": function ( value, settings ) {
+                    alert();
                     nRow = $(this).parents('tr')[0];
                     dataRow=oTable.fnGetData(nRow);
                     $("#id").val(dataRow[0]);
@@ -837,7 +838,6 @@ function checkMaxLength(textareaID, maxLength){
 
     }
 }
-
 function validate(a,b,e)
 {
     resetForm=$('#users-form').validate({
@@ -848,7 +848,8 @@ function validate(a,b,e)
             },
             user_password: {
                 required: requiredPassword,
-                maxlength:50
+                maxlength:50,
+                minlength:6
             },
             user_pin: {
                 required: requiredPincode,
@@ -1126,6 +1127,11 @@ function isNumberKey(evt)
         return false;
     return true;
 }
+function denySpace(evt)
+{
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    return charCode!=32;
+}
 function existRow(oTable,value)
 {
     var nodes=oTable.fnGetNodes();
@@ -1168,6 +1174,7 @@ function ajaxSubhmit(a,b)
     });
     datatable=getData(oTable,a,'id');
     var data =decodeURIComponent($('.'+a+'-form').serialize());
+    alert(data);
     $("#widget-content-"+a+"-table").append('<img src="'+sImageUrl+'loader.gif" alt="Loading...."/>');
     $.seprof(baseurl,{
         name:a,
@@ -1386,7 +1393,7 @@ function validateReport(a,c,e)
 }
 function ajaxReport(name,query)
 {
-    var data =$('#'+name+'-form').serialize();
+    var data =decodeURIComponent($('#'+name+'-form').serialize());
     if($('#filter_select').length!=0){
         data+="&select="+$('#filter_select option:selected').text();
     }
@@ -1423,7 +1430,6 @@ function errorBefore(message,name)
     $('.messages').remove();
     $( '.widget').before(message)  ;
 }
-
 function getDateTime(d){
     // padding function
     var s = function(a,b){

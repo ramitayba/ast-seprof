@@ -12,8 +12,13 @@
         $('#header').hide();
         $('#nav').hide();
         $('#page-title').hide();
-        $('#footer').hide();
     });</script>
+<style>#footer .container {
+        border-top:0px;
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        box-shadow:none;
+    }</style>
 <div class="content-preview">
     <div id="header">
         <div  id="header-container">
@@ -21,7 +26,7 @@
                 <img class="logo" src="<?php print $root ?>themes/img/title.png">
             </a>
             <img class="img-header-print" src="<?php print $root ?>themes/slate/nesma_report_hd.png"> 
-            
+
         </div> <!-- /.container -->
     </div>
     <div id="content">

@@ -72,7 +72,22 @@ class CategoryBusinessLayer {
         return $this->_CategoriesDataTable;
     }
 
-    
+    public function getParentCategoriesWithoutID($id,$status) {
+        try {
+            $this->_reset();
+            $this->_SQLQuery = "{call getParentCategoriesWithoutID(?,?)}";
+            DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
+            $this->_CategoriesDataTable = DataAccessManager::getInstance()->fillData(array($id,$status));
+            $this->_Success = DataAccessManager::getInstance()->getSuccess();
+            if (!$this->_Success) {
+                $this->_LastError = DataAccessManager::getInstance()->getLastError();
+            }
+        } catch (Exception $ex) {
+            $this->_LastError = $ex->getMessage();
+            $this->_Success = false;
+        }
+        return $this->_CategoriesDataTable;
+    }
     public function getCategoryByName($name,$status) {
         try {
             $this->_reset();
