@@ -1704,15 +1704,11 @@ div.messages ul li {
 .span12 .span12{margin-left:0px;}
 .content-preview {background:#fff;}
 .content-preview .widget-form{margin:0;}
-.content-preview img{margin:20px;}
+.content-preview .logo{margin:20px;overflow:hidden;position:absolute;z-index:10;}
 .content-preview .table-content tbody td{border:none;}
-.content-preview #header-container{border-bottom: 0px;}
+.content-preview #header{height:120px;}
 .add-on{left: 220px;
 position: relative;
 margin-top: -28px;}
 .date .error{left:250px;}
-.img-header-print{overflow:visible;position:absolute;width:100%;height:150px;}
-
-.content-preview  .container {
-   text-indent: 0;
-}
+.img-header-print{height:120px;}
