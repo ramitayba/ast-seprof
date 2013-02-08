@@ -192,7 +192,7 @@ $(function () {
                 anOpenCategories.splice( i, 1 );
             } );
             $('.sub-categories #widget-table', $(nTr).next()[0]).css('display', 'none');
-            //$('.details').parents('tr').remove();
+        //$('.details').parents('tr').remove();
         }
     } );
     
@@ -239,7 +239,7 @@ $(function () {
                 anOpenSubCategories.splice( i, 1 );
             } );
             
-            //$('.details').parents('tr').remove();
+        //$('.details').parents('tr').remove();
         }
     } );
  
@@ -344,7 +344,7 @@ $(function () {
             requiredPassword=true;
             requiredPincode=true;
         }
-        //validate('','');
+    //validate('','');
     } );
     $('.permissions').live('click', function (e) {
         e.preventDefault();
@@ -404,6 +404,38 @@ $(function () {
             query:'back'
         },function(k){
             showFormPrepareReports(k);
+        },function(httpReq, status, exception,c){
+            error(httpReq, status, exception,c)
+        })
+    } );
+    $('.back-preview').live('click', function (e) {
+        e.preventDefault();
+        name=$(this).attr("id");
+        if(name=='')return;
+        array=name.split("-");
+        if(array.length==4){
+            a=array[1];
+            c=array[2];
+            b=array[3];
+            if(a==''||b==''||c=='')
+            {
+                return;
+            }
+        }
+        else{
+            a=b=c='';
+            return;
+        }
+        $.seprof(baseurl,{
+            name:c,
+            action:a,
+            query:b
+        },function(k){
+            $('#header').show();
+            $('#nav').show();
+            $('#page-title').show();
+            $('#footer').show();
+            $('.content-preview').replaceWith(k);
         },function(httpReq, status, exception,c){
             error(httpReq, status, exception,c)
         })
@@ -597,7 +629,7 @@ $(function () {
             return;
         }
         if(!validate(a,b,e))return;
-        /* $('.'+a+'-form').trigger('submit');
+    /* $('.'+a+'-form').trigger('submit');
         var sequence="";
         $('input[name=check]:checked').each(function(){
             sequence+=$(this).val()+",";
@@ -717,8 +749,8 @@ function showSelect(b,a)
 function error(httpReq, status, exception,a){
 
     b="<div id='block' class='alert alert-block'>"+
-        "<a class='close' data-dismiss='alert' href='#'>&times;</a>"+
-        exception+"</div>";
+    "<a class='close' data-dismiss='alert' href='#'>&times;</a>"+
+    exception+"</div>";
     $("#widget-content-"+a+"-table img:last-child").remove();
     $("#block").replaceWith(b);
     $(".alert").show();
@@ -745,14 +777,14 @@ function table(name,sdom,column_hide,editable)
                     var aPos = oTable.fnGetPosition( this );*/
                     
                     oTable.fnUpdate([ dataRow[0], dataRow[1],sValue] );
-                    // oTable.fnDraw();
+                // oTable.fnDraw();
                 },
                 "submitdata": function ( value, settings ) {
                     nRow = $(this).parents('tr')[0];
                     dataRow=oTable.fnGetData(nRow);
                     $("#id").val(dataRow[0]);
-                    //$('#formeditable').append($(input));
-                    /*  nRow = $(this).parents('tr')[0];
+                //$('#formeditable').append($(input));
+                /*  nRow = $(this).parents('tr')[0];
                     dataRow=oTable.fnGetData(nRow);
                     alert(dataRow[0]+','+ dataRow[1]+','+ value)
                  $.seprof(baseurl,{
@@ -780,8 +812,8 @@ function table(name,sdom,column_hide,editable)
     }
     $('#'+editable+'-table tbody td.tdedit input').live('keypress', function (e) {
         var value=$('#'+editable+'-table tbody td.tdedit input').val();
-       var arr= value.split('.');
-       /* var success=true;
+        var arr= value.split('.');
+        /* var success=true;
         if(value!='')
         {
             success =isNumberKey(e)&&$.isNumeric(value);
@@ -1135,7 +1167,7 @@ function ajaxSubhmit(a,b)
         sequence+=$(this).val()+",";
     });
     datatable=getData(oTable,a,'id');
-    var data =decodeURIComponent($('.'+a+'-form').serialize(true));
+    var data =decodeURIComponent($('.'+a+'-form').serialize());
     $("#widget-content-"+a+"-table").append('<img src="'+sImageUrl+'loader.gif" alt="Loading...."/>');
     $.seprof(baseurl,{
         name:a,
@@ -1403,9 +1435,9 @@ function getDateTime(d){
         d = new Date();
     };
     return s(d. getDate(),2)+ '/' +
-        s(d.getMonth()+1,2) + '/' +
-        d.getFullYear()+ ' ' +
-        s(d.getHours(),2) + ':' +
-        s(d.getMinutes(),2) + ':' +
-        s(d.getSeconds(),2);
+    s(d.getMonth()+1,2) + '/' +
+    d.getFullYear()+ ' ' +
+    s(d.getHours(),2) + ':' +
+    s(d.getMinutes(),2) + ':' +
+    s(d.getSeconds(),2);
 }

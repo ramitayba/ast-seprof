@@ -347,8 +347,8 @@ class Helper {
         //return '0x' . $unpacked['hex'];
         $data = str_replace("'", "''", $data);
         $data = str_replace(";", "", $data);
-        $data = str_replace("/", "", $data);
-       /* $data = str_replace("%2B", "+", $data);
+        $data = str_replace("#", "", $data);
+        /*$data = str_replace("%2B", "+", $data);
         $data = str_replace("%3D", "=", $data);
         $data = str_replace("%2F", "/", $data);
         $data = str_replace("%3A", ":", $data);
@@ -647,11 +647,11 @@ class Helper {
         $i = 0;
         foreach ($array as $key => $val):
             $container.=$i % 2 == 0 && $i != 0 ? '</tr><tr>' : '';
-            if ($key !== 'data_table'):
+            if ($key !== 'data_table'&&$key!='action'):
                 $i++;
                 $container.='<td>' . $val[0] . '</td>';
                 $container.='<td>' . $val[1] . '</td>';
-            else:
+            elseif ($key !== 'action'):
                 $container.= '</tr></div></div></div></tbody></table>' . self::_construct_table_view($val, $header, $fields);
             endif;
         endforeach;
