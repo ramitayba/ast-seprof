@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This is the reportsController
+ * This is the reports
  * Designed and Developed by SEProf Team
  * Copyright (c) 2013 SEProf Inc.
  * http://seprof.com/
@@ -19,8 +19,8 @@ $maxdate = isset($data) && array_key_exists('maxdate', $data) ? $data['maxdate']
 $reportsDataTable = array();
 $reportsDetailsDataTable = array();
 $title = Helper::get_title_action($action);
+include_once POS_ROOT . '/businessLayer/CafeteriaBusinessLayer.php';
 if ($action == 'cafeteria-balance'):
-    include_once POS_ROOT . '/businessLayer/CafeteriaBusinessLayer.php';
     if ($query_id == 'show'):
         $reportsBusinessLayer = new ReportsBusinessLayer();
         $reportsDataTable = $reportsBusinessLayer->getCafeteriaBalanceByID($filter_id, $mindate, $maxdate, DELETED);
@@ -59,7 +59,8 @@ elseif ($action == 'detailed-event'):
             $reportsDetailsDataTable[$id_parent][$obj['item_id']]['item_quantity'] = $obj['item_quantity'];
             $reportsDetailsDataTable[$id_parent][$obj['item_id']]['item_price'] = $obj['item_price'];
         }
-    endif; elseif ($action == 'menu-report'):
+    endif;
+elseif ($action == 'menu-report'):
     if ($query_id == 'show'):
         $reportsBusinessLayer = new ReportsBusinessLayer();
         $menuReport = $reportsBusinessLayer->getMenuReports(DELETED);
@@ -92,6 +93,8 @@ if ($query_id == 'show'):
     $_SESSION['data_report'] = $data_report;
     print Helper::generate_container_pdf($pathreport, $action);
 elseif ($query_id == 'back'):
+    include_once POS_ROOT . '/include/header/reports/reports.php';
     include_once $pathback;
 endif;
+
 ?>
