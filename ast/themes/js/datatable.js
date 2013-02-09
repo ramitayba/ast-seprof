@@ -1173,8 +1173,12 @@ function ajaxSubhmit(a,b)
         sequence+=$(this).val()+",";
     });
     datatable=getData(oTable,a,'id');
-    var data =decodeURIComponent($('.'+a+'-form').serialize());
-    alert(data);
+    var data='';// =decodeURIComponent($('.'+a+'-form').serialize());
+    var element;
+    $("form :input[type='text'],[type='password'],[type='checkbox'],select,textarea,datetime").each(function(index, elm){
+        element=elm.name+'='+$(elm).val()+'&';
+        data+=element;
+    });
     $("#widget-content-"+a+"-table").append('<img src="'+sImageUrl+'loader.gif" alt="Loading...."/>');
     $.seprof(baseurl,{
         name:a,
@@ -1393,9 +1397,14 @@ function validateReport(a,c,e)
 }
 function ajaxReport(name,query)
 {
-    var data =decodeURIComponent($('#'+name+'-form').serialize());
+    var data='';// =decodeURIComponent($('#'+name+'-form').serialize());
+    var element;
+    $("form :input[type='text'],[type='checkbox'],select").each(function(index, elm){
+        element=elm.name+'='+$(elm).val()+'&';
+        data+=element;
+    });
     if($('#filter_select').length!=0){
-        data+="&select="+$('#filter_select option:selected').text();
+        data+="select="+$('#filter_select option:selected').text();
     }
     $.seprof(baseurl,{
         name:'reports',
@@ -1411,6 +1420,16 @@ function ajaxReport(name,query)
 function enable_text(status,links)
 {
     requiredSelect=links.disabled=!status;
+}
+function enable_allowance(status)
+{
+    $('#max_debit').attr('disabled',!status);
+    $('#save-allowances').attr('disabled',!status);
+    if(status){
+        $('#widget-table').hide();
+    }else{
+        $('#widget-table').show(); 
+    }
 }
 function fnNestedTable(id,oTable,nTr,anOpen,name )
 {

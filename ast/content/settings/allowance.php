@@ -24,7 +24,7 @@
                     <div class="control-group control-min-group">
                         <label class="control-label" for="checkall">Check All</label>
                         <div class="controls">
-                            <input type="checkbox" name="checkall" onclick="enable_text(this.checked,document.allowancesform.saveallowances)"  >
+                            <input type="checkbox" name="checkall" onclick="enable_allowance(this.checked);"  >
                         </div>
                     </div>
                    
@@ -42,7 +42,7 @@
             </form>
 <script>
     $(function() {
-        enable_text(this.checked,document.allowancesform.saveallowances);
+       enable_allowance(this.checked);
     });
 </script>
         </div> <!-- /widget-content -->
