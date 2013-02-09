@@ -20,7 +20,7 @@
                 <div class="control-group control-min-group">
                      <label for="checkall" class="control-label">Check All</label>
                     <div class="controls">
-                        <input type="checkbox" name="checkall"  id="checkall" onclick="enable_text(!this.checked,document.cafeteriabalanceform.filter_select)"  >
+                        <input type="checkbox" name="checkall"  id="checkall" value="0"  onclick="enable_text(!this.checked,document.cafeteriabalanceform.filter_select)"  >
                     </div></div>
                 <div class="control-group">
                     <label for="datepicker-inline-mindate" class="control-label">From</label>
