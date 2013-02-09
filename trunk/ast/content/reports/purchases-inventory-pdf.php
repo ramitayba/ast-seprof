@@ -7,7 +7,7 @@ require('helper/BuilderPDF.php');
     $reportsDataTable = $data_report['reports_data_table'];
     $fields = array('item_name', 'balance');
     $pdf = new BuilderPDF();
-    $title = 'Purchased Inventory ';
+    $title = 'Purchases Inventory ';
     $pdf->SetTitle($title);
     $header = array('Item Name ', 'Total',);
     $pdf->SetFont('Arial', '', 14);

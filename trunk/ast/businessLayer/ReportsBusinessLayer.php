@@ -96,10 +96,10 @@ class ReportsBusinessLayer {
         return $this->_ReportsDataTable;
     }
 
-    public function getPurchasedInventory($from_date, $to_date) {
+    public function getPurchasesInventory($from_date, $to_date) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call GetPurchasedInventory(?,?)}";
+            $this->_SQLQuery = "{call GetPurchasesInventory(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
             $this->_ReportsDataTable = DataAccessManager::getInstance()->fillData(array($from_date, $to_date));
             if (Helper::is_empty_array($this->_ReportsDataTable)) {

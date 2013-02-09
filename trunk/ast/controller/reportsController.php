@@ -35,10 +35,10 @@ elseif ($action == 'detailed-users-purchases'):
         $reportsBusinessLayer = new ReportsBusinessLayer();
         $reportsDataTable = $reportsBusinessLayer->getMiniReportsByUser($filter_id, $mindate, $maxdate);
     endif;
-elseif ($action == 'purchased-inventory'):
+elseif ($action == 'purchases-inventory'):
     if ($query_id == 'show'):
         $reportsBusinessLayer = new ReportsBusinessLayer();
-        $reportsDataTable = $reportsBusinessLayer->getPurchasedInventory($mindate, $maxdate);
+        $reportsDataTable = $reportsBusinessLayer->getPurchasesInventory($mindate, $maxdate);
     endif;
 elseif ($action == 'events-listing'):
     if ($query_id == 'show'):

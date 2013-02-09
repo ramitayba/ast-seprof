@@ -39,7 +39,7 @@ $routes = array(
     'erpController' => array('settings/erp'),
     'synchronizeController' => array('settings/manual', 'settings/automatic'),
     'reportsController' => array('reports/cafeteria-balance', 'reports/users-purchases',
-        'reports/detailed-users-purchases', 'reports/purchased-inventory',
+        'reports/detailed-users-purchases', 'reports/purchases-inventory',
         'reports/events-listing', 'reports/menu-report', 'reports/detailed-event'),
 );
 

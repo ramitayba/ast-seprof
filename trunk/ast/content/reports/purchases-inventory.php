@@ -4,7 +4,7 @@
         <div class="widget-header">						
             <h3>
                 <i class="icon-th-list"></i>
-                Reports: Purchased Inventory
+                Reports: Purchases Inventory
         </div> <!-- /widget-header -->
         <div class="widget-content">
 
