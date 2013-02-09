@@ -12,7 +12,7 @@ $url = Helper::get_url() . '/';
 $pathreport = $url . 'reports/' . $action . '-pdf';
 $pathback = POS_ROOT . '/content/reports/' . $action . '.php';
 $checkall = isset($data) && array_key_exists('checkall', $data) ? $data['checkall'] : '';
-$filter_id = $checkall ? null : isset($data) && array_key_exists('filter_select', $data) ? $data['filter_select'] : '';
+$filter_id = $checkall==1 ? null : isset($data) && array_key_exists('filter_select', $data) ? $data['filter_select'] : '';
 $name_select = isset($data) && array_key_exists('select', $data) ? $data['select'] : '';
 $mindate = isset($data) && array_key_exists('mindate', $data) ? $data['mindate'] : '';
 $maxdate = isset($data) && array_key_exists('maxdate', $data) ? $data['maxdate'] : '';
@@ -23,7 +23,8 @@ include_once POS_ROOT . '/businessLayer/CafeteriaBusinessLayer.php';
 if ($action == 'cafeteria-balance'):
     if ($query_id == 'show'):
         $reportsBusinessLayer = new ReportsBusinessLayer();
-        $reportsDataTable = $reportsBusinessLayer->getCafeteriaBalanceByID($filter_id, $mindate, $maxdate, DELETED);
+        $reportsDataTable = $filter_id!=null ?$reportsBusinessLayer->getCafeteriaBalanceByID($filter_id, $mindate, $maxdate, DELETED):
+        $reportsBusinessLayer->getCafeteriaBalance($mindate, $maxdate, DELETED);
     endif;
 elseif ($action == 'users-purchases'):
     if ($query_id == 'show'):

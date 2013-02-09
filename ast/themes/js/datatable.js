@@ -659,6 +659,16 @@ $(function () {
             error(httpReq, status, exception,a);
         })*/
     } ); 
+    $('#checkall').live('change', function (e) {
+        if($('#checkall').is(':checked')){
+            $("#checkall").val(1);
+        }
+        else
+        {
+            $("#checkall").val(0);
+        }
+
+    });
     $('.cancel').live('click', function (e) {
         e.preventDefault();
         name=$(this).attr("id");
