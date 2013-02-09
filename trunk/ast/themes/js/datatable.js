@@ -790,7 +790,6 @@ function table(name,sdom,column_hide,editable)
                 // oTable.fnDraw();
                 },
                 "submitdata": function ( value, settings ) {
-                    alert();
                     nRow = $(this).parents('tr')[0];
                     dataRow=oTable.fnGetData(nRow);
                     $("#id").val(dataRow[0]);
