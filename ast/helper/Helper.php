@@ -487,11 +487,11 @@ class Helper {
         return $datatable;
     }
 
-    public static function fill_datatable($name, $id, $header_buttons, $table, $header, $fields, $id_name, $linkcontrol = array(), $control = true, $column_hide = -1, $editable = '', $class_td_edit = '', $tdicon = '', $tdicon_class = '', $sdom = "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>", $display_length = '10', $query_id = '', $script = true) {
+    public static function fill_datatable($name, $id, $header_buttons, $table, $header, $fields, $id_name, $linkcontrol = array(), $control = true, $column_hide = -1, $editable = '', $class_td_edit = '', $tdicon = '', $tdicon_class = '', $sdom = "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>", $query_id = '', $script = true) {
         $param = !self::is_empty_string($query_id) ? $name . '-' . $query_id : $name;
         $datatable = '<div id="widget-table"> <div class="widget-header"><h3><i class="icon-th-list"></i>'
                 . ucfirst($name) . '</h3></div>';
-        $datatable.= $script ? ' <script>$(function () {     oTable = table("' . $param . '","' . $sdom . '",' . $column_hide . ',"' . $editable . '","' . $display_length . '");});</script>' : '';
+        $datatable.= $script ? ' <script>$(function () {     oTable = table("' . $param . '","' . $sdom . '",' . $column_hide . ',"' . $editable . '");});</script>' : '';
         $datatable.='<div class="widget-content" id="widget-content-' . $name . '-table">';
         if ($control):
             $datatable.='<div class="header-table">';

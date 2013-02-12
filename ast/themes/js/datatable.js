@@ -772,55 +772,9 @@ function error(httpReq, status, exception,a){
 function success(message,a){
     $("#block").replaceWith(message);
 }
-function table(name,sdom,column_hide,editable,displaylength)
+function table(name,sdom,column_hide,editable)
 {
-    var table =  $('#'+name+'-table').dataTable( {
-        sDom:sdom,//;"<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",//"rlfrtip"//
-        sPaginationType: "bootstrap",
-        bLengthChange:true,
-        bPaginate:true,
-        aLengthMenu:[10, 25, 50, 100, 200],
-        bStateSave: false, 
-        bRetrieve: true,
-        bProcessing: true,
-        fnDrawCallback: function () {
-            $('#'+editable+'-table tbody td.tdedit').editable(baseurl+'?name='+editable+'&action=save',{
-                "callback": function( sValue, y ) {
-                    /* Redraw the table from the new data on the server */
-                    /* alert(sValue);
-                    var aPos = oTable.fnGetPosition( this );*/
-                    
-                    oTable.fnUpdate([ dataRow[0], dataRow[1],sValue] );
-                // oTable.fnDraw();
-                },
-                "submitdata": function ( value, settings ) {
-                    nRow = $(this).parents('tr')[0];
-                    dataRow=oTable.fnGetData(nRow);
-                    $("#id").val(dataRow[0]);
-                //$('#formeditable').append($(input));
-                /*  nRow = $(this).parents('tr')[0];
-                    dataRow=oTable.fnGetData(nRow);
-                    alert(dataRow[0]+','+ dataRow[1]+','+ value)
-                 $.seprof(baseurl,{
-                        name:'allowance',
-                        action:'get',
-                        query:$('#'+a).val()
-                    },function(k){
-                        showSelect(k,a)
-                    },function(httpReq, status, exception,a){
-                        error(httpReq, status, exception,a)
-                    });
-                    oTable.fnUpdate( [dataRow[0], dataRow[1], value] );
-                    return {
-                        "row_id": this.parentNode.getAttribute('id'),
-                        "column": oTable.fnGetPosition( this )[2]
-                    };*/
-                },
-                "formid":"formeditable",
-                "height": "14px"
-            } );
-        }
-    });
+    var table=sdom!='rt'?tableRLFTIP(name,sdom,column_hide,editable):tableRT(name,sdom,column_hide,editable); 
     if(column_hide!=-1){
         table.fnSetColumnVis(column_hide,false);
     }
@@ -835,10 +789,62 @@ function table(name,sdom,column_hide,editable,displaylength)
         return success;*/
         return isNumberKey(e)&&arr.length<3;
     })
-     var oSettings = table.fnSettings();
-    oSettings.iDisplayLength = displaylength;
-    table.fnSetDisplayLength = displaylength;
-    table.fnUpdate(oSettings);
+    //table.fnUpdate(oSettings);
+    return table;
+}
+function tableRLFTIP(name,sdom,column_hide,editable)
+{
+    var table =  $('#'+name+'-table').dataTable( {
+        sDom:sdom,//;"<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",//"rlfrtip"//
+        sPaginationType: "bootstrap",
+        bLengthChange:true,
+        bPaginate:true,
+        bStateSave: false, 
+        bRetrieve: true,
+        bProcessing: true,
+        fnDrawCallback: function () {
+            $('#'+editable+'-table tbody td.tdedit').editable(baseurl+'?name='+editable+'&action=save',{
+                "callback": function( sValue, y ) {
+                    oTable.fnUpdate([ dataRow[0], dataRow[1],sValue] );
+                },
+                "submitdata": function ( value, settings ) {
+                    nRow = $(this).parents('tr')[0];
+                    dataRow=oTable.fnGetData(nRow);
+                    $("#id").val(dataRow[0]);
+                },
+                "formid":"formeditable",
+                "height": "14px"
+            } );
+        }
+    });
+    return table;
+}
+function tableRT(name,sdom,column_hide,editable)
+{
+    var table =  $('#'+name+'-table').dataTable( {
+        sDom:sdom,//;"<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",//"rlfrtip"//
+        sPaginationType: "bootstrap",
+        bLengthChange:true,
+        bPaginate:true,
+        iDisplayLength :200,
+        bStateSave: false, 
+        bRetrieve: true,
+        bProcessing: true,
+        fnDrawCallback: function () {
+            $('#'+editable+'-table tbody td.tdedit').editable(baseurl+'?name='+editable+'&action=save',{
+                "callback": function( sValue, y ) {
+                    oTable.fnUpdate([ dataRow[0], dataRow[1],sValue] );
+                },
+                "submitdata": function ( value, settings ) {
+                    nRow = $(this).parents('tr')[0];
+                    dataRow=oTable.fnGetData(nRow);
+                    $("#id").val(dataRow[0]);
+                },
+                "formid":"formeditable",
+                "height": "14px"
+            } );
+        }
+    });
     return table;
 }
 function checkMaxLength(textareaID, maxLength){
