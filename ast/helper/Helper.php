@@ -292,11 +292,11 @@ class Helper {
         $message = '';
         foreach ($array as $pkey => $row):
             if (self::is_empty_string($row['content'])):
-                $li.='<li>' . $pkey . ' can t be empty</li>';
+                $li.='<li>' . $pkey . ' cannot be empty</li>';
             else:
                 if ($row['type'] == 'string'):
                     if (strlen($row['content']) > $row['length']):
-                        $li.='<li>' . $pkey . ' can t be grand than ' . $row['length'] . '</li>';
+                        $li.='<li>' . $pkey . ' cannot be greater than ' . $row['length'] . '</li>';
                     endif;
                 elseif ($row['type'] == 'string'):
                     if (self::valid_date($row['content'])):
@@ -326,7 +326,7 @@ class Helper {
     }
 
     public static function mssql_escape($data) {
-        if (!isset($data) or empty($data))
+        if (!isset($data) or self::is_empty_string($data))
             return '';
         if (is_numeric($data))
             return $data;
@@ -348,12 +348,12 @@ class Helper {
         $data = str_replace("'", "''", $data);
         $data = str_replace(";", "", $data);
         $data = str_replace("#", "", $data);
-        /*$data = str_replace("%2B", "+", $data);
-        $data = str_replace("%3D", "=", $data);
-        $data = str_replace("%2F", "/", $data);
-        $data = str_replace("%3A", ":", $data);
-        $data = str_replace("%23", "", $data);
-        $data = str_replace("+", " ", $data);*/
+        /* $data = str_replace("%2B", "+", $data);
+          $data = str_replace("%3D", "=", $data);
+          $data = str_replace("%2F", "/", $data);
+          $data = str_replace("%3A", ":", $data);
+          $data = str_replace("%23", "", $data);
+          $data = str_replace("+", " ", $data); */
         $data = self::check_plain($data);
         return $data;
     }
@@ -487,10 +487,11 @@ class Helper {
         return $datatable;
     }
 
-    public static function fill_datatable($name, $id, $header_buttons, $table, $header, $fields, $id_name, $linkcontrol = array(), $control = true, $column_hide = -1, $editable = '', $class_td_edit = '', $tdicon = '', $tdicon_class = '', $sdom = "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>", $script = true) {
+    public static function fill_datatable($name, $id, $header_buttons, $table, $header, $fields, $id_name, $linkcontrol = array(), $control = true, $column_hide = -1, $editable = '', $class_td_edit = '', $tdicon = '', $tdicon_class = '', $sdom = "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>", $display_length = '10', $query_id = '', $script = true) {
+        $param = !self::is_empty_string($query_id) ? $name . '-' . $query_id : $name;
         $datatable = '<div id="widget-table"> <div class="widget-header"><h3><i class="icon-th-list"></i>'
                 . ucfirst($name) . '</h3></div>';
-        $datatable.= $script ? ' <script>$(function () {     oTable = table("' . $name . '","' . $sdom . '",' . $column_hide . ',"' . $editable . '");});</script>' : '';
+        $datatable.= $script ? ' <script>$(function () {     oTable = table("' . $name . '","' . $sdom . '",' . $column_hide . ',"' . $editable . '","' . $display_length . '");});</script>' : '';
         $datatable.='<div class="widget-content" id="widget-content-' . $name . '-table">';
         if ($control):
             $datatable.='<div class="header-table">';
@@ -500,6 +501,7 @@ class Helper {
             endforeach;
             $datatable.='</div>';
         endif;
+        $diffId = !self::is_empty_string($query_id) ? ' '.$param . '-table' : '';
         $datatable.= '<table class="table table-striped table-bordered table-highlight" id="' . $name . '-table">';
         $thead = ' <thead><tr>';
         $thead .=!self::is_empty_string($tdicon) ? '<th></th>' : '';
@@ -647,7 +649,7 @@ class Helper {
         $i = 0;
         foreach ($array as $key => $val):
             $container.=$i % 2 == 0 && $i != 0 ? '</tr><tr>' : '';
-            if ($key !== 'data_table'&&$key!='action'):
+            if ($key !== 'data_table' && $key != 'action'):
                 $i++;
                 $container.='<td>' . $val[0] . '</td>';
                 $container.='<td>' . $val[1] . '</td>';
@@ -694,7 +696,6 @@ class Helper {
         endforeach;
         return $title;
     }
-
 
 }
 
