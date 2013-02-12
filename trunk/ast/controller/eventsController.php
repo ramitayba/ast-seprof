@@ -34,7 +34,7 @@ if ($action == 'index' || $action == 'events'):
     endif;
 elseif ($action == 'add'):
     $content = Helper::fill_datatable('items', 'items', array(), array(), array('Item ID', 'Item Name', 'Item Quantity'), array('item_id', 'item_name', 'item_quantity'), 'event_id', array(0 => array('name' => 'Delete', 'link' => 'delete-table', 'class' => 'delete')), true, 0
-                    , 'items', 'item_quantity', '', '', 'rt','200');
+                    , 'items', 'item_quantity', '', '', 'rt');
     if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
             strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') :
         include_once POS_ROOT . '/content/events/add.php';
@@ -54,7 +54,7 @@ elseif ($action == 'edit'):
             , 'employee_id' => $eventDataTable [0]['employee_id']);
         $eventItemBusinessLayer = new EventItemBusinessLayer();
         $eventItemDataTable = $eventItemBusinessLayer->getEventItemsByEventID($eventDataTable [0]['event_id']);
-        $content = Helper::fill_datatable('items', 'items', array(), $eventItemDataTable, array('Item ID', 'Item Name', 'Item Quantity'), array('item_id', 'item_name', 'item_quantity'), 'event_id', array(0 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete-table')), true, 0, 'items', 'item_quantity', '', '', 'rt','200');
+        $content = Helper::fill_datatable('items', 'items', array(), $eventItemDataTable, array('Item ID', 'Item Name', 'Item Quantity'), array('item_id', 'item_name', 'item_quantity'), 'event_id', array(0 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete-table')), true, 0, 'items', 'item_quantity', '', '', 'rt');
         include_once POS_ROOT . '/content/events/add.php';
     else:
         print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Event not exist', 'error')));
