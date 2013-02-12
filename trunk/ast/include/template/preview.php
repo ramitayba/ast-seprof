@@ -12,6 +12,7 @@
         $('#header').hide();
         $('#nav').hide();
         $('#page-title').hide();
+         $('#footer').hide();
     });</script>
 <style>#footer .container {
         border-top:0px;

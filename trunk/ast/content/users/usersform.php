@@ -53,7 +53,7 @@
                     <label class="control-label" for="username">Username</label>
                     <div class="controls">
                         <input type="text" class="input-large" name="user_name" id="username" maxlength="50"
-                               value="<?php
+                          onkeypress="return denySpace(event)"     value="<?php
                         if (isset($forms) && array_key_exists('user_name', $forms)):print $forms['user_name'];
                         endif;
                         ?>">

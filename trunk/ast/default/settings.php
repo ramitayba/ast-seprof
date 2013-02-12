@@ -30,8 +30,8 @@ $databases = array(
 $routes = array(
     'usersController' => array('login', 'logout', 'users/index', 'users/usersform'),
     'rolesController' => array('users/roles', 'users/rolesform'),
-    'categoriesController' => array('products/categories', 'products/categoriesform'),
-    'itemsController' => array('products/items', 'products/itemsform'),
+    'categoriesController' => array('menu-management/categories', 'menu-management/categoriesform'),
+    'itemsController' => array('menu-management/items', 'menu-management/itemsform'),
     'posController' => array('cafeterias/pos', 'cafeterias/posform'),
     'cafeteriasController' => array('cafeterias/index', 'cafeterias/cafeteriasform'),
     'eventsController' => array('events/index', 'events/add'),
@@ -39,8 +39,8 @@ $routes = array(
     'erpController' => array('settings/erp'),
     'synchronizeController' => array('settings/manual', 'settings/automatic'),
     'reportsController' => array('reports/cafeteria-balance', 'reports/users-purchases',
-        'reports/detailed-users-purchases', 'reports/purchases-inventory',
-        'reports/events-listing', 'reports/menu-report', 'reports/detailed-event'),
+    'reports/detailed-users-purchases', 'reports/purchases-inventory',
+    'reports/events-listing', 'reports/menu-report', 'reports/detailed-event'),
 );
 
 /**

@@ -57,16 +57,22 @@ class BuilderPDF extends FPDF {
      * @param type $header
      * @param type $data 
      */
-    function BuildTable($header, $data, $fields, $width, $font = 14) {
+    function BuildTable($header, $data, $fields, $width, $font = 14,$specifique_header='', $specifique_colonne = '', $specifique_width = '') {
 // Header
+        $newWidth = $width;
         $this->SetFont('Arial', '', $font);
         foreach ($header as $col)
-            $this->Cell($width, 10, $col, 1, 0, 'C');
+        {
+            $newWidth = $specifique_header == $col ? $specifique_width : $width;
+            $this->Cell($newWidth, 10, $col, 1, 0, 'C');
+        }
         $this->Ln();
 // Data
         foreach ($data as $row) {
-            foreach ($fields as $col)
-                $this->Cell($width, 10, $row[$col], 1, 0, 'C');
+            foreach ($fields as $col) {
+                $newWidth = $specifique_colonne == $col ? $specifique_width : $width;
+                $this->Cell($newWidth, 10, $row[$col], 1, 0, 'C');
+            }
             $this->Ln();
         }
     }

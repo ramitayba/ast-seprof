@@ -1707,8 +1707,7 @@ div.messages ul li {
 .content-preview .logo{margin:20px;overflow:hidden;position:absolute;z-index:10;}
 .content-preview .table-content tbody td{border:none;}
 .content-preview #header{height:120px;}
-.add-on{left: 220px;
-position: relative;
-margin-top: -28px;}
+.add-on{left: 220px;position: relative;margin-top: -28px;}
 .date .error{left:250px;}
 .img-header-print{height:120px;}
+.content-preview .form-actions{text-align: center;}

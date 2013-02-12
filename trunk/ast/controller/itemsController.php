@@ -30,7 +30,7 @@ if ($action == 'index' || $action == 'items'):
     endif;
 elseif ($action == 'add'):
     $forms = array('status_id' => ACTIVE);
-    include_once POS_ROOT . '/content/products/itemsform.php';
+    include_once POS_ROOT . '/content/menu-management/itemsform.php';
 elseif ($action == 'edit'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
         $itemDataTable = $itemBusinessLayer->getItemByID($query_id, DELETED);
@@ -45,7 +45,7 @@ elseif ($action == 'edit'):
             , 'item_photo' => $itemDataTable [0]['item_photo']
             , 'item_description' => $itemDataTable [0]['item_description']
             , 'status_id' => $itemDataTable [0]['status_id']);
-        include_once POS_ROOT . '/content/products/itemsform.php';
+        include_once POS_ROOT . '/content/menu-management/itemsform.php';
     else:
         print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Items not exist', 'error')));
     endif;

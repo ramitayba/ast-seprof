@@ -196,7 +196,7 @@ $(function () {
         }
     } );
     
-    $('#categories-children-table tbody tr td.control-sub-category').live( 'click', function (e) {
+    $('#category-Children-table tbody tr td.control-sub-category').live( 'click', function (e) {
         e.preventDefault();
         nRow = $(this).parents('tr')[0];
         var nTr = this.parentNode;
@@ -628,7 +628,9 @@ $(function () {
             a=b='';
             return;
         }
-        if(!validate(a,b,e))return;
+        if(!validate(a,b,e)){
+            return;
+        }
     /* $('.'+a+'-form').trigger('submit');
         var sequence="";
         $('input[name=check]:checked').each(function(){
@@ -700,6 +702,9 @@ $(function () {
     jQuery.validator.addMethod("customdate", function(value, element) { 
         return this.optional(element) || /^\d{1,2}[\/-]\d{1,2}[\/-]\d{4}$/.test(value); 
     }, "Please specify the date in DD/MM/YYYY format");
+    jQuery.validator.addMethod("validateUsername", function(value, element) { 
+        return this.optional(element) || /^[a-zA-Z0-9\-\_\+\.]+$/.test(value); 
+    }, "Username may contain only letters,numbers and ./+/-/_ characters.");
 });
 function getDropDown(a)
 {
@@ -733,7 +738,6 @@ function showTable(b,a)
         $("#widget-"+a+"-form img:last-child").remove();
     }
 }
-
 function replaceTable(b,a)
 {
     $(".messages").remove();
@@ -768,16 +772,15 @@ function error(httpReq, status, exception,a){
 function success(message,a){
     $("#block").replaceWith(message);
 }
-function table(name,sdom,column_hide,editable)
+function table(name,sdom,column_hide,editable,displaylength)
 {
     var table =  $('#'+name+'-table').dataTable( {
         sDom:sdom,//;"<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",//"rlfrtip"//
         sPaginationType: "bootstrap",
         bStateSave: false, 
         bRetrieve: true,
-        oLanguage: {
-            "sLengthMenu": "_MENU_ records per page"
-        },
+        iDisplayLength : displaylength,
+        aLengthMenu:[10, 25, 50, 100, 200],
         bProcessing: true,
         fnDrawCallback: function () {
             $('#'+editable+'-table tbody td.tdedit').editable(baseurl+'?name='+editable+'&action=save',{
@@ -833,7 +836,6 @@ function table(name,sdom,column_hide,editable)
     })
     return table;
 }
-
 function checkMaxLength(textareaID, maxLength){
 
     currentLengthInTextarea = $("#"+textareaID).val().length;
@@ -853,7 +855,8 @@ function validate(a,b,e)
         rules: {
             user_name: {
                 required: requiredUsername,
-                maxlength:50
+                maxlength:50,
+                validateUsername:true
             },
             user_password: {
                 required: requiredPassword,
@@ -1089,9 +1092,9 @@ function validate(a,b,e)
             error.appendTo( element.parents ('.controls') );
         },
         submitHandler: function (form) {
-            var date=getDateTime(new Date());
-            var dateevent=$('#datepicker').val();
-            if(dateevent < date)
+            var date=new Date();
+            var dateevent=process($('#datepicker').val());
+            if(dateevent <date )
             {
                 $('.date .error').remove();
                 $('#datetimepicker').after('<label for="datepicker" generated="true" class="error" style="">Must be greater than Date</label>');
@@ -1127,6 +1130,12 @@ function validate(a,b,e)
             ajaxSubhmit(a,b);
         }
     });
+}
+function process(date){
+    var parts = date.split(" ");
+    var time=parts[1].split(":");
+    parts = parts[0].split("/");
+    return new Date(parts[2], parts[1] - 1, parts[0],time[0],time[1],time[2]);
 }
 function isNumberKey(evt)
 {
@@ -1341,13 +1350,8 @@ function validateReport(a,c,e)
     
     resetForm= $('#detailed-event-form').validate({
         rules: {
-            mindate:{
-                required: true,
-                customdate: true
-            },
-            maxdate:{
-                required: true,
-                customdate: true
+            filter_select: {
+                required: requiredSelect
             }
         },
         focusCleanup: false,
