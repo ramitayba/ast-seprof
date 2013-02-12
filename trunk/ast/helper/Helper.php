@@ -491,7 +491,7 @@ class Helper {
         $param = !self::is_empty_string($query_id) ? $name . '-' . $query_id : $name;
         $datatable = '<div id="widget-table"> <div class="widget-header"><h3><i class="icon-th-list"></i>'
                 . ucfirst($name) . '</h3></div>';
-        $datatable.= $script ? ' <script>$(function () {     oTable = table("' . $name . '","' . $sdom . '",' . $column_hide . ',"' . $editable . '","' . $display_length . '");});</script>' : '';
+        $datatable.= $script ? ' <script>$(function () {     oTable = table("' . $param . '","' . $sdom . '",' . $column_hide . ',"' . $editable . '","' . $display_length . '");});</script>' : '';
         $datatable.='<div class="widget-content" id="widget-content-' . $name . '-table">';
         if ($control):
             $datatable.='<div class="header-table">';
@@ -501,8 +501,7 @@ class Helper {
             endforeach;
             $datatable.='</div>';
         endif;
-        $diffId = !self::is_empty_string($query_id) ? ' '.$param . '-table' : '';
-        $datatable.= '<table class="table table-striped table-bordered table-highlight" id="' . $name . '-table">';
+        $datatable.= '<table class="table table-striped table-bordered table-highlight '.$name.'-table" id="' . $param . '-table">';
         $thead = ' <thead><tr>';
         $thead .=!self::is_empty_string($tdicon) ? '<th></th>' : '';
         foreach ($header as $row):
