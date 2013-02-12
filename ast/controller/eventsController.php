@@ -79,7 +79,6 @@ elseif ($action == 'save'):
         print Helper::json_encode_array(array('status' => 'error', 'message' => $message));
         return;
     endif;
-    $event_date=str_replace("+", " ", $event_date);
     $eventDataTable = $eventBusinessLayer->getEventByName($name);
     if (Helper::is_empty_string($query_id)):
         if (count($eventDataTable) > 0):
@@ -111,46 +110,50 @@ elseif ($action == 'save'):
         $success = $eventBusinessLayer->editEvent($query_id, $name, $event_date, $event_invitees_nb, $department_id, $employee_id, $xml, $_SESSION['user_pos']);
     endif;
     if ($success):
-        /*if ($op == 'update'):
-            $eventDataTable = $eventBusinessLayer->getEvents();
-            if ($eventBusinessLayer->getSuccess()):
-                $content = Helper::fill_datatable_event('events', 'events', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $eventDataTable, array('Event Name', 'Event Date', 'Event invitees Number', 'Department Name', 'Employee Name', 'Status'), array('event_name', 'event_date', 'event_invitees_nb', 'department_name', 'employee_name', 'status_name'), 'event_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
-                            1 => array('name' => 'Approved', 'link' => 'approved-', 'class' => 'approved'),
-                            2 => array('name' => 'Rejected', 'link' => 'rejected-', 'class' => 'rejected')));
-            endif;
-            $container = Helper::set_message('Event saved successfully', 'status') . $content;*/
+        /* if ($op == 'update'):
+          $eventDataTable = $eventBusinessLayer->getEvents();
+          if ($eventBusinessLayer->getSuccess()):
+          $content = Helper::fill_datatable_event('events', 'events', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $eventDataTable, array('Event Name', 'Event Date', 'Event invitees Number', 'Department Name', 'Employee Name', 'Status'), array('event_name', 'event_date', 'event_invitees_nb', 'department_name', 'employee_name', 'status_name'), 'event_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
+          1 => array('name' => 'Approved', 'link' => 'approved-', 'class' => 'approved'),
+          2 => array('name' => 'Rejected', 'link' => 'rejected-', 'class' => 'rejected')));
+          endif;
+          $container = Helper::set_message('Event saved successfully', 'status') . $content; */
         //else:
+        if ($op == 'update'):
+            $eventDataTable = $eventBusinessLayer->getEventByID($query_id);
+        else:
             $eventDataTable = $eventBusinessLayer->getLastEvent();
-            $event_id = '';
-            $event_name = '';
-            $date = '';
-            $event_invitees = '';
-            $employee_name = '';
-            $department_name = '';
-            if ($eventBusinessLayer->getSuccess()):
-                $event_id = $eventDataTable[0]['event_id'];
-                $event_name = $eventDataTable[0]['event_name'];
-                $date = $eventDataTable[0]['event_date'];
-                $event_invitees = $eventDataTable[0]['event_invitees_nb'];
-                $employee_name = $eventDataTable[0]['employee_name'];
-                $department_name = $eventDataTable[0]['department_name'];
-            endif;
-            $eventItemBusinessLayer = new EventItemBusinessLayer();
-            $eventItemDataTable = $eventItemBusinessLayer->getEventItemsByEventID($event_id);
-            $data_report = array('event_name' => array('Event Name', $event_name),
-                'department_name' => array('Department Name', $department_name),
-                'employee_name' => array('Employee Name', $employee_name),
-                'event_invitees' => array('Event Attendees', $event_invitees),
-                'event_date' => array('Date', $date),
-                'data_table' => $eventItemDataTable,
-                'action'=>'edit-events-'.$event_id);
-            //$pathreport = $root . 'reports/event-pdf';
-            //$container = Helper::generate_container_pdf($pathreport, '', false);
-            $_SESSION['data_report'] = $data_report;
-            include POS_ROOT . '/include/template/preview.php';
-            return;
-       // endif;
-        //print $container;
+        endif;
+        $event_id = '';
+        $event_name = '';
+        $date = '';
+        $event_invitees = '';
+        $employee_name = '';
+        $department_name = '';
+        if ($eventBusinessLayer->getSuccess()):
+            $event_id = $eventDataTable[0]['event_id'];
+            $event_name = $eventDataTable[0]['event_name'];
+            $date = $eventDataTable[0]['event_date'];
+            $event_invitees = $eventDataTable[0]['event_invitees_nb'];
+            $employee_name = $eventDataTable[0]['employee_name'];
+            $department_name = $eventDataTable[0]['department_name'];
+        endif;
+        $eventItemBusinessLayer = new EventItemBusinessLayer();
+        $eventItemDataTable = $eventItemBusinessLayer->getEventItemsByEventID($event_id);
+        $data_report = array('event_name' => array('Event Name', $event_name),
+            'department_name' => array('Department Name', $department_name),
+            'employee_name' => array('Employee Name', $employee_name),
+            'event_invitees' => array('Event Attendees', $event_invitees),
+            'event_date' => array('Date', $date),
+            'data_table' => $eventItemDataTable,
+            'action' => 'edit-events-' . $event_id);
+        //$pathreport = $root . 'reports/event-pdf';
+        //$container = Helper::generate_container_pdf($pathreport, '', false);
+        $_SESSION['data_report'] = $data_report;
+        include POS_ROOT . '/include/template/preview.php';
+        return;
+    // endif;
+    //print $container;
     else:
         print $eventBusinessLayer->getLastError();
         print Helper::json_encode_array(array('status' => 'error', 'message' => 'Event not saved'));
