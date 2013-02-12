@@ -196,7 +196,7 @@ $(function () {
         }
     } );
     
-    $('#category-Children-table tbody tr td.control-sub-category').live( 'click', function (e) {
+    $('.category-Children-table tbody tr td.control-sub-category').live( 'click', function (e) {
         e.preventDefault();
         nRow = $(this).parents('tr')[0];
         var nTr = this.parentNode;
@@ -777,11 +777,12 @@ function table(name,sdom,column_hide,editable,displaylength)
     var table =  $('#'+name+'-table').dataTable( {
         sDom:sdom,//;"<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",//"rlfrtip"//
         sPaginationType: "bootstrap",
+        aLengthMenu:[10, 25, 50, 100, 200],
+        iDisplayLength :displaylength,
         bStateSave: false, 
         bRetrieve: true,
-        iDisplayLength : displaylength,
-        aLengthMenu:[10, 25, 50, 100, 200],
         bProcessing: true,
+        //iDisplayLength : displaylength,
         fnDrawCallback: function () {
             $('#'+editable+'-table tbody td.tdedit').editable(baseurl+'?name='+editable+'&action=save',{
                 "callback": function( sValue, y ) {
@@ -834,6 +835,10 @@ function table(name,sdom,column_hide,editable,displaylength)
         return success;*/
         return isNumberKey(e)&&arr.length<3;
     })
+    var oSettings = table.fnSettings();
+    oSettings.iDisplayLength = displaylength;
+    table.fnSetDisplayLength = displaylength;
+    table.fnDraw();
     return table;
 }
 function checkMaxLength(textareaID, maxLength){
