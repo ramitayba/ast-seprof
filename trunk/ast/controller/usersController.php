@@ -20,7 +20,7 @@ elseif ($action == 'login'):
     if (Helper::is_empty_string($user_name) || Helper::is_empty_string($password)):
         return;
     endif;
-    $userRow = $userBusinessLayer->login(Helper::mssql_escape($user_name), Helper::mssql_escape($password), ACTIVE);
+    $userRow = $userBusinessLayer->login(Helper::mssql_escape($user_name), md5(Helper::mssql_escape($password)), ACTIVE);
     if ($userBusinessLayer->getSuccess()):
         $_SESSION['user_pos'] = $userRow[0]['user_id'];
         $_SESSION['user_pos_role'] = $userRow[0]['role_id'];

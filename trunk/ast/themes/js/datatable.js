@@ -777,12 +777,12 @@ function table(name,sdom,column_hide,editable,displaylength)
     var table =  $('#'+name+'-table').dataTable( {
         sDom:sdom,//;"<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",//"rlfrtip"//
         sPaginationType: "bootstrap",
+        bLengthChange:true,
+        bPaginate:true,
         aLengthMenu:[10, 25, 50, 100, 200],
-        iDisplayLength :displaylength,
         bStateSave: false, 
         bRetrieve: true,
         bProcessing: true,
-        //iDisplayLength : displaylength,
         fnDrawCallback: function () {
             $('#'+editable+'-table tbody td.tdedit').editable(baseurl+'?name='+editable+'&action=save',{
                 "callback": function( sValue, y ) {
@@ -835,10 +835,10 @@ function table(name,sdom,column_hide,editable,displaylength)
         return success;*/
         return isNumberKey(e)&&arr.length<3;
     })
-    var oSettings = table.fnSettings();
+     var oSettings = table.fnSettings();
     oSettings.iDisplayLength = displaylength;
     table.fnSetDisplayLength = displaylength;
-    table.fnDraw();
+    table.fnUpdate(oSettings);
     return table;
 }
 function checkMaxLength(textareaID, maxLength){
