@@ -38,8 +38,8 @@ $routes = array(
     'allowancesController' => array('settings/allowance'),
     'erpController' => array('settings/erp'),
     'synchronizeController' => array('settings/manual', 'settings/automatic'),
-    'reportsController' => array('reports/cafeteria-balance', 'reports/users-purchases',
-    'reports/detailed-users-purchases', 'reports/purchases-inventory',
+    'reportsController' => array('reports/cafeteria-balance', 'reports/user-purchases',
+    'reports/detailed-user-purchases', 'reports/purchases-inventory',
     'reports/events-listing', 'reports/menu-report', 'reports/detailed-event'),
 );
 

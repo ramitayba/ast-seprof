@@ -698,10 +698,9 @@ $(function () {
             error(httpReq, status, exception,a)
         })
     } );
-    
     jQuery.validator.addMethod("customdate", function(value, element) { 
         return this.optional(element) || /^\d{1,2}[\/-]\d{1,2}[\/-]\d{4}$/.test(value); 
-    }, "Please specify the date in DD/MM/YYYY format");
+    }, "Please specify the date in DD/MM/YYYY  format");
     jQuery.validator.addMethod("validateUsername", function(value, element) { 
         return this.optional(element) || /^[a-zA-Z0-9\-\_\+\.]+$/.test(value); 
     }, "Username may contain only letters,numbers and ./+/-/_ characters.");
@@ -787,14 +786,15 @@ function table(name,sdom,column_hide,editable)
             success =isNumberKey(e)&&$.isNumeric(value);
         }
         return success;*/
-        return isNumberKey(e)&&arr.length<3;
+        var dot=editable=='allowances'?1:0;
+        return isNumberKey(e,dot)&&arr.length<3;
     })
     //table.fnUpdate(oSettings);
     return table;
 }
 function tableRLFTIP(name,sdom,column_hide,editable)
 {
-    var table =  $('#'+name+'-table').dataTable( {
+    var tableRLFTIP =  $('#'+name+'-table').dataTable( {
         sDom:sdom,//;"<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",//"rlfrtip"//
         sPaginationType: "bootstrap",
         bLengthChange:true,
@@ -817,11 +817,11 @@ function tableRLFTIP(name,sdom,column_hide,editable)
             } );
         }
     });
-    return table;
+    return tableRLFTIP;
 }
 function tableRT(name,sdom,column_hide,editable)
 {
-    var table =  $('#'+name+'-table').dataTable( {
+    var tableRT =  $('#'+name+'-table').dataTable( {
         sDom:sdom,//;"<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",//"rlfrtip"//
         sPaginationType: "bootstrap",
         bLengthChange:true,
@@ -845,7 +845,7 @@ function tableRT(name,sdom,column_hide,editable)
             } );
         }
     });
-    return table;
+    return tableRT;
 }
 function checkMaxLength(textareaID, maxLength){
 
@@ -1043,7 +1043,8 @@ function validate(a,b,e)
             },
             item_price: {
                 required: true,
-                maxlength:18
+                maxlength:18,
+                number:true
             },
             status: {
                 required: true
@@ -1074,13 +1075,13 @@ function validate(a,b,e)
                 required: true,
                 maxlength:50
             },
-            datepicker: {
-                required: true,
-                customdate: true
+            event_date: {
+                required: true
             },
             event_invitees_nb: {
                 required: true,
-                maxlength:9
+                maxlength:9,
+                number:true
             },
             department: {
                 required: true
@@ -1104,7 +1105,7 @@ function validate(a,b,e)
         },
         submitHandler: function (form) {
             var date=new Date();
-            var dateevent=process($('#datepicker').val());
+            var dateevent=process($('#event_date').val());
             if(dateevent <date )
             {
                 $('.date .error').remove();
@@ -1121,7 +1122,8 @@ function validate(a,b,e)
         rules: {
             max_debit: {
                 required: true,
-                maxlength:18
+                maxlength:18,
+                number:true
             }
         },
         focusCleanup: false,
@@ -1148,10 +1150,10 @@ function process(date){
     parts = parts[0].split("/");
     return new Date(parts[2], parts[1] - 1, parts[0],time[0],time[1],time[2]);
 }
-function isNumberKey(evt)
+function isNumberKey(evt,dot)
 {
     var charCode = (evt.which) ? evt.which : event.keyCode
-    if(charCode==46)return true;
+    if(dot==1&&charCode==46)return true;
     if (charCode > 31 && (charCode < 48 || charCode > 57))
         return false;
     return true;
@@ -1274,7 +1276,7 @@ function validateReport(a,c,e)
             ajaxReport(a,c);
         }
     });
-    resetForm=$('#users-purchases-form').validate({
+    resetForm=$('#user-purchases-form').validate({
         rules: {
             mindate:{
                 required: true,
@@ -1302,7 +1304,7 @@ function validateReport(a,c,e)
             ajaxReport(a,c);
         }
     });
-    resetForm=$('#purchased-inventory-form').validate({
+    resetForm=$('#purchases-inventory-form').validate({
         rules: {
             mindate:{
                 required: true,
@@ -1387,7 +1389,7 @@ function validateReport(a,c,e)
             ajaxReport(a,c);
         }
     });
-    resetForm= $('#detailed-users-purchases-form').validate({
+    resetForm= $('#detailed-user-purchases-form').validate({
         rules: {
             filter_select:{
                 required: true

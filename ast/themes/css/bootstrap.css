@@ -1130,7 +1130,7 @@ input[type="checkbox"][readonly] {
 .control-group.error .radio,
 .control-group.error input,
 .control-group.error select,
-.control-group.error textarea {
+.control-group.error textarea,.control-date.error input {
   color: #b94a48;
   border-color: #b94a48;
 }

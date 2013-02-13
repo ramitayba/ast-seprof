@@ -7,7 +7,7 @@
         </div> <!-- /widget-header -->
         <div class="widget-content">
 
-            <form method="post" id="detailed-users-purchases-form" name="detailed-users-purchases-form" class="detailed-users-purchases-form form-horizontal" action="#">
+            <form method="post" id="detailed-user-purchases-form" name="detailed-user-purchases-form" class="detailed-user-purchases-form form-horizontal" action="#">
                 
                  <div class="control-group">
                     <label for="cid" class="control-label">Select Employee</label>
