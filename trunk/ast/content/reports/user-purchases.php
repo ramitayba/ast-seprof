@@ -8,7 +8,7 @@
         </div> <!-- /widget-header -->
         <div class="widget-content">
 
-            <form method="post" id="users-purchases-form" name="users-purchases-form" class="users-purchases-form form-horizontal" action="#">
+            <form method="post" id="user-purchases-form" name="user-purchases-form" class="user-purchases-form form-horizontal" action="#">
                    <div class="control-group">
                     <label for="datepicker-inline-mindate" class="control-label">From</label>
                     <div class="controls date">

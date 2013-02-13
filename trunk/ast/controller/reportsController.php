@@ -26,12 +26,12 @@ if ($action == 'cafeteria-balance'):
         $reportsDataTable = $filter_id!=null ?$reportsBusinessLayer->getCafeteriaBalanceByID($filter_id, $mindate, $maxdate, DELETED):
         $reportsBusinessLayer->getCafeteriaBalance($mindate, $maxdate, DELETED);
     endif;
-elseif ($action == 'users-purchases'):
+elseif ($action == 'user-purchases'):
     if ($query_id == 'show'):
         $reportsBusinessLayer = new ReportsBusinessLayer();
         $reportsDataTable = $reportsBusinessLayer->getUsersPurchases($mindate, $maxdate);
     endif;
-elseif ($action == 'detailed-users-purchases'):
+elseif ($action == 'detailed-user-purchases'):
     if ($query_id == 'show'):
         $reportsBusinessLayer = new ReportsBusinessLayer();
         $reportsDataTable = $reportsBusinessLayer->getMiniReportsByUser($filter_id, $mindate, $maxdate);

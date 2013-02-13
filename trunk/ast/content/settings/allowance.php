@@ -18,7 +18,7 @@
                     <div class="control-group control-min-group">
                         <label class="control-label" for="number">Max Debit</label>
                         <div class="controls">
-                            <input type="text" class="input-large" name="max_debit" id="max_debit" maxlength="18" onkeypress="return isNumberKey(event)" >
+                            <input type="text" class="input-large" name="max_debit" id="max_debit" maxlength="18" onkeypress="return isNumberKey(event,1)" >
                         </div>
                     </div>
                     <div class="control-group control-min-group">

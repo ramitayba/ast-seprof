@@ -44,11 +44,11 @@ if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUES
                             </div>
                         </div>
 
-                        <div class="control-group control-min-group">
+                        <div class="control-group control-min-group control-date">
                             <label class="control-label" for="datepicker">Event Date</label>
                             <div class="controls date">
                                 <div id="datetimepicker" class="input-append date">
-                                    <input type="text" data-format="dd/MM/yyyy hh:mm:ss" id="datepicker" readonly name="event_date" class="" value="<?php
+                                    <input type="text" data-format="dd/MM/yyyy hh:mm:ss" id="event_date" readonly name="event_date" class="" value="<?php
                                        if (isset($forms) && !Helper::is_empty_array($forms)):print $forms['event_date'];
                                        endif;
         ?>"/><span class="add-on">

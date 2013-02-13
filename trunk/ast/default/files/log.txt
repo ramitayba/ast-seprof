@@ -1613,3 +1613,88 @@
 <b>WARNING</b> 2 include_once(C:\xampp\htdocs\ast/content/products/categoriesform.php): failed to open stream: No such file or directory Fatal WARNING on line 34 in file C:\xampp\htdocs\ast\controller\categoriesController.php   |  Date:  12.02.2013 07:56:04
 <b>WARNING</b> 2 include_once(): Failed opening 'C:\xampp\htdocs\ast/content/products/categoriesform.php' for inclusion (include_path='.;C:\xampp\php\PEAR') Fatal WARNING on line 34 in file C:\xampp\htdocs\ast\controller\categoriesController.php   |  Date:  12.02.2013 07:56:04
 <b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver][SQL Server]There is insufficient system memory in resource pool 'internal' to run this query., SQL state 37000 in SQLDescribeParameter Fatal WARNING on line 75 in file C:\xampp\htdocs\ast\dataAccessLayer\DataAccessManager.php   |  Date:  12.02.2013 09:56:30
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Invalid character value for cast specification, SQL state 22005 in SQLExecute Fatal WARNING on line 102 in file C:\xampp\htdocs\ast\dataAccessLayer\DataAccessManager.php   |  Date:  12.02.2013 04:59:36
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:32
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:32
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:32
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:32
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:32
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:32
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:32
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:32
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:32
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:32
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:32
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:32
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:32
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:32
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:32
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:32
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:32
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:32
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:32
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:32
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:32
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:32
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:32
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:32
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:32
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:32
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:32
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:32
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:32
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:33
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:33
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:33
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:33
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:33
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:33
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:33
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:33
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:33
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:33
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 05:07:33
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 Invalid argument supplied for foreach() Fatal WARNING on line 71 in file C:\xampp\htdocs\ast\helper\BuilderPDF.php   |  Date:  12.02.2013 11:02:55
+<b>WARNING</b> 2 odbc_fetch_array(): No tuples available at this result index Fatal WARNING on line 127 in file C:\xampp\htdocs\ast\dataAccessLayer\DataAccessManager.php   |  Date:  13.02.2013 07:22:03
+<b>WARNING</b> 2 odbc_fetch_array(): No tuples available at this result index Fatal WARNING on line 127 in file C:\xampp\htdocs\ast\dataAccessLayer\DataAccessManager.php   |  Date:  13.02.2013 07:22:11
+<b>WARNING</b> 2 odbc_fetch_array(): No tuples available at this result index Fatal WARNING on line 127 in file C:\xampp\htdocs\ast\dataAccessLayer\DataAccessManager.php   |  Date:  13.02.2013 07:24:38
+<b>WARNING</b> 2 odbc_fetch_array(): No tuples available at this result index Fatal WARNING on line 127 in file C:\xampp\htdocs\ast\dataAccessLayer\DataAccessManager.php   |  Date:  13.02.2013 07:24:44
