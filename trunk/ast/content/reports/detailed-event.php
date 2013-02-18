@@ -15,7 +15,7 @@
                         <?php
                         include_once POS_ROOT . '/businessLayer/EventBusinessLayer.php';
                         $eventBusinessLayer = new EventBusinessLayer();
-                        print Helper::form_construct_drop_down('filter_select', $eventBusinessLayer->getEvents(), '', 'event_name', 'event_id');
+                        print Helper::form_construct_drop_down('filter_select', $eventBusinessLayer->getEvents(DELETED), '', 'event_name', 'event_id');
                         ?> </div>
                 </div>
 
