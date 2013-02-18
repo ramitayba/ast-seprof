@@ -643,7 +643,7 @@ class Helper {
     }
 
     public static function generate_container_pdf($url_pdf, $action, $exist = true) {
-        $container = '<div class="widget-content"><iframe style="border:none" width="100%" height="500" src="' . $url_pdf . '"></iframe>';
+        $container = '<div class="widget-content report"><iframe style="border:none" width="100%" height="500" src="' . $url_pdf . '"></iframe>';
         $container.= $exist ? '<div class="form-actions"><a id="' . $action . '"class="back btn btn-large btn-inverse" href="">Back</a></div></div>' : '';
         return $container;
     }
@@ -654,7 +654,7 @@ class Helper {
         return $container;
     }
 
-    public static function construct_template_view($array, $header, $fields) {
+    public static function construct_template_view($array, $header, $fields,$specifique_field,&$total) {
         $container = '<div class="control-group"><div class="widget widget-table"><div id="widget-table"><table class="table table-content"><tbody><tr> ';
         $i = 0;
         foreach ($array as $key => $val):
@@ -664,13 +664,13 @@ class Helper {
                 $container.='<td>' . $val[0] . '</td>';
                 $container.='<td>' . $val[1] . '</td>';
             elseif ($key !== 'action'):
-                $container.= '</tr></div></div></div></tbody></table>' . self::_construct_table_view($val, $header, $fields);
+                $container.= '</tr></div></div></div></tbody></table>' . self::_construct_table_view($val, $header, $fields,$specifique_field,$total);
             endif;
         endforeach;
         return $container;
     }
 
-    private static function _construct_table_view($array, $header, $fields) {
+    private static function _construct_table_view($array, $header, $fields,$specifique_field,&$total) {
         if (self::is_empty_array($array))
             return '';
         $container_table = '<div class="control-group"><div class="widget widget-table"><div id="widget-table">';
@@ -686,6 +686,7 @@ class Helper {
             $tr.= '<tr class="gradeA ' . $class . '">';
             foreach ($fields as $rowfields):
                 $tr.= '<td class="' . $class . '">' . $row[$rowfields] . '</td>';
+            if($specifique_field==$rowfields)$total+= $row[$rowfields];
             endforeach;
             $tr.='</tr>';
             $i++;

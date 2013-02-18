@@ -1070,7 +1070,7 @@ function validate(a,b,e)
         case 'pos':
             validatePos(a,b);
             break;
-        case 'allowance':
+        case 'allowances':
             validateAllowance(a,b);
             break;
         case 'events':
