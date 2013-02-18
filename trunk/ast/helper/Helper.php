@@ -41,6 +41,17 @@ class Helper {
         return (preg_match("/^([0-9]{4})-([0-9]{2})-([0-9]{2})$/", $date));
     }
 
+    public static function get_size_array($array, $key1, $key2) {
+        $count = array_key_exists($key1, $array) ? count($array[$key1]) : 0;
+        $count+=array_key_exists($key2, $array) ? count($array[$key2]) : 0;
+        if (array_key_exists($key1, $array)) {
+            foreach ($array[$key1] as $row) {
+                $count+=array_key_exists($key2, $row) ? count($row[$key2]) : 0;
+            }
+        }
+        return $count;
+    }
+
     public static function format_string($string, array $args = array()) {
 // Transform arguments before inserting them.
         foreach ($args as $key => $value) {
@@ -443,10 +454,10 @@ class Helper {
         return $list;
     }
 
-    public static function fill_datatable_event($name, $id, $header_buttons, $table, $header, $fields, $id_name, $linkcontrol = array(), $sdom = "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>") {
+    public static function fill_datatable_event($name, $id, $header_buttons, $table, $header, $fields, $id_name, $linkcontrol = array(),$sdom = "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>") {
         $datatable = '<div id="widget-table"> <div class="widget-header"><h3><i class="icon-th-list"></i>'
                 . ucfirst($name) . '</h3></div>';
-        $datatable.= ' <script>$(function () {     oTable = table("' . $name . '","' . $sdom . '",-1,"");});</script>';
+        $datatable.= ' <script>$(function () {     oTable = table("' . $name . '","' . $sdom . '","-1","0");});</script>';
         $datatable.='<div class="widget-content" id="widget-content-' . $name . '-table">';
         $datatable.='<div class="header-table">';
         foreach ($header_buttons as $headerlink):
@@ -487,11 +498,11 @@ class Helper {
         return $datatable;
     }
 
-    public static function fill_datatable($name, $id, $header_buttons, $table, $header, $fields, $id_name, $linkcontrol = array(), $control = true, $column_hide = -1, $editable = '', $class_td_edit = '', $tdicon = '', $tdicon_class = '', $sdom = "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>", $query_id = '', $script = true) {
+    public static function fill_datatable($name, $id, $header_buttons, $table, $header, $fields, $id_name, $linkcontrol = array(), $control = true,$columnsearch=0 ,$column_hide = -1, $editable = '', $class_td_edit = '', $tdicon = '', $tdicon_class = '', $sdom = "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>", $query_id = '', $script = true) {
         $param = !self::is_empty_string($query_id) ? $name . '-' . $query_id : $name;
         $datatable = '<div id="widget-table"> <div class="widget-header"><h3><i class="icon-th-list"></i>'
                 . ucfirst($name) . '</h3></div>';
-        $datatable.= $script ? ' <script>$(function () {     oTable = table("' . $param . '","' . $sdom . '",' . $column_hide . ',"' . $editable . '");});</script>' : '';
+        $datatable.= $script ? ' <script>$(function () {     oTable = table("' . $param . '","' . $sdom . '",' . $column_hide . ',"' . $editable . '","'.$columnsearch.'");});</script>' : '';
         $datatable.='<div class="widget-content" id="widget-content-' . $name . '-table">';
         if ($control):
             $datatable.='<div class="header-table">';
@@ -501,7 +512,7 @@ class Helper {
             endforeach;
             $datatable.='</div>';
         endif;
-        $datatable.= '<table class="table table-striped table-bordered table-highlight '.$name.'-table" id="' . $param . '-table">';
+        $datatable.= '<table class="table table-striped table-bordered table-highlight ' . $name . '-table" id="' . $param . '-table">';
         $thead = ' <thead><tr>';
         $thead .=!self::is_empty_string($tdicon) ? '<th></th>' : '';
         foreach ($header as $row):

@@ -24,7 +24,7 @@
         <form action="#" id="roles-form" name="roles-form" class="roles-form form-horizontal"
               method="post" accept-charset="UTF-8">    
             <fieldset>
-                <div class="control-group">
+                <div class="control-group show-error">
                     <label class="control-label" for="role-name">Role Name</label>
                     <div class="controls">
                         <input type="text" class="input-large" name="role_name" id="role_name" maxlength="100" value="<?php

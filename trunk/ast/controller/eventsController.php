@@ -15,7 +15,7 @@ unset($_SESSION['event_id']);
 $eventBusinessLayer = new EventBusinessLayer();
 $title = 'Events';
 if ($action == 'index' || $action == 'events'):
-    $eventDataTable = $eventBusinessLayer->getEvents();
+    $eventDataTable = $eventBusinessLayer->getEvents(REJECTED);
     if ($eventBusinessLayer->getSuccess()):
         $content = Helper::fill_datatable_event('events', 'events', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $eventDataTable, array('Event Name', 'Event Date', 'Event invitees Number', 'Department Name', 'Employee Name', 'Status'), array('event_name', 'event_date', 'event_invitees_nb', 'department_name', 'employee_name', 'status_name'), 'event_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
                     1 => array('name' => 'Approved', 'link' => 'approved-', 'class' => 'approved'),
@@ -33,7 +33,7 @@ if ($action == 'index' || $action == 'events'):
         endif;
     endif;
 elseif ($action == 'add'):
-    $content = Helper::fill_datatable('items', 'items', array(), array(), array('Item ID', 'Item Name', 'Item Quantity'), array('item_id', 'item_name', 'item_quantity'), 'event_id', array(0 => array('name' => 'Delete', 'link' => 'delete-table', 'class' => 'delete')), true, 0
+    $content = Helper::fill_datatable('items', 'items', array(), array(), array('Item ID', 'Item Name', 'Item Quantity'), array('item_id', 'item_name', 'item_quantity'), 'event_id', array(0 => array('name' => 'Delete', 'link' => 'delete-table', 'class' => 'delete')), true,0, 0
                     , 'items', 'item_quantity', '', '', 'rt');
     if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
             strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') :
@@ -54,7 +54,7 @@ elseif ($action == 'edit'):
             , 'employee_id' => $eventDataTable [0]['employee_id']);
         $eventItemBusinessLayer = new EventItemBusinessLayer();
         $eventItemDataTable = $eventItemBusinessLayer->getEventItemsByEventID($eventDataTable [0]['event_id']);
-        $content = Helper::fill_datatable('items', 'items', array(), $eventItemDataTable, array('Item ID', 'Item Name', 'Item Quantity'), array('item_id', 'item_name', 'item_quantity'), 'event_id', array(0 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete-table')), true, 0, 'items', 'item_quantity', '', '', 'rt');
+        $content = Helper::fill_datatable('items', 'items', array(), $eventItemDataTable, array('Item ID', 'Item Name', 'Item Quantity'), array('item_id', 'item_name', 'item_quantity'), 'event_id', array(0 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete-table')), true,0, 0, 'items', 'item_quantity', '', '', 'rt');
         include_once POS_ROOT . '/content/events/add.php';
     else:
         print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Event not exist', 'error')));

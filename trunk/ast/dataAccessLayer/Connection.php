@@ -7,7 +7,6 @@
  * http://seprof.com/
  * 
  */
-
 class Connection {
 
     private static $_Instance;
@@ -36,11 +35,14 @@ class Connection {
 
     public function openConnection() {
         $conn = "Driver={SQL Server};Server=$this->_Hostname;Database=$this->_Database;";
-        self::$_DB = odbc_connect($conn, $this->_Username, $this->_Password,SQL_CUR_USE_ODBC);
+        self::$_DB = odbc_connect($conn, $this->_Username, $this->_Password, SQL_CUR_USE_ODBC);
+        return self::$_DB != null;
     }
 
     public function closeConnection() {
-        odbc_close(self::$_DB);
+        if (self::$_DB != null) {
+            odbc_close(self::$_DB);
+        }
     }
 
     public function getDB() {

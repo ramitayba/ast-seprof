@@ -36,20 +36,11 @@
                         ?> 
                         <script>    
                             $(function() {
-                                var role_id='<?php print $role_id;?>';
-                                if(role_id!=''){
-                                    if(role_id==1||role_id==4){
-                                        requiredUsername= requiredPassword=true;
-                                        requiredPincode=false;}
-                                    else if(role_id==2){
-                                        requiredUsername=requiredPassword=requiredPincode=true;
-                                    }else{
-                                        requiredUsername= requiredPassword=false;
-                                        requiredPincode=true;
-                                    }}});</script>
+                                 $('#roles').trigger('change');
+                            });</script>
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="control-group show-error">
                     <label class="control-label" for="username">Username</label>
                     <div class="controls">
                         <input type="text" class="input-large" name="user_name" id="username" maxlength="50"

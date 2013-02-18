@@ -36,7 +36,7 @@
         <form action="#" id="categories-form" name="categoriesform" class="categories-form form-horizontal"
               method="post" accept-charset="UTF-8">   
             <fieldset>
-                <div class="control-group">
+                <div class="control-group show-error">
                     <label class="control-label" for="category-name">Name</label>
                     <div class="controls">
                         <input type="text" class="input-large" name="category_name" id="category-name" 

@@ -1,4 +1,4 @@
-var dataRow, nRow,oTable,anOpenCategories = [],anOpenSubCategories = [],requiredUsername=true,requiredPassword=true,requiredPincode=true,resetForm,requiredSelect=true;
+var dataRow, nRow,oTable,columnSearch,anOpenCategories = [],anOpenSubCategories = [],requiredUsername=true,requiredPassword=true,requiredPincode=true,resetForm,requiredSelect=true;
 $(function () {
     jQuery.extend({
         seprof: function(url,data,callback,errorCallback,type) {
@@ -19,18 +19,6 @@ $(function () {
             });
         }
     });
-
-    /* $('#cafeterias-table a.edit').live('click', function (e) {
-        e.preventDefault();
-        /* Get the row as a parent of the link that was clicked on */
-    // var nRow = $(this).parents('tr')[0];
-         
-    /* A different row is being edited - the edit should be cancelled and this row edited */
-    // var aData = oTable.fnGetData(nRow);
-    /*oTable.fnServerData("/ast/controller/cafeteriasController.php",
-        {action:"edit",},editRow(oTable,nRow));
-    })
-    } );*/
     $('a.delete').live('click', function (e) {
         e.preventDefault(); 
         if (! confirm("Are you sure you want to delete?")){
@@ -99,16 +87,10 @@ $(function () {
             return;
         }
         if($('#number').val()==''||$('#id option:selected').val()=='')return;
-        //oTable.fnDraw();
         oTable.fnAddData([$('#id option:selected').val(),$('#id option:selected').text(),$('#number').val(),'<span class="content-link"><a class="delete-table " id="delete-'+a+'" href="" title="Delete"></a></span>']);
         $('#'+a+'-table tr td:nth-child(2)').addClass('tdedit');
         $('#'+a+'-table tr td:nth-child(3)').addClass('controls');
-        //var nTdsRow = $('td', row);
-        //var nTdsRow =oTable.fnGetNodes();
-        //$(nTdsRow[1]).addClass('tdedit');
-        //$(nTdsRow[2]).addClass('controls');
         oTable.fnDraw();
-        //$(nRow[2]).attr('td').addClass('tdedit');
         $('#category').val('');
         $('.add').disabled=true;
         $('.control-category-children').remove();
@@ -116,38 +98,6 @@ $(function () {
         $('#id').val('');
         $('#number').val('');  
     } );
-    /*$('.edit-table').live('click', function (e) {
-        e.preventDefault();
-        name=$(this).attr("id");
-        array=name.split("-");
-        if(array.length>1){
-            a=array[2];
-        }
-        else{
-            a='';
-        }
-
-        oTable =  $('#'+a+'-table').dataTable();
-        if(nRow!=null){
-            oTable.fnUpdate([row_id,$('#id option:selected').text(),$('#number').val(),'<span><a class="delete-table btn" id="delete-'+a+'" href="">Delete</a></span>'],nRow);
-        };
-    } );
-     */
-    /* $('.table tbody tr').live('click', function (e) {
-        e.preventDefault();
-        var nTds = $('td', this);
-        $(nTds[1]).addClass('tdedit');
-     nRow = $(this).parents('tr')[0];
-        oTable=null;
-        var table=  $('tr').parents('table')[0];
-        oTable =  $('#'+table['id']).dataTable();
-        dataRow=oTable.fnGetData(nRow);
-        row_id=dataRow[0];
-        $('#id :selected').text(dataRow[1]);
-        $('#number').val(dataRow[2]);
-        
-    } );
-     */
     $('#categories-table tbody tr td.control-category').live( 'click', function (e) {
         e.preventDefault();
         nRow = $(this).parents('tr')[0];
@@ -165,26 +115,11 @@ $(function () {
             }
             else
             {
-                /*var data=$('.details').html();
-                $('.details').parents('tr').show();
-                oTable.fnOpen( nTr, data, 'details' );
-                anOpen.push( nTr );
-                $('.details #widget-table', $(nTr).next()[0]).css('display', 'block');
-            }*/
-                /* if($('.details').parents('tr').length>0)
-            {
-                $('.details').parents('tr').remove();     
-            }*/
                 anOpenCategories.push( nTr );
                 $('.sub-categories #widget-table', $(nTr).next()[0]).css('display', 'block');
             }
         }
         else {
-            /*oTable.fnClose( nTr );
-            anOpen.splice( i, 1 );
-            $('img', this).attr( 'src', sImageUrl+"details_open.png" );
-            $('.details #widget-table', $(nTr).next()[0]).css('display', 'none');
-            $('#widget-table').slideUp();*/
             $('img', this).attr( 'src', sImageUrl+"details_open.png" );
             $('#widget-table', $(nTr).next()[0]).slideUp( function () {
                 oTable.fnClose( nTr );
@@ -192,7 +127,6 @@ $(function () {
                 anOpenCategories.splice( i, 1 );
             } );
             $('.sub-categories #widget-table', $(nTr).next()[0]).css('display', 'none');
-        //$('.details').parents('tr').remove();
         }
     } );
     
@@ -227,19 +161,12 @@ $(function () {
             }
         }
         else {
-            /*oTable.fnClose( nTr );
-            anOpen.splice( i, 1 );
-            $('img', this).attr( 'src', sImageUrl+"details_open.png" );
-            $('.details #widget-table', $(nTr).next()[0]).css('display', 'none');
-            $('#widget-table').slideUp();*/
             $('img', this).attr( 'src', sImageUrl+"details_open.png" );
             $('#widget-table', $(nTr).next()[0]).slideUp( function () {
                 oTable.fnClose( nTr );
                 oTable.fnClose($('.items'));
                 anOpenSubCategories.splice( i, 1 );
             } );
-            
-        //$('.details').parents('tr').remove();
         }
     } );
  
@@ -309,13 +236,7 @@ $(function () {
         getDropDown('category-children');
     } );
     $('#roles').live('change', function (e) {
-        if(resetForm!=null)
-        {
-            resetForm.resetForm();
-            resetForm.hideErrors();
-            resetForm.clean();
-        }
-        $('#users-form .control-group').removeClass('error');
+        resetValidateForm();
         var value=$('#roles').val();
         if (value==1 ||value==4){
             $('#pincode').attr('disabled','disabled').toggleClass('disabled');
@@ -344,7 +265,6 @@ $(function () {
             requiredPassword=true;
             requiredPincode=true;
         }
-    //validate('','');
     } );
     $('.permissions').live('click', function (e) {
         e.preventDefault();
@@ -391,7 +311,6 @@ $(function () {
             return;
         }
     } );
-    
     $('.back').live('click', function (e) {
         e.preventDefault();
         name=$(this).attr("id");
@@ -442,44 +361,11 @@ $(function () {
     } );
     $('.print').live('click', function (e) {
         e.preventDefault();
-        /*  var divContents = $(".form-horizontal").html();
-            var printWindow = window.open('', '', 'height=400,width=800');
-            printWindow.document.write('<html><head><title>Event Report</title>');
-            printWindow.document.write('</head><body >');
-            printWindow.document.write(divContents);
-            printWindow.document.write('</body></html>');
-            printWindow.focus();
-            printWindow.document.close();
-            printWindow.print();*/
         $('.form-actions').hide();
         $('#header-container').css('background-color','#263849');
         window.print();
         $('.form-actions').show();
     } );
-    /*$('.items').live('click', function (e) {
-        e.preventDefault();
-        name=$(this).attr("id");
-        array=name.split("-");
-        if(array.length>1){
-            a=array[0];
-            b=array[1];
-        }
-        else{
-            a='';
-            b='';
-        }
-        c='events';
-        $("#widget-content-"+c+"-table").append('<img src="'+sImageUrl+'"loader.gif" alt="Uploading...."/>');
-        $.seprof(baseurl,{
-            name:'eventItems',
-            action:'index',
-            query:b
-        },function(k){
-            showform(k,c)
-        },function(httpReq, status, exception,c){
-            error(httpReq, status, exception,c)
-        })
-    } );/*/
     $('.pos').live('click', function (e) {
         e.preventDefault();
         name=$(this).attr("id");
@@ -631,35 +517,6 @@ $(function () {
         if(!validate(a,b,e)){
             return;
         }
-    /* $('.'+a+'-form').trigger('submit');
-        var sequence="";
-        $('input[name=check]:checked').each(function(){
-            sequence+=$(this).val()+",";
-        });
-        datatable=getData(oTable,a,'id');
-        var data =$('.'+a+'-form').serialize();
-        $("#widget-content-"+a+"-table").append('<img src="+sImageUrl+"loader.gif" alt="Loading...."/>');
-        $.seprof(baseurl,{
-            name:a,
-            action:'save',
-            query:b,
-            datainput:data,
-            sequence:sequence,
-            datatable:datatable
-        },function(k){
-            if(k.status=='error')
-            {
-                error('','',k.message,a)  
-            }
-            else if(k.status=='success')
-            {
-                success( k.message,a)  
-            }else{
-                showTable(k,a);
-            }
-        },function(httpReq, status, exception,a){
-            error(httpReq, status, exception,a);
-        })*/
     } ); 
     $('#checkall').live('change', function (e) {
         if($('#checkall').is(':checked')){
@@ -702,8 +559,27 @@ $(function () {
         return this.optional(element) || /^\d{1,2}[\/-]\d{1,2}[\/-]\d{4}$/.test(value); 
     }, "Please specify the date in DD/MM/YYYY  format");
     jQuery.validator.addMethod("validateUsername", function(value, element) { 
-        return this.optional(element) || /^[a-zA-Z0-9\-\_\+\.]+$/.test(value); 
+        return this.optional(element)|| /^[a-zA-Z0-9\-\_\+\.]+$/.test(value); 
     }, "Username may contain only letters,numbers and ./+/-/_ characters.");
+     jQuery.validator.addMethod("validateStartUsername", function(value, element) { 
+        return this.optional(element)||value.substr(0, 1).match(/[A-Za-z]/) != null;
+    }, "Username start only  by letters.");
+        $('.dataTables_filter input').live('keyup change',function (e) {
+            e.preventDefault();
+            var val = $(this).val();
+            oTable.fnFilter("^"+val,columnSearch,true,false,false,false);
+            oTable.fnDraw();
+        });
+        
+        $("#checkallpermission").live('change', function (e) {
+              e.preventDefault();
+                if($(this).prop('checked')){
+                    $(".checkbox").addClass('checked');
+                     $(".check").attr("checked", true);
+                }else{
+                    $(".checkbox").removeClass('checked');
+                    $(".check").attr("checked", false);
+                }});
 });
 function getDropDown(a)
 {
@@ -761,17 +637,19 @@ function showSelect(b,a)
 }
 function error(httpReq, status, exception,a){
 
+    resetValidateForm();
     b="<div id='block' class='alert alert-block'>"+
     "<a class='close' data-dismiss='alert' href='#'>&times;</a>"+
     exception+"</div>";
     $("#widget-content-"+a+"-table img:last-child").remove();
     $("#block").replaceWith(b);
     $(".alert").show();
+    $('.control-group.show-error').addClass('error');
 }
 function success(message,a){
     $("#block").replaceWith(message);
 }
-function table(name,sdom,column_hide,editable)
+function table(name,sdom,column_hide,editable,columnsearch)
 {
     var table=sdom!='rt'?tableRLFTIP(name,sdom,column_hide,editable):tableRT(name,sdom,column_hide,editable); 
     if(column_hide!=-1){
@@ -789,6 +667,7 @@ function table(name,sdom,column_hide,editable)
         var dot=editable=='allowances'?1:0;
         return isNumberKey(e,dot)&&arr.length<3;
     })
+    columnSearch=columnsearch;
     //table.fnUpdate(oSettings);
     return table;
 }
@@ -860,14 +739,270 @@ function checkMaxLength(textareaID, maxLength){
 
     }
 }
-function validate(a,b,e)
+function validateRoles(a,b)
+{
+    resetForm= $('#roles-form').validate({
+        rules: {
+            role_name: {
+                required: true,
+                maxlength:100
+            },
+            status:{
+                required: true
+            }
+        },
+        focusCleanup: false,
+
+        highlight: function(label) {
+            $(label).closest('.control-group').removeClass ('success').addClass('error');
+        },
+        success: function(label) {
+            label
+            .text('OK!').addClass('valid')
+            .closest('.control-group').addClass('success');
+        },
+        errorPlacement: function(error, element) {
+            error.appendTo( element.parents ('.controls') );
+        },
+        submitHandler: function (form) {
+            ajaxSubhmit(a,b);
+        }
+    });
+}
+function validatePermissions(a,b)
+{
+    $('#permissions-form').validate({
+        focusCleanup: false,
+        submitHandler: function (form) {
+            ajaxSubhmit(a,b);
+        }
+    });
+}
+function validatePos(a,b)
+{
+    resetForm= $('#pos-form').validate({
+        rules: {
+            pos_key: {
+                required: true,
+                maxlength:150
+            },
+            cafeteria : {
+                required: true
+            },
+            status : {
+                required: true
+            }
+        },
+        focusCleanup: false,
+
+        highlight: function(label) {
+            $(label).closest('.control-group').removeClass ('success').addClass('error');
+        },
+
+        success: function(label) {
+            label
+            .text('OK!').addClass('valid')
+            .closest('.control-group').addClass('success');
+        },
+        errorPlacement: function(error, element) {
+            error.appendTo( element.parents ('.controls') );
+        },
+        submitHandler: function (form) {
+            ajaxSubhmit(a,b);
+        }
+    });
+}
+function vaidateCafeterias(a,b)
+{
+    resetForm= $('#cafeterias-form').validate({
+        rules: {
+            cafeteria_name: {
+                required: true,
+                maxlength:50
+            }
+        },
+        focusCleanup: false,
+
+        highlight: function(label) {
+            $(label).closest('.control-group').removeClass ('success').addClass('error');
+        },
+
+        success: function(label) {
+            label
+            .text('OK!').addClass('valid')
+            .closest('.control-group').addClass('success');
+        },
+        errorPlacement: function(error, element) {
+            error.appendTo( element.parents ('.controls') );
+        },
+        submitHandler: function (form) {
+            ajaxSubhmit(a,b);
+        }
+    });
+}
+function vaidateCategories(a,b)
+{
+    resetForm=  $('#categories-form').validate({
+        rules: {
+            category_name: {
+                required: true,
+                maxlength:100
+            },
+            status: {
+                required: true
+            },
+            color_code: {
+                required: true,
+                maxlength:7
+            }
+        },
+        focusCleanup: false,
+
+        highlight: function(label) {
+            $(label).closest('.control-group').removeClass ('success').addClass('error');
+        },
+        success: function(label) {
+            label
+            .text('OK!').addClass('valid')
+            .closest('.control-group').addClass('success');
+        },
+        errorPlacement: function(error, element) {
+            error.appendTo( element.parents ('.controls') );
+        },
+        submitHandler: function (form) {
+            ajaxSubhmit(a,b);
+        }
+    });
+}
+function validateItems(a,b)
+{
+    resetForm=$('#items-form').validate({
+        rules: {
+            item_name: {
+                required: true,
+                maxlength:100
+            },
+            category: {
+                required: true
+            },
+            item_price: {
+                required: true,
+                maxlength:18,
+                number:true
+            },
+            status: {
+                required: true
+            }
+        },
+        focusCleanup: false,
+
+        highlight: function(label) {
+            $(label).closest('.control-group').removeClass ('success').addClass('error');
+        },
+        success: function(label) {
+            label
+            .text('OK!').addClass('valid')
+            .closest('.control-group').addClass('success');
+        },
+        errorPlacement: function(error, element) {
+            error.appendTo( element.parents ('.controls') );
+        },
+        submitHandler: function (form) {
+            ajaxSubhmit(a,b);
+        }
+    }); 
+}
+function validateEvents(a,b,e)
+{
+    resetForm= $('#events-form').validate({
+        rules: {
+            event_name: {
+                required: true,
+                maxlength:50
+            },
+            event_date: {
+                required: true
+            },
+            event_invitees_nb: {
+                required: true,
+                maxlength:9,
+                number:true
+            },
+            department: {
+                required: true
+            },
+            employee: {
+                required: true
+            }
+        },
+        focusCleanup: false,
+
+        highlight: function(label) {
+            $(label).closest('.control-group').removeClass ('success').addClass('error');
+        },
+        success: function(label) {
+            label
+            .text('OK!').addClass('valid')
+            .closest('.control-group').addClass('success');
+        },
+        errorPlacement: function(error, element) {
+            error.appendTo( element.parents ('.controls') );
+        },
+        submitHandler: function (form) {
+            var date=new Date();
+            var dateevent=processDateTime($('#event_date').val());
+            if(dateevent <date )
+            {
+                $('.control-date').removeClass('success');
+                $('.control-date').addClass('error');
+                $('.date .error').remove();
+                $('#datetimepicker').after('<label for="datepicker" generated="true" class="error" style="">Must be greater than Date</label>');
+                e.preventDefault();
+                return false;           
+            }else{
+                $('.date .error').remove();
+            }
+            ajaxSubhmit(a,b);
+        }
+    });
+}
+function validateAllowance(a,b)
+{
+    resetForm=   $('#allowances-form').validate({
+        rules: {
+            max_debit: {
+                required: true,
+                maxlength:18,
+                number:true
+            }
+        },
+        focusCleanup: false,
+
+        highlight: function(label) {
+            $(label).closest('.control-group').removeClass ('success').addClass('error');
+        },
+        success: function(label) {
+            label
+            .text('OK!').addClass('valid')
+            .closest('.control-group').addClass('success');
+        },
+        errorPlacement: function(error, element) {
+            error.appendTo( element.parents ('.controls') );
+        },
+        submitHandler: function (form) {
+            ajaxSubhmit(a,b);
+        }
+    });
+}
+function validateUsers(a,b)
 {
     resetForm=$('#users-form').validate({
         rules: {
             user_name: {
                 required: requiredUsername,
                 maxlength:50,
-                validateUsername:true
+                validateUsername:true,
+                validateStartUsername:true
             },
             user_password: {
                 required: requiredPassword,
@@ -907,248 +1042,54 @@ function validate(a,b,e)
             }
         }
     });
-
-    $('#roles-form').validate({
-        rules: {
-            role_name: {
-                required: true,
-                maxlength:100
-            },
-            status:{
-                required: true
-            }
-        },
-        focusCleanup: false,
-
-        highlight: function(label) {
-            $(label).closest('.control-group').removeClass ('success').addClass('error');
-        },
-        success: function(label) {
-            label
-            .text('OK!').addClass('valid')
-            .closest('.control-group').addClass('success');
-        },
-        errorPlacement: function(error, element) {
-            error.appendTo( element.parents ('.controls') );
-        },
-        submitHandler: function (form) {
-            ajaxSubhmit(a,b);
-        }
-    });
-    $('#permissions-form').validate({
-       
-        focusCleanup: false,
-        submitHandler: function (form) {
-            ajaxSubhmit(a,b);
-        }
-    });
-    $('#pos-form').validate({
-        rules: {
-            pos_key: {
-                required: true,
-                maxlength:150
-            },
-            cafeteria : {
-                required: true
-            },
-            status : {
-                required: true
-            }
-        },
-        focusCleanup: false,
-
-        highlight: function(label) {
-            $(label).closest('.control-group').removeClass ('success').addClass('error');
-        },
-
-        success: function(label) {
-            label
-            .text('OK!').addClass('valid')
-            .closest('.control-group').addClass('success');
-        },
-        errorPlacement: function(error, element) {
-            error.appendTo( element.parents ('.controls') );
-        },
-        submitHandler: function (form) {
-            ajaxSubhmit(a,b);
-        }
-    });
-
-    $('#cafeterias-form').validate({
-        rules: {
-            cafeteria_name: {
-                required: true,
-                maxlength:50
-            }
-        },
-        focusCleanup: false,
-
-        highlight: function(label) {
-            $(label).closest('.control-group').removeClass ('success').addClass('error');
-        },
-
-        success: function(label) {
-            label
-            .text('OK!').addClass('valid')
-            .closest('.control-group').addClass('success');
-        },
-        errorPlacement: function(error, element) {
-            error.appendTo( element.parents ('.controls') );
-        },
-        submitHandler: function (form) {
-            ajaxSubhmit(a,b);
-        }
-    });
-
-    $('#categories-form').validate({
-        rules: {
-            category_name: {
-                required: true,
-                maxlength:100
-            },
-            status: {
-                required: true
-            },
-            color_code: {
-                required: true,
-                maxlength:7
-            }
-        },
-        focusCleanup: false,
-
-        highlight: function(label) {
-            $(label).closest('.control-group').removeClass ('success').addClass('error');
-        },
-        success: function(label) {
-            label
-            .text('OK!').addClass('valid')
-            .closest('.control-group').addClass('success');
-        },
-        errorPlacement: function(error, element) {
-            error.appendTo( element.parents ('.controls') );
-        },
-        submitHandler: function (form) {
-            ajaxSubhmit(a,b);
-        }
-    });
-
-    $('#items-form').validate({
-        rules: {
-            item_name: {
-                required: true,
-                maxlength:100
-            },
-            category: {
-                required: true
-            },
-            item_price: {
-                required: true,
-                maxlength:18,
-                number:true
-            },
-            status: {
-                required: true
-            }
-        },
-        focusCleanup: false,
-
-        highlight: function(label) {
-            $(label).closest('.control-group').removeClass ('success').addClass('error');
-        },
-        success: function(label) {
-            label
-            .text('OK!').addClass('valid')
-            .closest('.control-group').addClass('success');
-        },
-        errorPlacement: function(error, element) {
-            error.appendTo( element.parents ('.controls') );
-        },
-        submitHandler: function (form) {
-            ajaxSubhmit(a,b);
-        }
-    });
-
-    // $('.form').eq (0).find ('input').eq (0).focus ();
-    $('#events-form').validate({
-        rules: {
-            event_name: {
-                required: true,
-                maxlength:50
-            },
-            event_date: {
-                required: true
-            },
-            event_invitees_nb: {
-                required: true,
-                maxlength:9,
-                number:true
-            },
-            department: {
-                required: true
-            },
-            employee: {
-                required: true
-            }
-        },
-        focusCleanup: false,
-
-        highlight: function(label) {
-            $(label).closest('.control-group').removeClass ('success').addClass('error');
-        },
-        success: function(label) {
-            label
-            .text('OK!').addClass('valid')
-            .closest('.control-group').addClass('success');
-        },
-        errorPlacement: function(error, element) {
-            error.appendTo( element.parents ('.controls') );
-        },
-        submitHandler: function (form) {
-            var date=new Date();
-            var dateevent=process($('#event_date').val());
-            if(dateevent <date )
-            {
-                $('.date .error').remove();
-                $('#datetimepicker').after('<label for="datepicker" generated="true" class="error" style="">Must be greater than Date</label>');
-                e.preventDefault();
-                return false;           
-            }else{
-                $('.date .error').remove();
-            }
-            ajaxSubhmit(a,b);
-        }
-    });
-    $('#allowances-form').validate({
-        rules: {
-            max_debit: {
-                required: true,
-                maxlength:18,
-                number:true
-            }
-        },
-        focusCleanup: false,
-
-        highlight: function(label) {
-            $(label).closest('.control-group').removeClass ('success').addClass('error');
-        },
-        success: function(label) {
-            label
-            .text('OK!').addClass('valid')
-            .closest('.control-group').addClass('success');
-        },
-        errorPlacement: function(error, element) {
-            error.appendTo( element.parents ('.controls') );
-        },
-        submitHandler: function (form) {
-            ajaxSubhmit(a,b);
-        }
-    });
 }
-function process(date){
+function validate(a,b,e)
+{
+    switch(a)
+    {
+        case 'users':
+            validateUsers(a,b);
+            break;
+        case 'roles':
+            validateRoles(a,b);
+            break;
+        case 'permissions':
+            validatePermissions(a,b);
+            break;
+        case 'categories':
+            vaidateCategories(a,b);
+            break;
+        case 'items':
+            validateItems(a,b);
+            break;
+        case 'pos':
+            validatePos(a,b);
+            break;
+        case 'allowance':
+            validateAllowance(a,b);
+            break;
+        case 'events':
+            validateEvents(a,b,e);
+            break;
+        case 'cafeterias':
+            vaidateCafeterias(a,b);
+            break;
+        default:
+            break;
+    }
+}
+function processDateTime(date){
     var parts = date.split(" ");
     var time=parts[1].split(":");
     parts = parts[0].split("/");
     return new Date(parts[2], parts[1] - 1, parts[0],time[0],time[1],time[2]);
+}
+function processDate(date){
+    var parts = date.split("/");
+    if(parts.length>2)
+    {
+        return new Date(parts[2], parts[1] - 1, parts[0]);
+    }else return '';
 }
 function isNumberKey(evt,dot)
 {
@@ -1233,18 +1174,8 @@ function ajaxSubhmit(a,b)
         error(httpReq, status, exception,a);
     });
 }
-function validateReport(a,c,e)
+function validateCafeteriaReport(a,c)
 {
-    if( new Date($('#mindate').val()) > new Date($('#maxdate').val()))
-    {
-        $('#datetimepickermax .error').remove();
-        $('.date .error').remove();
-        $('#datetimepickermax').after('<label for="maxdate" generated="true" class="error" style="">Must be greater than From Date</label>');
-        e.preventDefault();
-        return false;           
-    }else{
-        $('#datetimepickermax .error').remove();
-    }
     resetForm=$('#cafeteria-balance-form').validate({
         rules: {
             filter_select: {
@@ -1275,7 +1206,10 @@ function validateReport(a,c,e)
         submitHandler: function (form) {
             ajaxReport(a,c);
         }
-    });
+    });  
+}
+function validateUserReport(a,c)
+{
     resetForm=$('#user-purchases-form').validate({
         rules: {
             mindate:{
@@ -1304,6 +1238,9 @@ function validateReport(a,c,e)
             ajaxReport(a,c);
         }
     });
+}
+function validatePurchasesReport(a,c)
+{
     resetForm=$('#purchases-inventory-form').validate({
         rules: {
             mindate:{
@@ -1331,64 +1268,10 @@ function validateReport(a,c,e)
         submitHandler: function (form) {
             ajaxReport(a,c);
         }
-    });
-    resetForm= $('#events-listing-form').validate({
-        rules: {
-            mindate:{
-                required: true,
-                customdate: true
-            },
-            maxdate:{
-                required: true,
-                customdate: true
-            }
-        },
-        focusCleanup: false,
-
-        highlight: function(label) {
-            $(label).closest('.control-group').removeClass ('success').addClass('error');
-        },
-        success: function(label) {
-            label
-            .text('OK!').addClass('valid')
-            .closest('.control-group').addClass('success');
-        },
-        errorPlacement: function(error, element) {
-            error.appendTo( element.parents ('.controls') );
-        },
-        submitHandler: function (form) {
-            ajaxReport(a,c);
-        }
-    });
-    
-    resetForm= $('#detailed-event-form').validate({
-        rules: {
-            filter_select: {
-                required: requiredSelect
-            }
-        },
-        focusCleanup: false,
-
-        highlight: function(label) {
-            $(label).closest('.control-group').removeClass ('success').addClass('error');
-        },
-        success: function(label) {
-            label
-            .text('OK!').addClass('valid')
-            .closest('.control-group').addClass('success');
-        },
-        errorPlacement: function(error, element) {
-            error.appendTo( element.parents ('.controls') );
-        },
-        submitHandler: function (form) {
-            ajaxReport(a,c);
-        }
-    });
-    resetForm= $('#menu-report-form').validate({
-        submitHandler: function (form) {
-            ajaxReport(a,c);
-        }
-    });
+    }); 
+}
+function validateDetailedUserReport(a,c)
+{
     resetForm= $('#detailed-user-purchases-form').validate({
         rules: {
             filter_select:{
@@ -1421,6 +1304,115 @@ function validateReport(a,c,e)
         }
     });
 }
+function validateEventReport(a,c)
+{
+    resetForm= $('#events-listing-form').validate({
+        rules: {
+            mindate:{
+                required: true,
+                customdate: true
+            },
+            maxdate:{
+                required: true,
+                customdate: true
+            }
+        },
+        focusCleanup: false,
+
+        highlight: function(label) {
+            $(label).closest('.control-group').removeClass ('success').addClass('error');
+        },
+        success: function(label) {
+            label
+            .text('OK!').addClass('valid')
+            .closest('.control-group').addClass('success');
+        },
+        errorPlacement: function(error, element) {
+            error.appendTo( element.parents ('.controls') );
+        },
+        submitHandler: function (form) {
+            ajaxReport(a,c);
+        }
+    }); 
+}
+function validateDetailedEventReport(a,c)
+{
+    resetForm= $('#detailed-event-form').validate({
+        rules: {
+            filter_select: {
+                required: requiredSelect
+            }
+        },
+        focusCleanup: false,
+
+        highlight: function(label) {
+            $(label).closest('.control-group').removeClass ('success').addClass('error');
+        },
+        success: function(label) {
+            label
+            .text('OK!').addClass('valid')
+            .closest('.control-group').addClass('success');
+        },
+        errorPlacement: function(error, element) {
+            error.appendTo( element.parents ('.controls') );
+        },
+        submitHandler: function (form) {
+            ajaxReport(a,c);
+        }
+    });
+}
+function validateMenuReport(a,c)
+{
+    resetForm= $('#menu-report-form').validate({
+        submitHandler: function (form) {
+            ajaxReport(a,c);
+        }
+    });
+}
+function validateReport(a,c,e)
+{
+    resetValidateForm();
+    if($('#mindate').length>0 ||$('#maxdate').length){
+        var from=processDate($('#mindate').val())
+        var to=processDate($('#maxdate').val());
+        if( from >to )
+        {
+            $('#datetimepickermax .error').remove();
+            $('.date .error').remove();
+            $('#datetimepickermax').after('<label for="maxdate" generated="true" class="error" style="">Must be greater than From Date</label>');
+            e.preventDefault();
+            return ;           
+        }else{
+            $('#datetimepickermax .error').remove();
+        }  
+    }
+    switch(a)
+    {
+        case 'menu-report':
+            validateMenuReport(a,c);
+            break;
+        case 'detailed-event':
+            validateDetailedEventReport(a,c);
+            break;
+        case 'events-listing':
+            validateEventReport(a,c);
+            break;
+        case 'detailed-user-purchases':
+            validateDetailedUserReport(a,c);
+            break;
+        case 'purchases-inventory':
+            validatePurchasesReport(a,c);
+            break;
+        case 'user-purchases':
+            validateUserReport(a,c);
+            break;
+        case 'cafeteria-balance':
+            validateCafeteriaReport(a,c);
+            break;
+        default:
+            break;
+    }
+}
 function ajaxReport(name,query)
 {
     var data='';// =decodeURIComponent($('#'+name+'-form').serialize());
@@ -1449,7 +1441,12 @@ function enable_text(status,links)
 }
 function enable_allowance(status)
 {
-    $('#max_debit').attr('disabled',!status);
+    if(status){
+        $('.form-actions').show();
+    }
+    else{
+        $('.form-actions').hide();
+    }
     $('#save-allowances').attr('disabled',!status);
     if(status){
         $('#widget-table').hide();
@@ -1491,4 +1488,15 @@ function getDateTime(d){
     s(d.getHours(),2) + ':' +
     s(d.getMinutes(),2) + ':' +
     s(d.getSeconds(),2);
+}
+function resetValidateForm()
+{
+    if(resetForm!=null)
+    {
+        resetForm.resetForm();
+        resetForm.hideErrors();
+        resetForm.clean();
+    }
+    $('.control-group').removeClass('error');
+    $('.control-group').removeClass('success');
 }

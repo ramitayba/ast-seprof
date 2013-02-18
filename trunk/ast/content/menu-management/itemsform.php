@@ -37,7 +37,7 @@
         <form action="#" id="items-form" name="items-form" class="items-form form-horizontal"
               method="post" accept-charset="UTF-8"> 
             <fieldset>
-                <div class="control-group">
+                <div class="control-group show-error">
                     <label class="control-label" for="item-name">Item Name</label>
                     <div class="controls">
                         <input type="text" class="input-large" name="item_name" id="item-name"

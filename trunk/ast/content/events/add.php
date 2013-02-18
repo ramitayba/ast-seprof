@@ -34,7 +34,7 @@ if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUES
                 <form action="#" id="events-form" name="events-form" class="events-form form-horizontal"
                       method="post" accept-charset="UTF-8">
                     <fieldset>               
-                        <div class="control-group control-min-group">
+                        <div class="control-group show-error control-min-group ">
                             <label class="control-label" for="event-name">Event Name</label>
                             <div class="controls">
                                 <input type="text" class="input-large" name="event_name"  maxlength="50" id="event_name" value="<?php

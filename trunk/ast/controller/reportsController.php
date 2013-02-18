@@ -44,7 +44,7 @@ elseif ($action == 'purchases-inventory'):
 elseif ($action == 'events-listing'):
     if ($query_id == 'show'):
         $reportsBusinessLayer = new ReportsBusinessLayer();
-        $reportsDataTable = $reportsBusinessLayer->getEventListing($mindate, $maxdate);
+        $reportsDataTable = $reportsBusinessLayer->getEventListing($mindate, $maxdate,REJECTED);
     endif;
 elseif ($action == 'detailed-event'):
     if ($query_id == 'show'):
@@ -66,16 +66,19 @@ elseif ($action == 'menu-report'):
         $reportsBusinessLayer = new ReportsBusinessLayer();
         $menuReport = $reportsBusinessLayer->getMenuReports(DELETED);
         $reportsDataTable = array();
+        $id_parent=0;
         foreach ($menuReport as $obj) {
             if ((!array_key_exists('category_id', $reportsDataTable) && $obj['category_parent_id'] != 0) || ($obj['category_parent_id'] == 0 && $reportsDataTable[$obj['category_id']]['category_id'] != $obj['category_id'])) {
                 $id_parent = $id_sub_parent = !Helper::is_empty_string($obj['category_name']) ? $obj['category_parent_id'] : $obj['category_id'];
                 $reportsDataTable[$id_parent]['category_id'] = $id_parent;
                 $reportsDataTable[$id_parent]['category_name'] = $obj['category_parent_name'];
+                $reportsDataTable[$id_parent]['category_parent_id'] = 0;
             }
             if (!Helper::is_empty_string($obj['category_name']) && $id_sub_parent != $obj['category_id']) {
                 $id_sub_parent = $obj['category_id'];
                 $reportsDataTable[$id_parent]['sub-categories'][$id_sub_parent]['category_name'] = $obj['category_name'];
                 $reportsDataTable[$id_parent]['sub-categories'][$id_sub_parent]['category_id'] = $obj['category_id'];
+                $reportsDataTable[$id_parent]['sub-categories'][$id_sub_parent]['category_parent_id'] = $id_parent;
                 $reportsDataTable[$id_parent]['sub-categories'][$id_sub_parent]['items'][$obj['item_id']]['item_name'] = $obj['item_name'];
                 $reportsDataTable[$id_parent]['sub-categories'][$id_sub_parent]['items'][$obj['item_id']]['item_price'] = $obj['item_price'];
             } else {

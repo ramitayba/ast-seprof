@@ -70,19 +70,20 @@ class DataAccessManager {
     public function fillData($array = array()) {
         try {
             $this->_reset();
-            Connection::getInstance()->openConnection();
-            $this->_Statment = odbc_prepare(Connection::getInstance()->getDB(), self::$_SQLQuery);
-            $this->_Success = odbc_execute($this->_Statment, $array);
-            if (odbc_error()) {
-                self::$_LastError = odbc_errormsg(Connection::getInstance()->getDB());
-                $this->_Success = false;
-            }
-            $i = 0;
-            if ($this->_Success) {
-                while ($row = odbc_fetch_array($this->_Statment)):
-                    $this->_DataTable[$i] = $row;
-                    $i++;
-                endwhile;
+            if (Connection::getInstance()->openConnection()) {
+                $this->_Statment = odbc_prepare(Connection::getInstance()->getDB(), self::$_SQLQuery);
+                $this->_Success = odbc_execute($this->_Statment, $array);
+                if (odbc_error()) {
+                    self::$_LastError = odbc_errormsg(Connection::getInstance()->getDB());
+                    $this->_Success = false;
+                }
+                $i = 0;
+                if ($this->_Success) {
+                    while ($row = odbc_fetch_array($this->_Statment)):
+                        $this->_DataTable[$i] = $row;
+                        $i++;
+                    endwhile;
+                }
             }
             // $this->_DataTable = $this->_Success === true ? odbc_result_all($this->_Statment) : array();
         } catch (OdbcException $ex) {
