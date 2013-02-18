@@ -564,6 +564,9 @@ $(function () {
      jQuery.validator.addMethod("validateStartUsername", function(value, element) { 
         return this.optional(element)||value.substr(0, 1).match(/[A-Za-z]/) != null;
     }, "Username start only  by letters.");
+    jQuery.validator.addMethod("notequalzero", function(value, element) { 
+        return value!=0; 
+    }, "this field Cannot be 0");
         $('.dataTables_filter input').live('keyup change',function (e) {
             e.preventDefault();
             var val = $(this).val();
@@ -888,7 +891,8 @@ function validateItems(a,b)
             item_price: {
                 required: true,
                 maxlength:18,
-                number:true
+                number:true,
+                notequalzero:true
             },
             status: {
                 required: true
@@ -926,7 +930,8 @@ function validateEvents(a,b,e)
             event_invitees_nb: {
                 required: true,
                 maxlength:9,
-                number:true
+                number:true,
+                 notequalzero:true
             },
             department: {
                 required: true

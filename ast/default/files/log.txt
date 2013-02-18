@@ -1,0 +1,1 @@
+<b>WARNING</b> 2 Missing argument 1 for EventBusinessLayer::getEvents(), called in C:\xampp\htdocs\ast\content\reports\detailed-event.php on line 18 and defined Fatal WARNING on line 37 in file C:\xampp\htdocs\ast\businessLayer\EventBusinessLayer.php   |  Date:  18.02.2013 03:01:07

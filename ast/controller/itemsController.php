@@ -11,11 +11,11 @@ include_once POS_ROOT . '/businessLayer/ItemBusinessLayer.php';
 include_once POS_ROOT . '/businessLayer/CategoryBusinessLayer.php';
 $itemBusinessLayer = new ItemBusinessLayer();
 if ($action == 'index' || $action == 'items'):
-     $title='Items';
+    $title = 'Items';
     $itemDataTable = $itemBusinessLayer->getItems(DELETED);
     if ($itemBusinessLayer->getSuccess()):
         $content = Helper::fill_datatable('items', 'items', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $itemDataTable, array('Category Parent Name', 'Sub Category Name', 'Item Name', 'Item Price', 'Item Description', 'Status'), array('category_parent_name', 'category_name', 'item_name', 'item_price', 'item_description', 'status_name'), 'item_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
-                    1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')),true,2);
+                    1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')), true, 2);
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') :
             print $content;
             return;
@@ -35,7 +35,7 @@ elseif ($action == 'edit'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
         $itemDataTable = $itemBusinessLayer->getItemByID($query_id, DELETED);
         if (count($itemDataTable) == 0):
-              print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Items doesn t exist', 'error')));
+            print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Items doesn t exist', 'error')));
             return;
         endif;
         $forms = array('item_id' => $itemDataTable [0]['item_id']
@@ -61,6 +61,10 @@ elseif ($action == 'save'):
     $message = Helper::is_list_empty($array);
     if (!Helper::is_empty_string($message)):
         print Helper::json_encode_array(array('status' => 'error', 'message' => $message));
+        return;
+    endif;
+    if ($item_price == 0):
+        print Helper::json_encode_array(array('status' => 'error', 'message' => 'Item Price cannot be 0'));
         return;
     endif;
     $itemDataTable = $itemBusinessLayer->getItemByName($name, $category_id, DELETED);
@@ -95,7 +99,7 @@ elseif ($action == 'save'):
         $itemDataTable = $itemBusinessLayer->getItems(DELETED);
         if ($itemBusinessLayer->getSuccess()):
             $content = Helper::fill_datatable('items', 'items', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $itemDataTable, array('Category Parent Name', 'Sub Category Name', 'Item Name', 'Item Price', 'Item Description', 'Status'), array('category_parent_name', 'category_name', 'item_name', 'item_price', 'item_description', 'status_name'), 'item_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
-                        1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')),true,2);
+                        1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')), true, 2);
         endif;
         $container = Helper::set_message('Item saved successfully', 'status') . $content;
         print $container;
