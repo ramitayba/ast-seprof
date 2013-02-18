@@ -57,54 +57,76 @@ class BuilderPDF extends FPDF {
      * @param type $header
      * @param type $data 
      */
-    function BuildTable($header, $data, $fields, $width, $font = 14,$specifique_header='', $specifique_colonne = '', $specifique_width = '') {
+    function BuildTable($header, $data, $fields, $width, $font = 14, $specifique_header = '', $specifique_colonne = '', $specifique_width = '') {
 // Header
         $newWidth = $width;
         $this->SetFont('Arial', '', $font);
-        foreach ($header as $col)
-        {
-            $newWidth = $specifique_header == $col ? $specifique_width : $width;
-            $this->Cell($newWidth, 10, $col, 1, 0, 'C');
-        }
-        $this->Ln();
-// Data
-        foreach ($data as $row) {
-            foreach ($fields as $col) {
-                $newWidth = $specifique_colonne == $col ? $specifique_width : $width;
-                $this->Cell($newWidth, 10, $row[$col], 1, 0, 'C');
+        if (!Helper::is_empty_array($header)) {
+            foreach ($header as $col) {
+                $newWidth = $specifique_header == $col ? $specifique_width : $width;
+                $this->Cell($newWidth, 10, $col, 1, 0, 'C');
             }
             $this->Ln();
         }
+// Data
+        $border = !Helper::is_empty_array($header) ? 1 : 0;
+        if (!Helper::is_empty_array($data)) {
+            foreach ($data as $row) {
+                foreach ($fields as $col) {
+                    $newWidth = $specifique_colonne == $col ? $specifique_width : $width;
+                    $this->Cell($newWidth, 10, $row[$col], $border, 0, 'C');
+                }
+                $this->Ln();
+            }
+        }
     }
 
-    function BuildTableMenuReport($header_category, $header_sub, $header_item, $data, $fields_category, $fields_item, $width) {
-// Header
-        $countHeader = count($header_category);
-        $counter = 0;
-        while ($counter < $countHeader) {
-            foreach ($data as $row) {
-                $this->Cell($width, 10, $header_category[$counter], 1, 0, 'C');
-                $this->Ln();
-                foreach ($fields_category as $col) {
-                    $this->Cell($width, 10, $row[$col], 1, 0, 'C');
-                    $this->Ln();
-                    if (array_key_exists('sub-categories', $row)) {
-                        $this->BuildTableMenuReport($header_sub, array(), $header_item, $row['sub-categories'], $fields_category, $fields_item, $width);
-
-                        /* foreach ($header_sub as $colsub)
-                          $this->Cell($width, 10, $colsub, 1, 0, 'C');
-                          $this->Ln();
-                          foreach ($data as $row) {
-                          foreach ($fields as $col)
-                          $this->Cell($width, 10, $row[$col], 1, 0, 'C');
-                          $this->Ln();
-                          } */
-                    } else {
-                        $this->BuildTable($header_item, $row['items'], $fields_item, $width);
-                    }
+    function BuildTableMenuReport($data, $fields_category, $fields_item, $width) {
+        foreach ($data as $row) {
+            $this->SetX(0);
+            $exitItem = array_key_exists('items', $row) && $row['category_parent_id'] == 0;
+            $exist = array_key_exists('sub-categories', $row) || $exitItem;
+            foreach ($fields_category as $col) {
+                $font = $exist ? 20 : 16;
+                $style = $exist ? 'I' : 'B';
+                $border = $exist ? 'R' : '0';
+                $y = $exist ? 7 * Helper::get_size_array($row, 'sub-categories', 'items') : 10;
+                $this->SetFont('times', $style, $font);
+                if (!$exist) {
+                    $align = 'L';
+                    // $this->Cell($width+10, $y, '', $border, 0);
+                } else {
+                    $align = 'C';
                 }
+                if (!$exist) {
+                    $this->SetX(90);
+                }
+                $this->Cell($width, $y, $row[$col], $border, 0, $align);
             }
-            $counter++;
+            if (array_key_exists('sub-categories', $row)) {
+                $this->BuildTableMenuReport($row['sub-categories'], $fields_category, $fields_item, $width);
+            } else {
+                if (!$exist) {
+                    $this->Ln(10);
+                }
+                $widthitems = 50;
+                $this->SetFont('Arial', '', 10);
+                foreach ($row['items'] as $row_items) {
+                    $this->SetX(90);
+                    foreach ($fields_item as $col_items) {
+                        $row_items[$col_items] = is_numeric($row_items[$col_items]) && $row_items[$col_items] == 0 ? '0' : $row_items[$col_items];
+                        $this->Cell($widthitems, 5, $row_items[$col_items], 0, 0, 'L');
+                    }
+                    $this->Ln(5);
+                }
+                $this->Ln(5);
+            }
+            if ($exist) {
+                // $this->SetMargins(-$width, 0 );
+                $this->SetX(50);
+                $this->Cell(155, 2, '', 'B', 0, 'c');
+                $this->Ln(15);
+            }
         }
     }
 
@@ -121,6 +143,11 @@ class BuilderPDF extends FPDF {
             $this->Cell(130, 1, 'Event Date : ' . $row_event['event_date']);
             $this->Ln(10);
             $this->BuildTable($header_event_item, $data_event_item[$row_event['event_history_id']], $fields_event_item, $width);
+            $this->Ln(10);
+            $total_item = $row_event['sum_item'] == 0 ? '0' : $row_event['sum_item'];
+            $total_price = $row_event['sum_price'] == 0 ? '0' : $row_event['sum_price'];
+            $this->Cell(130, 1, 'Total Items : ' . $total_item);
+            $this->Cell(80, 1, 'Total Price : ' . $total_price);
         }
     }
 

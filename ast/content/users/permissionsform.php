@@ -29,6 +29,15 @@
             <fieldset>
                 <div class="control-group">
                     <label class="control-label">Permissions List</label>
+                    </div>
+                 <div class="control-group">
+                       <label class="control-label">Check All</label>
+                    <div class="controls">
+                         
+                            <input type="checkbox" name="checkall" id="checkallpermission"  >
+                    </div>
+              
+                 <div class="control-group">
                     <div class="controls">
                         
                         <div class="PermLinks">

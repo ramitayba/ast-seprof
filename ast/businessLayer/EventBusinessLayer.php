@@ -34,12 +34,12 @@ class EventBusinessLayer {
         return $this->_LastError;
     }
 
-    public function getEvents() {
+    public function getEvents($status) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call GetEvents}";
+            $this->_SQLQuery = "{call GetEvents(?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_EventsDataTable = DataAccessManager::getInstance()->fillData();
+            $this->_EventsDataTable = DataAccessManager::getInstance()->fillData(array($status));
             $this->_Success = DataAccessManager::getInstance()->getSuccess();
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();

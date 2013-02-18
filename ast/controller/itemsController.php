@@ -15,7 +15,7 @@ if ($action == 'index' || $action == 'items'):
     $itemDataTable = $itemBusinessLayer->getItems(DELETED);
     if ($itemBusinessLayer->getSuccess()):
         $content = Helper::fill_datatable('items', 'items', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $itemDataTable, array('Category Parent Name', 'Sub Category Name', 'Item Name', 'Item Price', 'Item Description', 'Status'), array('category_parent_name', 'category_name', 'item_name', 'item_price', 'item_description', 'status_name'), 'item_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
-                    1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')));
+                    1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')),true,2);
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') :
             print $content;
             return;
@@ -95,7 +95,7 @@ elseif ($action == 'save'):
         $itemDataTable = $itemBusinessLayer->getItems(DELETED);
         if ($itemBusinessLayer->getSuccess()):
             $content = Helper::fill_datatable('items', 'items', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $itemDataTable, array('Category Parent Name', 'Sub Category Name', 'Item Name', 'Item Price', 'Item Description', 'Status'), array('category_parent_name', 'category_name', 'item_name', 'item_price', 'item_description', 'status_name'), 'item_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
-                        1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')));
+                        1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')),true,2);
         endif;
         $container = Helper::set_message('Item saved successfully', 'status') . $content;
         print $container;

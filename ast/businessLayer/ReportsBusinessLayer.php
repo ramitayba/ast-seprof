@@ -134,12 +134,12 @@ class ReportsBusinessLayer {
         return $this->_ReportsDataTable;
     }
 
-    public function getEventListing($from_date, $to_date) {
+    public function getEventListing($from_date, $to_date,$status) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call GetEventListing(?,?)}";
+            $this->_SQLQuery = "{call GetEventListing(?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_ReportsDataTable = DataAccessManager::getInstance()->fillData(array($from_date, $to_date));
+            $this->_ReportsDataTable = DataAccessManager::getInstance()->fillData(array($from_date, $to_date,$status));
             if (Helper::is_empty_array($this->_ReportsDataTable)) {
                 $this->_Success = false;
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();

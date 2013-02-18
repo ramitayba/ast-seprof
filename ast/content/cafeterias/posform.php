@@ -25,7 +25,7 @@
         <form action="#" id="pos-form" name="pos-form" class="pos-form form-horizontal"
               method="post" accept-charset="UTF-8"> 
             <fieldset>
-                <div class="control-group">
+                <div class="control-group show-error">
                     <label class="control-label" for="key">Key</label>
                     <div class="controls">
                         <input type="text" class="input-large" name="pos_key" id="pos-key" maxlength="150"
