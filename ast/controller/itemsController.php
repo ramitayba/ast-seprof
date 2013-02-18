@@ -44,7 +44,7 @@ elseif ($action == 'edit'):
             , 'item_price' => $itemDataTable [0]['item_price']
             , 'item_photo' => $itemDataTable [0]['item_photo']
             , 'item_description' => $itemDataTable [0]['item_description']
-            , 'status_id' => $itemDataTable [0]['status_id']);
+            , 'status_id' => $itemDataTable [0]['status_id']);   
         include_once POS_ROOT . '/content/menu-management/itemsform.php';
     else:
         print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Items not exist', 'error')));

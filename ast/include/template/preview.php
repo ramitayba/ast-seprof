@@ -12,7 +12,7 @@
         $('#header').hide();
         $('#nav').hide();
         $('#page-title').hide();
-         $('#footer').hide();
+        $('#footer').hide();
     });</script>
 <style>#footer .container {
         border-top:0px;
@@ -38,13 +38,16 @@
 
                         <div  class="form-horizontal">
                             <?php
+                            $total=0;
                             $data_report = isset($_SESSION['data_report']) ? $_SESSION['data_report'] : array();
-                            print $content = Helper::construct_template_view($data_report, array('Category Name', 'Item Name', 'Item Quantity'), array('category_name', 'item_name', 'item_quantity'));
+                            print $content = Helper::construct_template_view($data_report, array('Category Name', 'Item Name', 'Item Quantity', 'Item Price', 'Total'), array('category_name', 'item_name', 'item_quantity', 'item_price', 'line_total'), 'line_total',$total);
                             ?>
 
                         </div>
+                        <div class="control-group  ">
+                            <label class="control-label label-total" >Total: <?php print $total?></label> 
+                         
                     </div>
-
                 </div>
 
             </div> <!-- /.row -->

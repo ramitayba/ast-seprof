@@ -22,6 +22,7 @@ $maxdate;
 $reportsDataTable = array();
 $name_select;
 $title;
+$total=0;
 
 
 
