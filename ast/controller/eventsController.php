@@ -76,6 +76,10 @@ elseif ($action == 'save'):
         'Employee Name' => array('content' => $employee_id, 'type' => 'int'));
     $message = Helper::is_list_empty($array);
     if (!Helper::is_empty_string($message)):
+        print Helper::json_encode_array(array('status' => 'error', 'message' => $message));
+        return;
+    endif;
+    if ($event_invitees_nb == 0):
         print Helper::json_encode_array(array('status' => 'error', 'message' => 'Invitees Number cannot be 0'));
         return;
     endif;
