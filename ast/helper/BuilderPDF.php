@@ -147,7 +147,7 @@ class BuilderPDF extends FPDF {
             $total_item = $row_event['sum_item'] == 0 ? '0' : $row_event['sum_item'];
             $total_price = $row_event['sum_price'] == 0 ? '0' : $row_event['sum_price']*$total_item;
             $this->Cell(130, 1, 'Total Items : ' . $total_item);
-            $this->Cell(80, 1, 'Total Price : ' . $total_price);
+            $this->Cell(80, 1, 'Total Price : ' . round($total_price,2));
         }
     }
 

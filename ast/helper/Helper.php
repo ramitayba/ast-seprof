@@ -686,12 +686,13 @@ class Helper {
             $tr.= '<tr class="gradeA ' . $class . '">';
             foreach ($fields as $rowfields):
                 $tr.= '<td class="' . $class . '">' . $row[$rowfields] . '</td>';
-            if($specifique_field==$rowfields)$total+= $row[$rowfields];
+            if($specifique_field==$rowfields)$total+= round ($row[$rowfields],2);
             endforeach;
             $tr.='</tr>';
             $i++;
         endforeach;
         $container_table.=$tr . '</tbody></table></div></div></div>';
+        
         return $container_table;
     }
 

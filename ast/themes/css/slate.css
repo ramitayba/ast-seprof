@@ -1711,5 +1711,6 @@ div.messages ul li {
 .date .error{left:250px;}
 .img-header-print{height:120px;}
 .content-preview .form-actions{text-align: center;}
-.report {position:relative}
+.report iframe body {position: absolute;
+    z-index: -1;}
 .label-total{float:right!important;}
