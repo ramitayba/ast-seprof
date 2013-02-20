@@ -890,7 +890,7 @@ function validateItems(a,b)
             },
             item_price: {
                 required: true,
-                maxlength:18,
+                maxlength:16,
                 number:true,
                 notequalzero:true
             },
