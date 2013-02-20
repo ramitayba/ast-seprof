@@ -561,28 +561,29 @@ $(function () {
     jQuery.validator.addMethod("validateUsername", function(value, element) { 
         return this.optional(element)|| /^[a-zA-Z0-9\-\_\+\.]+$/.test(value); 
     }, "Username may contain only letters,numbers and ./+/-/_ characters.");
-     jQuery.validator.addMethod("validateStartUsername", function(value, element) { 
+    jQuery.validator.addMethod("validateStartUsername", function(value, element) { 
         return this.optional(element)||value.substr(0, 1).match(/[A-Za-z]/) != null;
     }, "Username start only  by letters.");
     jQuery.validator.addMethod("notequalzero", function(value, element) { 
         return value!=0; 
     }, "this field Cannot be 0");
-        $('.dataTables_filter input').live('keyup change',function (e) {
-            e.preventDefault();
-            var val = $(this).val();
-            oTable.fnFilter("^"+val,columnSearch,true,false,false,false);
-            oTable.fnDraw();
-        });
+    $('.dataTables_filter input').live('keyup change',function (e) {
+        e.preventDefault();
+        var val = $(this).val();
+        oTable.fnFilter("^"+val,columnSearch,true,false,false,false);
+        oTable.fnDraw();
+    });
         
-        $("#checkallpermission").live('change', function (e) {
-              e.preventDefault();
-                if($(this).prop('checked')){
-                    $(".checkbox").addClass('checked');
-                     $(".check").attr("checked", true);
-                }else{
-                    $(".checkbox").removeClass('checked');
-                    $(".check").attr("checked", false);
-                }});
+    $("#checkallpermission").live('change', function (e) {
+        e.preventDefault();
+        if($(this).prop('checked')){
+            $(".checkbox").addClass('checked');
+            $(".check").attr("checked", true);
+        }else{
+            $(".checkbox").removeClass('checked');
+            $(".check").attr("checked", false);
+        }
+    });
 });
 function getDropDown(a)
 {
@@ -661,6 +662,7 @@ function table(name,sdom,column_hide,editable,columnsearch)
     $('#'+editable+'-table tbody td.tdedit input').live('keypress', function (e) {
         var value=$('#'+editable+'-table tbody td.tdedit input').val();
         var arr= value.split('.');
+        var leng=arr.length>1?arr.length:2;
         /* var success=true;
         if(value!='')
         {
@@ -668,7 +670,7 @@ function table(name,sdom,column_hide,editable,columnsearch)
         }
         return success;*/
         var dot=editable=='allowances'?1:0;
-        return isNumberKey(e,dot)&&arr.length<3;
+        return isNumberKey(e,dot,leng);
     })
     columnSearch=columnsearch;
     //table.fnUpdate(oSettings);
@@ -931,7 +933,7 @@ function validateEvents(a,b,e)
                 required: true,
                 maxlength:9,
                 number:true,
-                 notequalzero:true
+                notequalzero:true
             },
             department: {
                 required: true
@@ -977,7 +979,7 @@ function validateAllowance(a,b)
         rules: {
             max_debit: {
                 required: true,
-                maxlength:18,
+                maxlength:16,
                 number:true
             }
         },
@@ -1096,12 +1098,17 @@ function processDate(date){
         return new Date(parts[2], parts[1] - 1, parts[0]);
     }else return '';
 }
-function isNumberKey(evt,dot)
+function isNumberKey(evt,dot,leng)
 {
-    var charCode = (evt.which) ? evt.which : event.keyCode
-    if(dot==1&&charCode==46)return true;
-    if (charCode > 31 && (charCode < 48 || charCode > 57))
-        return false;
+    if(evt!=null){
+        var e =  window.event? event : evt; // for trans-browser compatibility
+        var charCode = e.keyCode? e.keyCode : e.charCode;
+        if(dot==1&&((charCode==46||charCode==8)&&leng<=2)||(charCode==8&&leng>2))return true;
+        if ((charCode > 31 && (charCode < 48 || charCode > 57))||leng>2)
+        {
+            return false;
+        }
+    }
     return true;
 }
 function denySpace(evt)

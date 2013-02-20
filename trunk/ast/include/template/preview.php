@@ -40,7 +40,7 @@
                             <?php
                             $total=0;
                             $data_report = isset($_SESSION['data_report']) ? $_SESSION['data_report'] : array();
-                            print $content = Helper::construct_template_view($data_report, array('Category Name', 'Item Name', 'Item Quantity', 'Item Price', 'Total'), array('category_name', 'item_name', 'item_quantity', 'item_price', 'line_total'), 'line_total',$total);
+                            print $content = Helper::construct_template_view($data_report, array( 'Item Name', 'Item Quantity', 'Item Price', 'Total'), array( 'item_name', 'item_quantity', 'item_price', 'line_total'), 'line_total',$total);
                             ?>
 
                         </div>

@@ -12,7 +12,7 @@ $url = Helper::get_url() . '/';
 $pathreport = $url . 'reports/' . $action . '-pdf';
 $pathback = POS_ROOT . '/content/reports/' . $action . '.php';
 $checkall = isset($data) && array_key_exists('checkall', $data) ? $data['checkall'] : '';
-$filter_id = $checkall==1 ? null : isset($data) && array_key_exists('filter_select', $data) ? $data['filter_select'] : '';
+$filter_id = $checkall == 1 ? null : isset($data) && array_key_exists('filter_select', $data) ? $data['filter_select'] : '';
 $name_select = isset($data) && array_key_exists('select', $data) ? $data['select'] : '';
 $mindate = isset($data) && array_key_exists('mindate', $data) ? $data['mindate'] : '';
 $maxdate = isset($data) && array_key_exists('maxdate', $data) ? $data['maxdate'] : '';
@@ -23,8 +23,8 @@ include_once POS_ROOT . '/businessLayer/CafeteriaBusinessLayer.php';
 if ($action == 'cafeteria-balance'):
     if ($query_id == 'show'):
         $reportsBusinessLayer = new ReportsBusinessLayer();
-        $reportsDataTable = $filter_id!=null ?$reportsBusinessLayer->getCafeteriaBalanceByID($filter_id, $mindate, $maxdate, DELETED):
-        $reportsBusinessLayer->getCafeteriaBalance($mindate, $maxdate, DELETED);
+        $reportsDataTable = $filter_id != null ? $reportsBusinessLayer->getCafeteriaBalanceByID($filter_id, $mindate, $maxdate, DELETED) :
+                $reportsBusinessLayer->getCafeteriaBalance($mindate, $maxdate, DELETED);
     endif;
 elseif ($action == 'user-purchases'):
     if ($query_id == 'show'):
@@ -44,7 +44,7 @@ elseif ($action == 'purchases-inventory'):
 elseif ($action == 'events-listing'):
     if ($query_id == 'show'):
         $reportsBusinessLayer = new ReportsBusinessLayer();
-        $reportsDataTable = $reportsBusinessLayer->getEventListing($mindate, $maxdate,REJECTED);
+        $reportsDataTable = $reportsBusinessLayer->getEventListing($mindate, $maxdate, REJECTED);
     endif;
 elseif ($action == 'detailed-event'):
     if ($query_id == 'show'):
@@ -59,14 +59,14 @@ elseif ($action == 'detailed-event'):
             $reportsDetailsDataTable[$id_parent][$obj['item_id']]['item_name'] = $obj['item_name'];
             $reportsDetailsDataTable[$id_parent][$obj['item_id']]['item_quantity'] = $obj['item_quantity'];
             $reportsDetailsDataTable[$id_parent][$obj['item_id']]['item_price'] = $obj['item_price'];
+            $reportsDetailsDataTable[$id_parent][$obj['item_id']]['line_total'] = $obj['line_total'];
         }
-    endif;
-elseif ($action == 'menu-report'):
+    endif; elseif ($action == 'menu-report'):
     if ($query_id == 'show'):
         $reportsBusinessLayer = new ReportsBusinessLayer();
         $menuReport = $reportsBusinessLayer->getMenuReports(DELETED);
         $reportsDataTable = array();
-        $id_parent=0;
+        $id_parent = 0;
         foreach ($menuReport as $obj) {
             if ((!array_key_exists('category_id', $reportsDataTable) && $obj['category_parent_id'] != 0) || ($obj['category_parent_id'] == 0 && $reportsDataTable[$obj['category_id']]['category_id'] != $obj['category_id'])) {
                 $id_parent = $id_sub_parent = !Helper::is_empty_string($obj['category_name']) ? $obj['category_parent_id'] : $obj['category_id'];
@@ -100,5 +100,4 @@ elseif ($query_id == 'back'):
     include_once POS_ROOT . '/include/header/reports/reports.php';
     include_once $pathback;
 endif;
-
 ?>

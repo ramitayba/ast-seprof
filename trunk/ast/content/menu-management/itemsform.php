@@ -59,7 +59,7 @@ endif;
                     <label class="control-label" for="item-price">Price</label>
                     <div class="controls">
                         <input type="text" class="input-large" name="item_price" id="item-price"
-                            onkeypress="return isNumberKey(event,1)" maxlength="16"  value="<?php
+                            onkeypress="return isNumberKey(event,1,1)" maxlength="16"  value="<?php
                         if (isset($forms) && array_key_exists('item_price', $forms)):print $forms['item_price'];
                         endif;
                         ?>">
