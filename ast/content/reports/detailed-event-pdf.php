@@ -5,11 +5,11 @@ $data_report = $_SESSION['data_report'];
 $reportsDataTable = $data_report['reports_data_table'];
 $reportsDetailsDataTable = $data_report['reports_details_data_table'];
 print_r($reportsDetailsDataTable);
-$fields = array('category_name', 'item_name', 'item_quantity', 'item_price');
+$fields = array('item_name', 'item_quantity', 'item_price');
 $pdf = new BuilderPDF();
 $title = 'Detailed Event';
 $pdf->SetTitle($title);
-$header = array('Category Name', 'Item Name ', 'Item Quantity', 'Item Price');
+$header = array( 'Item Name ', 'Item Quantity', 'Item Price');
 $pdf->SetFont('Arial', '', 14);
 $pdf->Ln(20);
 /* $pdf->Cell(130, 1, 'Event Name : ' . $event_name);
@@ -20,7 +20,7 @@ $pdf->Ln(20);
   $pdf->Ln(10);
   $pdf->Cell(130, 1, 'Event Date : ' . $event_date);
   $pdf->Ln(10); */
-$pdf->BuildTableEventHistoryReport($header, $reportsDataTable, $reportsDetailsDataTable, $fields, 48);
+$pdf->BuildTableEventHistoryReport($header, $reportsDataTable, $reportsDetailsDataTable, $fields, 65);
 $pdf->Output();
 unset($_SESSION['data_report']);
 ?>
