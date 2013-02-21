@@ -643,9 +643,12 @@ class Helper {
     }
 
     public static function generate_container_pdf($url_pdf, $action, $exist = true) {
-        $container = '<div class="widget-content report"><iframe style="border:none" width="100%" height="500" src="' . $url_pdf . '"></iframe>';
-        $container.= $exist ? '<div class="form-actions"><a id="' . $action . '"class="back btn btn-large btn-inverse" href="">Back</a></div></div>' : '';
-        return $container;
+        //$container = '<div class="widget-content report"><iframe style="border:none" width="100%" height="500" src="' . $url_pdf . '"></iframe>';
+        //$container.= $exist ? '<div class="form-actions"><a id="' . $action . '"class="back btn btn-large btn-inverse" href="">Back</a></div></div>' : '';
+        
+		$container='<div class="widget-content"><div class="report"><embed wmode="transparent" name="plugin" src="' . $url_pdf . '" type="application/pdf"></div>';
+		$container.=$exist ? '<div class="form-actions"><a id="' . $action . '"class="back btn btn-large btn-inverse" href="">Back</a></div></div>' : '';
+		return $container;
     }
 
     public static function preview($url_preview, $exist = true) {

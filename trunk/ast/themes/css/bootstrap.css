@@ -2398,6 +2398,7 @@ table .span24 {
 
 .dropdown-menu {
   position: absolute;
+  overflow:visible;
   top: 100%;
   left: 0;
   z-index: 99999;
