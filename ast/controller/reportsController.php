@@ -96,6 +96,7 @@ if ($query_id == 'show'):
         'reports_details_data_table' => $reportsDetailsDataTable);
     $_SESSION['data_report'] = $data_report;
     print Helper::generate_container_pdf($pathreport, $action);
+   //include pathreport;
 elseif ($query_id == 'back'):
     include_once POS_ROOT . '/include/header/reports/reports.php';
     include_once $pathback;
