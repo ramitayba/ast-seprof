@@ -12,7 +12,7 @@ var Slate = function () {
 		nav = $('#nav');
 		navTop = nav.offset ().top;
 	
-		bindNavEvents ();
+		//bindNavEvents ();
 		
 		bindWidgetEvents ();
 		

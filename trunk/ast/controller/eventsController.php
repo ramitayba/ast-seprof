@@ -173,7 +173,7 @@ elseif ($action == 'approved' || 'rejected'):
         $success = $eventBusinessLayer->updateStatusEvent($query_id, $status, $_SESSION['user_pos']);
         if ($success):
             $container = Helper::set_message('Event ' . $eventDataTable [0]['event_name'] . ' ' . $action . ' succesfuly', 'status');
-            $eventDataTable = $eventBusinessLayer->getEvents();
+            $eventDataTable = $eventBusinessLayer->getEvents(REJECTED);
             if ($eventBusinessLayer->getSuccess()):
                 $content = Helper::fill_datatable_event('events', 'events', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $eventDataTable, array('Event Name', 'Event Date', 'Event invitees Number', 'Department Name', 'Employee Name', 'Status'), array('event_name', 'event_date', 'event_invitees_nb', 'department_name', 'employee_name', 'status_name'), 'event_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
                             1 => array('name' => 'Approved', 'link' => 'approved-', 'class' => 'approved'),

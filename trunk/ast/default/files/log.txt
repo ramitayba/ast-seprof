@@ -1,3 +1,0 @@
-<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Fractional truncation, SQL state 01004 in SQLExecute Fatal WARNING on line 103 in file C:\xampp\htdocs\ast\dataAccessLayer\DataAccessManager.php   |  Date:  20.02.2013 09:20:20
-<b>WARNING</b> 2 include(pathreport): failed to open stream: No such file or directory Fatal WARNING on line 99 in file C:\xampp\htdocs\ast\controller\reportsController.php   |  Date:  21.02.2013 12:09:53
-<b>WARNING</b> 2 include(): Failed opening 'pathreport' for inclusion (include_path='.;C:\xampp\php\PEAR') Fatal WARNING on line 99 in file C:\xampp\htdocs\ast\controller\reportsController.php   |  Date:  21.02.2013 12:09:53
