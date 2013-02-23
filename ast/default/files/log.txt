@@ -1,0 +1,2 @@
+<b>WARNING</b> 2 odbc_connect(): SQL error: [Microsoft][ODBC SQL Server Driver]Login timeout expired, SQL state S1T00 in SQLConnect Fatal WARNING on line 38 in file C:\xampp\htdocs\ast\dataAccessLayer\Connection.php   |  Date:  23.02.2013 02:12:20
+<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver]Numeric value out of range, SQL state 22003 in SQLExecute Fatal WARNING on line 103 in file C:\xampp\htdocs\ast\dataAccessLayer\DataAccessManager.php   |  Date:  23.02.2013 02:47:08
