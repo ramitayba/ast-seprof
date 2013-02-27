@@ -70,14 +70,25 @@ class BuilderPDF extends FPDF {
         }
 // Data
         $border = !Helper::is_empty_array($header) ? 1 : 0;
+        $h = 0;
         if (!Helper::is_empty_array($data)) {
             foreach ($data as $row) {
+                $x = 10;
+                $y_axis = $this->GetY();
                 foreach ($fields as $col) {
                     $newWidth = $specifique_colonne == $col ? $specifique_width : $width;
-                    $this->Cell($newWidth, 10, $row[$col], $border, 0, 'C');
+                    $text = $row[$col];
+                    $height = 7;
+                    $nb = max($nb, $this->NbLines($newWidth, $text));
+                    $h = $h < $nb ? 15 * $nb : $h;
+                    $this->MultiCell($newWidth, $height, $text, $border, 'C');
+                    $x+=$newWidth;
+                    $this->SetXY($x, $y_axis);
                 }
+                $this->SetX(10, $y_axis + 3);
                 $this->Ln();
             }
+            $this->Ln($h);
         }
     }
 
@@ -109,7 +120,7 @@ class BuilderPDF extends FPDF {
                 if (!$exist) {
                     $this->Ln(10);
                 }
-                $widthitems = 50;
+                $widthitems =60;
                 $this->SetFont('Arial', '', 10);
                 foreach ($row['items'] as $row_items) {
                     $this->SetX(90);
@@ -134,8 +145,12 @@ class BuilderPDF extends FPDF {
 // Header
         foreach ($date_event as $row_event) {
             $this->AddPage();
-            $this->Cell(130, 1, 'Event Name : ' . $row_event['event_name']);
-            $this->Cell(80, 1, 'Department : ' . $row_event['department_name']);
+            $text = $row_event['event_name'];
+            $text = wordwrap($text, 30, "\n", true);
+            $this->MultiCell(130, 5, 'Event Name : ' . $text);
+            $this->SetXY(140, 48);
+            $this->Cell(80, 5, 'Department : ' . $row_event['department_name']);
+            $this->SetXY(0, 60);
             $this->Ln(10);
             $this->Cell(130, 1, 'Employee Name : ' . $row_event['employee_name']);
             $this->Cell(80, 1, 'Event Nb Invitees : ' . $row_event['event_invitees_nb']);
@@ -147,8 +162,54 @@ class BuilderPDF extends FPDF {
             $total_item = $row_event['sum_item'] == 0 ? '0' : $row_event['sum_item'];
             $total_price = $row_event['sum_price'] == 0 ? '0' : $row_event['sum_price'];
             $this->Cell(130, 1, 'Total Items : ' . $total_item);
-            $this->Cell(80, 1, 'Total Price : ' . round($total_price,2));
+            $this->Cell(80, 1, 'Total Price : ' . $total_price);
         }
+    }
+
+    function nbLines($w, $txt) {
+        //Computes the number of lines a MultiCell of width w will take
+        $cw = &$this->CurrentFont['cw'];
+        if ($w == 0)
+            $w = $this->w - $this->rMargin - $this->x;
+        $wmax = ($w - 2 * $this->cMargin) * 1000 / $this->FontSize;
+        $s = str_replace("\r", '', $txt);
+        $nb = strlen($s);
+        if ($nb > 0 and $s[$nb - 1] == "\n")
+            $nb--;
+        $sep = -1;
+        $i = 0;
+        $j = 0;
+        $l = 0;
+        $nl = 1;
+        while ($i < $nb) {
+            $c = $s[$i];
+            if ($c == "\n") {
+                $i++;
+                $sep = -1;
+                $j = $i;
+                $l = 0;
+                $nl++;
+                continue;
+            }
+            if ($c == ' ')
+                $sep = $i;
+            $l+=$cw[$c];
+            if ($l > $wmax) {
+                if ($sep == -1) {
+                    if ($i == $j)
+                        $i++;
+                }
+                else
+                    $i = $sep + 1;
+                $sep = -1;
+                $j = $i;
+                $l = 0;
+                $nl++;
+            }
+            else
+                $i++;
+        }
+        return $nl;
     }
 
 }

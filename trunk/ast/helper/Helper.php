@@ -454,7 +454,7 @@ class Helper {
         return $list;
     }
 
-    public static function fill_datatable_event($name, $id, $header_buttons, $table, $header, $fields, $id_name, $linkcontrol = array(),$sdom = "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>") {
+    public static function fill_datatable_event($name, $id, $header_buttons, $table, $header, $fields, $id_name, $linkcontrol = array(), $sdom = "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>") {
         $datatable = '<div id="widget-table"> <div class="widget-header"><h3><i class="icon-th-list"></i>'
                 . ucfirst($name) . '</h3></div>';
         $datatable.= ' <script>$(function () {     oTable = table("' . $name . '","' . $sdom . '","-1","0");});</script>';
@@ -478,7 +478,7 @@ class Helper {
             $class = $i % 2 ? ' even' : ' odd';
             $tr = '<tr class="gradeA ' . $class . '">';
             foreach ($fields as $rowfields):
-                $tr.= '<td class="">' . $row[$rowfields] . '</td>';
+                $tr.= '<td class="">' . wordwrap($row[$rowfields], 30, "<br/>\n", true) . '</td>';
             endforeach;
             $extra = '<td class="controls">';
             foreach ($linkcontrol as $rowlink):
@@ -498,11 +498,11 @@ class Helper {
         return $datatable;
     }
 
-    public static function fill_datatable($name, $id, $header_buttons, $table, $header, $fields, $id_name, $linkcontrol = array(), $control = true,$columnsearch=0 ,$column_hide = -1, $editable = '', $class_td_edit = '', $tdicon = '', $tdicon_class = '', $sdom = "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>", $query_id = '', $script = true) {
+    public static function fill_datatable($name, $id, $header_buttons, $table, $header, $fields, $id_name, $linkcontrol = array(), $control = true, $columnsearch = 0, $column_hide = -1, $editable = '', $class_td_edit = '', $tdicon = '', $tdicon_class = '', $sdom = "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>", $query_id = '', $script = true) {
         $param = !self::is_empty_string($query_id) ? $name . '-' . $query_id : $name;
         $datatable = '<div id="widget-table"> <div class="widget-header"><h3><i class="icon-th-list"></i>'
                 . ucfirst($name) . '</h3></div>';
-        $datatable.= $script ? ' <script>$(function () {     oTable = table("' . $param . '","' . $sdom . '",' . $column_hide . ',"' . $editable . '","'.$columnsearch.'");});</script>' : '';
+        $datatable.= $script ? ' <script>$(function () {     oTable = table("' . $param . '","' . $sdom . '",' . $column_hide . ',"' . $editable . '","' . $columnsearch . '");});</script>' : '';
         $datatable.='<div class="widget-content" id="widget-content-' . $name . '-table">';
         if ($control):
             $datatable.='<div class="header-table">';
@@ -529,7 +529,7 @@ class Helper {
             $tr.=!self::is_empty_string($tdicon) ? '<td class="' . $tdicon_class . '">' . $img . '</td>' : '';
             foreach ($fields as $rowfields):
                 $class = $rowfields == $class_td_edit ? 'tdedit' : '';
-                $tr.= '<td class="' . $class . '">' . $row[$rowfields] . '</td>';
+                $tr.= '<td class="' . $class . '">' . wordwrap($row[$rowfields], 30, "<br/>\n", true) . '</td>';
             endforeach;
             $extra = '';
             if ($control):
@@ -645,10 +645,10 @@ class Helper {
     public static function generate_container_pdf($url_pdf, $action, $exist = true) {
         //$container = '<div class="widget-content report"><iframe style="border:none" width="100%" height="500" src="' . $url_pdf . '"></iframe>';
         //$container.= $exist ? '<div class="form-actions"><a id="' . $action . '"class="back btn btn-large btn-inverse" href="">Back</a></div></div>' : '';
-        
-		$container='<div class="widget-content"><div class="report"><embed wmode="transparent" name="plugin" src="' . $url_pdf . '" type="application/pdf"></div>';
-		$container.=$exist ? '<div class="form-actions"><a id="' . $action . '"class="back btn btn-large btn-inverse" href="">Back</a></div></div>' : '';
-		return $container;
+
+        $container = '<div class="widget-content"><div class="report"><embed wmode="transparent" name="plugin" src="' . $url_pdf . '" type="application/pdf"></div>';
+        $container.=$exist ? '<div class="form-actions"><a id="' . $action . '"class="back btn btn-large btn-inverse" href="">Back</a></div></div>' : '';
+        return $container;
     }
 
     public static function preview($url_preview, $exist = true) {
@@ -657,7 +657,7 @@ class Helper {
         return $container;
     }
 
-    public static function construct_template_view($array, $header, $fields,$specifique_field,&$total) {
+    public static function construct_template_view($array, $header, $fields, $specifique_field, &$total) {
         $container = '<div class="control-group"><div class="widget widget-table"><div id="widget-table"><table class="table table-content"><tbody><tr> ';
         $i = 0;
         foreach ($array as $key => $val):
@@ -667,13 +667,13 @@ class Helper {
                 $container.='<td>' . $val[0] . '</td>';
                 $container.='<td>' . $val[1] . '</td>';
             elseif ($key !== 'action'):
-                $container.= '</tr></div></div></div></tbody></table>' . self::_construct_table_view($val, $header, $fields,$specifique_field,$total);
+                $container.= '</tr></div></div></div></tbody></table>' . self::_construct_table_view($val, $header, $fields, $specifique_field, $total);
             endif;
         endforeach;
         return $container;
     }
 
-    private static function _construct_table_view($array, $header, $fields,$specifique_field,&$total) {
+    private static function _construct_table_view($array, $header, $fields, $specifique_field, &$total) {
         if (self::is_empty_array($array))
             return '';
         $container_table = '<div class="control-group"><div class="widget widget-table"><div id="widget-table">';
@@ -689,13 +689,14 @@ class Helper {
             $tr.= '<tr class="gradeA ' . $class . '">';
             foreach ($fields as $rowfields):
                 $tr.= '<td class="' . $class . '">' . $row[$rowfields] . '</td>';
-            if($specifique_field==$rowfields)$total+= round ($row[$rowfields],2);
+                if ($specifique_field == $rowfields)
+                    $total+= $row[$rowfields];
             endforeach;
             $tr.='</tr>';
             $i++;
         endforeach;
         $container_table.=$tr . '</tbody></table></div></div></div>';
-        
+
         return $container_table;
     }
 
@@ -710,6 +711,37 @@ class Helper {
             $title.= ucfirst($word) . ' ';
         endforeach;
         return $title;
+    }
+
+    public static function word_wrap_pdf($text, $maxwidth) {
+        $text = trim($text);
+        if ($text === '')
+            return 0;
+        $space = strlen(' ');
+        $lines = explode("\n", $text);
+        $text = '';
+        $count = 0;
+
+        foreach ($lines as $line) {
+            $words = preg_split('/ +/', $line);
+            $width = 0;
+
+            foreach ($words as $word) {
+                $wordwidth = strlen($word);
+                if ($width + $wordwidth <= $maxwidth) {
+                    $width += $wordwidth + $space;
+                    $text .= $word . ' ';
+                } else {
+                    $width = $wordwidth + $space;
+                    $text = rtrim($text) . "\n" . $word . ' ';
+                    $count++;
+                }
+            }
+            $text = rtrim($text) . "\n";
+            $count++;
+        }
+        $text = rtrim($text);
+        return $text;
     }
 
 }
