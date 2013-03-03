@@ -29,7 +29,7 @@ if ($action == 'index' || $action == 'items'):
         endif;
     endif;
 elseif ($action == 'add'):
-    $forms = array('status_id' => ACTIVE);
+    $forms = array('status_id' => ACTIVE,'category_id'=>$query_id);   
     include_once POS_ROOT . '/content/menu-management/itemsform.php';
 elseif ($action == 'edit'):
     if (!Helper::is_empty_string($query_id) && is_numeric($query_id)):
