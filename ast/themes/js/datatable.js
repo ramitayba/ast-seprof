@@ -146,7 +146,7 @@ $(function () {
             }
             else
             {
-                /*var data=$('.details').html();
+                /*var data=$('.details').prepend();
                 $('.details').parents('tr').show();
                 oTable.fnOpen( nTr, data, 'details' );
                 anOpen.push( nTr );
@@ -195,12 +195,11 @@ $(function () {
     } ); 
     $('.new').live('click', function (e) {
         e.preventDefault();
-        var width=$('.widget-table').height();
-        var height=$('.widget-table').width();
         name=$(this).attr("id");
         if(name=='')return;
         array=name.split("-");
         if(array.length>1){
+            c=array[0];
             a=array[1];
             if(a=='')
             {
@@ -208,15 +207,16 @@ $(function () {
             }
         }
         else{
-            a='';
+            a=c='';
             return;
         }
-        a=array[1];
-        $("#widget-content-"+a+"-table").html('<div align="center" style="width:'+width+';height:'+height+'"><img src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
-        $.seprof(baseurl,{
+        var width=$('.widget-content').width();
+        var height=$('.widget-content').height();
+        $("#widget-content-"+a+"-table").prepend('<div class="ajax-loading" align="center" style="width:'+width+'px;height:'+height+'px"><img style="margin:'+height/2+'px auto;" src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
+    $.seprof(baseurl,{
             name:a,
             action:'add',
-            query:''
+            query:c
         },function(k){
             showform(k,a)
         },function(httpReq, status, exception,a){
@@ -284,9 +284,9 @@ $(function () {
             a=b=c='';
             return;
         }
-        var width=$('.widget-table').height();
-        var height=$('.widget-table').width();
-        $("#widget-content-"+c+"-table").append('<div align="center" style="width:'+width+';height:'+height+'"><img src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
+        var width=$('.widget-content').width();
+        var height=$('.widget-content').height();
+        $("#widget-content-"+c+"-table").prepend('<div class="ajax-loading" align="center" style="width:'+width+'px;height:'+height+'px"><img style="margin:'+height/2+'px auto;" src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
         $.seprof(baseurl,{
             name:a,
             action:'add',
@@ -304,9 +304,9 @@ $(function () {
     } );
     $('.show-reports').live('click', function (e) {
         name=$(this).attr("id");
-        var width=$('.widget-content').height();
-        var height=$('.widget-content').width();
-        $("#widget-content").html('<div align="center" style="width:'+width+';height:'+height+'"><img src="'+sImageUrl+'"loader.gif" alt="Loading...."/></div>');
+        var width=$('.widget-content').width();
+        var height=$('.widget-content').height();
+        $("#widget-content").prepend('<div align="center" class="ajax-loading" style="width:'+width+'px;height:'+height+'px"><img style="margin:'+height/2+'px auto;" src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
         if(!validateReport(name,'show',e)){
             return;
         }
@@ -314,9 +314,9 @@ $(function () {
     $('.back').live('click', function (e) {
         e.preventDefault();
         name=$(this).attr("id");
-        var width=$('.widget-content').height();
-        var height=$('.widget-content').width();
-        $("#widget-content").html('<div align="center" style="width:'+width+';height:'+height+'"><img src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
+        var width=$('.widget-content').width();
+        var height=$('.widget-content').height();
+        $("#widget-content").prepend('<div align="center" class="ajax-loading" style="width:'+width+'px;height:'+height+'px"><img style="margin:'+height/2+'px auto;" src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
         $.seprof(baseurl,{
             name:'reports',
             action:name,
@@ -384,7 +384,9 @@ $(function () {
             a=b=c='';
             return;
         }
-        $("#widget-content-"+c+"-table").append('<img src="'+sImageUrl+'loader.gif" alt="Uploading...."/>');
+        var width=$('.widget-content').width();
+        var height=$('.widget-content').height();
+        $("#widget-content-"+c+"-table").prepend('<div align="center" class="ajax-loading" style="width:'+width+'px;height:'+height+'px"><img style="margin:'+height/2+'px auto;" src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
         $.seprof(baseurl,{
             name:a,
             action:c,
@@ -412,7 +414,9 @@ $(function () {
             a= b='';
             return;
         }
-        $("#widget-content-"+a+"-table").append('<img src="'+sImageUrl+'loader.gif" alt="Uploading...."/>');
+        var width=$('.widget-content').width();
+        var height=$('.widget-content').height();
+        $("#widget-content-"+a+"-table").prepend('<div align="center" class="ajax-loading" style="width:'+width+'px;height:'+height+'px"><img style="margin:'+height/2+'px auto;" src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
         $.seprof(baseurl,{
             name:a,
             action:'edit',
@@ -544,7 +548,9 @@ $(function () {
             a='';
             return;
         }
-        $("#widget-"+a+"-form").append('<img src="'+sImageUrl+'loader.gif" alt="Uploading...."/>');
+        var width=$('.widget-content').width();
+        var height=$('.widget-content').height();
+        $("#"+a+"-form").prepend('<div align="center" class="ajax-loading" style="width:'+width+'px;height:'+height+'px"><img style="margin:'+height/2+'px auto;" src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
         $.seprof(baseurl,{
             name:a,
             action:'index',
@@ -614,7 +620,7 @@ function showTable(b,a)
     $(".messages").remove();
     if(b !=null){
         $('.widget-form').replaceWith(b);
-        $("#widget-"+a+"-form img:last-child").remove();
+        $("#"+a+"-form img:last-child").remove();
     }
 }
 function replaceTable(b,a)
@@ -1163,7 +1169,10 @@ function ajaxSubhmit(a,b)
         element=elm.name+'='+$(elm).val()+'&';
         data+=element;
     });
-    $("#widget-content-"+a+"-table").append('<img src="'+sImageUrl+'loader.gif" alt="Loading...."/>');
+    var width=$('.widget-content').width();
+    var height=$('.widget-content').height();
+    $("#"+a+"-form").prepend('<div align="center" class="ajax-loading" style="width:'+width+'px;height:'+height+'px"><img style="margin:'+height/2+'px auto;" src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
+
     $.seprof(baseurl,{
         name:a,
         action:'save',

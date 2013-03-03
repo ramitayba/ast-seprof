@@ -1,1 +1,0 @@
-<b>WARNING</b> 2 odbc_execute(): SQL error: [Microsoft][ODBC SQL Server Driver][SQL Server]There is insufficient system memory in resource pool 'internal' to run this query., SQL state 37000 in SQLDescribeParameter Fatal WARNING on line 75 in file C:\xampp\htdocs\ast\dataAccessLayer\DataAccessManager.php   |  Date:  27.02.2013 01:24:42

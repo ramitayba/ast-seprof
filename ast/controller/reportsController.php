@@ -64,7 +64,7 @@ elseif ($action == 'detailed-event'):
     endif; elseif ($action == 'menu-report'):
     if ($query_id == 'show'):
         $reportsBusinessLayer = new ReportsBusinessLayer();
-        $menuReport = $reportsBusinessLayer->getMenuReports(DELETED);
+        $menuReport = $reportsBusinessLayer->getMenuReports(ACTIVE);
         $reportsDataTable = array();
         $id_parent = 0;
         foreach ($menuReport as $obj) {
