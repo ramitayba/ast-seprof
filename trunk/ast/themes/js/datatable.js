@@ -612,7 +612,7 @@ function showform(b,a)
     $(".messages").remove();
     if(b !=null){
         $("#widget-table").replaceWith(b); 
-        $("#widget-content-"+a+"-table img:last-child").remove();
+        $(".ajax-loading").remove();
     }
 }
 function showTable(b,a)
@@ -620,7 +620,7 @@ function showTable(b,a)
     $(".messages").remove();
     if(b !=null){
         $('.widget-form').replaceWith(b);
-        $("#"+a+"-form img:last-child").remove();
+         $(".ajax-loading").remove();
     }
 }
 function replaceTable(b,a)
@@ -648,10 +648,10 @@ function showSelect(b,a)
 function error(httpReq, status, exception,a){
 
     resetValidateForm();
+    $(".ajax-loading").remove();
     b="<div id='block' class='alert alert-block'>"+
     "<a class='close' data-dismiss='alert' href='#'>&times;</a>"+
     exception+"</div>";
-    $("#widget-content-"+a+"-table img:last-child").remove();
     $("#block").replaceWith(b);
     $(".alert").show();
     $('.control-group.show-error').addClass('error');

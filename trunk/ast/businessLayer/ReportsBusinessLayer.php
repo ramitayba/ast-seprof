@@ -57,6 +57,25 @@ class ReportsBusinessLayer {
         }
         return $this->_ReportsDataTable;
     }
+    
+     public function getEmployee($employee_id) {
+        try {
+            $this->_reset();
+            $this->_SQLQuery = "{call getEmployee(?)}";
+            DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
+            $this->_ReportsDataTable = DataAccessManager::getInstance()->fillData(array($employee_id));
+            if (Helper::is_empty_array($this->_ReportsDataTable)) {
+                $this->_Success = false;
+                $this->_LastError = DataAccessManager::getInstance()->getLastError();
+            } else {
+                $this->_Success = true;
+            }
+        } catch (Exception $ex) {
+            $this->_LastError = $ex->getMessage();
+            $this->_Success = false;
+        }
+        return $this->_ReportsDataTable;
+    }
 
     public function getCafeteriaBalanceByID($cafeteria_id, $from_date, $to_date, $status) {
         try {

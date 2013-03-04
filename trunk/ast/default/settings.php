@@ -13,7 +13,7 @@
  * 
  */
 $databases = array(
-    'database' => 'pos_back',
+    'database' => 'test',
     'username' => '',
     'password' => '',
     'host' => '.\SQLEXPRESS',

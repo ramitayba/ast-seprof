@@ -73,23 +73,30 @@ class BuilderPDF extends FPDF {
         $h = 1;
         if (!Helper::is_empty_array($data)) {
             foreach ($data as $row) {
-                $x = 10;
-                $y_axis = $this->GetY();
+                //$x = 10;
+                //$y_axis=$this->GetY();
+                //$y_axis = $y_axis>7*28?10:$y_axis;
                 foreach ($fields as $col) {
                     $newWidth = $specifique_colonne == $col ? $specifique_width : $width;
                     $text = $row[$col];
-                    $nb = max($nb, $this->NbLines($newWidth, $text));
-                    $h = $h < $nb ? 15 * $nb : $h;
+                    //$nb = max($nb, $this->NbLines($newWidth, $text));
+                   // $h = $h < $nb ? 15 * $nb : $h;
                     $height = 7;
-                    $this->MultiCell($newWidth, $height, $text, $border, 'C');
-                    $x+=$newWidth;
-                    $this->SetXY($x, $y_axis);
+                    $this->Cell($newWidth, $height, $text, $border, 0, 'C');
+                    //$x+=$newWidth;
+                   // $this->SetXY($x, $y_axis);
                 }
-                $this->SetX(10, $y_axis + 3);
+                //$this->SetXY(10, $y_axis + 3);
                 $this->Ln();
             }
-            $this->Ln($h);
+           // $this->Ln($h);
         }
+    }
+
+    function CheckPageBreak($h) {
+        //If the height h would cause an overflow, add a new page immediately
+        if ($this->GetY() + $h > $this->PageBreakTrigger)
+            $this->AddPage($this->CurOrientation);
     }
 
     function BuildTableMenuReport($data, $fields_category, $fields_item, $width) {
