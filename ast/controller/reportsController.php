@@ -35,6 +35,7 @@ elseif ($action == 'detailed-user-purchases'):
     if ($query_id == 'show'):
         $reportsBusinessLayer = new ReportsBusinessLayer();
         $reportsDataTable = $reportsBusinessLayer->getMiniReportsByUser($filter_id, $mindate, $maxdate);
+        $reportsDetailsDataTable=$reportsBusinessLayer->getEmployee($filter_id);
     endif;
 elseif ($action == 'purchases-inventory'):
     if ($query_id == 'show'):

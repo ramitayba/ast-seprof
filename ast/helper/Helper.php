@@ -416,10 +416,10 @@ class Helper {
 //  if($value='index')
                     $link = $value;
                     if ($count == $i):
-                        $div.=' <li class="active">' . str_replace('-', ' & ', ucfirst($value)) . '</li>';
+                        $div.=' <li class="active">' . str_replace('-', '  ', ucfirst($value)) . '</li>';
                     else:
                         $div.=' <li>
-			    <a href="' . $root . $link . '">' . str_replace('-', ' & ', ucfirst($value)) . '</a> <span class="divider">/</span>
+			    <a href="' . $root . $link . '">' .  str_replace('-', '  ', ucfirst($value)). '</a> <span class="divider">/</span>
 			  </li>';
                     endif;
                     $i++;
