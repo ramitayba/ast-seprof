@@ -53,7 +53,7 @@ endif;
                         $category = new CategoryBusinessLayer();
                         $id = isset($forms) && array_key_exists('category_id', $forms) ? $forms['category_id'] : '';
                         $id_parent = isset($forms) && array_key_exists('category_parent_id', $forms) ? $forms['category_parent_id'] : '0';
-                        $categoryTable = Helper::is_empty_string($id) ? $category->getParentCategories(DELETED) : $category->getParentCategoriesWithoutID($id, DELETED);
+                        $categoryTable = Helper::is_empty_string($id) ? $category->getParentCategories(DELETED,DELETED) : $category->getParentCategoriesWithoutID($id, DELETED);
                         print Helper::form_construct_drop_down('category', $categoryTable, $id_parent, 'category_name', 'category_id', 'disabled');
                         ?>
                         <script> var enable;<?php if($id_parent!=0):?>enable=true;<?php else:?>enable=false;<?php endif;?>enable_text(enable,document.categoriesform.category);check_parent_category.checked=enable;</script>
