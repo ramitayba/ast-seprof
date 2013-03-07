@@ -84,14 +84,14 @@ if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUES
                             </div>
                         </div>    
                         <div class="clear"></div>
-                        <div class="widget-sub-content">
+                        <div class="widget-event-content">
                             <div class="widget-header ">	      				
                                 <h3>
                                     <i class="icon-pencil"></i>
                                     Event Items      					
                                 </h3>	
                             </div>
-                            <div class="widget-content">
+                            <div class="widget-sub-content">
                                 <div class="control-group control-min-group control-category">
                                     <label class="control-label" for="category">Category Name</label>
                                     <div class="controls">

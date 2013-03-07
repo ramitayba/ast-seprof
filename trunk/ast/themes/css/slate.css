@@ -734,7 +734,7 @@ label.error {
 [*. Widget]
 */
 
-.widget-sub-content{margin:0 auto; width:80%;}
+.widget-event-content{margin:0 auto; width:80%;}
 .widget {	
     position: relative;
     clear: both;
@@ -804,7 +804,7 @@ label.error {
     font-size: 16px;	
 }
 
-.widget-content {
+.widget-content,.widget-sub-content {
     padding: 20px 15px 15px;
 
     background: #FFF;
@@ -899,7 +899,10 @@ label.error {
 
 .widget-header+.widget-content,
 .widget-tabs+.widget-content,
-.widget-toolbar+.widget-content {
+.widget-toolbar+.widget-content ,
+.widget-header+.widget-sub-content,
+.widget-tabs+.widget-sub-content,
+.widget-toolbar+.widget-sub-content {
     border-top: none;
 
     -webkit-border-top-left-radius: 0;
@@ -917,7 +920,7 @@ label.error {
 [*. Tables]
 */
 
-.widget-table .widget-content {
+.widget-table .widget-content,.widget-table .widget-sub-content {
     padding: 10px 0 0!important;
 }
 
@@ -1235,7 +1238,7 @@ label.error {
     border-bottom-left-radius: 5px;
 }
 
-.widget-form .widget-content {
+.widget-form .widget-content ,.widget-form .widget-sub-content{
     padding: 0;
 }
 
@@ -1626,7 +1629,7 @@ label.error {
 }
 
 /* For IE 6/7 (trigger hasLayout) */
-.widget-content {
+.widget-content,.widget-sub-content {
     *zoom:1;
 }
 

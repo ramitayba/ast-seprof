@@ -212,7 +212,7 @@ $(function () {
         }
         var width=$('.widget-content').width();
         var height=$('.widget-content').height();
-        $("#widget-content-"+a+"-table").prepend('<div class="ajax-loading" align="center" style="width:'+width+'px;height:'+height+'px"><img style="margin:'+height/2+'px auto;" src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
+        $("#widget-content-"+a+"-table").prepend('<div class="ajax-loading" align="center" style="width:'+width+'px;height:'+height+'px"><img style="margin:'+(height/2-50)+'px auto;" src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
     $.seprof(baseurl,{
             name:a,
             action:'add',
@@ -286,7 +286,7 @@ $(function () {
         }
         var width=$('.widget-content').width();
         var height=$('.widget-content').height();
-        $("#widget-content-"+c+"-table").prepend('<div class="ajax-loading" align="center" style="width:'+width+'px;height:'+height+'px"><img style="margin:'+height/2+'px auto;" src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
+        $("#widget-content-"+c+"-table").prepend('<div class="ajax-loading" align="center" style="width:'+width+'px;height:'+height+'px"><img style="margin:'+(height/2-50)+'px auto;" src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
         $.seprof(baseurl,{
             name:a,
             action:'add',
@@ -306,7 +306,7 @@ $(function () {
         name=$(this).attr("id");
         var width=$('.widget-content').width();
         var height=$('.widget-content').height();
-        $("#widget-content").prepend('<div align="center" class="ajax-loading" style="width:'+width+'px;height:'+height+'px"><img style="margin:'+height/2+'px auto;" src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
+        $("#widget-content").prepend('<div align="center" class="ajax-loading" style="width:'+width+'px;height:'+height+'px"><img style="margin:'+(height/2-50)+'px auto;" src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
         if(!validateReport(name,'show',e)){
             return;
         }
@@ -316,7 +316,7 @@ $(function () {
         name=$(this).attr("id");
         var width=$('.widget-content').width();
         var height=$('.widget-content').height();
-        $("#widget-content").prepend('<div align="center" class="ajax-loading" style="width:'+width+'px;height:'+height+'px"><img style="margin:'+height/2+'px auto;" src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
+        $("#widget-content").prepend('<div align="center" class="ajax-loading" style="width:'+width+'px;height:'+height+'px"><img style="margin:'+(height/2-50)+'px auto;" src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
         $.seprof(baseurl,{
             name:'reports',
             action:name,
@@ -386,7 +386,7 @@ $(function () {
         }
         var width=$('.widget-content').width();
         var height=$('.widget-content').height();
-        $("#widget-content-"+c+"-table").prepend('<div align="center" class="ajax-loading" style="width:'+width+'px;height:'+height+'px"><img style="margin:'+height/2+'px auto;" src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
+        $("#widget-content-"+c+"-table").prepend('<div align="center" class="ajax-loading" style="width:'+width+'px;height:'+height+'px"><img style="margin:'+(height/2-50)+'px auto;" src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
         $.seprof(baseurl,{
             name:a,
             action:c,
@@ -416,7 +416,7 @@ $(function () {
         }
         var width=$('.widget-content').width();
         var height=$('.widget-content').height();
-        $("#widget-content-"+a+"-table").prepend('<div align="center" class="ajax-loading" style="width:'+width+'px;height:'+height+'px"><img style="margin:'+height/2+'px auto;" src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
+        $("#widget-content-"+a+"-table").prepend('<div align="center" class="ajax-loading" style="width:'+width+'px;height:'+height+'px"><img style="margin:'+(height/2-50)+'px auto;" src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
         $.seprof(baseurl,{
             name:a,
             action:'edit',
@@ -550,7 +550,7 @@ $(function () {
         }
         var width=$('.widget-content').width();
         var height=$('.widget-content').height();
-        $("#"+a+"-form").prepend('<div align="center" class="ajax-loading" style="width:'+width+'px;height:'+height+'px"><img style="margin:'+height/2+'px auto;" src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
+        $(".widget-content").prepend('<div align="center" class="ajax-loading" style="width:'+width+'px;height:'+height+'px"><img style="margin:'+(height/2-50)+'px auto;" src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
         $.seprof(baseurl,{
             name:a,
             action:'index',
@@ -1171,7 +1171,7 @@ function ajaxSubhmit(a,b)
     });
     var width=$('.widget-content').width();
     var height=$('.widget-content').height();
-    $("#"+a+"-form").prepend('<div align="center" class="ajax-loading" style="width:'+width+'px;height:'+height+'px"><img style="margin:'+height/2+'px auto;" src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
+    $(".widget-content").prepend('<div align="center" class="ajax-loading" style="width:'+width+'px;height:'+height+'px"><img style="margin:'+(height/2-50)+'px auto;" src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
 
     $.seprof(baseurl,{
         name:a,
@@ -1489,7 +1489,7 @@ function fnNestedTable(id,oTable,nTr,anOpen,name )
 }
 function errorBefore(message,name)
 {
-    $(name+" img:last-child").remove();
+    $(".ajax-loading").remove();
     $('.messages').remove();
     $( '.widget').before(message)  ;
 }
