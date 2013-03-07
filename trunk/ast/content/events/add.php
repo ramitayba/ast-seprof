@@ -97,7 +97,7 @@ if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUES
                                     <div class="controls">
                                         <?php
                                         $parent = new CategoryBusinessLayer();
-                                        print Helper::form_construct_drop_down('category', $parent->getParentCategories(DELETED), '', 'category_name', 'category_id', '', '', ''); // '<script type="text/javascript"> $(".chzn-select").chosen(); $(".chzn-select-deselect").chosen({allow_single_deselect:true}); </script>');
+                                        print Helper::form_construct_drop_down('category', $parent->getParentCategories(DESACTIVE,DELETED), '', 'category_name', 'category_id', '', '', ''); // '<script type="text/javascript"> $(".chzn-select").chosen(); $(".chzn-select-deselect").chosen({allow_single_deselect:true}); </script>');
                                         ?> 
                                     </div>
                                 </div>              

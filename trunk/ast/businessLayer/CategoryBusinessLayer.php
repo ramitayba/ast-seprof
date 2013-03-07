@@ -55,12 +55,12 @@ class CategoryBusinessLayer {
         return $this->_CategoriesDataTable;
     }
 
-    public function getParentCategories($status) {
+    public function getParentCategories($statusDes=3,$status) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call GetParentCategories(?)}";
+            $this->_SQLQuery = "{call GetParentCategories(?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_CategoriesDataTable = DataAccessManager::getInstance()->fillData(array($status));
+            $this->_CategoriesDataTable = DataAccessManager::getInstance()->fillData(array($statusDes,$status));
             $this->_Success = DataAccessManager::getInstance()->getSuccess();
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
@@ -139,12 +139,12 @@ class CategoryBusinessLayer {
         return $this->_CategoriesDataTable;
     }
 
-    public function getCategoryChildrenByParentID($id,$status) {
+    public function getCategoryChildrenByParentID($id,$statusDes=3,$status) {
         try {
             $this->_reset();
-            $this->_SQLQuery = "{call GetCategoryChildrenByParentID(?,?)}";
+            $this->_SQLQuery = "{call GetCategoryChildrenByParentID(?,?,?)}";
             DataAccessManager::getInstance()->setSQLQuery($this->_SQLQuery);
-            $this->_CategoriesDataTable = DataAccessManager::getInstance()->fillData(array($id,$status));
+            $this->_CategoriesDataTable = DataAccessManager::getInstance()->fillData(array($id,$statusDes,$status));
             $this->_Success = DataAccessManager::getInstance()->getSuccess();
             if (!$this->_Success) {
                 $this->_LastError = DataAccessManager::getInstance()->getLastError();
