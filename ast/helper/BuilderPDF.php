@@ -80,16 +80,16 @@ class BuilderPDF extends FPDF {
                     $newWidth = $specifique_colonne == $col ? $specifique_width : $width;
                     $text = $row[$col];
                     //$nb = max($nb, $this->NbLines($newWidth, $text));
-                   // $h = $h < $nb ? 15 * $nb : $h;
+                    // $h = $h < $nb ? 15 * $nb : $h;
                     $height = 7;
                     $this->Cell($newWidth, $height, $text, $border, 0, 'C');
                     //$x+=$newWidth;
-                   // $this->SetXY($x, $y_axis);
+                    // $this->SetXY($x, $y_axis);
                 }
                 //$this->SetXY(10, $y_axis + 3);
                 $this->Ln();
             }
-           // $this->Ln($h);
+            // $this->Ln($h);
         }
     }
 
@@ -99,16 +99,21 @@ class BuilderPDF extends FPDF {
             $this->AddPage($this->CurOrientation);
     }
 
-    function BuildTableMenuReport($data, $fields_category, $fields_item, $width) {
+    function BuildTableMenuReport($data, $fields_category, $fields_item, $width, $field_parent,$counter=0,$nbLine=0) {
         foreach ($data as $row) {
             $this->SetX(0);
             $exitItem = array_key_exists('items', $row) && $row['category_parent_id'] == 0;
             $exist = array_key_exists('sub-categories', $row) || $exitItem;
+            $y_axis = $this->GetY();
+            $y = 10;
+            $nb = $exist?Helper::get_size_array($row, 'sub-categories', 'items'):$nbLine;
+            //$count = array_key_exists('sub-categories', $row) ? count('sub-categories') : 0;
+            $counter_line = $counter;
             foreach ($fields_category as $col) {
                 $font = $exist ? 20 : 16;
                 $style = $exist ? 'I' : 'B';
                 $border = $exist ? 'R' : '0';
-                $y = $exist ? 7 * Helper::get_size_array($row, 'sub-categories', 'items') : 10;
+                $y = $exist ? 7 * $nb : 10;
                 $this->SetFont('times', $style, $font);
                 if (!$exist) {
                     $align = 'L';
@@ -117,12 +122,23 @@ class BuilderPDF extends FPDF {
                     $align = 'C';
                 }
                 if (!$exist) {
-                    $this->SetX(90);
+                    $y_axis = $this->GetY();
+                    $this->SetXY(0, $y_axis);
+                    $this->Cell($width, $y, '', 'R', 0, $align);
+                    $this->SetXY(90, $y_axis);
+                    $this->Cell($width, $y, $row[$col], $border, 0, $align);
+                    $counter++;
                 }
-                $this->Cell($width, $y, $row[$col], $border, 0, $align);
             }
             if (array_key_exists('sub-categories', $row)) {
-                $this->BuildTableMenuReport($row['sub-categories'], $fields_category, $fields_item, $width);
+                $counter_line++;
+                if ($counter_line >= ($nb / 2)) {
+                    $this->SetX(0);
+                    $this->SetFont('times', $style, $font);
+                    $this->Cell($width, 10, $row[$col], 0, 0, $align);
+                    $counter_line = -50;
+                }
+                $this->BuildTableMenuReport($row['sub-categories'], $fields_category, $fields_item, $width,$field_parent,$counter_line,$nb);
             } else {
                 if (!$exist) {
                     $this->Ln(10);
@@ -130,6 +146,18 @@ class BuilderPDF extends FPDF {
                 $widthitems = 60;
                 $this->SetFont('Arial', '', 10);
                 foreach ($row['items'] as $row_items) {
+                    $counter_line++;
+                    if ($counter_line >= ($nb / 2)) {
+                        $this->SetX(0);
+                        $this->SetFont('times', 'I', 20);
+                        $this->Cell($width, 5, $row[$field_parent], 'R', 0, 'C');
+                        $counter_line = -100;
+                        $counter=-100;
+                    } else {
+                        $this->SetX(0);
+                        $this->Cell($width, 5, '', 'R', 0, $align);
+                    }
+                    $this->SetFont('Arial', '', 10);
                     $this->SetX(90);
                     foreach ($fields_item as $col_items) {
                         $text = is_numeric($row_items[$col_items]) && $row_items[$col_items] == 0 ? '0' : $row_items[$col_items];
@@ -137,13 +165,12 @@ class BuilderPDF extends FPDF {
                     }
                     $this->Ln(5);
                 }
-                $this->Ln(5);
+                $counter=$counter_line>0?$nbLine/2:$counter;
             }
             if ($exist) {
-                // $this->SetMargins(-$width, 0 );
                 $this->SetX(50);
                 $this->Cell(155, 2, '', 'B', 0, 'c');
-                $this->Ln(15);
+                $this->Ln(10);
             }
         }
     }

@@ -16,7 +16,7 @@ if (isset($_SESSION['data_report'])):
     //$pdf->Cell(120);
     //$image=Helper::get_url() . '/settings/default/files/nesma.png';
     //$pdf->Image('logo.png', 10, 10, -300);
-    $pdf->BuildTableMenuReport( $reportsDataTable, $fields_category, $fields_item, 70);
+    $pdf->BuildTableMenuReport( $reportsDataTable, $fields_category, $fields_item, 70,'category_parent_name');
     $pdf->Output();
     unset($_SESSION['data_report']);
 endif;

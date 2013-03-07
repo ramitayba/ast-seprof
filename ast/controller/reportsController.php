@@ -68,11 +68,13 @@ elseif ($action == 'detailed-event'):
         $menuReport = $reportsBusinessLayer->getMenuReports(ACTIVE);
         $reportsDataTable = array();
         $id_parent = 0;
+        $name_parent='';
         foreach ($menuReport as $obj) {
             if ((!array_key_exists('category_id', $reportsDataTable) && $obj['category_parent_id'] != 0) || ($obj['category_parent_id'] == 0 && $reportsDataTable[$obj['category_id']]['category_id'] != $obj['category_id'])) {
                 $id_parent = $id_sub_parent = !Helper::is_empty_string($obj['category_name']) ? $obj['category_parent_id'] : $obj['category_id'];
                 $reportsDataTable[$id_parent]['category_id'] = $id_parent;
-                $reportsDataTable[$id_parent]['category_name'] = $obj['category_parent_name'];
+                $name_parent=$obj['category_parent_name'];
+                $reportsDataTable[$id_parent]['category_name'] = $name_parent;
                 $reportsDataTable[$id_parent]['category_parent_id'] = 0;
             }
             if (!Helper::is_empty_string($obj['category_name']) && $id_sub_parent != $obj['category_id']) {
@@ -80,6 +82,7 @@ elseif ($action == 'detailed-event'):
                 $reportsDataTable[$id_parent]['sub-categories'][$id_sub_parent]['category_name'] = $obj['category_name'];
                 $reportsDataTable[$id_parent]['sub-categories'][$id_sub_parent]['category_id'] = $obj['category_id'];
                 $reportsDataTable[$id_parent]['sub-categories'][$id_sub_parent]['category_parent_id'] = $id_parent;
+                $reportsDataTable[$id_parent]['sub-categories'][$id_sub_parent]['category_parent_name'] = $name_parent;
                 $reportsDataTable[$id_parent]['sub-categories'][$id_sub_parent]['items'][$obj['item_id']]['item_name'] = $obj['item_name'];
                 $reportsDataTable[$id_parent]['sub-categories'][$id_sub_parent]['items'][$obj['item_id']]['item_price'] = $obj['item_price'];
             } else {
