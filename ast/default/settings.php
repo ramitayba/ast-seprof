@@ -13,7 +13,7 @@
  * 
  */
 $databases = array(
-    'database' => 'pos_back',
+    'database' => 'nesma',
     'username' => '',
     'password' => '',
     'host' => '.\SQLEXPRESS',

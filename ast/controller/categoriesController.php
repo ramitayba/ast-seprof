@@ -89,7 +89,7 @@ elseif ($action == 'save'):
         $success = $categoryBusinessLayer->editCategory($query_id, $name, $parent, $color, $description, $status, $_SESSION['user_pos']);
     endif;
     if ($success):
-        $categoryDataTable = $categoryBusinessLayer->getParentCategories(DELETED);
+        $categoryDataTable = $categoryBusinessLayer->getParentCategories(DELETED,DELETED);
         if ($categoryBusinessLayer->getSuccess()):
             $content = Helper::fill_datatable('categories', 'categories', array(0 => array('name' => 'Add New Record', 'link' => 'new-', 'class' => 'new')), $categoryDataTable, array('Category ID', 'Category Name', 'Category Color Code', 'Category Description', 'Status'), array('category_id', 'category_name', 'color_code', 'category_description', 'status_name'), 'category_id', array(0 => array('name' => 'Edit', 'link' => 'edit-', 'class' => 'edit'),
                         1 => array('name' => 'Delete', 'link' => 'delete-', 'class' => 'delete')), true, 2,1, '', '', $root . 'themes/img/details_open.png', 'control-category');
