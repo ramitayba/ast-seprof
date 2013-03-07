@@ -1169,9 +1169,9 @@ function ajaxSubhmit(a,b)
         element=elm.name+'='+$(elm).val()+'&';
         data+=element;
     });
-    var width=$('.widget-content').width();
-    var height=$('.widget-content').height();
-    $(".widget-content").prepend('<div align="center" class="ajax-loading" style="width:'+width+'px;height:'+height+'px"><img style="margin:'+(height/2-50)+'px auto;" src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
+    var width=$('.widget-form').width();
+    var height=$('.widget-form').height();
+    $(".widget-form").prepend('<div align="center" class="ajax-loading" style="width:'+width+'px;height:'+height+'px"><img style="margin:'+(height/2-50)+'px auto;" src="'+sImageUrl+'loader.gif" alt="Loading...."/></div>');
 
     $.seprof(baseurl,{
         name:a,
