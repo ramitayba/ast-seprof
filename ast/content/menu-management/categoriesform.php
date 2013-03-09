@@ -46,30 +46,33 @@ endif;
 ?>">
                     </div>
                 </div>
-                <div class="control-group">
-                    <label class="control-label" for="category">Parent</label>
-                    <div class="controls">
-                        <?php
-                        $category = new CategoryBusinessLayer();
-                        $id = isset($forms) && array_key_exists('category_id', $forms) ? $forms['category_id'] : '';
-                        $id_parent = isset($forms) && array_key_exists('category_parent_id', $forms) ? $forms['category_parent_id'] : '0';
-                        $categoryTable = Helper::is_empty_string($id) ? $category->getParentCategories(DELETED,DELETED) : $category->getParentCategoriesWithoutID($id, DELETED);
-                        print Helper::form_construct_drop_down('category', $categoryTable, $id_parent, 'category_name', 'category_id', 'disabled');
-                        ?>
-                        <script> var enable;<?php if($id_parent!=0):?>enable=true;<?php else:?>enable=false;<?php endif;?>enable_text(enable,document.categoriesform.category);check_parent_category.checked=enable;</script>
-                        <input type="checkbox" name="check_parent_category" id="check_parent_category" onclick="enable_text(this.checked,document.categoriesform.category)" >
+                <?php $count_number = isset($forms) && array_key_exists('count_number', $forms) ? $forms['count_number'] : '0';
+                if ($count_number == 0):
+                    ?>
+                    <div class="control-group">
+                        <label class="control-label" for="category">Parent</label>
+                        <div class="controls">
+                            <?php
+                            $category = new CategoryBusinessLayer();
+                            $id = isset($forms) && array_key_exists('category_id', $forms) ? $forms['category_id'] : '';
+                            $id_parent = isset($forms) && array_key_exists('category_parent_id', $forms) ? $forms['category_parent_id'] : '0';
+                            $categoryTable = Helper::is_empty_string($id) ? $category->getParentCategoriesWithoutItem(DELETED) : $category->getParentCategoriesWithoutID($id, DELETED);
+                            print Helper::form_construct_drop_down('category', $categoryTable, $id_parent, 'category_name', 'category_id', 'disabled');
+                            ?>
+                            <script> var enable;<?php if ($id_parent != 0): ?>enable=true;<?php else: ?>enable=false;<?php endif; ?>enable_text(enable,document.categoriesform.category);check_parent_category.checked=enable;</script>
+                            <input type="checkbox" name="check_parent_category" id="check_parent_category" onclick="enable_text(this.checked,document.categoriesform.category)" >
+                        </div>
                     </div>
-                </div>
-
+<?php endif; ?>
                 <div class="control-group">
                     <label class="control-label">Color Code</label>
                     <div class="controls">
                         <input type="text" class="input-large" name="color_code" id="color"
                                maxlength="7"    value="<?php
-                        if (isset($forms) && array_key_exists('color_code', $forms)):print '#' . $forms['color_code'];
-                        else:print DEFAULT_COLOR;
-                        endif;
-                        ?>">
+if (isset($forms) && array_key_exists('color_code', $forms)):print '#' . $forms['color_code'];
+else:print DEFAULT_COLOR;
+endif;
+?>">
                     </div>
                 </div>
                 <div class="control-group">
@@ -78,9 +81,9 @@ endif;
                         <textarea id="comment" maxlength="150"  class="input-large" name="category_description"
                                   cols="45" rows="5"
                                   ><?php
-                               if (isset($forms) && array_key_exists('category_description', $forms)):print $forms['category_description'];
-                               endif;
-                        ?></textarea>
+if (isset($forms) && array_key_exists('category_description', $forms)):print $forms['category_description'];
+endif;
+?></textarea>
                     </div>
                 </div>
                 <div class="control-group">

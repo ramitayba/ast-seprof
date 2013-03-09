@@ -41,7 +41,7 @@ elseif ($action == 'edit'):
         endif;
         $forms = array('category_id' => $categoryDataTable [0]['category_id'], 'category_name' => $categoryDataTable [0]['category_name'],
             'category_parent_id' => $categoryDataTable [0]['category_parent_id'], 'color_code' => $categoryDataTable [0]['color_code'],
-            'category_description' => $categoryDataTable [0]['category_description'], 'status_id' => $categoryDataTable [0]['status_id']);
+            'category_description' => $categoryDataTable [0]['category_description'], 'status_id' => $categoryDataTable [0]['status_id'],'count_number' => $categoryDataTable [0]['count_number']);
         include_once POS_ROOT . '/content/menu-management/categoriesform.php';
     else:
         print Helper::json_encode_array(array('status' => 'error', 'message' => Helper::set_message('Categories not exist', 'error')));

@@ -100,13 +100,14 @@ elseif ($action == 'save'):
         print Helper::json_encode_array(array('status' => 'error', 'message' => $message));
         return;
     endif;
+    $password = Helper::is_empty_string($password) ? $password : md5($password);
     $userDataTable = $userBusinessLayer->getUserByName($name, DELETED);
     if (Helper::is_empty_string($query_id)):
-        if (count($userDataTable) > 0):
+        if (count($userDataTable) > 0 && $role != OPERATOR):
             print Helper::json_encode_array(array('status' => 'error', 'message' => 'User name already exist'));
             return;
         endif;
-        $success = $userBusinessLayer->addUser($name, md5($password), $pin, $role, $employee, $status);
+        $success = $userBusinessLayer->addUser($name,$password, $pin, $role, $employee, $status);
     else:
         if (!is_numeric($query_id)):
             print Helper::json_encode_array(array('status' => 'error', 'message' => 'User doesn t  exist'));
@@ -126,7 +127,7 @@ elseif ($action == 'save'):
                 return;
             endif;
         endif;
-        $success = $userBusinessLayer->editUser($query_id, $name, md5($password), $pin, $role, $employee, $status);
+        $success = $userBusinessLayer->editUser($query_id, $name, $password, $pin, $role, $employee, $status);
     endif;
     if ($success):
         $userDataTable = $userBusinessLayer->getUsers(DELETED);
