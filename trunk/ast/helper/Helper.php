@@ -636,10 +636,10 @@ class Helper {
          */
         $path_parts = pathinfo($path);
         $directory = $path_parts['dirname'];
-        $directory = ($directory == "/") ? "" : $directory;
-        //$host = $_SERVER['HTTP_HOST'];
-        //return $protocol . $host . $directory;
-        return $directory;
+        $directory = ($directory == "/"||$directory == "\\") ? "" : $directory;
+        $host = $_SERVER['HTTP_HOST'];
+        return $protocol . $host . $directory;
+       // return $directory;
     }
 
     public static function generate_container_pdf($url_pdf, $action, $exist = true) {
