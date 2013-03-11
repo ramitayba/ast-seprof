@@ -1,0 +1,2 @@
+<b>WARNING</b> 2 odbc_fetch_array(): No tuples available at this result index Fatal WARNING on line 128 in file C:\xampp\htdocs\ast\dataAccessLayer\DataAccessManager.php   |  Date:  11.03.2013 01:59:14
+<b>WARNING</b> 2 odbc_fetch_array(): No tuples available at this result index Fatal WARNING on line 128 in file C:\xampp\htdocs\ast\dataAccessLayer\DataAccessManager.php   |  Date:  11.03.2013 03:47:51

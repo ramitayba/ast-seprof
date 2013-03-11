@@ -75,6 +75,7 @@ elseif ($action == 'detailed-event'):
                 $reportsDataTable[$id_parent]['category_id'] = $id_parent;
                 $name_parent=$obj['category_parent_name'];
                 $reportsDataTable[$id_parent]['category_name'] = $name_parent;
+                $reportsDataTable[$id_parent]['category_parent_name'] = $name_parent;
                 $reportsDataTable[$id_parent]['category_parent_id'] = 0;
             }
             if (!Helper::is_empty_string($obj['category_name']) && $id_sub_parent != $obj['category_id']) {

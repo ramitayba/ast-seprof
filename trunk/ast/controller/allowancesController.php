@@ -26,8 +26,7 @@ elseif ($action == 'save'):
     $MaxDebit = isset($data['max_debit']) & !Helper::is_empty_string($data['max_debit']) ? $data['max_debit'] : 0;
     $check = isset($data['checkall']) ? $data['checkall'] : false;
     $EmployeeId = $check ? null : $data['employee_id'];
-    //$MaxDebit=round($MaxDebit,2);
-    $success = $allowanceBusinessLayer->addAllowance($EmployeeId, $MaxDebit, $_SESSION['user_pos']);
+    $success = $allowanceBusinessLayer->addAllowance($EmployeeId, round($MaxDebit,2), $_SESSION['user_pos']);
     if ($success):
         if ($check):
             $message = Helper::set_message('Allowance saved succesfuly', 'status');

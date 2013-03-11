@@ -573,6 +573,9 @@ $(function () {
     jQuery.validator.addMethod("notequalzero", function(value, element) { 
         return value!=0; 
     }, "this field Cannot be 0");
+	$.validator.addMethod('Decimal', function(value, element) {
+    return this.optional(element) || /^\d+(\.\d{0,2})?$/.test(value); 
+}, "Please enter a correct number, format xxxx.xx");
     $('.dataTables_filter input').live('keyup change',function (e) {
         e.preventDefault();
         var val = $(this).val();
@@ -900,7 +903,8 @@ function validateItems(a,b)
                 required: true,
                 maxlength:16,
                 number:true,
-                notequalzero:true
+                notequalzero:true,
+				Decimal:true
             },
             status: {
                 required: true
