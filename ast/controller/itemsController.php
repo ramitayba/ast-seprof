@@ -63,6 +63,7 @@ elseif ($action == 'save'):
         print Helper::json_encode_array(array('status' => 'error', 'message' => $message));
         return;
     endif;
+	$item_price=round($item_price,2);
     if ($item_price == 0):
         print Helper::json_encode_array(array('status' => 'error', 'message' => 'Item Price cannot be 0'));
         return;
